@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book  [
+  <!ENTITY preface              SYSTEM "preface.xml">
+  <!ENTITY quick-tour           SYSTEM "quick-tour.xml">
+  <!ENTITY wpf                  SYSTEM "wpf.xml">
+  <!ENTITY sample-apps          SYSTEM "sample-apps.xml">
+  <!ENTITY further-reading      SYSTEM "further-reading.xml">
+  <!ENTITY bibliography         SYSTEM "bibliography.xml">
+]>
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://docbook.org/ns/docbook/xi"
+      version="5.0"
+      xml:lang="en">
+
+    <bookinfo>
+        <title>Spring WPF - Reference Documentation</title>
+        <releaseinfo>1.0.0 M1</releaseinfo>
+
+        <authorgroup>
+            <author>
+                <firstname>Boris</firstname>
+                <surname>Barvish</surname>
+            </author>
+        </authorgroup>
+
+        <legalnotice>
+            <para>
+                Copies of this document may be made for your own use and for distribution
+                to others, provided that you do not charge any fee for such copies and
+                further provided that each copy contains this Copyright Notice, whether
+                distributed in print or electronically.
+            </para>
+        </legalnotice>
+    </bookinfo>
+
+    <toc/>
+
+    &preface;
+    <part>
+        <title>Introduction</title>
+        <partintro>
+            <para>
+                This first part of the reference documentation
+                <link linkend="what-is-spring-wpf">is an overview</link> of
+                Spring WPF and the underlying concepts.
+            </para>
+        </partintro>
+    </part>
+    <part>
+        <title>Reference</title>
+        <partintro>
+            <para>
+                This part of the reference documentation details the various components
+                that comprise Spring WPF. The <link linkend="wpf">main chapter</link>
+		covers the core classes to develop an WPF application.  There is also
+		a chapter for the <link linkend="sample-apps">sample applications</link>.
+            </para>
+        </partintro>
+	&wpf;
+	&sample-apps;
+    </part>
+    <part id="resources">
+        <title>Other Resources</title>
+        <partintro>
+            <para>
+                In addition to this reference documentation, there exist a number of
+                other resources that may help you learn about WPF.
+            </para>
+        </partintro>
+	&further-reading;
+	&bibliography;
+    </part>
+</book>

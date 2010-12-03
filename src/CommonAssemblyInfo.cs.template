@@ -1,0 +1,17 @@
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Security.Permissions;
+
+[assembly: CLSCompliantAttribute(false)]
+[assembly: AllowPartiallyTrustedCallers]
+[assembly: SecurityPermission(SecurityAction.RequestMinimum)]
+[assembly: ComVisibleAttribute(false)]
+[assembly: AssemblyCompanyAttribute("http://springsource.org/spring-wpf")]
+[assembly: AssemblyCopyrightAttribute("Copyright 2010 SpringSource.")]
+[assembly: AssemblyTrademarkAttribute("Apache License, Version 2.0")]
+[assembly: AssemblyCultureAttribute("")]
+[assembly: AssemblyVersionAttribute("0.0.0.0")]
+[assembly: AssemblyConfigurationAttribute("net-2.0.win32; dev")]
+[assembly: AssemblyInformationalVersionAttribute("0.0.0.0; net-2.0.win32; dev")]

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="wpf">
+  <title>Using Spring WPF</title>
+
+  <para>In this chapter, we will explore interface and classes that are the
+  essential components for developing applications with Spring WPF.</para>
+
+  <sect1>
+    <title>Spring WPF</title>
+
+    <para>The Spring WPF project consists of .... 
+    </para>
+  </sect1>
+
+  <sect1>
+    <title>Another section...</title>
+
+    <para>Foobar</para>
+  </sect1>
+
+</chapter>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preface id="preface">
+  <title>Preface</title>
+
+  <para>The Spring WPF project applies core Spring concepts to the development of WPF-based UI solutions. 
+  </para>
+</preface>

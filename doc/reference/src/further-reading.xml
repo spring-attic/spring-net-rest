@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="further-reading">
+  <title>Further Reading</title>
+
+  <para>
+    For those who are not familiar with WPF...
+  </para>
+
+  <para>
+    There are many great articles, presentations, and blogs available on the web for WPF...
+  </para>
+
+  <para>
+    Finally, be sure to visit the Spring WPF forum 
+    <ulink url="http://forum.springframework.net/forumdisplay.php?f=30">Forum</ulink> if you have questions
+          or suggestions. With this first milestone release, we are looking forward to a lot of community feedback!
+  </para>
+
+</chapter>
