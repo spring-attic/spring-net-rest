@@ -1,0 +1,49 @@
+﻿using System;
+using System.Net;
+
+using Spring.Http;
+using Spring.Rest.Client;
+
+namespace Spring.RestQuickStart
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                RestTemplate rt = new RestTemplate("http://twitter.com");
+
+                // Exemple sync call
+                Console.WriteLine("Allowed methods : ");
+                foreach (HttpMethod method in rt.OptionsForAllow("/statuses/"))
+                {
+                    Console.WriteLine(method);
+                }
+
+                // Exemple async call
+                rt.GetForObjectAsync<string>("/statuses/user_timeline.xml?screen_name={name}&count={count}", 
+                    delegate(RestOperationCompletedEventArgs<string> eventArgs)
+                    {
+                        if (eventArgs.Error != null)
+                        {
+                            Console.WriteLine(eventArgs.Error);
+                        }
+                        else
+                        {
+                            Console.WriteLine(eventArgs.Response);
+                        }
+                    }, "SpringForNet", 5);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+			finally
+			{
+				Console.WriteLine("--- hit <return> to quit ---");
+				Console.ReadLine();
+			}
+        }
+    }
+}

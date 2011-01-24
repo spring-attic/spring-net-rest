@@ -1,0 +1,3 @@
+Rhino.Mocks v3.6
+NUnit v2.5.9
+Common.Logging v2.0

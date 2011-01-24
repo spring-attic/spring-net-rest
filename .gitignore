@@ -1,6 +1,9 @@
 *ReSharper*
 *.suo
 *.user
-
 bin
+Bin
 obj
+buildlog.txt
+build
+package
