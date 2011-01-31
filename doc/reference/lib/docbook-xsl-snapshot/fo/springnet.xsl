@@ -24,6 +24,9 @@
                 <fo:external-graphic src="file:../../src/images/logo.png"/>
               </fo:block>
               <fo:block font-family="Helvetica" font-size="22pt" padding-before="10mm">
+                <xsl:value-of select="bookinfo/title"/>
+              </fo:block>
+              <fo:block font-family="Helvetica" font-size="14pt" padding-before="10mm">
                 <xsl:value-of select="bookinfo/subtitle"/>
               </fo:block>
               <fo:block font-family="Helvetica" font-size="12pt" padding="10mm">
@@ -40,8 +43,10 @@
           </fo:table-row>
           <fo:table-row>
             <fo:table-cell text-align="center">
+              <fo:block font-family="Helvetica" font-size="12pt" padding="1mm">
+                <xsl:value-of select="bookinfo/copyright"/>
+              </fo:block>
               <fo:block font-family="Helvetica" font-size="12pt" padding="10mm">
-                <xsl:text>Copyright &#xA9; 2004-2008 </xsl:text>
                 <xsl:for-each select="bookinfo/authorgroup/author">
                   <xsl:if test="position() > 1">
                     <xsl:text>, </xsl:text>
@@ -283,6 +288,7 @@
     ################################################### -->
   <!-- Verbatim text formatting (programlistings) -->
   <xsl:attribute-set name="monospace.verbatim.properties">
+    <xsl:attribute name="wrap-option">wrap</xsl:attribute>
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.small * 0.9"/>
       <xsl:text>pt</xsl:text>
