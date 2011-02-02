@@ -25,6 +25,9 @@ using Spring.Http;
 using Spring.Http.Client;
 using Spring.Http.Converters;
 using Spring.Http.Converters.Xml;
+#if NET_3_5 || SILVERLIGHT
+using Spring.Http.Converters.Json;
+#endif
 #if NET_3_5 && !SILVERLIGHT
 using Spring.Http.Converters.Feed;
 #endif
@@ -45,16 +48,18 @@ namespace Spring.Rest.Client
     /// <table>
     ///     <tr><th>HTTP method</th><th>RestTemplate methods</th></tr>
     ///     <tr><td>DELETE</td><td><see cref="M:Delete"/></td></tr>
-    ///     <tr><td>GET</td><td><see cref="M:GetForObject"/></td></tr>
-    ///     <tr><td></td><td><see cref="M:GetForMessage"/></td></tr>
+    ///     <tr><td>GET</td><td><see cref="M:GetForObject{T}"/></td></tr>
+    ///     <tr><td></td><td><see cref="M:GetForMessage{T}"/></td></tr>
     ///     <tr><td>HEAD</td><td><see cref="M:HeadForHeaders"/></td></tr>
     ///     <tr><td>OPTIONS</td><td><see cref="M:OptionsForAllow"/></td></tr>
     ///     <tr><td>POST</td><td><see cref="M:PostForLocation"/></td></tr>
     ///     <tr><td></td><td><see cref="M:PostForObject"/></td></tr>
+    ///     <tr><td></td><td><see cref="M:PostForMessage{T}"/></td></tr>
     ///     <tr><td></td><td><see cref="M:PostForMessage"/></td></tr>
     ///     <tr><td>PUT</td><td><see cref="M:Put"/></td></tr>
-    ///     <tr><td>Any</td><td><see cref="M:Exchange"/></td></tr>
-    ///     <tr><td></td><td><see cref="M:Execute"/></td></tr>
+    ///     <tr><td>Any</td><td><see cref="M:Exchange{T}"/></td></tr>
+    ///     <tr><td></td><td><see cref="M:Exchange"/></td></tr>
+    ///     <tr><td></td><td><see cref="M:Execute{T}"/></td></tr>
     /// </table>
     /// </para>
     /// <para>
@@ -63,14 +68,14 @@ namespace Spring.Rest.Client
     /// that URL using either a string variable arguments array, or a string dictionary. 
     /// The string varargs variant expands the given template variables in order, so that 
     /// <code>
-    /// string result = restTemplate.GetForObject&lt;string>("http://example.com/hotels/{hotel}/bookings/{booking}", "42", "21");
+    /// string result = restTemplate.GetForObject&lt;string>("http://example.com/hotels/{hotel}/bookings/{booking}", 42, 21);
     /// </code>
     /// will perform a GET on 'http://example.com/hotels/42/bookings/21'. The map variant expands the template based on
     /// variable name, and is therefore more useful when using many variables, or when a single variable is used multiple
     /// times. For example:
     /// <code>
-    /// IDictionary&lt;String, String&gt; vars = new Dictionary&lt;String, String&gt;();
-    /// vars.Add("hotel", "42");
+    /// IDictionary&lt;string, object&gt; vars = new Dictionary&lt;string, object&gt;();
+    /// vars.Add("hotel", 42);
     /// string result = restTemplate.GetForObject&lt;string>("http://example.com/hotels/{hotel}/rooms/{hotel}", vars);
     /// </code>
     /// will perform a GET on 'http://example.com/hotels/42/rooms/42'. Alternatively, there are URI variant 
@@ -116,7 +121,6 @@ namespace Spring.Rest.Client
         #region Fields / Properties
 
         private Uri _baseAddress;
-        private bool _throwExceptionOnError;
         private IList<IHttpMessageConverter> _messageConverters;
         private IClientHttpRequestFactory _requestFactory;
         private IResponseErrorHandler _errorHandler;
@@ -142,16 +146,6 @@ namespace Spring.Rest.Client
                 }
                 this._baseAddress = value;
             }
-        }
-
-        /// <summary>
-        /// Indicates if an exception is thrown when a HTTP client or server error happens (HTTP status code 3xx or 4xx). 
-        /// By default, the value is <see langword="true"/> to be consistent with .NET behavior in <see cref="M:HttpWebRequest.GetResponse()"/>.
-        /// </summary>
-        public bool ThrowExceptionOnError
-        {
-            get { return _throwExceptionOnError; }
-            set { _throwExceptionOnError = value; }
         }
 
         /// <summary>
@@ -217,7 +211,6 @@ namespace Spring.Rest.Client
         /// </summary>
         public RestTemplate()
         {
-            this._throwExceptionOnError = true;
             this.headersExtractor = new HeadersResponseExtractor();
 
             this._requestFactory = new WebClientHttpRequestFactory();
@@ -243,7 +236,9 @@ namespace Spring.Rest.Client
             this._messageConverters.Add(new Atom10FeedHttpMessageConverter());
 #endif
 #endif
-            //this._messageConverters.Add(new JsonHttpMessageConverter());            
+#if NET_3_5 || SILVERLIGHT
+            this._messageConverters.Add(new JsonHttpMessageConverter());            
+#endif
         }
 
         #endregion

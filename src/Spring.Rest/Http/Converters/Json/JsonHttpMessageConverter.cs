@@ -1,4 +1,4 @@
-﻿#if NET_3_5 || WINDOWS_PHONE
+﻿#if NET_3_5 || SILVERLIGHT
 #region License
 
 /*
