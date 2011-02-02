@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="http-messageconversion" xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <title>HTTP Message Conversion</title>
+
+  <para>
+    Objects passed to and returned from some REST operations are converted 
+    to HTTP requests and from HTTP responses by <interfacename>IHttpMessageConverters</interfacename>.
+    <sbr/>The <interfacename>HttpMessageConverter</interfacename> interface is
+    shown below to give you a better feel for its functionality.
+  </para>
+
+  <programlisting language="csharp">public interface <interfacename>IHttpMessageConverters</interfacename>
+{
+  // Indicate whether the given class and media type can be read by this converter.
+  bool CanRead(<classname>Type</classname> type, <classname>MediaType</classname> mediaType);
+
+  // Indicate whether the given class and media type can be written by this converter.
+  bool CanWrite(<classname>Type</classname> type, <classname>MediaType</classname> mediaType);
+
+  // Return the list of MediaType objects supported by this converter.
+  <classname>IList</classname>&lt;<classname>MediaType</classname>&gt;SupportedMediaTypes { get; }
+
+  // Read an object of the given type from the given input message, and returns it.
+  T Read&lt;T&gt;(<interfacename>IHttpInputMessage</interfacename> message) where T : class;
+
+  // Write an given object to the given output message.
+  void Write(object content, <classname>MediaType</classname> contentType, <interfacename>IHttpOutputMessage</interfacename> message);
+}</programlisting>
+
+  <para>
+    Concrete implementations for the main media (mime) types are
+    provided in the framework and are registered by default with the
+    <classname>RestTemplate</classname> on the client-side.
+  </para>
+
+  <para>
+    The implementations of <interfacename>IHttpMessageConverter</interfacename>s 
+    are described in the following sections. 
+    <sbr/>For all converters a default media type is used but can be overridden 
+    by setting the <methodname>SupportedMediaTypes</methodname> property.
+  </para>
+
+  <section id="http-byteconverter">
+    <title>ByteArrayMessageConverter</title>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename>
+      implementation that can read and write byte arrays from the HTTP
+      request and response. By default, this converter supports all media
+      types (<literal>*/*</literal>), and writes with a
+      <literal>Content-Type</literal> of
+      <literal>application/octet-stream</literal>. This can be overridden by
+      setting the <property>SupportedMediaTypes</property> property, and
+      overriding <literal>getContentType(byte[])</literal>.
+    </para>
+  </section>
+  
+  <section id="http-stringconverter">
+    <title>StringHttpMessageConverter</title>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename>
+      implementation that can read and write Strings from the HTTP request
+      and response. By default, this converter supports all text media types
+      (<literal>text/*</literal>), and writes with a
+      <literal>Content-Type</literal> of
+      <literal>text/plain</literal>.
+    </para>
+  </section>
+
+  <section id="http-formconverter">
+    <title>FormHttpMessageConverter</title>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename>
+      implementation that can read and write form data from the HTTP request
+      and response. By default, this converter reads and writes the media
+      type <literal>application/x-www-form-urlencoded</literal>. Form data
+      is read from and written into a <literal>
+        MultiValueMap&lt;String,
+        String&gt;
+      </literal>.
+    </para>
+  </section>
+
+  <!--
+  <section id="rest-marhsalling-converter">
+    <title>MarshallingHttpMessageConverter</title>
+
+    <para>
+      An <interfacename>HttpMessageConverter</interfacename>
+      implementation that can read and write XML using Spring's
+      <interfacename>Marshaller</interfacename> and
+      <interfacename>Unmarshaller</interfacename> abstractions from the
+      <classname>org.springframework.oxm</classname> package. This converter
+      requires a <interfacename>Marshaller</interfacename> and
+      <interfacename>Unmarshaller</interfacename> before it can be used.
+      These can be injected via constructor or bean properties. By default
+      this converter supports (<literal>text/xml</literal>) and
+      (<literal>application/xml</literal>).
+    </para>
+  </section>
+
+  <section id="rest-mapping-json-converter">
+    <title>MappingJacksonHttpMessageConverter</title>
+
+    <para>
+      An <interfacename>HttpMessageConverter</interfacename>
+      implementation that can read and write JSON using Jackson's
+      <interfacename>ObjectMapper</interfacename>. JSON mapping can be
+      customized as needed through the use of Jackson's provided annotations. When
+      further control is needed, a custom
+      <interfacename>ObjectMapper</interfacename> can be injected through
+      the <literal>ObjectMapper</literal> property for cases where custom
+      JSON serializers/deserializers need to be provided for specific types.
+      By default this converter supports (<literal>application/json</literal>).
+    </para>
+  </section>
+
+  <section id="rest-source-converter">
+    <title>SourceHttpMessageConverter</title>
+
+    <para>
+      An <interfacename>HttpMessageConverter</interfacename>
+      implementation that can read and write
+      <classname>javax.xml.transform.Source</classname> from the HTTP
+      request and response. Only <classname>DOMSource</classname>,
+      <classname>SAXSource</classname>, and
+      <classname>StreamSource</classname> are supported. By default, this
+      converter supports (<literal>text/xml</literal>) and
+      (<literal>application/xml</literal>).
+    </para>
+  </section>
+
+  <section id="rest-buffered-image-converter">
+    <title>BufferedImageHttpMessageConverter</title>
+
+    <para>
+      An <interfacename>HttpMessageConverter</interfacename>
+      implementation that can read and write
+      <classname>java.awt.image.BufferedImage</classname> from the HTTP
+      request and response. This converter reads and writes the media type
+      supported by the Java I/O API.
+    </para>
+  </section>
+  -->
+
+</chapter>

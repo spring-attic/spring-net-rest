@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book[
-  <!ENTITY rest-client SYSTEM "rest-client.xml">
+  <!ENTITY overview                 SYSTEM "overview.xml">
+  <!ENTITY rest-client              SYSTEM "rest-client.xml">
+  <!ENTITY http-messageconversion   SYSTEM "http-messageconversion.xml">
 ]>
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://docbook.org/ns/docbook/xi" version="5.0" xml:lang="en">
   <bookinfo>
     <!-- auto-generated -->
-    <title>REST Client API</title>
+    <title>Spring.NET REST Client Framework</title>
     <subtitle>Reference Documentation</subtitle>
     <!-- auto-generated -->
     <releaseinfo>1.0.0</releaseinfo>
@@ -16,7 +18,7 @@
     <authorgroup>
       <author>
         <firstname>Arjen</firstname>
-        <surname>Poutsma</surname>
+        <surname>Poutsma (Java)</surname>
       </author>
       <author>
         <firstname>Bruno</firstname>
@@ -32,4 +34,8 @@
       </para>
     </legalnotice>
   </bookinfo>
-  <toc />&rest-client;</book>
+  <toc />
+  &overview;
+  &rest-client;
+  &http-messageconversion;
+</book>

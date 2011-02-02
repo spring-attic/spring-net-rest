@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="overview"  xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <title>Overview</title>
+
+  <para>
+    The <classname>RestTemplate</classname> is the core class for
+    client-side access to RESTful services. It is conceptually similar to
+    other template classes in Spring, such as
+    <classname>AdoTemplate</classname>, <classname>NmsTemplate</classname> 
+    and other template classes found in other Spring projects.
+    <sbr/><classname>RestTemplate</classname>'s behavior is customized by providing
+    callback methods and configuring the
+    <interfacename>IHttpMessageConverter</interfacename>s used to marshal
+    objects into the HTTP request body and to unmarshal any response back
+    into an object.
+  </para>
+
+  <para>
+    This documentation describes how to use the
+    <classname>RestTemplate</classname> and its associated
+    <interfacename>IHttpMessageConverter</interfacename>s.
+  </para>
+
+</chapter>
