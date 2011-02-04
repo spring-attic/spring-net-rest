@@ -319,27 +319,30 @@ template.RequestFactory = requestFactory;</programlisting>
           
           <programlisting language="csharp">public class <classname>BasicSigningClientHttpRequestFactory</classname> : <interfacename>IClientHttpRequestFactory</interfacename>
 {
-    private <interfacename>IClientHttpRequestFactory</interfacename> requestFactory;
-    private string authorizationHeader;
+  private <interfacename>IClientHttpRequestFactory</interfacename> requestFactory;
+  private string authorizationHeader;
 
-    public <classname>BasicSigningClientHttpRequestFactory</classname>(string username, string password)
-        : this(new <classname>WebClientHttpRequestFactory</classname>(), username, password)
-    {
-    }
+  public <classname>BasicSigningClientHttpRequestFactory</classname>(string username, string password)
+    : this(new <classname>WebClientHttpRequestFactory</classname>(), username, password)
+  {
+  }
 
-    public <classname>BasicSigningClientHttpRequestFactory</classname>(<interfacename>IClientHttpRequestFactory</interfacename> requestFactory, string username, string password)
-    {
-        string authInfo = <classname>String</classname>.Format("{0}:{1}", username, password);
-        authInfo = <classname>Convert</classname>.ToBase64String(<classname>Encoding</classname>.UTF8.GetBytes(authInfo));
-        this.authorizationHeader = "Basic " + authInfo;
-    }
+  public <classname>BasicSigningClientHttpRequestFactory</classname>(
+    <interfacename>IClientHttpRequestFactory</interfacename> requestFactory, string username, string password)
+  {
+    this.requestFactory = requestFactory;
+    
+    string authInfo = <classname>String</classname>.Format("{0}:{1}", username, password);
+    authInfo = <classname>Convert</classname>.ToBase64String(<classname>Encoding</classname>.UTF8.GetBytes(authInfo));
+    this.authorizationHeader = "Basic " + authInfo;
+  }
 
-    public <interfacename>IClientHttpRequest</interfacename> CreateRequest(<classname>Uri</classname> uri, <classname>HttpMethod</classname> method)
-    {
-        <interfacename>IClientHttpRequest</interfacename> request = requestFactory.CreateRequest(uri, method);
-        request.Headers["Authorization"] = this.authorizationHeader;
-        return request;
-    }
+  public <interfacename>IClientHttpRequest</interfacename> CreateRequest(<classname>Uri</classname> uri, <classname>HttpMethod</classname> method)
+  {
+    <interfacename>IClientHttpRequest</interfacename> request = requestFactory.CreateRequest(uri, method);
+    request.Headers["Authorization"] = this.authorizationHeader;
+    return request;
+  }
 }
 
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");

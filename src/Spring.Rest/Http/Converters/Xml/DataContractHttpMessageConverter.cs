@@ -71,10 +71,11 @@ namespace Spring.Http.Converters.Xml
         /// <returns><see langword="true"/> if supported; otherwise <see langword="false"/></returns>
         protected override bool Supports(Type type)
         {
-            return (
-                Attribute.GetCustomAttributes(type, typeof(DataContractAttribute), true).Length > 0 ||
-                Attribute.GetCustomAttributes(type, typeof(CollectionDataContractAttribute), true).Length > 0
-                );
+            return true;
+            //return (
+            //    Attribute.GetCustomAttributes(type, typeof(DataContractAttribute), true).Length > 0 ||
+            //    Attribute.GetCustomAttributes(type, typeof(CollectionDataContractAttribute), true).Length > 0
+            //    );
         }
 
         /// <summary>

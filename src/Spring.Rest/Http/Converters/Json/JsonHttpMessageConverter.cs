@@ -74,6 +74,10 @@ namespace Spring.Http.Converters.Json
         protected override bool Supports(Type type)
         {
             return true;
+            //return (
+            //    Attribute.GetCustomAttributes(type, typeof(DataContractAttribute), true).Length > 0 ||
+            //    Attribute.GetCustomAttributes(type, typeof(CollectionDataContractAttribute), true).Length > 0
+            //    );
         }
 
         /// <summary>

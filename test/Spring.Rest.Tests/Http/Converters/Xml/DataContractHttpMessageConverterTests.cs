@@ -49,7 +49,6 @@ namespace Spring.Http.Converters.Xml
             Assert.IsTrue(converter.CanRead(typeof(DataContractClass), new MediaType("text", "xml")));
             Assert.IsTrue(converter.CanRead(typeof(DataContractClass), new MediaType("application", "soap+xml"))); // application/*+xml
             Assert.IsFalse(converter.CanRead(typeof(DataContractClass), new MediaType("text", "plain")));
-            Assert.IsFalse(converter.CanRead(typeof(NonDataContractClass), new MediaType("application", "xml")));
             Assert.IsTrue(converter.CanRead(typeof(CollectionDataContractClass), new MediaType("application", "xml")));
         }
 
@@ -60,7 +59,6 @@ namespace Spring.Http.Converters.Xml
             Assert.IsTrue(converter.CanWrite(typeof(DataContractClass), new MediaType("text", "xml")));
             Assert.IsTrue(converter.CanWrite(typeof(DataContractClass), new MediaType("application", "soap+xml"))); // application/*+xml
             Assert.IsFalse(converter.CanWrite(typeof(DataContractClass), new MediaType("text", "plain")));
-            Assert.IsFalse(converter.CanWrite(typeof(NonDataContractClass), new MediaType("application", "xml")));
             Assert.IsTrue(converter.CanWrite(typeof(CollectionDataContractClass), new MediaType("application", "xml")));
         }
 
@@ -97,14 +95,18 @@ namespace Spring.Http.Converters.Xml
 
         #region Test classes
         
-        [DataContract]
+        //[DataContract]
         public class DataContractClass
         {
-            [DataMember]
+            //[DataMember]
             public string ID { get; set; }
 
-            [DataMember]
+            //[DataMember]
             public string Name { get; set; }
+
+            public DataContractClass()
+            {
+            }
 
             public DataContractClass(string id, string name)
             {
@@ -113,17 +115,13 @@ namespace Spring.Http.Converters.Xml
             }
         }
 
-        [CollectionDataContract]
+        //[CollectionDataContract]
         public class CollectionDataContractClass : List<string>
         {
             public CollectionDataContractClass()
                 : base()
             {
             }
-        }
-
-        public class NonDataContractClass
-        {
         }
 
         #endregion

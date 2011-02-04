@@ -38,10 +38,10 @@ namespace Spring.Http.Converters.Feed
     {
         /// <summary>
         /// Creates a new instance of the <see cref="Atom10FeedHttpMessageConverter"/> 
-        /// with 'application/atom+xml', 'application/xml' and 'text/xml' media types. 
+        /// with 'application/atom+xml' media type. 
         /// </summary>
         public Atom10FeedHttpMessageConverter() : 
-            base(new MediaType("application", "atom+xml"), new MediaType("application", "xml"), new MediaType("text", "xml"))
+            base(new MediaType("application", "atom+xml"))
         {
         }
 

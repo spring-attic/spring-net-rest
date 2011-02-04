@@ -55,7 +55,6 @@ namespace Spring.Http.Converters.Xml
         {
             template = new RestTemplate(uri);
             template.MessageConverters = new List<IHttpMessageConverter>();
-            //template.MessageConverters.Add(new StringHttpMessageConverter()); // for debugging purpose
 
             webServiceHost = new WebServiceHost(typeof(TestService), new Uri(uri));
             webServiceHost.Open();

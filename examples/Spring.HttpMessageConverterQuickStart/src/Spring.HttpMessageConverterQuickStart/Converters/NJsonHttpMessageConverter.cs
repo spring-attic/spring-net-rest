@@ -1,10 +1,32 @@
-﻿using System;
+﻿#if NET_3_5 || SILVERLIGHT
+#region License
+
+/*
+ * Copyright 2002-2011 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#endregion
+
+using System;
 using System.IO;
 using System.Collections.Generic;
 
 using Spring.Http;
 using Spring.Http.Converters;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Spring.HttpMessageConverterQuickStart.Converters
 {
@@ -23,34 +45,35 @@ namespace Spring.HttpMessageConverterQuickStart.Converters
     /// </para>
     /// </remarks>
     /// <author>Bruno Baia</author>
-    public class NJsonHttpMessageConverter : IHttpMessageConverter
+    public class NJsonHttpMessageConverter : AbstractHttpMessageConverter
     {
-        private IList<MediaType> supportedMediaTypes;
-
-        public NJsonHttpMessageConverter()
+        /// <summary>
+        /// Creates a new instance of the <see cref="NJsonHttpMessageConverter"/> 
+        /// with the media type 'application/json'. 
+        /// </summary>
+        public NJsonHttpMessageConverter() :
+            base(new MediaType("application", "json"))
         {
-            this.supportedMediaTypes = new List<MediaType>(1);
-            this.supportedMediaTypes.Add(MediaType.APPLICATION_JSON);
         }
 
-        #region IHttpMessageConverter Membres
-
-        public bool CanRead(Type type, MediaType mediaType)
+        /// <summary>
+        /// Indicates whether the given class is supported by this converter.
+        /// </summary>
+        /// <param name="type">The type to test for support.</param>
+        /// <returns><see langword="true"/> if supported; otherwise <see langword="false"/></returns>
+        protected override bool Supports(Type type)
         {
             return true;
         }
 
-        public bool CanWrite(Type type, MediaType mediaType)
-        {
-            return true;
-        }
-
-        public IList<MediaType> SupportedMediaTypes
-        {
-            get { return this.supportedMediaTypes; }
-        }
-
-        public T Read<T>(IHttpInputMessage message) where T : class
+        /// <summary>
+        /// Abstract template method that reads the actualy object. Invoked from <see cref="M:Read"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of object to return.</typeparam>
+        /// <param name="message">The HTTP message to read from.</param>
+        /// <returns>The converted object.</returns>
+        /// <exception cref="HttpMessageNotReadableException">In case of conversion errors</exception>
+        protected override T ReadInternal<T>(IHttpInputMessage message)
         {
             // Read from the message stream
             using (StreamReader reader = new StreamReader(message.Body))
@@ -61,7 +84,13 @@ namespace Spring.HttpMessageConverterQuickStart.Converters
             }
         }
 
-        public void Write(object content, MediaType contentType, IHttpOutputMessage message)
+        /// <summary>
+        /// Abstract template method that writes the actual body. Invoked from <see cref="M:Write"/>.
+        /// </summary>
+        /// <param name="content">The object to write to the HTTP message.</param>
+        /// <param name="message">The HTTP message to write to.</param>
+        /// <exception cref="HttpMessageNotWritableException">In case of conversion errors</exception>
+        protected override void WriteInternal(object content, IHttpOutputMessage message)
         {
             // Write to the message stream
             message.Body = delegate(Stream stream)
@@ -74,7 +103,7 @@ namespace Spring.HttpMessageConverterQuickStart.Converters
                 }
             };
         }
-
-        #endregion
     }
 }
+
+#endif

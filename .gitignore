@@ -1,6 +1,7 @@
 *ReSharper*
 *.suo
 *.user
+*.xap
 bin
 Bin
 obj

@@ -54,6 +54,7 @@ namespace Spring.Http.Converters.Json
         public void SetUp()
         {
             template = new RestTemplate(uri);
+            template.MessageConverters = new List<IHttpMessageConverter>();
 
             contentType = new MediaType("application", "json");
 
@@ -70,6 +71,8 @@ namespace Spring.Http.Converters.Json
         [Test]
         public void GetForJson()
         {
+            template.MessageConverters.Add(new StringHttpMessageConverter());
+
             string resultAsString = template.GetForObject<string>("user/{id}", 1);
             Assert.AreEqual("{\"ID\":\"1\",\"Name\":\"Bruno Baïa\"}", resultAsString, "Invalid content");
         }
@@ -77,6 +80,8 @@ namespace Spring.Http.Converters.Json
         [Test]
         public void GetForObject()
         {
+            template.MessageConverters.Add(new JsonHttpMessageConverter());
+
             User result = template.GetForObject<User>("user/{id}", 1);
             Assert.IsNotNull(result, "Invalid content");
             Assert.AreEqual("1", result.ID, "Invalid content");
@@ -86,6 +91,8 @@ namespace Spring.Http.Converters.Json
         [Test]
         public void PostJsonForMessage()
         {
+            template.MessageConverters.Add(new StringHttpMessageConverter());
+
             HttpEntity entity = new HttpEntity("{\"Name\":\"Lisa Baia\"}");
             entity.Headers.ContentType = MediaType.APPLICATION_JSON;
 
@@ -99,6 +106,8 @@ namespace Spring.Http.Converters.Json
         [Test]
         public void PostObjectForMessage()
         {
+            template.MessageConverters.Add(new JsonHttpMessageConverter());
+
             User user = new User() { Name = "Lisa Baia" };
 
             HttpResponseMessage result = template.PostForMessage("user", user);
@@ -110,13 +119,13 @@ namespace Spring.Http.Converters.Json
 
         #region REST test service
 
-        [DataContract]
+        //[DataContract]
         public class User
         {
-            [DataMember]
+            //[DataMember]
             public string ID { get; set; }
 
-            [DataMember]
+            //[DataMember]
             public string Name { get; set; }
         }
 

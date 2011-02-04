@@ -72,10 +72,10 @@ namespace Spring.RestWindowsPhoneQuickStart
         public string ImageUrl { get; set; }
     }
 
-    public class TwitterItem
-    {
-        public string UserName { get; set; }
-        public string Message { get; set; }
-        public string ImageSource { get; set; }
-    }
+    //public class TwitterItem
+    //{
+    //    public string UserName { get; set; }
+    //    public string Message { get; set; }
+    //    public string ImageSource { get; set; }
+    //}
 }

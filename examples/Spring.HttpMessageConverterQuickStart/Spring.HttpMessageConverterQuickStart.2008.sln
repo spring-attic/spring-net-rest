@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.HttpMessageConverterQuickStart", "src\Spring.HttpMessageConverterQuickStart\Spring.HttpMessageConverterQuickStart.csproj", "{FAD4F098-21BF-4FDC-85CE-7DB6A27D6179}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.HttpMessageConverterQuickStart.2008", "src\Spring.HttpMessageConverterQuickStart\Spring.HttpMessageConverterQuickStart.2008.csproj", "{FAD4F098-21BF-4FDC-85CE-7DB6A27D6179}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2008", "..\..\src\Spring.Rest\Spring.Rest.2008.csproj", "{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}"
 EndProject

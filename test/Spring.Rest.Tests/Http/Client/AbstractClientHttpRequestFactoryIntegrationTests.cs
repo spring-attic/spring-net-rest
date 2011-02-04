@@ -144,7 +144,7 @@ namespace Spring.Http.Client
         private void AssertHttpMethod(String path, HttpMethod method)
         {
             IClientHttpRequest request = this.CreateRequest("/methods/" + path, method);
-            request.Headers.ContentLength = 0; // TODO : post/put null
+            request.Headers.ContentLength = 0;
 
             using (IClientHttpResponse response = request.Execute())
             {
@@ -270,7 +270,7 @@ namespace Spring.Http.Client
             Exception exception = null;
 
             IClientHttpRequest request = this.CreateRequest("/methods/" + path, method);
-            request.Headers.ContentLength = 0; // TODO : post/put null
+            request.Headers.ContentLength = 0;
 
             request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)
             {

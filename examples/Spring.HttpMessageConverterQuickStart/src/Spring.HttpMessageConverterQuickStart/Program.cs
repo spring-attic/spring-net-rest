@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 
 using Spring.Rest.Client;
+using Spring.Http.Converters;
 using Newtonsoft.Json.Linq;
 
 using Spring.HttpMessageConverterQuickStart.Converters;
@@ -15,6 +17,8 @@ namespace Spring.HttpMessageConverterQuickStart
             try
             {
                 RestTemplate rt = new RestTemplate("http://twitter.com");
+                // Override pre-defined message converters
+                rt.MessageConverters = new List<IHttpMessageConverter>(); 
                 rt.MessageConverters.Add(new NJsonHttpMessageConverter());
 #if SILVERLIGHT
                 rt.GetForObjectAsync<JArray>("/statuses/user_timeline.json?screen_name={name}&count={count}", 

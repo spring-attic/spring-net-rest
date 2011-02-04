@@ -54,7 +54,6 @@ namespace Spring.Http.Converters.Feed
         {
             template = new RestTemplate(uri);
             template.MessageConverters = new List<IHttpMessageConverter>();
-            //template.MessageConverters.Add(new StringHttpMessageConverter()); // for debugging purpose
 
             webServiceHost = new WebServiceHost(typeof(TestService), new Uri(uri));
             webServiceHost.Open();
@@ -144,10 +143,12 @@ namespace Spring.Http.Converters.Feed
                 if (query == "atom")
                 {
                     formatter = new Atom10FeedFormatter(feed);
+                    WebOperationContext.Current.OutgoingResponse.ContentType = "application/atom+xml";
                 }
                 else
                 {
                     formatter = new Rss20FeedFormatter(feed);
+                    WebOperationContext.Current.OutgoingResponse.ContentType = "application/rss+xml";
                 }
 
                 return formatter;

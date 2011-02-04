@@ -48,8 +48,6 @@ namespace Spring.Http.Converters.Feed
         {
             Assert.IsTrue(converter.CanRead(typeof(SyndicationFeed), new MediaType("application", "rss+xml")));
             Assert.IsTrue(converter.CanRead(typeof(SyndicationItem), new MediaType("application", "rss+xml")));
-            Assert.IsTrue(converter.CanRead(typeof(SyndicationFeed), new MediaType("application", "xml")));
-            Assert.IsTrue(converter.CanRead(typeof(SyndicationFeed), new MediaType("text", "xml")));
             Assert.IsFalse(converter.CanRead(typeof(string), new MediaType("application", "rss+xml")));
             Assert.IsFalse(converter.CanRead(typeof(SyndicationFeed), new MediaType("text", "plain")));
         }
@@ -59,8 +57,6 @@ namespace Spring.Http.Converters.Feed
         {
             Assert.IsTrue(converter.CanWrite(typeof(SyndicationFeed), new MediaType("application", "rss+xml")));
             Assert.IsTrue(converter.CanWrite(typeof(SyndicationItem), new MediaType("application", "rss+xml")));
-            Assert.IsTrue(converter.CanWrite(typeof(SyndicationFeed), new MediaType("application", "xml")));
-            Assert.IsTrue(converter.CanWrite(typeof(SyndicationFeed), new MediaType("text", "xml")));
             Assert.IsFalse(converter.CanWrite(typeof(string), new MediaType("application", "rss+xml")));
             Assert.IsFalse(converter.CanWrite(typeof(SyndicationFeed), new MediaType("text", "plain")));
         }
