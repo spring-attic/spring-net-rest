@@ -305,7 +305,7 @@ template.RequestFactory = requestFactory;</programlisting>
         <title>Authenticating requests</title>
 
         <para>
-          Custom implementations of the <interfacename>IClientHttpRequestFactory</interfacename> 
+          Implementations of the <interfacename>IClientHttpRequestFactory</interfacename> 
           interface can be used to authenticate requests at the RestTemplate level.
         </para>
 
@@ -313,8 +313,37 @@ template.RequestFactory = requestFactory;</programlisting>
           <title>Basic authentication</title>
 
           <para>
-              TODO: Basic authentication example
+            An example of <interfacename>IClientHttpRequestFactory</interfacename> implementation 
+            to configure Basic authentication is shown below :
           </para>
+          
+          <programlisting language="csharp">public class <classname>BasicSigningClientHttpRequestFactory</classname> : <interfacename>IClientHttpRequestFactory</interfacename>
+{
+    private <interfacename>IClientHttpRequestFactory</interfacename> requestFactory;
+    private string authorizationHeader;
+
+    public <classname>BasicSigningClientHttpRequestFactory</classname>(string username, string password)
+        : this(new <classname>WebClientHttpRequestFactory</classname>(), username, password)
+    {
+    }
+
+    public <classname>BasicSigningClientHttpRequestFactory</classname>(<interfacename>IClientHttpRequestFactory</interfacename> requestFactory, string username, string password)
+    {
+        string authInfo = <classname>String</classname>.Format("{0}:{1}", username, password);
+        authInfo = <classname>Convert</classname>.ToBase64String(<classname>Encoding</classname>.UTF8.GetBytes(authInfo));
+        this.authorizationHeader = "Basic " + authInfo;
+    }
+
+    public <interfacename>IClientHttpRequest</interfacename> CreateRequest(<classname>Uri</classname> uri, <classname>HttpMethod</classname> method)
+    {
+        <interfacename>IClientHttpRequest</interfacename> request = requestFactory.CreateRequest(uri, method);
+        request.Headers["Authorization"] = this.authorizationHeader;
+        return request;
+    }
+}
+
+<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+template.RequestFactory = new <classname>BasicSigningClientHttpRequestFactory</classname>("username", "password");</programlisting>
 
           <note>
             <para>
@@ -335,15 +364,25 @@ template.PostForLocation("/hotels/bookings", entity, 1);</programlisting>
           <title>NTLM authentication</title>
           
           <para>
-            TODO: NTLM authentication example
+            Default implementation <classname>WebClientHttpRequestFactory</classname> 
+            can be used to set up NTLM authentication as shown below :
           </para>
+
+          <programlisting language="csharp"><classname>WebClientHttpRequestFactory</classname> requestFactory = new <classname>WebClientHttpRequestFactory</classname>();
+//requestFactory.UseDefaultCredentials = true;
+requestFactory.Credentials = new <classname>NetworkCredential</classname>("userName", "password", "domain");
+
+<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+template.RequestFactory = requestFactory;</programlisting>
+          
         </simplesect>
 
         <simplesect>
           <title>OAuth authentication</title>
 
           <para>
-            This will be supported in a future version based on the Spring.Security Java project.
+            This will be supported in a future version based on the Spring.Security 
+            and/or Spring.Social Java projects (<classname>OAuthSigningClientHttpRequestFactory</classname>).
           </para>
         </simplesect>
             
@@ -355,31 +394,48 @@ template.PostForLocation("/hotels/bookings", entity, 1);</programlisting>
       <title>Using the Spring.NET container</title>
 
       <para>
-        TODO: XML configuration example
+        <classname>RestTemplate</classname>, as any other class can be configured 
+        in the Spring.NET container.
+        <sbr/>For example, using XML configuration :
       </para>
+
+      <programlisting language="myxml"><![CDATA[<object id="RestTemplate" type="Spring.Rest.Client.RestTemplate, Spring.Rest">
+  <constructor-arg name="baseAddress" value="http://example.com"/>
+  <property name="ErrorHandler">
+    <object type="MyErrorHandler"/>
+  </property>
+  <property name="MessageConverters">
+    <object type="MyHttpMessageConverter"/>
+  </property>
+  <property name="RequestFactory.UseDefaultCredentials" value="true"/>
+  <property name="RequestFactory.Timeout" value="10000"/>
+</object>]]></programlisting>
         
     </section>
       
   </section>
 
   <section id="resttemplate-exchangemethod">
-    <title>Working with HTTP messages</title>
+    <title>Dealing with HTTP messages</title>
 
     <para>
-      Besides the methods described above, the <classname>RestTemplate</classname>
-      also has the <methodname>Exchange()</methodname> method, which can be
-      used for arbitrary HTTP method execution based on the <classname>HttpEntity</classname>
-      class.
+      Besides the REST operations described in a <link linkend="resttemplate-operations">previous section</link>, 
+      the <classname>RestTemplate</classname> also has the <methodname>Exchange()</methodname> method, 
+      which can be used for arbitrary HTTP method execution based on HTTP messages.
+      <sbr/>The method takes as arguments the HTTP request message composed of 
+      the request uri, the HTTP method and the HTTP entity (headers and body) and 
+      returns the HTTP response message composed of the status code, status description and 
+      the HTTP entity (headers and body).
     </para>
     
-        <programlisting language="csharp"><classname>HttpResponseMessage</classname>&lt;T&gt; Exchange&lt;T&gt;(<classname>Uri</classname> url, <classname>HttpMethod</classname> method, <classname>HttpEntity</classname> requestEntity) where T : class;
+    <programlisting language="csharp"><classname>HttpResponseMessage</classname>&lt;T&gt; Exchange&lt;T&gt;(<classname>Uri</classname> url, <classname>HttpMethod</classname> method, <classname>HttpEntity</classname> requestEntity) where T : class;
 
 // also has 2 overloads for URI template based URL.</programlisting>
 
     <para>
       Perhaps most importantly, the <methodname>Exchange()</methodname>
-      method can be used to add request headers and read response headers.
-      For example:
+      method can be used to add request headers and read response headers 
+      for every REST operation. For example:
     </para>
 
     <programlisting language="csharp"><classname>HttpEntity</classname> requestEntity = new <classname>HttpEntity</classname>();
@@ -393,9 +449,9 @@ string body = response.Body;
 string statusDescription = response.StatusDescription;</programlisting>
 
     <para>
-      In the above example, we first prepare a request entity that contains the
-      <literal>MyRequestHeader</literal> header. We then retrieve the response, and
-      read the <literal>MyResponseHeader</literal> and body.
+      In the above example, we first prepare a request message that contains the
+      <literal>MyRequestHeader</literal> header. We then retrieve the response message, 
+      and read the <literal>MyResponseHeader</literal>.
     </para>
     
   </section>
@@ -404,27 +460,37 @@ string statusDescription = response.StatusDescription;</programlisting>
     <title>Under the hood...</title>
       
     <para>
-      The general callback interface is
-      <interfacename>IRequestCallback</interfacename> and is called when the
-      execute method is invoked.
+      Last but not least, the <methodname>Execute()</methodname> method 
+      is behind everything <classname>RestTemplate</classname> does.
     </para>
 
-    <programlisting language="csharp">T Execute&lt;T&gt;(<classname>Uri</classname> url, <classname>HttpMethod</classname> method, <classname>IRequestCallback</classname> requestCallback, <classname>IResponseExtractor</classname>&lt;T&gt; responseExtractor) where T : class;
+    <programlisting language="csharp">T Execute&lt;T&gt;(<classname>Uri</classname> url, <classname>HttpMethod</classname> method, <interfacename>IRequestCallback</interfacename> requestCallback, <interfacename>IResponseExtractor</interfacename>&lt;T&gt; responseExtractor) where T : class;
 
 // also has 2 overloads for URI template based URL.</programlisting>
 
     <para>
-      The <interfacename>RequestCallback</interfacename> interface is defined as
+      The <interfacename>IRequestCallback</interfacename> interface is defined as
     </para>
 
-    <programlisting language="csharp">public interface <classname>IRequestCallback</classname>
+    <programlisting language="csharp">public interface <interfacename>IRequestCallback</interfacename>
 {
   void DoWithRequest(<interfacename>IClientHttpRequest</interfacename> request);
 }</programlisting>
 
     <para>
-      and allows you to manipulate the request headers and write to the
-      request body. When using the execute method you do not have to worry
+      The <interfacename>IResponseExtractor</interfacename>&lt;T&gt; interface is defined as
+    </para>
+
+    <programlisting language="csharp">public interface <interfacename>IResponseExtractor</interfacename>&lt;T&gt; where T : class
+{
+  T ExtractData(<interfacename>IClientHttpResponse</interfacename> response);
+}</programlisting>
+
+    <para>
+      The <methodname>Execute</methodname> method allow you to manipulate 
+      the request/response headers, write to the request body and 
+      read from the response body. 
+      <sbr/>When using the execute method you do not have to worry
       about any resource management, the template will always close the
       request and handle any errors. Refer to the API documentation for more
       information on using the execute method and the meaning of its other

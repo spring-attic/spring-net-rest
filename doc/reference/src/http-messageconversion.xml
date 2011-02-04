@@ -5,7 +5,7 @@
   <para>
     Objects passed to and returned from some REST operations are converted 
     to HTTP requests and from HTTP responses by <interfacename>IHttpMessageConverters</interfacename>.
-    <sbr/>The <interfacename>HttpMessageConverter</interfacename> interface is
+    <sbr/>The <interfacename>IHttpMessageConverter</interfacename> interface is
     shown below to give you a better feel for its functionality.
   </para>
 
@@ -40,18 +40,24 @@
     by setting the <methodname>SupportedMediaTypes</methodname> property.
   </para>
 
+  <para>
+    Refer to the API documentation for more information and 
+    to unit tests for example scenarios about each converters.
+  </para>
+  
   <section id="http-byteconverter">
     <title>ByteArrayMessageConverter</title>
 
     <para>
-      An <interfacename>IHttpMessageConverter</interfacename>
-      implementation that can read and write byte arrays from the HTTP
-      request and response. By default, this converter supports all media
-      types (<literal>*/*</literal>), and writes with a
-      <literal>Content-Type</literal> of
-      <literal>application/octet-stream</literal>. This can be overridden by
-      setting the <property>SupportedMediaTypes</property> property, and
-      overriding <literal>getContentType(byte[])</literal>.
+      Supports all the .NET Framework versions.
+    </para>
+    
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation 
+      that can read and write byte arrays from the HTTP request and response.
+      <sbr/>By default, this converter supports all media types (<literal>'*/*'</literal>), 
+      and writes with a <literal>Content-Type</literal> of
+      <literal>'application/octet-stream'</literal>.
     </para>
   </section>
   
@@ -59,12 +65,15 @@
     <title>StringHttpMessageConverter</title>
 
     <para>
-      An <interfacename>IHttpMessageConverter</interfacename>
-      implementation that can read and write Strings from the HTTP request
-      and response. By default, this converter supports all text media types
-      (<literal>text/*</literal>), and writes with a
-      <literal>Content-Type</literal> of
-      <literal>text/plain</literal>.
+      Supports all the .NET Framework versions.
+    </para>
+    
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation 
+      that can read and write Strings from the HTTP request and response.
+      <sbr/>By default, this converter supports all text media types
+      (<literal>'text/*'</literal>), and writes with a
+      <literal>Content-Type</literal> of <literal>'text/plain'</literal>.
     </para>
   </section>
 
@@ -72,77 +81,255 @@
     <title>FormHttpMessageConverter</title>
 
     <para>
-      An <interfacename>IHttpMessageConverter</interfacename>
-      implementation that can read and write form data from the HTTP request
-      and response. By default, this converter reads and writes the media
-      type <literal>application/x-www-form-urlencoded</literal>. Form data
-      is read from and written into a <literal>
-        MultiValueMap&lt;String,
-        String&gt;
-      </literal>.
+      Supports all the .NET Framework versions.
     </para>
-  </section>
-
-  <!--
-  <section id="rest-marhsalling-converter">
-    <title>MarshallingHttpMessageConverter</title>
 
     <para>
-      An <interfacename>HttpMessageConverter</interfacename>
-      implementation that can read and write XML using Spring's
-      <interfacename>Marshaller</interfacename> and
-      <interfacename>Unmarshaller</interfacename> abstractions from the
-      <classname>org.springframework.oxm</classname> package. This converter
-      requires a <interfacename>Marshaller</interfacename> and
-      <interfacename>Unmarshaller</interfacename> before it can be used.
-      These can be injected via constructor or bean properties. By default
-      this converter supports (<literal>text/xml</literal>) and
-      (<literal>application/xml</literal>).
+      An <interfacename>IHttpMessageConverter</interfacename> implementation
+      that can handle form data from the HTTP request and response.
+      <sbr/>By default, this converter reads and writes the media
+      type <literal>'application/x-www-form-urlencoded'</literal>.
+      <sbr/>Form data is read from and written into a <literal>NameValueCollection</literal>.
     </para>
-  </section>
 
-  <section id="rest-mapping-json-converter">
-    <title>MappingJacksonHttpMessageConverter</title>
+    <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>(); // FormHttpMessageConverter is configured by default
+<classname>NameValueCollection</classname> form = new <classname>NameValueCollection</classname>();
+form.Add("field 1", "value 1");
+form.Add("field 2", "value 2");
+form.Add("field 2", "value 3");
+template.PostForLocation("http://example.com/myForm", form);</programlisting>
 
     <para>
-      An <interfacename>HttpMessageConverter</interfacename>
-      implementation that can read and write JSON using Jackson's
-      <interfacename>ObjectMapper</interfacename>. JSON mapping can be
-      customized as needed through the use of Jackson's provided annotations. When
-      further control is needed, a custom
-      <interfacename>ObjectMapper</interfacename> can be injected through
-      the <literal>ObjectMapper</literal> property for cases where custom
-      JSON serializers/deserializers need to be provided for specific types.
-      By default this converter supports (<literal>application/json</literal>).
+      This converter also writes multipart form data (i.e. file uploads)
+      defined by the <literal>'multipart/form-data'</literal> media type.
+      <sbr/>Multipart form data is written into an <literal>IDictionary&lt;string, object&gt;</literal>.
     </para>
+
+    <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>(); // FormHttpMessageConverter is configured by default
+<interfacename>IDictionary</interfacename>&lt;string, object> parts = new <classname>Dictionary</classname>&lt;string, object>();
+parts.Add("field 1", "value 1");
+parts.Add("file", new <classname>FileInfo</classname>(@"C:\myFile.jpg"));
+template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
+    
+    <para>
+      <sbr/>When writing multipart, this converter uses other 
+      <interfacename>IHttpMessageConverter</interfacename> to write the respective MIME parts.
+      <sbr/>By default, basic converters <link linkend="http-stringconverter">StringHttpMessageConverter</link> 
+      and <link linkend="http-fileinfoconverter">FileInfoHttpMessageConverter</link> are registered 
+      to support <literal>String</literal> and <literal>FileInfo</literal> part types. 
+      These can be overridden by setting the <literal>PartConverters</literal> property.
+    </para>
+    
   </section>
 
-  <section id="rest-source-converter">
-    <title>SourceHttpMessageConverter</title>
+  <section id="http-fileinfoconverter">
+    <title>FileInfoHttpMessageConverter</title>
 
     <para>
-      An <interfacename>HttpMessageConverter</interfacename>
-      implementation that can read and write
-      <classname>javax.xml.transform.Source</classname> from the HTTP
-      request and response. Only <classname>DOMSource</classname>,
-      <classname>SAXSource</classname>, and
-      <classname>StreamSource</classname> are supported. By default, this
-      converter supports (<literal>text/xml</literal>) and
-      (<literal>application/xml</literal>).
+      Supports all the .NET Framework versions.
     </para>
-  </section>
-
-  <section id="rest-buffered-image-converter">
-    <title>BufferedImageHttpMessageConverter</title>
 
     <para>
-      An <interfacename>HttpMessageConverter</interfacename>
-      implementation that can read and write
-      <classname>java.awt.image.BufferedImage</classname> from the HTTP
-      request and response. This converter reads and writes the media type
-      supported by the Java I/O API.
+      An <interfacename>IHttpMessageConverter</interfacename> 
+      implementation that can write file content to the HTTP request.
+      <sbr/>By default, this converter supports all text media types
+      (<literal>'*/*'</literal>).
+    </para>
+    
+    <para>
+      A mapping between file extension and mime types is used to determine 
+      the Content-Type of written files. 
+      <sbr/>If no <literal>Content-Type</literal> is available, 
+      <literal>'application/octet-stream'</literal> is used.
+    </para>
+    
+    <table frame="all">
+      <title>Default mime mapping registered with the converter</title>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry>
+              <emphasis role="bold">File extension</emphasis>
+            </entry>
+            <entry>
+              <emphasis role="bold">Mime type</emphasis>
+            </entry>
+          </row>
+          <row>
+            <entry>.bmp</entry>
+            <entry>image/bmp</entry>
+          </row>
+          <row>
+            <entry>.jpg</entry>
+            <entry>image/jpg</entry>
+          </row>
+          <row>
+            <entry>.jpeg</entry>
+            <entry>image/jpeg</entry>
+          </row>
+          <row>
+            <entry>.pdf</entry>
+            <entry>application/pdf</entry>
+          </row>
+          <row>
+            <entry>.png</entry>
+            <entry>image/png</entry>
+          </row>
+          <row>
+            <entry>.tif</entry>
+            <entry>image/tiff</entry>
+          </row>
+          <row>
+            <entry>.txt</entry>
+            <entry>text/plain</entry>
+          </row>
+          <row>
+            <entry>.zip</entry>
+            <entry>application/x-zip-compressed</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+
+    <para>
+      You can override these defaults using the
+      <methodname>MimeMapping</methodname> property.
+    </para>
+    <para>
+      You can also set the <literal>Content-Type</literal> header directly 
+      as shown in the following example with a file upload :
+    </para>
+    
+    <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>(); // FormHttpMessageConverter is configured by default
+<interfacename>IDictionary</interfacename>&lt;string, object> parts = new <classname>Dictionary</classname>&lt;string, object>();
+<classname>HttpEntity</classname> entity = new <classname>HttpEntity</classname>(new <classname>FileInfo</classname>(@"C:\myFile.xls"));
+entity.Headers["Content-Type"] = "application/vnd.ms-excel";
+parts.Add("file", entity);
+template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
+    
+  </section>
+
+  <section id="http-xmlserializerconverter">
+    <title>XmlSerializableHttpMessageConverter</title>
+
+    <para>
+      Supports all the .NET Framework versions.
+    </para>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation
+      that can read and write XML from .NET classes.
+      <sbr/>The converter uses the <literal>XmlSerializer</literal> .NET Framework class.
+      <sbr/>By default, this converter supports media types 
+      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>, 
+      and <literal>'application/*-xml'</literal>.
     </para>
   </section>
-  -->
+
+  <section id="http-xmldocumentconverter">
+    <title>XmlDocumentHttpMessageConverter</title>
+
+    <para>
+      Supports .NET Framework 2.0, 3.0 and 4.0.
+    </para>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation
+      that can read and write XML using the .NET Framework class <literal>XmlDocument</literal>.
+      <sbr/>By default, this converter supports media types
+      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>,
+      and <literal>'application/*-xml'</literal>.
+    </para>
+    
+  </section>
+
+  <section id="http-datacontractserializerconverter">
+    <title>DataContractHttpMessageConverter</title>
+
+    <para>
+      Supports .NET Framework 3.5, 4.0, Silverlight and Windows Phone.
+    </para>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation
+      that can read and write XML from .NET classes.
+      <sbr/>The converter uses the <literal>DataContractSerializer</literal> .NET Framework class.
+      <sbr/>By default, this converter supports media types
+      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>,
+      and <literal>'application/*-xml'</literal>.
+    </para>
+  </section>
+
+  <section id="http-xelementconverter">
+    <title>XElementHttpMessageConverter</title>
+
+    <para>
+      Supports .NET Framework 3.5, 4.0, Silverlight and Windows Phone.
+    </para>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation
+      that can read and write XML using the .NET Framework class 
+      <literal>XElement</literal> (Linq to Xml support).
+      <sbr/>By default, this converter supports media types
+      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>,
+      and <literal>'application/*-xml'</literal>.
+    </para>
+  </section>
+
+  <section id="http-jsonconverter">
+    <title>JsonHttpMessageConverter</title>
+
+    <para>
+      Supports .NET Framework 3.5, 4.0, Silverlight and Windows Phone.
+    </para>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation
+      that can read and write JSON from .NET classes.
+      <sbr/>The converter uses the <literal>DataContractJsonSerializer</literal> .NET Framework class.
+      <sbr/>By default, this converter supports media type <literal>'application/json'</literal>.
+    </para>
+
+    <note>
+      <para>
+        You can also use the the Json.NET (Newtonsoft.Json) library 
+        that supports getting/setting values from JSON directly, 
+        without the need to deserialize/serialize to a .NET class.
+        <sbr/>The converter based on Json.NET is available from 
+        the HttpMessageConverter quick start.
+      </para>
+    </note>
+  </section>
+
+  <section id="http-atom10feedconverter">
+    <title>Atom10FeedHttpMessageConverter</title>
+
+    <para>
+      Supports .NET Framework 3.5, 4.0 and Silverlight.
+    </para>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation 
+      that can read and write Atom feeds using .NET Framework classes 
+      <literal>SyndicationFeed</literal> and <literal>SyndicationItem</literal>.
+      <sbr/>By default, this converter supports media type <literal>'application/atom+xml'</literal>.
+    </para>
+  </section>
+
+  <section id="http-rss20feedconverter">
+    <title>Rss20FeedHttpMessageConverter</title>
+
+    <para>
+      Supports .NET Framework 3.5, 4.0 and Silverlight.
+    </para>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation
+      that can read and write RSS feeds using .NET Framework classes
+      <literal>SyndicationFeed</literal> and <literal>SyndicationItem</literal>.
+      <sbr/>By default, this converter supports media type <literal>'application/rss+xml'</literal>.
+    </para>
+  </section>
 
 </chapter>
