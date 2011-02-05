@@ -142,6 +142,7 @@
     <Compile Include="Rest\Client\HttpStatusCodeException.cs" />
     <Compile Include="Rest\Client\IResponseErrorHandler.cs" />
     <Compile Include="Rest\Client\IRestAsyncOperations.cs" />
+    <Compile Include="Rest\Client\RestOperationCanceler.cs" />
     <Compile Include="Rest\Client\RestOperationCompletedEventArgs.cs" />
     <Compile Include="Rest\Client\Support\AcceptHeaderRequestCallback.cs" />
     <Compile Include="Rest\Client\Support\DefaultResponseErrorHandler.cs" />

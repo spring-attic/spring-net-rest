@@ -100,6 +100,7 @@
     <Compile Include="Rest\Client\IRestAsyncOperations.cs" />
     <Compile Include="Rest\Client\IRestOperations.cs" />
     <Compile Include="Rest\Client\RestClientException.cs" />
+    <Compile Include="Rest\Client\RestOperationCanceler.cs" />
     <Compile Include="Rest\Client\RestOperationCompletedEventArgs.cs" />
     <Compile Include="Rest\Client\RestTemplate.cs" />
     <Compile Include="Rest\Client\Support\AcceptHeaderRequestCallback.cs" />

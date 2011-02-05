@@ -492,6 +492,43 @@ namespace Spring.Rest.Client
             }
         }
 
+        [Test]
+        public void Cancel()
+        {
+            ManualResetEvent manualEvent = new ManualResetEvent(false);
+            Exception exception = null;
+
+            RestOperationCanceler canceler = template.ExchangeAsync("sleep/2", HttpMethod.GET, null, 
+                delegate(RestOperationCompletedEventArgs<HttpResponseMessage> args)
+                {
+                    try
+                    {
+                        Assert.IsTrue(args.Cancelled, "Invalid response");
+
+                        WebException webEx = args.Error as WebException;
+                        Assert.IsNotNull(webEx, "Invalid response exception");
+                        Assert.AreEqual(WebExceptionStatus.RequestCanceled, webEx.Status, "Invalid response exception status");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        exception = ex;
+                    }
+                    finally
+                    {
+                        manualEvent.Set();
+                    }
+                });
+
+            canceler.Cancel();
+
+            manualEvent.WaitOne();
+            if (exception != null)
+            {
+                throw exception;
+            }
+        }
+
         #endregion
 
         #region REST test service
@@ -646,6 +683,16 @@ namespace Spring.Rest.Client
 
                 context.OutgoingResponse.StatusCode = HttpStatusCode.OK;
                 context.OutgoingResponse.StatusDescription = String.Format("User id '{0}' have been removed", id);
+            }
+
+            [OperationContract]
+            [WebGet(UriTemplate = "sleep/{seconds}")]
+            public void Sleep(string seconds)
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(Int32.Parse(seconds)));
+
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.OK;
+                WebOperationContext.Current.OutgoingResponse.StatusDescription = "Status OK";
             }
 
             private Stream CreateTextResponse(WebOperationContext context, string text)

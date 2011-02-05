@@ -993,11 +993,14 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void GetForObjectAsync<T>(string url, Action<RestOperationCompletedEventArgs<T>> getCompleted, params object[] uriVariables) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler GetForObjectAsync<T>(string url, Action<RestOperationCompletedEventArgs<T>> getCompleted, params object[] uriVariables) where T : class
         {
             AcceptHeaderRequestCallback requestCallback = new AcceptHeaderRequestCallback(typeof(T), this._messageConverters);
             MessageConverterResponseExtractor<T> responseExtractor = new MessageConverterResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<T>(url, HttpMethod.GET, requestCallback, responseExtractor, getCompleted, uriVariables);
+            return this.ExecuteAsync<T>(url, HttpMethod.GET, requestCallback, responseExtractor, getCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1013,11 +1016,14 @@ namespace Spring.Rest.Client
         /// <param name="getCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
-        public void GetForObjectAsync<T>(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<T>> getCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler GetForObjectAsync<T>(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<T>> getCompleted) where T : class
         {
             AcceptHeaderRequestCallback requestCallback = new AcceptHeaderRequestCallback(typeof(T), this._messageConverters);
             MessageConverterResponseExtractor<T> responseExtractor = new MessageConverterResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<T>(url, HttpMethod.GET, requestCallback, responseExtractor, uriVariables, getCompleted);
+            return this.ExecuteAsync<T>(url, HttpMethod.GET, requestCallback, responseExtractor, uriVariables, getCompleted);
         }
 
         /// <summary>
@@ -1029,11 +1035,14 @@ namespace Spring.Rest.Client
         /// <param name="getCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
-        public void GetForObjectAsync<T>(Uri url, Action<RestOperationCompletedEventArgs<T>> getCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler GetForObjectAsync<T>(Uri url, Action<RestOperationCompletedEventArgs<T>> getCompleted) where T : class
         {
             AcceptHeaderRequestCallback requestCallback = new AcceptHeaderRequestCallback(typeof(T), this._messageConverters);
             MessageConverterResponseExtractor<T> responseExtractor = new MessageConverterResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<T>(url, HttpMethod.GET, requestCallback, responseExtractor, getCompleted);
+            return this.ExecuteAsync<T>(url, HttpMethod.GET, requestCallback, responseExtractor, getCompleted);
         }
 
         /// <summary>
@@ -1049,11 +1058,14 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void GetForMessageAsync<T>(string url, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> getCompleted, params object[] uriVariables) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler GetForMessageAsync<T>(string url, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> getCompleted, params object[] uriVariables) where T : class
         {
             AcceptHeaderRequestCallback requestCallback = new AcceptHeaderRequestCallback(typeof(T), this._messageConverters);
             HttpMessageResponseExtractor<T> responseExtractor = new HttpMessageResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.GET, requestCallback, responseExtractor, getCompleted, uriVariables);
+            return this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.GET, requestCallback, responseExtractor, getCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1069,11 +1081,14 @@ namespace Spring.Rest.Client
         /// <param name="getCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
-        public void GetForMessageAsync<T>(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> getCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler GetForMessageAsync<T>(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> getCompleted) where T : class
         {
             AcceptHeaderRequestCallback requestCallback = new AcceptHeaderRequestCallback(typeof(T), this._messageConverters);
             HttpMessageResponseExtractor<T> responseExtractor = new HttpMessageResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.GET, requestCallback, responseExtractor, uriVariables, getCompleted);
+            return this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.GET, requestCallback, responseExtractor, uriVariables, getCompleted);
         }
 
         /// <summary>
@@ -1085,11 +1100,14 @@ namespace Spring.Rest.Client
         /// <param name="getCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
-        public void GetForMessageAsync<T>(Uri url, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> getCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler GetForMessageAsync<T>(Uri url, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> getCompleted) where T : class
         {
             AcceptHeaderRequestCallback requestCallback = new AcceptHeaderRequestCallback(typeof(T), this._messageConverters);
             HttpMessageResponseExtractor<T> responseExtractor = new HttpMessageResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.GET, requestCallback, responseExtractor, getCompleted);
+            return this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.GET, requestCallback, responseExtractor, getCompleted);
         }
 
         #endregion
@@ -1107,9 +1125,12 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous HEAD method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void HeadForHeadersAsync(string url, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted, params object[] uriVariables)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler HeadForHeadersAsync(string url, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted, params object[] uriVariables)
         {
-            this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, headCompleted, uriVariables);
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, headCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1123,9 +1144,12 @@ namespace Spring.Rest.Client
         /// <param name="headCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous HEAD method completes.
         /// </param>
-        public void HeadForHeadersAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler HeadForHeadersAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted)
         {
-            this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, uriVariables, headCompleted);
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, uriVariables, headCompleted);
         }
 
         /// <summary>
@@ -1135,9 +1159,12 @@ namespace Spring.Rest.Client
         /// <param name="headCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous HEAD method completes.
         /// </param>
-        public void HeadForHeadersAsync(Uri url, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler HeadForHeadersAsync(Uri url, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted)
         {
-            this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, headCompleted);
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, headCompleted);
         }
 
         #endregion
@@ -1162,10 +1189,13 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void PostForLocationAsync(string url, object request, Action<Uri> postCompleted, params object[] uriVariables)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForLocationAsync(string url, object request, Action<Uri> postCompleted, params object[] uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            this.ExecuteAsync<HttpHeaders>(url, HttpMethod.POST, requestCallback, this.headersExtractor, 
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.POST, requestCallback, this.headersExtractor, 
                 delegate (RestOperationCompletedEventArgs<HttpHeaders> args) 
                 {
                     postCompleted(args.Response.Location);
@@ -1191,10 +1221,13 @@ namespace Spring.Rest.Client
         /// <param name="postCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
-        public void PostForLocationAsync(string url, object request, IDictionary<string, object> uriVariables, Action<Uri> postCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForLocationAsync(string url, object request, IDictionary<string, object> uriVariables, Action<Uri> postCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            this.ExecuteAsync<HttpHeaders>(url, HttpMethod.POST, requestCallback, this.headersExtractor, uriVariables,
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.POST, requestCallback, this.headersExtractor, uriVariables,
                 delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
                 {
                     postCompleted(args.Response.Location);
@@ -1213,10 +1246,13 @@ namespace Spring.Rest.Client
         /// <param name="postCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
-        public void PostForLocationAsync(Uri url, object request, Action<Uri> postCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForLocationAsync(Uri url, object request, Action<Uri> postCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            this.ExecuteAsync<HttpHeaders>(url, HttpMethod.POST, requestCallback, this.headersExtractor,
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.POST, requestCallback, this.headersExtractor,
                 delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
                 {
                     postCompleted(args.Response.Location);
@@ -1241,11 +1277,14 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void PostForObjectAsync<T>(string url, object request, Action<RestOperationCompletedEventArgs<T>> postCompleted, params object[] uriVariables) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForObjectAsync<T>(string url, object request, Action<RestOperationCompletedEventArgs<T>> postCompleted, params object[] uriVariables) where T : class
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, typeof(T), this._messageConverters);
             MessageConverterResponseExtractor<T> responseExtractor = new MessageConverterResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<T>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted, uriVariables);
+            return this.ExecuteAsync<T>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1266,11 +1305,14 @@ namespace Spring.Rest.Client
         /// <param name="postCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
-        public void PostForObjectAsync<T>(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<T>> postCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForObjectAsync<T>(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<T>> postCompleted) where T : class
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, typeof(T), this._messageConverters);
             MessageConverterResponseExtractor<T> responseExtractor = new MessageConverterResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<T>(url, HttpMethod.POST, requestCallback, responseExtractor, uriVariables, postCompleted);
+            return this.ExecuteAsync<T>(url, HttpMethod.POST, requestCallback, responseExtractor, uriVariables, postCompleted);
         }
 
         /// <summary>
@@ -1285,11 +1327,14 @@ namespace Spring.Rest.Client
         /// <param name="postCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
-        public void PostForObjectAsync<T>(Uri url, object request, Action<RestOperationCompletedEventArgs<T>> postCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForObjectAsync<T>(Uri url, object request, Action<RestOperationCompletedEventArgs<T>> postCompleted) where T : class
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, typeof(T), this._messageConverters);
             MessageConverterResponseExtractor<T> responseExtractor = new MessageConverterResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<T>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted);
+            return this.ExecuteAsync<T>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted);
         }
 
         /// <summary>
@@ -1310,11 +1355,14 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void PostForMessageAsync<T>(string url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> postCompleted, params object[] uriVariables) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForMessageAsync<T>(string url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> postCompleted, params object[] uriVariables) where T : class
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, typeof(T), this._messageConverters);
             HttpMessageResponseExtractor<T> responseExtractor = new HttpMessageResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted, uriVariables);
+            return this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1335,11 +1383,14 @@ namespace Spring.Rest.Client
         /// <param name="postCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
-        public void PostForMessageAsync<T>(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> postCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForMessageAsync<T>(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> postCompleted) where T : class
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, typeof(T), this._messageConverters);
             HttpMessageResponseExtractor<T> responseExtractor = new HttpMessageResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.POST, requestCallback, responseExtractor, uriVariables, postCompleted);
+            return this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.POST, requestCallback, responseExtractor, uriVariables, postCompleted);
         }
 
         /// <summary>
@@ -1354,11 +1405,14 @@ namespace Spring.Rest.Client
         /// <param name="postCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
-        public void PostForMessageAsync<T>(Uri url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> postCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForMessageAsync<T>(Uri url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> postCompleted) where T : class
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, typeof(T), this._messageConverters);
             HttpMessageResponseExtractor<T> responseExtractor = new HttpMessageResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted);
+            return this.ExecuteAsync<HttpResponseMessage<T>>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted);
         }
 
         /// <summary>
@@ -1378,11 +1432,14 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void PostForMessageAsync(string url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> postCompleted, params object[] uriVariables)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForMessageAsync(string url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> postCompleted, params object[] uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
             HttpMessageResponseExtractor responseExtractor = new HttpMessageResponseExtractor();
-            this.ExecuteAsync<HttpResponseMessage>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted, uriVariables);
+            return this.ExecuteAsync<HttpResponseMessage>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1402,11 +1459,14 @@ namespace Spring.Rest.Client
         /// <param name="postCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
-        public void PostForMessageAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> postCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForMessageAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> postCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
             HttpMessageResponseExtractor responseExtractor = new HttpMessageResponseExtractor();
-            this.ExecuteAsync<HttpResponseMessage>(url, HttpMethod.POST, requestCallback, responseExtractor, uriVariables, postCompleted);
+            return this.ExecuteAsync<HttpResponseMessage>(url, HttpMethod.POST, requestCallback, responseExtractor, uriVariables, postCompleted);
         }
 
         /// <summary>
@@ -1420,11 +1480,14 @@ namespace Spring.Rest.Client
         /// <param name="postCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
-        public void PostForMessageAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> postCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PostForMessageAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> postCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
             HttpMessageResponseExtractor responseExtractor = new HttpMessageResponseExtractor();
-            this.ExecuteAsync<HttpResponseMessage>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted);
+            return this.ExecuteAsync<HttpResponseMessage>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted);
         }
 
         #endregion
@@ -1447,10 +1510,13 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void PutAsync(string url, object request, Action<RestOperationCompletedEventArgs<object>> putCompleted, params object[] uriVariables)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PutAsync(string url, object request, Action<RestOperationCompletedEventArgs<object>> putCompleted, params object[] uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, putCompleted, uriVariables);
+            return this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, putCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1469,10 +1535,13 @@ namespace Spring.Rest.Client
         /// <param name="putCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
-        public void PutAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<object>> putCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PutAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<object>> putCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, uriVariables, putCompleted);
+            return this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, uriVariables, putCompleted);
         }
 
         /// <summary>
@@ -1485,10 +1554,13 @@ namespace Spring.Rest.Client
         /// <param name="putCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
-        public void PutAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<object>> putCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler PutAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<object>> putCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, putCompleted);
+            return this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, putCompleted);
         }
 
         #endregion
@@ -1506,9 +1578,12 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void DeleteAsync(string url, Action<RestOperationCompletedEventArgs<object>> deleteCompleted, params object[] uriVariables)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler DeleteAsync(string url, Action<RestOperationCompletedEventArgs<object>> deleteCompleted, params object[] uriVariables)
         {
-            this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, deleteCompleted, uriVariables);
+            return this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, deleteCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1522,9 +1597,12 @@ namespace Spring.Rest.Client
         /// <param name="deleteCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
-        public void DeleteAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<object>> deleteCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler DeleteAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<object>> deleteCompleted)
         {
-            this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, uriVariables, deleteCompleted);
+            return this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, uriVariables, deleteCompleted);
         }
 
         /// <summary>
@@ -1534,9 +1612,12 @@ namespace Spring.Rest.Client
         /// <param name="deleteCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
-        public void DeleteAsync(Uri url, Action<RestOperationCompletedEventArgs<object>> deleteCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler DeleteAsync(Uri url, Action<RestOperationCompletedEventArgs<object>> deleteCompleted)
         {
-            this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, deleteCompleted);
+            return this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, deleteCompleted);
         }
 
         #endregion
@@ -1554,9 +1635,12 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous OPTIONS method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void OptionsForAllowAsync(string url, Action<IList<HttpMethod>> optionsCompleted, params object[] uriVariables)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler OptionsForAllowAsync(string url, Action<IList<HttpMethod>> optionsCompleted, params object[] uriVariables)
         {
-            this.ExecuteAsync<HttpHeaders>(url, HttpMethod.OPTIONS, null, this.headersExtractor, 
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.OPTIONS, null, this.headersExtractor, 
                 delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
                 {
                     optionsCompleted(args.Response.Allow);
@@ -1575,9 +1659,12 @@ namespace Spring.Rest.Client
         /// <param name="optionsCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous OPTIONS method completes.
         /// </param>
-        public void OptionsForAllowAsync(string url, IDictionary<string, object> uriVariables, Action<IList<HttpMethod>> optionsCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler OptionsForAllowAsync(string url, IDictionary<string, object> uriVariables, Action<IList<HttpMethod>> optionsCompleted)
         {
-            this.ExecuteAsync<HttpHeaders>(url, HttpMethod.OPTIONS, null, this.headersExtractor, uriVariables,
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.OPTIONS, null, this.headersExtractor, uriVariables,
                 delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
                 {
                     optionsCompleted(args.Response.Allow);
@@ -1591,9 +1678,12 @@ namespace Spring.Rest.Client
         /// <param name="optionsCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous OPTIONS method completes.
         /// </param>
-        public void OptionsForAllowAsync(Uri url, Action<IList<HttpMethod>> optionsCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler OptionsForAllowAsync(Uri url, Action<IList<HttpMethod>> optionsCompleted)
         {
-            this.ExecuteAsync<HttpHeaders>(url, HttpMethod.OPTIONS, null, this.headersExtractor,
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.OPTIONS, null, this.headersExtractor,
                 delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
                 {
                     optionsCompleted(args.Response.Allow);
@@ -1622,11 +1712,14 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void ExchangeAsync<T>(string url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> methodCompleted, params object[] uriVariables) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler ExchangeAsync<T>(string url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> methodCompleted, params object[] uriVariables) where T : class
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(requestEntity, typeof(T), this._messageConverters);
             HttpMessageResponseExtractor<T> responseExtractor = new HttpMessageResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<HttpResponseMessage<T>>(url, method, requestCallback, responseExtractor, methodCompleted, uriVariables);
+            return this.ExecuteAsync<HttpResponseMessage<T>>(url, method, requestCallback, responseExtractor, methodCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1646,11 +1739,14 @@ namespace Spring.Rest.Client
         /// <param name="methodCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
-        public void ExchangeAsync<T>(string url, HttpMethod method, HttpEntity requestEntity, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> methodCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler ExchangeAsync<T>(string url, HttpMethod method, HttpEntity requestEntity, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> methodCompleted) where T : class
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(requestEntity, typeof(T), this._messageConverters);
             HttpMessageResponseExtractor<T> responseExtractor = new HttpMessageResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<HttpResponseMessage<T>>(url, method, requestCallback, responseExtractor, uriVariables, methodCompleted);
+            return this.ExecuteAsync<HttpResponseMessage<T>>(url, method, requestCallback, responseExtractor, uriVariables, methodCompleted);
         }
 
         /// <summary>
@@ -1666,11 +1762,14 @@ namespace Spring.Rest.Client
         /// <param name="methodCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
-        public void ExchangeAsync<T>(Uri url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> methodCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler ExchangeAsync<T>(Uri url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> methodCompleted) where T : class
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(requestEntity, typeof(T), this._messageConverters);
             HttpMessageResponseExtractor<T> responseExtractor = new HttpMessageResponseExtractor<T>(this._messageConverters);
-            this.ExecuteAsync<HttpResponseMessage<T>>(url, method, requestCallback, responseExtractor, methodCompleted);
+            return this.ExecuteAsync<HttpResponseMessage<T>>(url, method, requestCallback, responseExtractor, methodCompleted);
         }
 
         /// <summary>
@@ -1689,11 +1788,14 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void ExchangeAsync(string url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> methodCompleted, params object[] uriVariables)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler ExchangeAsync(string url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> methodCompleted, params object[] uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(requestEntity, this._messageConverters);
             HttpMessageResponseExtractor responseExtractor = new HttpMessageResponseExtractor();
-            this.ExecuteAsync<HttpResponseMessage>(url, method, requestCallback, responseExtractor, methodCompleted, uriVariables);
+            return this.ExecuteAsync<HttpResponseMessage>(url, method, requestCallback, responseExtractor, methodCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1712,11 +1814,14 @@ namespace Spring.Rest.Client
         /// <param name="methodCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
-        public void ExchangeAsync(string url, HttpMethod method, HttpEntity requestEntity, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> methodCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler ExchangeAsync(string url, HttpMethod method, HttpEntity requestEntity, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> methodCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(requestEntity, this._messageConverters);
             HttpMessageResponseExtractor responseExtractor = new HttpMessageResponseExtractor();
-            this.ExecuteAsync<HttpResponseMessage>(url, method, requestCallback, responseExtractor, uriVariables, methodCompleted);
+            return this.ExecuteAsync<HttpResponseMessage>(url, method, requestCallback, responseExtractor, uriVariables, methodCompleted);
         }
 
         /// <summary>
@@ -1731,11 +1836,14 @@ namespace Spring.Rest.Client
         /// <param name="methodCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
-        public void ExchangeAsync(Uri url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> methodCompleted)
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler ExchangeAsync(Uri url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> methodCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(requestEntity, this._messageConverters);
             HttpMessageResponseExtractor responseExtractor = new HttpMessageResponseExtractor();
-            this.ExecuteAsync<HttpResponseMessage>(url, method, requestCallback, responseExtractor, methodCompleted);
+            return this.ExecuteAsync<HttpResponseMessage>(url, method, requestCallback, responseExtractor, methodCompleted);
         }
 
         #endregion
@@ -1758,9 +1866,12 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>   
         /// <param name="uriVariables">The variables to expand the template.</param>
-        public void ExecuteAsync<T>(string url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, Action<RestOperationCompletedEventArgs<T>> methodCompleted, params object[] uriVariables) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler ExecuteAsync<T>(string url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, Action<RestOperationCompletedEventArgs<T>> methodCompleted, params object[] uriVariables) where T : class
         {
-            this.DoExecuteAsync<T>(BuildUri(this._baseAddress, url, uriVariables), method, 
+            return this.DoExecuteAsync<T>(BuildUri(this._baseAddress, url, uriVariables), method, 
                 requestCallback, responseExtractor, methodCompleted);
         }
 
@@ -1780,9 +1891,12 @@ namespace Spring.Rest.Client
         /// <param name="methodCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>  
-        public void ExecuteAsync<T>(string url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler ExecuteAsync<T>(string url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class
         {
-            this.DoExecuteAsync<T>(BuildUri(this._baseAddress, url, uriVariables), method, 
+            return this.DoExecuteAsync<T>(BuildUri(this._baseAddress, url, uriVariables), method, 
                 requestCallback, responseExtractor, methodCompleted);
         }
 
@@ -1798,9 +1912,12 @@ namespace Spring.Rest.Client
         /// <param name="methodCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>  
-        public void ExecuteAsync<T>(Uri url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        public RestOperationCanceler ExecuteAsync<T>(Uri url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class
         {
-            this.DoExecuteAsync<T>(BuildUri(this._baseAddress, url), method, 
+            return this.DoExecuteAsync<T>(BuildUri(this._baseAddress, url), method, 
                 requestCallback, responseExtractor, methodCompleted);
         }
 
@@ -1870,7 +1987,10 @@ namespace Spring.Rest.Client
         /// <param name="methodCompleted">
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>  
-        protected virtual void DoExecuteAsync<T>(Uri uri, HttpMethod method,
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// </returns>
+        protected virtual RestOperationCanceler DoExecuteAsync<T>(Uri uri, HttpMethod method,
             IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor,
             Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class
         {
@@ -1891,12 +2011,14 @@ namespace Spring.Rest.Client
             {
                 request.ExecuteAsync(state, ResponseReceivedCallback<T>);
             }
+
+            return new RestOperationCanceler(request);
         }
 
         private static void ResponseReceivedCallback<T>(ClientHttpRequestCompletedEventArgs responseReceived) where T : class
         {
             ExecuteState<T> state = (ExecuteState<T>)responseReceived.UserState;
-            if (responseReceived.Error == null)
+            if (!responseReceived.Cancelled && responseReceived.Error == null)
             {
                 using (IClientHttpResponse response = responseReceived.Response)
                 {
@@ -1937,7 +2059,7 @@ namespace Spring.Rest.Client
             }
             else
             {
-                state.MethodCompleted(new RestOperationCompletedEventArgs<T>(null, responseReceived.Error, false, null));
+                state.MethodCompleted(new RestOperationCompletedEventArgs<T>(null, responseReceived.Error, responseReceived.Cancelled, null));
             }
         }
 

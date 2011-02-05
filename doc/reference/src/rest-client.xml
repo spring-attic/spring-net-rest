@@ -48,7 +48,7 @@ using (<classname>HttpWebResponse</classname> response = request.GetResponse() a
 
   <section id="resttemplate-operations">
     <title>REST operations</title>
-
+    
     <table frame="all">
       <title>Overview of RestTemplate methods</title>
       <tgroup cols="2">
@@ -175,7 +175,41 @@ entity.Headers["MyRequestHeader"] = "MyValue";
 
 template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);</programlisting>
     </para>
+
+    <note>
+      <para>
+        These operations are synchrone and are not available for Silverlight 
+        and Windows Phone because all related network calls have to be asynchrone.
+      </para>
+    </note>
+
+    <section id="resttemplate-operations-async">
+      <title>Asynchrone operations</title>
       
+      <para>
+        All REST operations are also available for asynchronous calls.
+        <classname>RestTemplate</classname> methods are suffixed by 'Async'.
+        <sbr/>This have been initialy added to support Silverlight and Windows Phone, 
+        but nothing prevents you from using them for Windows Forms and 
+        WPF applications to not freeze the UI when invoking RESTful services.
+        <sbr/>An example using an asynchrone method is shown below :
+      </para>
+
+      <programlisting language="csharp">template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings", 
+  r =>
+  {
+    if (r.Error != null)
+    {
+      <classname>Console</classname>.WriteLine(r.Error);
+    }
+    else
+    {
+      <classname>Console</classname>.WriteLine(r.Response);
+    }
+  });</programlisting>
+
+    </section>
+    
   </section>
 
   <section id="resttemplate-configuration">
