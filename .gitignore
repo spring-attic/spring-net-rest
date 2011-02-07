@@ -1,7 +1,9 @@
 *ReSharper*
+*.sln.cache
 *.suo
 *.user
 *.xap
+*.snk
 bin
 Bin
 obj

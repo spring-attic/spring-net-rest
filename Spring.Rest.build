@@ -1,0 +1,300 @@
+<?xml version="1.0" ?>
+<project name="Spring.Rest" default="build" xmlns="http://nant.sf.net/release/0.91-alpha2/nant.xsd">
+   
+  <property name="datetime.now" value="${datetime::now()}" />
+
+  <property name="product.name" value="Spring.NET REST Client Framework" />
+  <property name="product.company" value="SpringSource" />
+  <property name="product.copyright" value="Copyright 2004-${datetime::get-year(datetime.now)} ${product.company}" />
+  <property name="product.url" value="http://www.springframework.net/" />
+  <property name="product.description" value="Simplifies communication with HTTP servers, and enforces RESTful principles" />
+  
+  <property name="product.version" value="1.0.0" />
+  <!-- alpha / beta# / rc# -->
+  <property name="product.releasetype" value="" />
+  <property name="product.fullname" value="${product.name} ${product.version}" if="${(product.releasetype == '')}" />
+  <property name="product.fullname" value="${product.name} ${product.version} (${product.releasetype})" if="${(product.releasetype != '')}" />
+
+  <property name="project.buildnumber" value="${math::abs(math::floor(timespan::get-total-days(datetime::now() - datetime::parse('01/01/2010'))))}" />
+  <property name="project.version" value="${product.version}.${project.buildnumber}" overwrite="false" />
+  <property name="project.buildconfiguration" value="Debug" />
+  <property name="project.buildtype" value="dev" />
+  <property name="project.signassembly" value="false" />
+
+  <readregistry property="net40.install.dir" key="SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\InstallPath" hive="LocalMachine" failonerror="true" />
+  <property name="msbuild.exe" value="${net40.install.dir}\msbuild.exe" />
+
+  <property name="root.dir" value="${project::get-base-directory()}" />
+  <property name="build.dir" value="${root.dir}\build" />
+  <property name="package.dir" value="${build.dir}\package" />
+  <property name="bin.dir" value="${root.dir}\bin" />
+  <property name="doc.dir" value="${root.dir}\doc" />
+  <property name="tools.dir" value="${root.dir}\tools" />
+
+  <!-- MAIN TARGETS -->
+
+  <target name="clean">
+    <delete dir="${build.dir}" />
+    <delete dir="${bin.dir}" />
+  </target>
+
+  <target name="build" depends="clean">
+    <echo message="NAnt current .NET Framework = ${nant.settings.currentframework}" />
+    <property name="product.fullname.temp" value="${product.fullname}"/>
+    <call target="build-net-2.0" />
+    <call target="build-net-3.5" />
+    <call target="build-net-4.0" />
+    <call target="build-sl-3.0" />
+    <call target="build-sl-4.0" />
+    <call target="build-wp-7.0" />
+    
+    <call target="binaries" />    
+  </target>
+
+  <target name="daily">
+    <property name="project.buildconfiguration" value="Release" />
+    <property name="project.buildtype" value="daily" />
+    <property name="product.fullname" value="${product.name} (Daily build from ${datetime::get-month(datetime.now)}/${datetime::get-day(datetime.now)}/${datetime::get-year(datetime.now)})" />
+    <property name="project.zip-filename" value="Spring.Rest-${datetime::get-year(datetime.now)}${string::pad-left(datetime::get-month(datetime.now), 2, '0')}${string::pad-left(datetime::get-day(datetime.now), 2, '0')}-${string::pad-left(datetime::get-hour(datetime.now), 2, '0')}${string::pad-left(datetime::get-minute(datetime.now), 2, '0')}.zip" />
+    
+    <call target="package-zip"/>
+  </target>
+
+  <target name="release">
+    <property name="project.buildconfiguration" value="Release" />
+    <property name="project.buildtype" value="release" />
+    <property name="project.signassembly" value="true" />
+    <property name="project.zip-filename" value="Spring.Rest-${product.version}.zip" if="${(product.releasetype == '')}" />
+    <property name="project.zip-filename" value="Spring.Rest-${product.version}-${product.releasetype}.zip" if="${(product.releasetype != '')}" />
+    
+    <call target="package-zip"/>
+  </target>
+
+  
+  <!-- TARGETS -->
+
+  <target name="update-common-assemblyinfo">
+    <echo message="Generating common AssemblyInfo file..." />
+    <!-- ensure src/CommonAssemblyInfo.cs is writable if it already exists -->
+    <attrib file="${root.dir}\src\CommonAssemblyInfo.cs" readonly="false" if="${file::exists('${root.dir}\src\CommonAssemblyInfo.cs')}" />
+    <!-- generate the source file holding the common assembly-level attributes -->
+    <asminfo output="${root.dir}\src\CommonAssemblyInfo.cs" language="CSharp">
+      <imports>
+        <import namespace="System" />
+        <import namespace="System.Reflection" />
+        <import namespace="System.Runtime.InteropServices" />
+      </imports>
+      <attributes>
+        <attribute type="CLSCompliantAttribute" value="false" />
+        <attribute type="ComVisibleAttribute" value="false" />
+        <attribute type="AssemblyProductAttribute" value="${product.fullname}" />
+        <attribute type="AssemblyCompanyAttribute" value="${product.url}" />
+        <attribute type="AssemblyCopyrightAttribute" value="${product.copyright}" />
+        <attribute type="AssemblyTrademarkAttribute" value="Apache License, Version 2.0" />
+        <attribute type="AssemblyCultureAttribute" value="" />
+        <attribute type="AssemblyVersionAttribute" value="${project.version}" />
+        <attribute type="AssemblyConfigurationAttribute" value="${project.framework}; ${project.version}; ${project.buildtype}" />
+      </attributes>
+    </asminfo>
+  </target>
+
+  <target name="build-net-2.0">
+    <echo message="Building for .NET 2.0" />
+    <property name="product.fullname" value="${product.fullname.temp} for .NET 2.0" />
+    <property name="project.framework" value="net-2.0"/>
+    <property name="project.buildoutputdir" value="${build.dir}\bin\net\2.0" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2005.sln" />
+    <call target="update-common-assemblyinfo" />
+    <call target="rebuild-solution"/>
+    <call target="test-assemblies"/>
+  </target>
+
+  <target name="build-net-3.5">
+    <echo message="Building for .NET 3.5" />
+    <property name="product.fullname" value="${product.fullname.temp} for .NET 3.5" />
+    <property name="project.framework" value="net-3.5"/>
+    <property name="project.buildoutputdir" value="${build.dir}/bin/net/3.5" />
+    <property name="project.buildsolutionfile" value="${root.dir}/Spring.Rest.2008.sln" />
+    <call target="update-common-assemblyinfo" />
+    <call target="rebuild-solution"/>
+    <call target="testcover-assemblies"/>
+  </target>
+
+  <target name="build-net-4.0">
+    <echo message="Building for .NET 4.0" />
+    <property name="product.fullname" value="${product.fullname.temp} for .NET 4.0" />
+    <property name="project.framework" value="net-4.0"/>
+    <property name="project.buildoutputdir" value="${build.dir}/bin/net/4.0" />
+    <property name="project.buildsolutionfile" value="${root.dir}/Spring.Rest.2010.sln" />
+    <call target="update-common-assemblyinfo" />
+    <call target="rebuild-solution"/>
+    <call target="test-assemblies"/>
+  </target>
+
+  <target name="build-sl-3.0">
+    <echo message="Building for Silverlight 3.0" />
+    <property name="product.fullname" value="${product.fullname.temp} for Silverlight 3.0" />
+    <property name="project.framework" value="sl-3.0"/>
+    <property name="project.buildoutputdir" value="${build.dir}/bin/sl/3.0" />
+    <property name="project.buildsolutionfile" value="${root.dir}/Spring.Rest.2008-SL.sln" />
+    <call target="update-common-assemblyinfo" />
+    <call target="rebuild-solution"/>
+    <!--<call target="test-assemblies"/>-->
+  </target>
+
+  <target name="build-sl-4.0">
+    <echo message="Building for Silverlight 4.0" />
+    <property name="product.fullname" value="${product.fullname.temp} for Silverlight 4.0" />
+    <property name="project.framework" value="sl-4.0"/>
+    <property name="project.buildoutputdir" value="${build.dir}/bin/sl/4.0" />
+    <property name="project.buildsolutionfile" value="${root.dir}/Spring.Rest.2010-SL.sln" />
+    <call target="update-common-assemblyinfo" />
+    <call target="rebuild-solution"/>
+    <!--<call target="test-assemblies"/>-->
+  </target>
+
+  <target name="build-wp-7.0">
+    <echo message="Building for Windows Phone 7.0" />
+    <property name="product.fullname" value="${product.fullname.temp} for Windows Phone 7.0" />
+    <property name="project.framework" value="wp-7.0"/>
+    <property name="project.buildoutputdir" value="${build.dir}/bin/wp/7.0" />
+    <property name="project.buildsolutionfile" value="${root.dir}/Spring.Rest.2010-WP.sln" />
+    <call target="update-common-assemblyinfo" />
+    <call target="rebuild-solution"/>
+    <!--<call target="test-assemblies"/>-->
+  </target>
+
+  <target name="doc">
+    <echo message="Generating documentation" />
+    <nant buildfile="${doc.dir}/reference/docbook.build" target="all" />
+  </target>
+
+  <target name="binaries">
+    <!-- Copy binaries -->
+    <echo message="Copying binaries"/>
+    <copy todir="${bin.dir}">
+      <fileset basedir="${build.dir}\bin">
+        <include name="**\Spring.Rest.dll"/>
+        <include name="**\Spring.Rest.pdb"/>
+        <include name="**\Spring.Rest.xml"/>
+        <include name="**\Common.Logging.dll"/>
+        <include name="**\Common.Logging.xml"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="package" depends="build,doc" description="Builds all modules and documentation">
+    <!-- Copy release files -->
+    <copy todir="${package.dir}">
+      <fileset basedir="${root.dir}">
+        <include name="*.sln"/>
+        <include name="readme.txt"/>
+        <include name="license.txt"/>
+        <include name="bin\**"/>
+        <include name="examples\**"/>
+        <include name="lib\**"/>
+        <include name="src\**"/>
+        <include name="test\**"/>
+        <exclude name="*.snk"/>
+        <exclude name="**\*.build"/>
+        <exclude name="**\*.bat"/>
+        <exclude name="**\*.suo"/>
+        <exclude name="**\*.user"/>
+        <exclude name="**\*.cache"/>
+        <exclude name="**\*.xap"/>
+        <exclude name="src\Spring.Rest\Spring.Rest.xml"/>
+        <exclude name="src\**\bin\**"/>
+        <exclude name="src\**\obj\**"/>
+        <exclude name="test\**\bin\**"/>
+        <exclude name="test\**\obj\**"/>
+        <exclude name="examples\**\bin\**"/>
+        <exclude name="examples\**\obj\**"/>
+      </fileset>
+    </copy>
+    <copy todir="${package.dir}\doc\reference">
+      <fileset basedir="${doc.dir}\reference\target">
+        <include name="**\*" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="package-zip" depends="package" description="Build Package distribution as .zip file">
+    <echo message="Zipping package..." />
+    <zip zipfile="${build.dir}\output\${project.zip-filename}">
+      <fileset basedir="${package.dir}">
+        <include name="**\*" />
+        <exclude name="*.zip" />
+      </fileset>
+    </zip>
+  </target>
+
+  <target name="rebuild-solution" description="Rebuilds a given solution file">
+    <echo message="Rebuilding solution '${project.buildsolutionfile}'" />
+    <exec program="${msbuild.exe}">
+      <arg value="${project.buildsolutionfile}"/>
+      <arg value="/nologo" />
+      <arg value="/target:Rebuild" />
+      <arg value="/verbosity:minimal" />
+      <arg value="/property:OutDir=${project.buildoutputdir}/"/>
+      <arg value="/property:Configuration=${project.buildconfiguration}" />
+      <arg value="/property:SignAssembly=true" if="${project.signassembly}" />
+      <arg value="/property:AssemblyOriginatorKeyFile=..\..\Spring.Net.snk" if="${project.signassembly}" />
+    </exec>
+  </target>
+
+  <target name="test-assemblies" description="Unit tests given assemblies">
+    <echo message="Unit testing in '${project.buildoutputdir}'" />
+    <foreach item="File" property="filename">
+      <in>
+        <items basedir="${project.buildoutputdir}">
+          <include name="**\*.Tests.dll" />
+        </items>
+      </in>
+      <do>
+        <property name="test.assemblyname" value="${path::get-file-name(filename)}" />
+        <exec program="${tools.dir}\NUnit\bin\net-2.0\nunit-console-x86.exe" workingdir="${project.buildoutputdir}" verbose="true">
+          <arg line="${test.assemblyname}" />
+          <arg value="/xml:${test.assemblyname}-TestResults.xml" />
+          <arg value="/nologo" />
+          <arg value="/noshadow" />
+          <arg value="/framework:${project.framework}" />
+        </exec>
+      </do>
+    </foreach>
+  </target>
+
+  <target name="testcover-assemblies" description="Code coverage given assemblies">
+    <echo message="Coverage Testing in '${project.buildoutputdir}'" />
+    <foreach item="File" property="filename">
+      <in>
+        <items basedir="${project.buildoutputdir}">
+          <include name="**\*.Tests.dll" />
+        </items>
+      </in>
+      <do>
+        <property name="test.assemblyname" value="${path::get-file-name(filename)}" />
+        <property name="src.assemblyname" value="${string::substring(test.assemblyname,0,string::last-index-of(test.assemblyname, '.Tests') )}" />
+        <exec program="${tools.dir}/NCover/ncover.console.exe" workingdir="${project.buildoutputdir}" verbose="true">
+          <arg value="//q" />
+          <arg value="//reg" />
+          <arg value="//w" />
+          <arg path="${project.buildoutputdir}" />
+          <arg value="//x" />
+          <arg path="${project.buildoutputdir}/${test.assemblyname}-TestCoverage.xml" />
+          <arg value="//a" />
+          <arg value="${src.assemblyname}" />
+          <arg value="//ea" />
+          <arg value="CoverageExcludeAttribute" />
+          <arg value="//q" />
+          <arg path="${tools.dir}\NUnit\bin\net-2.0\nunit-console-x86.exe" />
+          <arg line="${test.assemblyname}" />
+          <arg value="/xml:${test.assemblyname}-TestResults.xml" />
+          <arg value="/nologo" />
+          <arg value="/noshadow" />
+          <arg value="/framework:${project.framework}" />
+        </exec>
+      </do>
+    </foreach>
+  </target>
+  
+</project>

@@ -42,7 +42,7 @@
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
@@ -144,14 +144,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Spring.Rest.Tests.dll.config" />
+    <None Include="Spring.Rest.Tests.dll.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>echo "Copying .xml files for tests"
-xcopy "$(ProjectDir)Data" ..\..\..\..\build\VS.Net.2008\Spring.Rest.Tests\$(ConfigurationName)\ /y /s /q /d
-xcopy "$(ProjectDir)$(TargetFileName).config" ..\..\..\..\build\VS.Net.2008\Spring.Rest.Tests\$(ConfigurationName)\ /y /s /q</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

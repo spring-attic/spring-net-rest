@@ -12,12 +12,14 @@ using System.Runtime.InteropServices;
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: CLSCompliantAttribute(true)]
+[assembly: CLSCompliantAttribute(false)]
 [assembly: ComVisibleAttribute(false)]
-[assembly: AssemblyProductAttribute("Spring.NET REST Client API 1.0.0")]
+[assembly: AssemblyProductAttribute("Spring.NET REST Client Framework (Daily build from 2/7/2011) for Windows Phone 7." +
+    "0")]
 [assembly: AssemblyCompanyAttribute("http://www.springframework.net/")]
-[assembly: AssemblyCopyrightAttribute("Copyright 2011 SpringSource")]
+[assembly: AssemblyCopyrightAttribute("Copyright 2004-2011 SpringSource")]
 [assembly: AssemblyTrademarkAttribute("Apache License, Version 2.0")]
 [assembly: AssemblyCultureAttribute("")]
-[assembly: AssemblyVersionAttribute("1.0.0.0")]
-[assembly: AssemblyConfigurationAttribute("net-4.0.win32; dev")]
+[assembly: AssemblyVersionAttribute("1.0.0.402")]
+[assembly: AssemblyConfigurationAttribute("wp-7.0; 1.0.0.402; daily")]
+
