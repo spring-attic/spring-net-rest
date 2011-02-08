@@ -5,7 +5,7 @@
 
   <property name="product.name" value="Spring.NET REST Client Framework" />
   <property name="product.company" value="SpringSource" />
-  <property name="product.copyright" value="Copyright 2004-${datetime::get-year(datetime.now)} ${product.company}" />
+  <property name="product.copyright" value="Copyright ${datetime::get-year(datetime.now)} ${product.company}" />
   <property name="product.url" value="http://www.springframework.net/" />
   <property name="product.description" value="Simplifies communication with HTTP servers, and enforces RESTful principles" />
   
@@ -85,7 +85,7 @@
         <import namespace="System.Runtime.InteropServices" />
       </imports>
       <attributes>
-        <attribute type="CLSCompliantAttribute" value="false" />
+        <attribute type="CLSCompliantAttribute" value="true" />
         <attribute type="ComVisibleAttribute" value="false" />
         <attribute type="AssemblyProductAttribute" value="${product.fullname}" />
         <attribute type="AssemblyCompanyAttribute" value="${product.url}" />
@@ -117,7 +117,7 @@
     <property name="project.buildsolutionfile" value="${root.dir}/Spring.Rest.2008.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
-    <call target="testcover-assemblies"/>
+    <call target="test-assemblies"/>
   </target>
 
   <target name="build-net-4.0">
