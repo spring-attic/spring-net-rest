@@ -64,10 +64,10 @@ namespace Spring.Http.Converters.Feed
         [Test]
         public void Read()
         {
-            DateTime now = DateTime.Now;
+            DateTimeOffset offset = DateTimeOffset.UtcNow;
 
             string body = String.Format("<rss xmlns:a10=\"http://www.w3.org/2005/Atom\" version=\"2.0\"><channel><title>Test Feed</title><link>http://www.springframework.net/Feed</link><description>This is a test feed</description><copyright>Copyright 2010</copyright><managingEditor>bruno.baia@springframework.net</managingEditor><lastBuildDate>{0}</lastBuildDate><a10:id>Atom10FeedHttpMessageConverterTests.Write</a10:id></channel></rss>",
-                now.ToString("ddd, dd MMM yyyy HH:mm:ss zzz", CultureInfo.InvariantCulture).Remove(29, 1));
+                offset.ToString("ddd, dd MMM yyyy HH:mm:ss Z", CultureInfo.InvariantCulture));
 
             MockHttpInputMessage message = new MockHttpInputMessage(body, Encoding.UTF8);
 
@@ -86,12 +86,12 @@ namespace Spring.Http.Converters.Feed
         [Test]
         public void Write()
         {
-            DateTime now = DateTime.Now;
+            DateTimeOffset offset = DateTimeOffset.UtcNow;
 
             string expectedBody = String.Format("<rss xmlns:a10=\"http://www.w3.org/2005/Atom\" version=\"2.0\"><channel><title>Test Feed</title><link>http://www.springframework.net/Feed</link><description>This is a test feed</description><copyright>Copyright 2010</copyright><managingEditor>bruno.baia@springframework.net</managingEditor><lastBuildDate>{0}</lastBuildDate><a10:id>Atom10FeedHttpMessageConverterTests.Write</a10:id></channel></rss>", 
-                now.ToString("ddd, dd MMM yyyy HH:mm:ss zzz", CultureInfo.InvariantCulture).Remove(29, 1));
+                offset.ToString("ddd, dd MMM yyyy HH:mm:ss Z", CultureInfo.InvariantCulture));
             
-            SyndicationFeed body = new SyndicationFeed("Test Feed", "This is a test feed", new Uri("http://www.springframework.net/Feed"), "Atom10FeedHttpMessageConverterTests.Write", now);
+            SyndicationFeed body = new SyndicationFeed("Test Feed", "This is a test feed", new Uri("http://www.springframework.net/Feed"), "Atom10FeedHttpMessageConverterTests.Write", offset);
             SyndicationPerson sp = new SyndicationPerson("bruno.baia@springframework.net", "Bruno Baïa", "http://www.springframework.net/bbaia");
             body.Authors.Add(sp);
             body.Copyright = new TextSyndicationContent("Copyright 2010");
