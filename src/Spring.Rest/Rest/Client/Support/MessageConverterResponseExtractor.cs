@@ -19,10 +19,8 @@
 #endregion
 
 using System;
-using System.Net;
 using System.Collections.Generic;
 
-using Spring.Util;
 using Spring.Http;
 using Spring.Http.Client;
 using Spring.Http.Converters;

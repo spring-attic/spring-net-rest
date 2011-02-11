@@ -1,4 +1,4 @@
-﻿#if NET_3_5 || WINDOWS_PHONE
+﻿#if NET_3_5 || SILVERLIGHT_XML_LINQ || WINDOWS_PHONE
 #region License
 
 /*
@@ -20,7 +20,6 @@
 #endregion
 
 using System;
-using System.Net;
 using System.Xml;
 using System.Xml.Linq;
 

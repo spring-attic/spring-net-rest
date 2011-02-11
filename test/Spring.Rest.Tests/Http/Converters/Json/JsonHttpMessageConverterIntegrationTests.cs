@@ -24,7 +24,6 @@ using System.Net;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Runtime.Serialization;
 
 using Spring.Rest.Client;
 

@@ -1,4 +1,4 @@
-﻿#if NET_3_5 && !SILVERLIGHT
+﻿#if NET_3_5 || SILVERLIGHT_FEED
 #region License
 
 /*
@@ -20,7 +20,6 @@
 #endregion
 
 using System;
-using System.Net;
 using System.Xml;
 using System.ServiceModel.Syndication;
 

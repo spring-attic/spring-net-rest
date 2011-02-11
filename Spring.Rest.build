@@ -177,6 +177,9 @@
         <include name="**\Spring.Rest.dll"/>
         <include name="**\Spring.Rest.pdb"/>
         <include name="**\Spring.Rest.xml"/>
+        <include name="**\Spring.Http.Converters.*.dll"/>
+        <include name="**\Spring.Http.Converters.*.pdb"/>
+        <include name="**\Spring.Http.Converters.*.xml"/>
         <include name="**\Common.Logging.dll"/>
         <include name="**\Common.Logging.xml"/>
       </fileset>

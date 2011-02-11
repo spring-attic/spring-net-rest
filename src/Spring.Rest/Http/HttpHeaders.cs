@@ -20,9 +20,7 @@
 
 using System;
 using System.Globalization;
-using System.Collections.Generic;
 
-using Spring.Util;
 #if SILVERLIGHT
 using Spring.Collections.Specialized;
 #else

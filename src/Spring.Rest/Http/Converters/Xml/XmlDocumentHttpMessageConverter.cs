@@ -21,7 +21,6 @@
 
 using System;
 using System.Xml;
-using System.Net;
 
 namespace Spring.Http.Converters.Xml
 {

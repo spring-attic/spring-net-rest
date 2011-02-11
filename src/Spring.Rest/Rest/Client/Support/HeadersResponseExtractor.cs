@@ -18,8 +18,6 @@
 
 #endregion
 
-using System.Net;
-
 using Spring.Http;
 using Spring.Http.Client;
 

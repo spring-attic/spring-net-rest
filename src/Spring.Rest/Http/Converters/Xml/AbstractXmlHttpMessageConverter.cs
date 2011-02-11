@@ -20,7 +20,6 @@
 
 using System.IO;
 using System.Xml;
-using System.Net;
 using System.Text;
 
 using Spring.Util;

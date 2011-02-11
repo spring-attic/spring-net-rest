@@ -25,14 +25,14 @@
       </xmlpoke>
     </if>
     <if test="${property::exists('product.version')}">
-      <xmlpoke file="${project.basedir}\src\index.xml" xpath="/n:book/n:bookinfo/n:releaseinfo" value="${product.version}" if="${property::exists('product.version')}">
+      <xmlpoke file="${project.basedir}\src\index.xml" xpath="/n:book/n:bookinfo/n:releaseinfo" value="${product.version}">
         <namespaces>
           <namespace prefix="n" uri="http://docbook.org/ns/docbook" />
         </namespaces>
       </xmlpoke>
     </if>
     <if test="${property::exists('product.copyright')}">
-      <xmlpoke file="${project.basedir}\src\index.xml" xpath="/n:book/n:bookinfo/n:copyright" value="${product.copyright}" if="${property::exists('product.copyright')}">
+      <xmlpoke file="${project.basedir}\src\index.xml" xpath="/n:book/n:bookinfo/n:copyright" value="${product.copyright}">
         <namespaces>
           <namespace prefix="n" uri="http://docbook.org/ns/docbook" />
         </namespaces>

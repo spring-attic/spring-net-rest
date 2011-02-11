@@ -238,23 +238,264 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
         <sbr/>Converters for the main mime types are registered by default, but you
         can also write your own converter and register it via the
         <methodname>MessageConverters</methodname> property.
-        <sbr/>The default converter instances registered with the template are
-        <classname>ByteArrayHttpMessageConverter</classname>,
-        <classname>StringHttpMessageConverter</classname>,
-        <classname>FormHttpMessageConverter</classname>,
-        <classname>XmlDocumentHttpMessageConverter</classname>,
-        <classname>DataContractHttpMessageConverter</classname>,
-        <classname>XmlSerializableHttpMessageConverter</classname>,
-        <classname>XElementHttpMessageConverter</classname>,
-        <classname>Rss20FeedHttpMessageConverter</classname>, 
-        <classname>Atom10FeedHttpMessageConverter</classname> and
-        <classname>JsonHttpMessageConverter</classname>.
-        <sbr/>You can override these defaults using the 
-        <methodname>MessageConverters</methodname> property.
       </para>
+
+      <table frame="all">
+        <title>Default HTTP message converters registered with RestTemplate</title>
+        <tgroup cols="7">
+          <tbody>
+            <row>
+              <entry>
+                <emphasis role="bold">Supported MIME types</emphasis>
+              </entry>
+              <entry align="center">
+                <emphasis role="bold">.NET 2.0</emphasis>
+              </entry>
+              <entry align="center">
+                <emphasis role="bold">.NET 3.5</emphasis>
+              </entry>
+              <entry align="center">
+                <emphasis role="bold">.NET 4.0</emphasis>
+              </entry>
+              <entry align="center">
+                <emphasis role="bold">Silverlight 3.0</emphasis>
+              </entry>
+              <entry align="center">
+                <emphasis role="bold">Silverlight 4.0</emphasis>
+              </entry>
+              <entry align="center">
+                <emphasis role="bold">Windows Phone 7.0</emphasis>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-byteconverter">ByteArrayHttpMessageConverter</link>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-stringconverter">StringHttpMessageConverter</link>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-formconverter">FormHttpMessageConverter</link>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-xmldocumentconverter">XmlDocumentHttpMessageConverter</link>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-xmlserializerconverter">XmlSerializableHttpMessageConverter</link>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-datacontractserializerconverter">DataContractHttpMessageConverter</link>
+              </entry>
+              <entry>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-xelementconverter">XElementHttpMessageConverter</link>
+              </entry>
+              <entry>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                (1)
+              </entry>
+              <entry align="center">
+                (1)
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-jsonconverter">JsonHttpMessageConverter</link>
+              </entry>
+              <entry>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-feedconverters-atom10">Atom10FeedHttpMessageConverter</link>
+              </entry>
+              <entry>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                (2)
+              </entry>
+              <entry align="center">
+                (2)
+              </entry>
+              <entry>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <link linkend="http-feedconverters-rss20">Rss20FeedHttpMessageConverter</link>
+              </entry>
+              <entry>
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                <imagedata fileref="images/supported.png" format="PNG" />
+              </entry>
+              <entry align="center">
+                (2)
+              </entry>
+              <entry align="center">
+                (2)
+              </entry>
+              <entry>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+        <para>
+          (1) See <link linkend="http-xelementconverter-silverlight">Silverlight support for XElementHttpMessageConverter</link>
+        </para>
+        <para>
+          (2) See <link linkend="http-feedconverters-silverlight">Silverlight support for feed converters</link>
+        </para>
+      </table>
         
       <para>
-        Here is an example from the HttpMessageConverter quick start : 
+        You can override these defaults using the
+        <methodname>MessageConverters</methodname> property.
+        <sbr/>Here is an example from the HttpMessageConverter quick start :
         <programlisting language="csharp">// Add a new converter to the default list
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://twitter.com");
 template.MessageConverters.Add(new <classname>NJsonHttpMessageConverter</classname>());</programlisting>

@@ -29,8 +29,8 @@
 
   <para>
     Concrete implementations for the main media (mime) types are
-    provided in the framework and are registered by default with the
-    <classname>RestTemplate</classname> on the client-side.
+    provided in the framework and most are <link linkend="resttemplate-messageconverters">registered by default</link> 
+    with the <classname>RestTemplate</classname> on the client-side.
   </para>
 
   <para>
@@ -209,28 +209,11 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     
   </section>
 
-  <section id="http-xmlserializerconverter">
-    <title>XmlSerializableHttpMessageConverter</title>
-
-    <para>
-      Supports all the .NET Framework versions.
-    </para>
-
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation
-      that can read and write XML from .NET classes.
-      <sbr/>The converter uses the <literal>XmlSerializer</literal> .NET Framework class.
-      <sbr/>By default, this converter supports media types 
-      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>, 
-      and <literal>'application/*-xml'</literal>.
-    </para>
-  </section>
-
   <section id="http-xmldocumentconverter">
     <title>XmlDocumentHttpMessageConverter</title>
 
     <para>
-      Supports .NET Framework 2.0, 3.0 and 4.0.
+      Supports .NET Framework 2.0, 3.5 and 4.0.
     </para>
 
     <para>
@@ -241,6 +224,23 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
       and <literal>'application/*-xml'</literal>.
     </para>
     
+  </section>
+
+  <section id="http-xmlserializerconverter">
+    <title>XmlSerializableHttpMessageConverter</title>
+
+    <para>
+      Supports .NET Framework 2.0, 3.5, 4.0 and Windows Phone.
+    </para>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation
+      that can read and write XML from .NET classes.
+      <sbr/>The converter uses the <literal>XmlSerializer</literal> .NET Framework class.
+      <sbr/>By default, this converter supports media types
+      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>,
+      and <literal>'application/*-xml'</literal>.
+    </para>
   </section>
 
   <section id="http-datacontractserializerconverter">
@@ -275,6 +275,31 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
       <literal>'text/xml'</literal>, <literal>'application/xml'</literal>,
       and <literal>'application/*-xml'</literal>.
     </para>
+
+    <section id="http-xelementconverter-silverlight">
+      <title>Silverlight support</title>
+
+      <para>
+        This converter requires a reference to <literal>System.Xml.Linq.dll</literal>
+        which is not part of the runtime intalled with the Silverlight plug-in. 
+        <sbr/>The dll is included with the SDK, and will be packaged into the Xap file downloaded by the client.
+        <sbr/>To optimize weight of the <literal>Spring.Rest.dll</literal> file, <classname>XElementHttpMessageConverter</classname> 
+        is available as an external dll <literal>Spring.Http.Converters.Xml.Linq.dll</literal>.
+      </para>
+
+      <para>
+        Taking as an example the RestSilverlightQuickstart,
+        the XAP file size increases from 29,5Ko to 76,4Kb using Linq to Xml,
+        hence the importance of providing this converter separately.
+      </para>
+      
+      <para>
+        To use this converter with the <classname>RestTemplate</classname>, 
+        you will have to add it to the message converters list : 
+        <programlisting language="csharp">template.MessageConverters.Add(new <classname>XElementHttpMessageConverter</classname>());</programlisting>
+      </para>
+    </section>
+    
   </section>
 
   <section id="http-jsonconverter">
@@ -302,34 +327,64 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     </note>
   </section>
 
-  <section id="http-atom10feedconverter">
-    <title>Atom10FeedHttpMessageConverter</title>
+  <section id="http-feedconverters">
+    <title>Feed converters</title>
+  
+    <section id="http-feedconverters-atom10">
+      <title>Atom10FeedHttpMessageConverter</title>
 
-    <para>
-      Supports .NET Framework 3.5, 4.0 and Silverlight.
-    </para>
+      <para>
+        Supports .NET Framework 3.5, 4.0 and Silverlight (Using Spring.Http.Converters.Feed.dll).
+      </para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation 
-      that can read and write Atom feeds using .NET Framework classes 
-      <literal>SyndicationFeed</literal> and <literal>SyndicationItem</literal>.
-      <sbr/>By default, this converter supports media type <literal>'application/atom+xml'</literal>.
-    </para>
-  </section>
+      <para>
+        An <interfacename>IHttpMessageConverter</interfacename> implementation 
+        that can read and write Atom feeds using .NET Framework classes 
+        <literal>SyndicationFeed</literal> and <literal>SyndicationItem</literal>.
+        <sbr/>By default, this converter supports media type <literal>'application/atom+xml'</literal>.
+      </para>
+    </section>
 
-  <section id="http-rss20feedconverter">
-    <title>Rss20FeedHttpMessageConverter</title>
+    <section id="http-feedconverters-rss20">
+      <title>Rss20FeedHttpMessageConverter</title>
 
-    <para>
-      Supports .NET Framework 3.5, 4.0 and Silverlight.
-    </para>
+      <para>
+        Supports .NET Framework 3.5, 4.0 and Silverlight (Using Spring.Http.Converters.Feed.dll).
+      </para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation
-      that can read and write RSS feeds using .NET Framework classes
-      <literal>SyndicationFeed</literal> and <literal>SyndicationItem</literal>.
-      <sbr/>By default, this converter supports media type <literal>'application/rss+xml'</literal>.
-    </para>
+      <para>
+        An <interfacename>IHttpMessageConverter</interfacename> implementation
+        that can read and write RSS feeds using .NET Framework classes
+        <literal>SyndicationFeed</literal> and <literal>SyndicationItem</literal>.
+        <sbr/>By default, this converter supports media type <literal>'application/rss+xml'</literal>.
+      </para>
+    </section>
+
+    <section id="http-feedconverters-silverlight">
+      <title>Silverlight support</title>
+
+      <para>
+        These converters require a reference to <literal>System.ServiceModel.Syndication.dll</literal>
+        which is not part of the runtime intalled with the Silverlight plug-in.
+        <sbr/>The dll is included with the SDK, and will be packaged into the Xap file downloaded by the client.
+        <sbr/>To optimize weight of the <literal>Spring.Rest.dll</literal> file, feed converters 
+        are available as an external dll <literal>Spring.Http.Converters.Feed.dll</literal>.
+      </para>
+
+      <para>
+        Taking as an example the RestSilverlightQuickstart,
+        the XAP file size increases from 29,5Ko to 189Kb using feeds,
+        hence the importance of providing these converters separately.
+      </para>
+      
+      <para>
+        To use these converters with the <classname>RestTemplate</classname>, 
+        you will have to add them to the message converters list :
+        <programlisting language="csharp">template.MessageConverters.Add(new <classname>Atom10FeedHttpMessageConverter</classname>());
+template.MessageConverters.Add(new <classname>Rss20FeedHttpMessageConverter</classname>());</programlisting>
+      </para>
+    </section>
+    
   </section>
 
 </chapter>

@@ -18,7 +18,6 @@
 
 #endregion
 
-using System.Net;
 using System.Collections.Generic;
 
 using Spring.Http;

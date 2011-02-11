@@ -19,7 +19,6 @@
 #endregion
 
 using System;
-using System.IO;
 
 namespace Spring.Http.Client
 {
