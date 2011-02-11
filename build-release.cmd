@@ -1,5 +1,5 @@
 @echo off
 @echo Running full Build Script, capturing output to buildlog.txt file...
-tools\NAnt\bin\nant.exe release -f:Spring.Rest.build > buildlog.txt
+tools\NAnt\bin\nant.exe release -f:Spring.Rest.build -D:project.sign=true > buildlog.txt
 @echo Launching text file viewer to display buildlog.txt contents...
 start "ignored but required placeholder window title argument" buildlog.txt
