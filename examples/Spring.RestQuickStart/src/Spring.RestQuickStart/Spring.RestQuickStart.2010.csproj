@@ -51,6 +51,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Spring.Rest, Version=1.0.0.42, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\bin\net\4.0\Debug\Spring.Rest.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.XML" />
@@ -60,12 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\Spring.Rest\Spring.Rest.2010.csproj">
-      <Project>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Project>
-      <Name>Spring.Rest.2010</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

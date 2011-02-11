@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\net\3.5\Newtonsoft.Json.Net35.dll</HintPath>
     </Reference>
+    <Reference Include="Spring.Rest, Version=1.0.0.42, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\bin\net\3.5\Debug\Spring.Rest.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -43,12 +47,6 @@
   <ItemGroup>
     <Compile Include="Converters\NJsonHttpMessageConverter.cs" />
     <Compile Include="Program.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\Spring.Rest\Spring.Rest.2008.csproj">
-      <Project>{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}</Project>
-      <Name>Spring.Rest.2008</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.HttpMessageConverterQuickStart.2008", "src\Spring.HttpMessageConverterQuickStart\Spring.HttpMessageConverterQuickStart.2008.csproj", "{FAD4F098-21BF-4FDC-85CE-7DB6A27D6179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2008", "..\..\src\Spring.Rest\Spring.Rest.2008.csproj", "{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Tests.2008", "..\..\test\Spring.Rest.Tests\Spring.Rest.Tests.2008.csproj", "{F04CEE18-3897-A399-46BF-459437475B21}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,14 +13,6 @@ Global
 		{FAD4F098-21BF-4FDC-85CE-7DB6A27D6179}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAD4F098-21BF-4FDC-85CE-7DB6A27D6179}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAD4F098-21BF-4FDC-85CE-7DB6A27D6179}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F04CEE18-3897-A399-46BF-459437475B21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F04CEE18-3897-A399-46BF-459437475B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F04CEE18-3897-A399-46BF-459437475B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F04CEE18-3897-A399-46BF-459437475B21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
