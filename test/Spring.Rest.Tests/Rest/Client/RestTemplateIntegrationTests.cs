@@ -430,7 +430,7 @@ namespace Spring.Rest.Client
             ManualResetEvent manualEvent = new ManualResetEvent(false);
             Exception exception = null;
 
-            template.ExecuteAsync<object>("clienterror", HttpMethod.GET, null, null, 
+            template.ExecuteAsync("clienterror", HttpMethod.GET, null, null, 
                 delegate(RestOperationCompletedEventArgs<object> args)
                 {
                     try
@@ -465,7 +465,7 @@ namespace Spring.Rest.Client
             ManualResetEvent manualEvent = new ManualResetEvent(false);
             Exception exception = null;
 
-            template.ExecuteAsync<object>("servererror", HttpMethod.GET, null, null,
+            template.ExecuteAsync("servererror", HttpMethod.GET, null, null,
                 delegate(RestOperationCompletedEventArgs<object> args)
                 {
                     try

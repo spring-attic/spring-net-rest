@@ -195,11 +195,13 @@
     <Compile Include="Rest\Client\RestClientException.cs" />
     <Compile Include="Rest\Client\RestTemplate.cs" />
     <Compile Include="Rest\Client\Support\AcceptHeaderRequestCallback.cs" />
+    <Compile Include="Rest\Client\Support\AllowHeaderResponseExtractor.cs" />
     <Compile Include="Rest\Client\Support\DefaultResponseErrorHandler.cs" />
     <Compile Include="Rest\Client\Support\HeadersResponseExtractor.cs" />
     <Compile Include="Rest\Client\Support\HttpEntityRequestCallback.cs" />
     <Compile Include="Rest\Client\Support\HttpMessageResponseExtractor.cs" />
     <Compile Include="Rest\Client\Support\HttpMessageResponseExtractor`1.cs" />
+    <Compile Include="Rest\Client\Support\LocationHeaderResponseExtractor.cs" />
     <Compile Include="Rest\Client\Support\MessageConverterResponseExtractor.cs" />
     <Compile Include="Util\AssertUtils.cs" />
     <Compile Include="Util\IoUtils.cs" />

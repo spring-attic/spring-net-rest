@@ -125,9 +125,6 @@ namespace Spring.Rest.Client
         private IClientHttpRequestFactory _requestFactory;
         private IResponseErrorHandler _errorHandler;
 
-        private IResponseExtractor<HttpHeaders> headersExtractor;
-
-
         /// <summary>
         /// Gets or sets the base URL for the request.
         /// </summary>
@@ -211,8 +208,6 @@ namespace Spring.Rest.Client
         /// </summary>
         public RestTemplate()
         {
-            this.headersExtractor = new HeadersResponseExtractor();
-
             this._requestFactory = new WebClientHttpRequestFactory();
             this._errorHandler = new DefaultResponseErrorHandler();
 
@@ -363,7 +358,8 @@ namespace Spring.Rest.Client
         /// <returns>All HTTP headers of that resource</returns>
         public HttpHeaders HeadForHeaders(string url, params object[] uriVariables)
         {
-            return this.Execute<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, uriVariables);
+            HeadersResponseExtractor responseExtractor = new HeadersResponseExtractor();
+            return this.Execute<HttpHeaders>(url, HttpMethod.HEAD, null, responseExtractor, uriVariables);
         }
 
         /// <summary>
@@ -377,7 +373,8 @@ namespace Spring.Rest.Client
         /// <returns>All HTTP headers of that resource</returns>
         public HttpHeaders HeadForHeaders(string url, IDictionary<string, object> uriVariables)
         {
-            return this.Execute<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, uriVariables);
+            HeadersResponseExtractor responseExtractor = new HeadersResponseExtractor();
+            return this.Execute<HttpHeaders>(url, HttpMethod.HEAD, null, responseExtractor, uriVariables);
         }
 
         /// <summary>
@@ -387,7 +384,8 @@ namespace Spring.Rest.Client
         /// <returns>All HTTP headers of that resource</returns>
         public HttpHeaders HeadForHeaders(Uri url)
         {
-            return this.Execute<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor);
+            HeadersResponseExtractor responseExtractor = new HeadersResponseExtractor();
+            return this.Execute<HttpHeaders>(url, HttpMethod.HEAD, null, responseExtractor);
         }
 
         #endregion
@@ -413,9 +411,8 @@ namespace Spring.Rest.Client
         public Uri PostForLocation(string url, object request, params object[] uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            HttpHeaders headers = this.Execute<HttpHeaders>(
-                url, HttpMethod.POST, requestCallback, this.headersExtractor, uriVariables);
-            return headers.Location;
+            LocationHeaderResponseExtractor responseExtractor = new LocationHeaderResponseExtractor();
+            return this.Execute<Uri>(url, HttpMethod.POST, requestCallback, responseExtractor, uriVariables);
         }
 
         /// <summary>
@@ -437,9 +434,8 @@ namespace Spring.Rest.Client
         public Uri PostForLocation(string url, object request, IDictionary<string, object> uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            HttpHeaders headers = this.Execute<HttpHeaders>(
-                url, HttpMethod.POST, requestCallback, this.headersExtractor, uriVariables);
-            return headers.Location;
+            LocationHeaderResponseExtractor responseExtractor = new LocationHeaderResponseExtractor();
+            return this.Execute<Uri>(url, HttpMethod.POST, requestCallback, responseExtractor, uriVariables);
         }
 
         /// <summary>
@@ -455,9 +451,8 @@ namespace Spring.Rest.Client
         public Uri PostForLocation(Uri url, object request)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            HttpHeaders headers = this.Execute<HttpHeaders>(
-                url, HttpMethod.POST, requestCallback, this.headersExtractor);
-            return headers.Location;
+            LocationHeaderResponseExtractor responseExtractor = new LocationHeaderResponseExtractor();
+            return this.Execute<Uri>(url, HttpMethod.POST, requestCallback, responseExtractor);
         }
 
         /// <summary>
@@ -755,9 +750,8 @@ namespace Spring.Rest.Client
         /// <returns>The value of the allow header.</returns>
         public IList<HttpMethod> OptionsForAllow(string url, params object[] uriVariables)
         {
-            HttpHeaders headers = this.Execute<HttpHeaders>(
-                url, HttpMethod.OPTIONS, null, this.headersExtractor, uriVariables);
-            return new List<HttpMethod>(headers.Allow);
+            AllowHeaderResponseExtractor responseExtractor = new AllowHeaderResponseExtractor();
+            return this.Execute<IList<HttpMethod>>(url, HttpMethod.OPTIONS, null, responseExtractor, uriVariables);
         }
 
         /// <summary>
@@ -771,9 +765,8 @@ namespace Spring.Rest.Client
         /// <returns>The value of the allow header.</returns>
         public IList<HttpMethod> OptionsForAllow(string url, IDictionary<string, object> uriVariables)
         {
-            HttpHeaders headers = this.Execute<HttpHeaders>(
-                url, HttpMethod.OPTIONS, null, this.headersExtractor, uriVariables);
-            return new List<HttpMethod>(headers.Allow);
+            AllowHeaderResponseExtractor responseExtractor = new AllowHeaderResponseExtractor();
+            return this.Execute<IList<HttpMethod>>(url, HttpMethod.OPTIONS, null, responseExtractor, uriVariables);
         }
 
         /// <summary>
@@ -783,9 +776,8 @@ namespace Spring.Rest.Client
         /// <returns>The value of the allow header.</returns>
         public IList<HttpMethod> OptionsForAllow(Uri url)
         {
-            HttpHeaders headers = this.Execute<HttpHeaders>(
-                url, HttpMethod.OPTIONS, null, this.headersExtractor);
-            return new List<HttpMethod>(headers.Allow);
+            AllowHeaderResponseExtractor responseExtractor = new AllowHeaderResponseExtractor();
+            return this.Execute<IList<HttpMethod>>(url, HttpMethod.OPTIONS, null, responseExtractor);
         }
 
         #endregion
@@ -1130,7 +1122,8 @@ namespace Spring.Rest.Client
         /// </returns>
         public RestOperationCanceler HeadForHeadersAsync(string url, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted, params object[] uriVariables)
         {
-            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, headCompleted, uriVariables);
+            HeadersResponseExtractor responseExtractor = new HeadersResponseExtractor();
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, responseExtractor, headCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1149,7 +1142,8 @@ namespace Spring.Rest.Client
         /// </returns>
         public RestOperationCanceler HeadForHeadersAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted)
         {
-            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, uriVariables, headCompleted);
+            HeadersResponseExtractor responseExtractor = new HeadersResponseExtractor();
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, responseExtractor, headCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1164,7 +1158,8 @@ namespace Spring.Rest.Client
         /// </returns>
         public RestOperationCanceler HeadForHeadersAsync(Uri url, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted)
         {
-            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, this.headersExtractor, headCompleted);
+            HeadersResponseExtractor responseExtractor = new HeadersResponseExtractor();
+            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.HEAD, null, responseExtractor, headCompleted);
         }
 
         #endregion
@@ -1192,15 +1187,11 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        public RestOperationCanceler PostForLocationAsync(string url, object request, Action<Uri> postCompleted, params object[] uriVariables)
+        public RestOperationCanceler PostForLocationAsync(string url, object request, Action<RestOperationCompletedEventArgs<Uri>> postCompleted, params object[] uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.POST, requestCallback, this.headersExtractor, 
-                delegate (RestOperationCompletedEventArgs<HttpHeaders> args) 
-                {
-                    postCompleted(args.Response.Location);
-                }, 
-                uriVariables);
+            LocationHeaderResponseExtractor responseExtractor = new LocationHeaderResponseExtractor();
+            return this.ExecuteAsync<Uri>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1224,14 +1215,11 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        public RestOperationCanceler PostForLocationAsync(string url, object request, IDictionary<string, object> uriVariables, Action<Uri> postCompleted)
+        public RestOperationCanceler PostForLocationAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<Uri>> postCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.POST, requestCallback, this.headersExtractor, uriVariables,
-                delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
-                {
-                    postCompleted(args.Response.Location);
-                });
+            LocationHeaderResponseExtractor responseExtractor = new LocationHeaderResponseExtractor();
+            return this.ExecuteAsync<Uri>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1249,14 +1237,11 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        public RestOperationCanceler PostForLocationAsync(Uri url, object request, Action<Uri> postCompleted)
+        public RestOperationCanceler PostForLocationAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<Uri>> postCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.POST, requestCallback, this.headersExtractor,
-                delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
-                {
-                    postCompleted(args.Response.Location);
-                });
+            LocationHeaderResponseExtractor responseExtractor = new LocationHeaderResponseExtractor();
+            return this.ExecuteAsync<Uri>(url, HttpMethod.POST, requestCallback, responseExtractor, postCompleted);
         }
 
         /// <summary>
@@ -1516,7 +1501,7 @@ namespace Spring.Rest.Client
         public RestOperationCanceler PutAsync(string url, object request, Action<RestOperationCompletedEventArgs<object>> putCompleted, params object[] uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            return this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, putCompleted, uriVariables);
+            return this.ExecuteAsync(url, HttpMethod.PUT, requestCallback, null, putCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1541,7 +1526,7 @@ namespace Spring.Rest.Client
         public RestOperationCanceler PutAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<object>> putCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            return this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, uriVariables, putCompleted);
+            return this.ExecuteAsync(url, HttpMethod.PUT, requestCallback, null, uriVariables, putCompleted);
         }
 
         /// <summary>
@@ -1560,7 +1545,7 @@ namespace Spring.Rest.Client
         public RestOperationCanceler PutAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<object>> putCompleted)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
-            return this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, putCompleted);
+            return this.ExecuteAsync(url, HttpMethod.PUT, requestCallback, null, putCompleted);
         }
 
         #endregion
@@ -1583,7 +1568,7 @@ namespace Spring.Rest.Client
         /// </returns>
         public RestOperationCanceler DeleteAsync(string url, Action<RestOperationCompletedEventArgs<object>> deleteCompleted, params object[] uriVariables)
         {
-            return this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, deleteCompleted, uriVariables);
+            return this.ExecuteAsync(url, HttpMethod.DELETE, null, null, deleteCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1602,7 +1587,7 @@ namespace Spring.Rest.Client
         /// </returns>
         public RestOperationCanceler DeleteAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<object>> deleteCompleted)
         {
-            return this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, uriVariables, deleteCompleted);
+            return this.ExecuteAsync(url, HttpMethod.DELETE, null, null, uriVariables, deleteCompleted);
         }
 
         /// <summary>
@@ -1617,7 +1602,7 @@ namespace Spring.Rest.Client
         /// </returns>
         public RestOperationCanceler DeleteAsync(Uri url, Action<RestOperationCompletedEventArgs<object>> deleteCompleted)
         {
-            return this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, deleteCompleted);
+            return this.ExecuteAsync(url, HttpMethod.DELETE, null, null, deleteCompleted);
         }
 
         #endregion
@@ -1638,14 +1623,10 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        public RestOperationCanceler OptionsForAllowAsync(string url, Action<IList<HttpMethod>> optionsCompleted, params object[] uriVariables)
+        public RestOperationCanceler OptionsForAllowAsync(string url, Action<RestOperationCompletedEventArgs<IList<HttpMethod>>> optionsCompleted, params object[] uriVariables)
         {
-            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.OPTIONS, null, this.headersExtractor, 
-                delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
-                {
-                    optionsCompleted(args.Response.Allow);
-                },
-                uriVariables);
+            AllowHeaderResponseExtractor responseExtractor = new AllowHeaderResponseExtractor();
+            return this.ExecuteAsync<IList<HttpMethod>>(url, HttpMethod.OPTIONS, null, responseExtractor, optionsCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1662,13 +1643,10 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        public RestOperationCanceler OptionsForAllowAsync(string url, IDictionary<string, object> uriVariables, Action<IList<HttpMethod>> optionsCompleted)
+        public RestOperationCanceler OptionsForAllowAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<IList<HttpMethod>>> optionsCompleted)
         {
-            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.OPTIONS, null, this.headersExtractor, uriVariables,
-                delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
-                {
-                    optionsCompleted(args.Response.Allow);
-                });
+            AllowHeaderResponseExtractor responseExtractor = new AllowHeaderResponseExtractor();
+            return this.ExecuteAsync<IList<HttpMethod>>(url, HttpMethod.OPTIONS, null, responseExtractor, optionsCompleted, uriVariables);
         }
 
         /// <summary>
@@ -1681,13 +1659,10 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        public RestOperationCanceler OptionsForAllowAsync(Uri url, Action<IList<HttpMethod>> optionsCompleted)
+        public RestOperationCanceler OptionsForAllowAsync(Uri url, Action<RestOperationCompletedEventArgs<IList<HttpMethod>>> optionsCompleted)
         {
-            return this.ExecuteAsync<HttpHeaders>(url, HttpMethod.OPTIONS, null, this.headersExtractor,
-                delegate(RestOperationCompletedEventArgs<HttpHeaders> args) 
-                {
-                    optionsCompleted(args.Response.Allow);
-                });
+            AllowHeaderResponseExtractor responseExtractor = new AllowHeaderResponseExtractor();
+            return this.ExecuteAsync<IList<HttpMethod>>(url, HttpMethod.OPTIONS, null, responseExtractor, optionsCompleted);
         }
 
         #endregion

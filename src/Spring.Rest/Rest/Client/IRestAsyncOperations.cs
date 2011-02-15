@@ -211,7 +211,7 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        RestOperationCanceler PostForLocationAsync(string url, object request, Action<Uri> postCompleted, params object[] uriVariables);
+        RestOperationCanceler PostForLocationAsync(string url, object request, Action<RestOperationCompletedEventArgs<Uri>> postCompleted, params object[] uriVariables);
 
         /// <summary>
         /// Asynchronously create a new resource by POSTing the given object to the URI template, 
@@ -234,7 +234,7 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        RestOperationCanceler PostForLocationAsync(string url, object request, IDictionary<string, object> uriVariables, Action<Uri> postCompleted);
+        RestOperationCanceler PostForLocationAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<Uri>> postCompleted);
 
         /// <summary>
         /// Asynchronously create a new resource by POSTing the given object to the URI template, 
@@ -251,7 +251,7 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        RestOperationCanceler PostForLocationAsync(Uri url, object request, Action<Uri> postCompleted);
+        RestOperationCanceler PostForLocationAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<Uri>> postCompleted);
 
         /// <summary>
         /// Asynchronously create a new resource by POSTing the given object to the URI template, 
@@ -566,7 +566,7 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        RestOperationCanceler OptionsForAllowAsync(string url, Action<IList<HttpMethod>> optionsCompleted, params object[] uriVariables);
+        RestOperationCanceler OptionsForAllowAsync(string url, Action<RestOperationCompletedEventArgs<IList<HttpMethod>>> optionsCompleted, params object[] uriVariables);
 
         /// <summary>
         /// Asynchronously return the value of the Allow header for the given URI.
@@ -582,7 +582,7 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        RestOperationCanceler OptionsForAllowAsync(string url, IDictionary<string, object> uriVariables, Action<IList<HttpMethod>> optionsCompleted);
+        RestOperationCanceler OptionsForAllowAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<IList<HttpMethod>>> optionsCompleted);
 
         /// <summary>
         /// Asynchronously return the value of the Allow header for the given URI.
@@ -594,7 +594,7 @@ namespace Spring.Rest.Client
         /// <returns>
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
         /// </returns>
-        RestOperationCanceler OptionsForAllowAsync(Uri url, Action<IList<HttpMethod>> optionsCompleted);
+        RestOperationCanceler OptionsForAllowAsync(Uri url, Action<RestOperationCompletedEventArgs<IList<HttpMethod>>> optionsCompleted);
 
         #endregion
 
