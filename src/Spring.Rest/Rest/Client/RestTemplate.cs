@@ -219,20 +219,12 @@ namespace Spring.Rest.Client
 #if !SILVERLIGHT
             this._messageConverters.Add(new XmlDocumentHttpMessageConverter());
 #endif
-#if NET_3_0 || SILVERLIGHT
-            this._messageConverters.Add(new DataContractHttpMessageConverter());
-#else // NET_2_0 only
-            this._messageConverters.Add(new XmlSerializableHttpMessageConverter());
-#endif
 #if NET_3_5 || WINDOWS_PHONE
             this._messageConverters.Add(new XElementHttpMessageConverter());
 #if NET_3_5
             this._messageConverters.Add(new Rss20FeedHttpMessageConverter());
             this._messageConverters.Add(new Atom10FeedHttpMessageConverter());
 #endif
-#endif
-#if NET_3_5 || SILVERLIGHT
-            this._messageConverters.Add(new JsonHttpMessageConverter());            
 #endif
         }
 

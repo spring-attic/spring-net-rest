@@ -24,6 +24,7 @@ using System.IO;
 using System.Xml;
 using System.Text;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
 using Spring.Util;
@@ -46,6 +47,7 @@ namespace Spring.Http.Converters.Json
         public static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
 
         private IEnumerable<Type> _knownTypes;
+        private bool _requiresAttribute;
 
         /// <summary>
         /// Gets or sets types that may be present in the object graph.
@@ -54,6 +56,16 @@ namespace Spring.Http.Converters.Json
         {
             get { return _knownTypes; }
             set { _knownTypes = value; }
+        }
+
+        /// <summary>
+        /// Indicates whether this converter supports only classes decorated with 
+        /// <see cref="DataContractAttribute"/> and <see cref="CollectionDataContractAttribute"/>. 
+        /// Default value is <c>false</c>.
+        /// </summary>
+        public bool RequiresAttribute
+        {
+            get { return _requiresAttribute; }
         }
 
         /// <summary>
@@ -66,17 +78,34 @@ namespace Spring.Http.Converters.Json
         }
 
         /// <summary>
+        /// Creates a new instance of the <see cref="JsonHttpMessageConverter"/> 
+        /// with the media type 'application/json'. 
+        /// </summary>
+        /// <param name="requiresAttribute">
+        /// If <c>true</c>, supports only classes decorated with 
+        /// <see cref="DataContractAttribute"/> and <see cref="CollectionDataContractAttribute"/>. 
+        /// </param>
+        public JsonHttpMessageConverter(bool requiresAttribute) :
+            base(new MediaType("application", "json"))
+        {
+            this._requiresAttribute = requiresAttribute;
+        }
+
+        /// <summary>
         /// Indicates whether the given class is supported by this converter.
         /// </summary>
         /// <param name="type">The type to test for support.</param>
         /// <returns><see langword="true"/> if supported; otherwise <see langword="false"/></returns>
         protected override bool Supports(Type type)
         {
+            if (this._requiresAttribute)
+            {
+                return (
+                    Attribute.GetCustomAttributes(type, typeof(DataContractAttribute), true).Length > 0 ||
+                    Attribute.GetCustomAttributes(type, typeof(CollectionDataContractAttribute), true).Length > 0
+                    );
+            }
             return true;
-            //return (
-            //    Attribute.GetCustomAttributes(type, typeof(DataContractAttribute), true).Length > 0 ||
-            //    Attribute.GetCustomAttributes(type, typeof(CollectionDataContractAttribute), true).Length > 0
-            //    );
         }
 
         /// <summary>

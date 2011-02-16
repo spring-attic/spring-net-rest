@@ -35,15 +35,12 @@ namespace Spring.Http.Converters.Xml
     /// By default, this converter supports 'text/xml', 'application/xml', and 'application/*-xml' media types. 
     /// This can be overridden by setting the <see cref="P:SupportedMediaTypes"/> property.
     /// </para>
-    /// <para>
-    /// This converter can read classes annotated with <see cref="DataContractAttribute"/> and <see cref="CollectionDataContractAttribute"/>, and write classes 
-    /// annotated with with {@link XmlRootElement}, or subclasses thereof.
-    /// </para>
     /// </remarks>
     /// <author>Bruno Baia</author>
     public class DataContractHttpMessageConverter : AbstractXmlHttpMessageConverter
     {
         private IEnumerable<Type> _knownTypes;
+        private bool _requiresAttribute;
 
         /// <summary>
         /// Gets or sets types that may be present in the object graph.
@@ -52,6 +49,16 @@ namespace Spring.Http.Converters.Xml
         {
             get { return _knownTypes; }
             set { _knownTypes = value; }
+        }
+
+        /// <summary>
+        /// Indicates whether this converter supports only classes decorated with 
+        /// <see cref="DataContractAttribute"/> and <see cref="CollectionDataContractAttribute"/>. 
+        /// Default value is <c>false</c>.
+        /// </summary>
+        public bool RequiresAttribute
+        {
+            get { return _requiresAttribute; }
         }
 
         /// <summary>
@@ -64,17 +71,34 @@ namespace Spring.Http.Converters.Xml
         }
 
         /// <summary>
+        /// Creates a new instance of the <see cref="DataContractHttpMessageConverter"/> 
+        /// with 'text/xml', 'application/xml', and 'application/*-xml' media types.
+        /// </summary>
+        /// <param name="requiresAttribute">
+        /// If <c>true</c>, supports only classes decorated with 
+        /// <see cref="DataContractAttribute"/> and <see cref="CollectionDataContractAttribute"/>. 
+        /// </param>
+        public DataContractHttpMessageConverter(bool requiresAttribute) :
+            base()
+        {
+            this._requiresAttribute = requiresAttribute;
+        }
+
+        /// <summary>
         /// Indicates whether the given class is supported by this converter.
         /// </summary>
         /// <param name="type">The type to test for support.</param>
         /// <returns><see langword="true"/> if supported; otherwise <see langword="false"/></returns>
         protected override bool Supports(Type type)
         {
+            if (this._requiresAttribute)
+            {
+                return (
+                    Attribute.GetCustomAttributes(type, typeof(DataContractAttribute), true).Length > 0 ||
+                    Attribute.GetCustomAttributes(type, typeof(CollectionDataContractAttribute), true).Length > 0
+                    );
+            }
             return true;
-            //return (
-            //    Attribute.GetCustomAttributes(type, typeof(DataContractAttribute), true).Length > 0 ||
-            //    Attribute.GetCustomAttributes(type, typeof(CollectionDataContractAttribute), true).Length > 0
-            //    );
         }
 
         /// <summary>
