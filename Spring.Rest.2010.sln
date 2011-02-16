@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2010", "src\Spr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Tests.2010", "test\Spring.Rest.Tests\Spring.Rest.Tests.2010.csproj", "{4594CEE7-3897-A3BF-9946-5B4374F01821}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2010", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2010.csproj", "{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +20,10 @@ Global
 		{4594CEE7-3897-A3BF-9946-5B4374F01821}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4594CEE7-3897-A3BF-9946-5B4374F01821}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4594CEE7-3897-A3BF-9946-5B4374F01821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

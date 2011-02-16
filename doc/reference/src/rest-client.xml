@@ -248,7 +248,7 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
         <sbr/>You can override these defaults using the <methodname>MessageConverters</methodname> 
         property as would be required if using the 
         <classname>XmlSerializableHttpMessageConverter</classname>/<classname>DataContractHttpMessageConverter</classname> 
-        or <classname>JsonHttpMessageConverter</classname>.
+        or <classname>JsonHttpMessageConverter</classname>/<classname>NJsonHttpMessageConverter</classname>.
         <sbr/>For example : 
         <programlisting language="csharp">// Add a new converter to the default list
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://twitter.com");

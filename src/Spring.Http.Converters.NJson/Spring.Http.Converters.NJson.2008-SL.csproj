@@ -4,12 +4,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B5155A9B-CEC7-127C-3E8B-55F0A26B858D}</ProjectGuid>
+    <ProjectGuid>{45A9B51B-BAC7-14AC-AE2B-2655F0AB856D}</ProjectGuid>
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spring</RootNamespace>
-    <AssemblyName>Spring.Http.Converters.Xml.Linq</AssemblyName>
+    <AssemblyName>Spring.Http.Converters.NJson</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
@@ -20,32 +20,30 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\VS.Net.2008-SL\Spring.Rest\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;SILVERLIGHT_3;SILVERLIGHT_XML_LINQ</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;SILVERLIGHT_3</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>Spring.Http.Converters.Xml.Linq.xml</DocumentationFile>
+    <DocumentationFile>Spring.Http.Converters.NJson.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\VS.Net.2008-SL\Spring.Rest\Release\</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT;SILVERLIGHT_3;SILVERLIGHT_XML_LINQ</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT;SILVERLIGHT_3</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>Spring.Http.Converters.Xml.Linq.xml</DocumentationFile>
+    <DocumentationFile>Spring.Http.Converters.NJson.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Spring.Rest\Http\Converters\Xml\XElementHttpMessageConverter.cs">
-      <Link>Http\Converters\Xml\XElementHttpMessageConverter.cs</Link>
-    </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Http\Converters\Json\NJsonHttpMessageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spring.Rest\Spring.Rest.2008-SL.csproj">
@@ -55,10 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json.Silverlight, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <HintPath>..\..\lib\sl\3.0\Newtonsoft.Json.Silverlight.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" />

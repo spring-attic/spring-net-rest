@@ -24,7 +24,7 @@
   <property name="product.fullname" value="${product.name} ${product.version} (${product.releasetype})" if="${(product.releasetype != '')}" />
 
   <property name="project.buildnumber" value="${math::abs(math::floor(timespan::get-total-days(datetime::now() - datetime::parse('01/01/2011'))))}" />
-  <property name="project.version" value="${product.version}.${project.buildnumber}" overwrite="false" />
+  <property name="project.version" value="${product.version}.${project.buildnumber}" />
   <property name="project.buildtype" value="dev" />
   <property name="project.sign" value="false" overwrite="false" />
   
@@ -36,7 +36,7 @@
   <property name="msbuild.exe" value="${net40.install.dir}\msbuild.exe" />
 
   <!-- MAIN TARGETS -->
-
+ 
   <target name="clean">
     <delete dir="${build.dir}" />
     <delete dir="${bin.dir}" />
@@ -108,6 +108,7 @@
     <echo message="Building for .NET 2.0 with '${project.buildconfiguration}' configuration" />
     <property name="product.fullname" value="${product.fullname.temp} for .NET 2.0" />
     <property name="project.framework" value="net-2.0"/>
+    <property name="project.version" value="${product.version}.${project.buildnumber}20" />
     <property name="project.buildoutputdir" value="${bin.dir}\net\2.0\${project.buildconfiguration}" />
     <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2005.sln" />
     <call target="update-common-assemblyinfo" />
@@ -119,6 +120,7 @@
     <echo message="Building for .NET 3.5 with '${project.buildconfiguration}' configuration" />
     <property name="product.fullname" value="${product.fullname.temp} for .NET 3.5" />
     <property name="project.framework" value="net-3.5"/>
+    <property name="project.version" value="${product.version}.${project.buildnumber}35" />
     <property name="project.buildoutputdir" value="${bin.dir}\net\3.5\${project.buildconfiguration}" />
     <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2008.sln" />
     <call target="update-common-assemblyinfo" />
@@ -130,6 +132,7 @@
     <echo message="Building for .NET 4.0 with '${project.buildconfiguration}' configuration" />
     <property name="product.fullname" value="${product.fullname.temp} for .NET 4.0" />
     <property name="project.framework" value="net-4.0"/>
+    <property name="project.version" value="${product.version}.${project.buildnumber}40" />
     <property name="project.buildoutputdir" value="${bin.dir}\net\4.0\${project.buildconfiguration}" />
     <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010.sln" />
     <call target="update-common-assemblyinfo" />
@@ -141,6 +144,7 @@
     <echo message="Building for Silverlight 3.0 with '${project.buildconfiguration}' configuration" />
     <property name="product.fullname" value="${product.fullname.temp} for Silverlight 3.0" />
     <property name="project.framework" value="sl-3.0"/>
+    <property name="project.version" value="${product.version}.${project.buildnumber}30" />
     <property name="project.buildoutputdir" value="${bin.dir}\sl\3.0\${project.buildconfiguration}" />
     <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2008-SL.sln" />
     <call target="update-common-assemblyinfo" />
@@ -152,6 +156,7 @@
     <echo message="Building for Silverlight 4.0 with '${project.buildconfiguration}' configuration" />
     <property name="product.fullname" value="${product.fullname.temp} for Silverlight 4.0" />
     <property name="project.framework" value="sl-4.0"/>
+    <property name="project.version" value="${product.version}.${project.buildnumber}40" />
     <property name="project.buildoutputdir" value="${bin.dir}\sl\4.0\${project.buildconfiguration}" />
     <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-SL.sln" />
     <call target="update-common-assemblyinfo" />
@@ -163,6 +168,7 @@
     <echo message="Building for Windows Phone 7.0 with '${project.buildconfiguration}' configuration" />
     <property name="product.fullname" value="${product.fullname.temp} for Windows Phone 7.0" />
     <property name="project.framework" value="wp-7.0"/>
+    <property name="project.version" value="${product.version}.${project.buildnumber}70" />
     <property name="project.buildoutputdir" value="${bin.dir}\wp\7.0\${project.buildconfiguration}" />
     <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-WP.sln" />
     <call target="update-common-assemblyinfo" />
@@ -186,6 +192,9 @@
         <include name="**\Spring.Http.Converters.*.dll"/>
         <include name="**\Spring.Http.Converters.*.pdb"/>
         <include name="**\Spring.Http.Converters.*.xml"/>
+        <include name="**\Newtonsoft.Json*.dll"/>
+        <include name="**\Newtonsoft.Json*.pdb"/>
+        <include name="**\Newtonsoft.Json*.xml"/>
         <include name="**\Common.Logging.dll"/>
         <include name="**\Common.Logging.xml"/>
       </fileset>

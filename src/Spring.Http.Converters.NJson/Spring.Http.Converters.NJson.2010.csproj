@@ -4,14 +4,14 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4594CEE7-3897-A3BF-9946-5B4374F01821}</ProjectGuid>
+    <ProjectGuid>{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Spring.Rest.Tests</AssemblyName>
+    <AssemblyName>Spring.Http.Converters.NJson</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -23,6 +23,7 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
+    <SignAssembly>false</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -46,15 +47,14 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2010\Spring.Rest.Tests\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010\Spring.Rest\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE;DEBUG;NET_2_0;NET_3_0;NET_3_5;NET_4_0</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>Spring.Http.Converters.NJson.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -67,19 +67,17 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2010\Spring.Rest.Tests\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010\Spring.Rest\Release\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE;NET_2_0;NET_3_0;NET_3_5;NET_4_0</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
-    <DebugSymbols>false</DebugSymbols>
+    <DocumentationFile>Spring.Http.Converters.NJson.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
     <NoWarn>
@@ -89,83 +87,28 @@
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging">
-      <HintPath>..\..\lib\net\2.0\Common.Logging.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\lib\net\4.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.5.4.10098, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\net\2.0\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\lib\net\2.0\Rhino.Mocks.dll</HintPath>
-    </Reference>
-    <Reference Include="System">
-      <Name>System</Name>
-    </Reference>
-    <Reference Include="System.Core" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs">
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Http\Client\AbstractClientHttpRequestFactoryIntegrationTests.cs" />
-    <Compile Include="Http\Client\WebClientHttpRequestFactoryIntegrationTests.cs" />
-    <Compile Include="Http\Converters\ByteArrayHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\Feed\Atom10FeedHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\Feed\FeedHttpMessageConverterIntegrationTests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Http\Converters\Feed\Rss20FeedHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\FileInfoHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\FormHttpMessageConverterTests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Http\Converters\Json\NJsonHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\Json\JsonHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\Json\JsonHttpMessageConverterIntegrationTests.cs" />
-    <Compile Include="Http\Converters\StringHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\Xml\XmlHttpMessageConverterIntegrationTests.cs" />
-    <Compile Include="Http\Converters\Xml\XElementHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\Xml\XmlSerializableHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\Xml\DataContractHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\Xml\XmlDocumentHttpMessageConverterTests.cs" />
-    <Compile Include="Http\HttpHeadersTests.cs" />
-    <Compile Include="Http\MediaTypeTests.cs" />
-    <Compile Include="Http\MockHttpInputMessage.cs" />
-    <Compile Include="Http\MockHttpOuputMessage.cs" />
-    <Compile Include="Rest\Client\HttpStatusCodeExceptionTests.cs" />
-    <Compile Include="Rest\Client\RestTemplateIntegrationTests.cs" />
-    <Compile Include="Rest\Client\RestTemplateTests.cs" />
-    <Compile Include="Util\SerializationTestUtils.cs" />
-    <Compile Include="Util\UriTemplateTests.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Http\Converters\Json\NJsonHttpMessageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2010.csproj">
-      <Project>{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}</Project>
-      <Name>Spring.Http.Converters.NJson.2010</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Spring.Rest\Spring.Rest.2010.csproj">
+    <ProjectReference Include="..\Spring.Rest\Spring.Rest.2010.csproj">
       <Project>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Project>
       <Name>Spring.Rest.2010</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Spring.Rest.Tests.dll.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

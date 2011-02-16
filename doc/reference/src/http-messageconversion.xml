@@ -185,10 +185,10 @@
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
           <entry align="center">
-            (1)
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(1)</superscript>
           </entry>
           <entry align="center">
-            (1)
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(1)</superscript>
           </entry>
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
@@ -258,6 +258,30 @@
         </row>
         <row>
           <entry>
+            <link linkend="http-njsonconverter">NJsonHttpMessageConverter</link>
+            <sbr/>Json.NET (Newtonsoft.Json)
+          </entry>
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+          </entry>
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+          </entry>
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+          </entry>
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+          </entry>
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+          </entry>
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+          </entry>
+        </row>
+        <row>
+          <entry>
             <link linkend="http-feedconverters-atom10">Atom10FeedHttpMessageConverter</link>
           </entry>
           <entry>
@@ -269,10 +293,10 @@
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
           <entry align="center">
-            (2)
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(2)</superscript>
           </entry>
           <entry align="center">
-            (2)
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(2)</superscript>
           </entry>
           <entry>
           </entry>
@@ -290,10 +314,10 @@
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
           <entry align="center">
-            (2)
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(2)</superscript>
           </entry>
           <entry align="center">
-            (2)
+            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(2)</superscript>
           </entry>
           <entry>
           </entry>
@@ -305,6 +329,9 @@
     </para>
     <para>
       (2) See <link linkend="http-feedconverters-silverlight">Silverlight support for feed converters</link>
+    </para>
+    <para>
+      (3) See <link linkend="http-njsonconverter">support for Json.NET (Newtonsoft.Json) converter</link>
     </para>
   </table>
 
@@ -505,7 +532,8 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     <title>XElementHttpMessageConverter</title>
 
     <para>
-      Supports .NET Framework 3.5, 4.0, Silverlight and Windows Phone.
+      Supports .NET Framework 3.5, 4.0. and Windows Phone.
+      <sbr/><link linkend="http-xelementconverter-silverlight">Supports Silverlight</link> using <literal>Spring.Http.Converters.Xml.Linq.dll</literal>.
     </para>
 
     <para>
@@ -536,7 +564,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
       
       <para>
         To use this converter with the <classname>RestTemplate</classname>, 
-        you will have to add it to the message converters list : 
+        you will have to add it to the message converters it : 
         <programlisting language="csharp">template.MessageConverters.Add(new <classname>XElementHttpMessageConverter</classname>());</programlisting>
       </para>
     </section>
@@ -590,27 +618,49 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
       <sbr/>The converter uses the <literal>DataContractJsonSerializer</literal> .NET Framework class.
       <sbr/>By default, this converter supports media type <literal>'application/json'</literal>.
     </para>
+  </section>
+  
+  <section id="http-njsonconverter">
+    <title>NJsonHttpMessageConverter</title>
 
-    <note>
-      <para>
-        You can also use the the Json.NET (Newtonsoft.Json) library 
-        that supports getting/setting values from JSON directly, 
-        without the need to deserialize/serialize to a .NET class.
-        <sbr/>The converter based on Json.NET is available from 
-        the HttpMessageConverter quick start.
-      </para>
-    </note>
+    <para>
+      Supports all the .NET Framework versions using <literal>Spring.Http.Converters.NJson.dll</literal>.
+    </para>
+
+    <para>
+      An <interfacename>IHttpMessageConverter</interfacename> implementation
+      that can read and write JSON using the Json.NET (Newtonsoft.Json) library.
+      <sbr/>By default, this converter supports media type <literal>'application/json'</literal>.
+    </para>
+
+    <para>
+      Unlike <literal>DataContractJsonSerializer</literal> .NET Framework class 
+      used by <link linkend="http-jsonconverter">JsonHttpMessageConverter</link>, 
+      this library supports getting/setting values from JSON directly, 
+      without the need to deserialize/serialize to a .NET class.
+    </para>
+    
+    <para>
+      To use this converter with the <classname>RestTemplate</classname>,
+      you will have to add it to the message converters list :
+      <programlisting language="csharp">template.MessageConverters.Add(new <classname>NJsonHttpMessageConverter</classname>());</programlisting>
+    </para>
+
+    <para>
+      See the Windows Phone quick start for an example of use.
+    </para>
   </section>
 
   <section id="http-feedconverters">
     <title>Feed converters</title>
-  
+
+    <para>
+      Supports .NET Framework 3.5, 4.0.
+      <sbr/><link linkend="http-feedconverters-silverlight">Supports Silverlight</link> using <literal>Spring.Http.Converters.Feed.dll</literal>.
+    </para>
+    
     <section id="http-feedconverters-atom10">
       <title>Atom10FeedHttpMessageConverter</title>
-
-      <para>
-        Supports .NET Framework 3.5, 4.0 and Silverlight (Using Spring.Http.Converters.Feed.dll).
-      </para>
 
       <para>
         An <interfacename>IHttpMessageConverter</interfacename> implementation 
@@ -622,10 +672,6 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
 
     <section id="http-feedconverters-rss20">
       <title>Rss20FeedHttpMessageConverter</title>
-
-      <para>
-        Supports .NET Framework 3.5, 4.0 and Silverlight (Using Spring.Http.Converters.Feed.dll).
-      </para>
 
       <para>
         An <interfacename>IHttpMessageConverter</interfacename> implementation
@@ -653,7 +699,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
       </para>
       
       <para>
-        To use these converters with the <classname>RestTemplate</classname>, 
+        To use these converters with the <classname>RestTemplate</classname>,
         you will have to add them to the message converters list :
         <programlisting language="csharp">template.MessageConverters.Add(new <classname>Atom10FeedHttpMessageConverter</classname>());
 template.MessageConverters.Add(new <classname>Rss20FeedHttpMessageConverter</classname>());</programlisting>
