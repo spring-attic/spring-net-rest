@@ -61,7 +61,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="Spring.Rest, Version=1.0.0.42, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Spring.Rest">
+      <HintPath>..\..\..\..\bin\sl\4.0\Debug\Spring.Rest.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -73,9 +75,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\MovieModel.cs" />
+    <Compile Include="ViewModels\MovieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

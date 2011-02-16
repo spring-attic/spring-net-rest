@@ -41,6 +41,16 @@ namespace Spring.Http.Client
         #region Properties
 
 #if !SILVERLIGHT_3
+        private bool? _allowAutoRedirect;
+        /// <summary>
+        /// Gets or sets a boolean value that controls whether the request should follow redirection responses.
+        /// </summary>
+        public bool? AllowAutoRedirect
+        {
+            get { return this._allowAutoRedirect; }
+            set { this._allowAutoRedirect = value; }
+        }
+
         private bool? _useDefaultCredentials;
         /// <summary>
         /// Gets or sets a boolean value that controls whether default credentials are sent with this request.
@@ -172,6 +182,10 @@ namespace Spring.Http.Client
             this.httpWebRequest.Method = method.ToString();
 
 #if !SILVERLIGHT_3
+            if (this._allowAutoRedirect != null)
+            {
+                this.httpWebRequest.AllowAutoRedirect = this._allowAutoRedirect.Value;
+            }
             if (this._useDefaultCredentials.HasValue)
             {
                 this.httpWebRequest.UseDefaultCredentials = this._useDefaultCredentials.Value;

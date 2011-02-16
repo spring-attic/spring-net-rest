@@ -76,9 +76,11 @@ There is a solution file for different version of VS.NET
 
 The user forums at http://forum.springframework.net/ are available for you to submit questions, support requests, and interact with other Spring.NET users.
 
-Bug and issue tracking can be found at https://jira.springsource.org/browse/SPRNET
+Bug, issue and project tracking can be found at https://jira.springsource.org/browse/SPRNET
 
-A Fisheye repository browser is located at https://fisheye.springsource.org/changelog/spring-net-rest
+A source repository browser is located at https://fisheye.springsource.org/changelog/spring-net-rest
+
+A continuous intergration and build server is located at http://build.springframework.org/browse/SPRNETREST
 
 To get the sources, check them out at the git repository at https://github.com/SpringSource/spring-net-rest using a git client to deal with line endings.
 

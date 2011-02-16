@@ -3,12 +3,53 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
-  <Grid x:Name="LayoutRoot" Background="White">
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
-            <TextBox Name="TwitterNameTextBox" Width="120" />
-            <Button Name="Button" Width="50" Content="GET" Click="Button_Click" />
+    xmlns:local="clr-namespace:Spring.RestSilverlightQuickStart.ViewModels" 
+    Width="800"
+    mc:Ignorable="d">
+    
+    <UserControl.Resources>
+        <local:MovieViewModel x:Key="movieViewModel"/>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="MOVIES" FontWeight="Bold" />
+        <Border Grid.Row="1" BorderThickness="2" CornerRadius="5" BorderBrush="Black">
+            <ItemsControl ItemsSource="{Binding Movies, Source={StaticResource movieViewModel}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Path=ID}" VerticalAlignment="Center" Grid.Column="0"/>
+                            <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center" Grid.Column="1"/>
+                            <TextBlock Text="{Binding Path=Director}" VerticalAlignment="Center" Grid.Column="2"/>
+                            <Button Command="{Binding DeleteMovieCommand, Source={StaticResource movieViewModel}}" 
+                                    CommandParameter="{Binding Path=ID}" 
+                                    VerticalAlignment="Center" 
+                                    Content="Delete" Width="75" Grid.Column="3" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    DataContext="{Binding MovieToCreate, Source={StaticResource movieViewModel}}">
+            <TextBlock Text="Title :" VerticalAlignment="Center" Margin="5,0" />
+            <TextBox Text="{Binding Path=Title, Mode=TwoWay}" Width="150" />
+            <TextBlock Text="Director :" VerticalAlignment="Center" Margin="5,0" />
+            <TextBox Text="{Binding Path=Director, Mode=TwoWay}" Width="150" />
+            <Button Command="{Binding CreateMovieCommand, Source={StaticResource movieViewModel}}" 
+                    CommandParameter="{Binding}" 
+                    Content="Create" Margin="20,0" Width="75" />
         </StackPanel>
-        <TextBlock Height="570" HorizontalAlignment="Left" Margin="0,30,0,0" Name="TextBlock" VerticalAlignment="Top" Width="800" />
     </Grid>
 </UserControl>

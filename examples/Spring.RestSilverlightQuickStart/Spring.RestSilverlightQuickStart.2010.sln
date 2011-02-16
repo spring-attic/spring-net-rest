@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestSilverlightQuickStart.2010", "src\Spring.RestSilverlightQuickStart\Spring.RestSilverlightQuickStart.2010.csproj", "{C11BD449-683C-44CA-B394-CC126DC49EF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestSilverlightQuickStart.Web.2010", "src\Spring.RestSilverlightQuickStart.Web.2010\Spring.RestSilverlightQuickStart.Web.2010.csproj", "{2B40C3B9-E032-417A-9B6F-8AD4ECEE0397}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestSilverlightQuickStart.Web.2010", "src\Spring.RestSilverlightQuickStart.Web\Spring.RestSilverlightQuickStart.Web.2010.csproj", "{2B40C3B9-E032-417A-9B6F-8AD4ECEE0397}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
