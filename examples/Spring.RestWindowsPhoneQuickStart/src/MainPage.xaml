@@ -11,32 +11,37 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded">
 
-    <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0">
-            <TextBlock x:Name="ApplicationTitle" Text="TWITTER" HorizontalAlignment="Center" Style="{StaticResource PhoneTextNormalStyle}"/>
+        <TextBlock Grid.Row="0" Text="TWITTER" HorizontalAlignment="Center" Foreground="Aquamarine" FontSize="40"/>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="SearchTextBox" Width="300" Text="Led Zeppelin" />
+                <Button Content="SEARCH" Width="175" Click="SearchButton_Click" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="AccountTextBox" Width="300" Text="SpringForNet" />
+                <Button Content="ACCOUNT" Width="175" Click="AccountButton_Click" />
+            </StackPanel>
         </StackPanel>
 
-        <!--ContentPanel - place additional content here-->
-        <StackPanel x:Name="ContentPanel" Grid.Row="1" Orientation="Vertical">
-            <TextBox Name="TwitterAccountTextBox" Text="SpringForNet"  />
-            <Button Content="GET" Name="GetButton" Width="200" HorizontalAlignment="Center" Click="GetButton_Click" />
-            <ListBox Name="StatusesListBox" Height="450">
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <ListBox Name="TweetListBox" Height="450">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Height="132">
-                            <Image Source="{Binding Path='User.ImageUrl'}" Height="73" Width="73" VerticalAlignment="Top" Margin="0,10,8,0"/>
-                            <StackPanel Width="370">
-                                <TextBlock Text="{Binding Path='User.ScreenName'}" Foreground="#FFC8AB14" FontSize="28" />
-                                <TextBlock Text="{Binding Text}" TextWrapping="Wrap" FontSize="24" />
+                        <StackPanel Orientation="Horizontal" Height="Auto">
+                            <Image Source="{Binding Path=ProfileImageUrl}" Height="75" Width="75" VerticalAlignment="Top" Margin="0,10,10,10"/>
+                            <StackPanel Orientation="Vertical" Width="375">
+                                <TextBlock Text="{Binding Path=FromUser}" Foreground="Aqua" FontSize="28" />
+                                <TextBlock Text="{Binding Path=Text}" TextWrapping="Wrap" FontSize="24" />
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
@@ -44,17 +49,5 @@
             </ListBox>
         </StackPanel>
     </Grid>
- 
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>

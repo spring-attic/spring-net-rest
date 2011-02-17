@@ -4,78 +4,45 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.Phone.Controls;
 
-using Spring.Http;
-using Spring.Rest.Client;
+using Spring.RestWindowsPhoneQuickStart.Twitter;
 
 namespace Spring.RestWindowsPhoneQuickStart
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        TwitterTemplate twitter = new TwitterTemplate();
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void GetButton_Click(object sender, RoutedEventArgs e)
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            RestTemplate rt = new RestTemplate("http://twitter.com");
-
-            rt.GetForObjectAsync<TwitterStatuses>("/statuses/user_timeline.xml?screen_name={name}", 
-                args =>
+            twitter.GetPublicTimeline(
+                r =>
                 {
-                    if (args.Error == null)
-                    {
-                        this.StatusesListBox.ItemsSource = args.Response;
-                    }
-                }, this.TwitterAccountTextBox.Text);
+                    this.TweetListBox.ItemsSource = r;
+                });
+        }
 
-            //rt.GetForObjectAsync<XElement>("/statuses/user_timeline.xml?screen_name={name}",  
-            //    args =>
-            //    {
-            //        if (args.Error == null)
-            //        {
-            //            this.StatusesListBox.ItemsSource = from tweet in args.Response.Descendants("status")
-            //                                               select new TwitterItem
-            //                                               {
-            //                                                   ImageSource = tweet.Element("user").Element("profile_image_url").Value,
-            //                                                   Message = tweet.Element("text").Value,
-            //                                                   UserName = tweet.Element("user").Element("screen_name").Value
-            //                                               };
-            //        }
-            //    }, this.TwitterAccountTextBox.Text);
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            twitter.Search(this.SearchTextBox.Text,
+                r =>
+                {
+                    this.TweetListBox.ItemsSource = r;
+                });
+        }
+
+        private void AccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            twitter.GetUserTimeline(this.AccountTextBox.Text,
+                r =>
+                {
+                    this.TweetListBox.ItemsSource = r;
+                });
         }
     }
-
-    [CollectionDataContract(Name="statuses", ItemName="status", Namespace="")]
-    public class TwitterStatuses : List<TwitterStatus>
-    {
-    }
-
-    [DataContract(Name = "status", Namespace = "")]
-    public class TwitterStatus
-    {
-        [DataMember(Name="text")]
-        public string Text { get; set; }
-
-        [DataMember(Name = "user")]
-        public TwitterUser User { get; set; }
-    }
-
-    [DataContract(Name="user", Namespace="")]
-    public class TwitterUser
-    {
-        [DataMember(Name = "screen_name")]
-        public string ScreenName { get; set; }
-
-        [DataMember(Name = "profile_image_url")]
-        public string ImageUrl { get; set; }
-    }
-
-    //public class TwitterItem
-    //{
-    //    public string UserName { get; set; }
-    //    public string Message { get; set; }
-    //    public string ImageSource { get; set; }
-    //}
 }
