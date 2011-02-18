@@ -371,8 +371,7 @@ namespace Spring.Http
         }
 
         [Test]
-        [Ignore]
-        public void SortBySpecificityUnrelated()
+        public void SortBySpecificityUnrelated() // Check stable sort
         {
             MediaType audioBasic = new MediaType("audio", "basic");
             MediaType audioWave = new MediaType("audio", "wave");
@@ -477,8 +476,7 @@ namespace Spring.Http
         }
 
         [Test]
-        [Ignore]
-        public void SortByQualityUnrelated()
+        public void SortByQualityUnrelated() // Check stable sort
         {
             MediaType audioBasic = new MediaType("audio", "basic");
             MediaType audioWave = new MediaType("audio", "wave");
@@ -490,7 +488,7 @@ namespace Spring.Http
             expected.Add(audioWave);
 
             List<MediaType> result = new List<MediaType>(expected);
-            MediaType.SortBySpecificity(result);
+            MediaType.SortByQualityValue(result);
 
             for (int i = 0; i < result.Count; i++)
             {

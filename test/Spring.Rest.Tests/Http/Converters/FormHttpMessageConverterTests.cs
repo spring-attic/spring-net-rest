@@ -107,16 +107,17 @@ namespace Spring.Http.Converters
         }
 
         [Test]
-        [Ignore] //TODO: relative path (needs IResource ?)
         public void WriteMultipart()
         {
+            string fileToUpload = Path.Combine(Environment.CurrentDirectory, @"Http\Converters\FileToUpload.png");
+
 		    IDictionary<string, object> parts = new Dictionary<string, object>();
             parts.Add("name 1", "value 1");
             parts.Add("name 2", "value 2+1");
             HttpEntity entity = new HttpEntity("<root><child/></root>");
             entity.Headers.ContentType = MediaType.TEXT_XML;
             parts.Add("xml", entity);
-            parts.Add("logo", new FileInfo(@"C:\Users\Bruno\Pictures\Hero\downloadfile.jpeg"));
+            parts.Add("logo", new FileInfo(fileToUpload));
 
             MockHttpOutputMessage message = new MockHttpOutputMessage();
 
@@ -133,7 +134,7 @@ namespace Spring.Http.Converters
             Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 1\"\r\nContent-Type: text/plain;charset=ISO-8859-1\r\n\r\nvalue 1\r\n"), "Invalid content-disposition");
             Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 2\"\r\nContent-Type: text/plain;charset=ISO-8859-1\r\n\r\nvalue 2+1\r\n"), "Invalid content-disposition");
             Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"xml\"\r\nContent-Type: text/xml\r\n\r\n<root><child/></root>\r\n"), "Invalid content-disposition");
-            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"logo\"; filename=\"C:\\Users\\Bruno\\Pictures\\Hero\\downloadfile.jpeg\"\r\nContent-Type: image/jpeg\r\n\r\n"), "Invalid content-disposition");
+            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"logo\"; filename=\"" + fileToUpload + "\"\r\nContent-Type: image/png\r\n\r\n"), "Invalid content-disposition");
         }
     }
 }

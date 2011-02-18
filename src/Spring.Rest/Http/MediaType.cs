@@ -112,18 +112,16 @@ namespace Spring.Http
         /// </summary>
         public static readonly MediaType TEXT_XML = new MediaType("text", "xml");
 
-
         private const string WILDCARD_TYPE = "*";
-
         private const string PARAM_QUALITY_FACTOR = "q";
-
         private const string PARAM_CHARSET = "charset";
 
         private string type;
-
         private string subtype;
-
         private IDictionary<string, string> parameters;
+
+        // Stable sort management
+        private int SortIndex;
 
         /// <summary>
         /// Gets the primary type.
@@ -542,7 +540,7 @@ namespace Spring.Http
                     return comp;
                 }
             }
-            return 0;
+            return this.SortIndex.CompareTo(other.SortIndex); // Stable sort
         }
 
         #endregion
@@ -663,6 +661,11 @@ namespace Spring.Http
 
             if (mediaTypes.Count > 1)
             {
+                // Stable sort
+                for(int i = 0; i < mediaTypes.Count; i++)
+                {
+                    mediaTypes[i].SortIndex = i;
+                }
                 mediaTypes.Sort(SPECIFICITY_COMPARER);
             }
         }
@@ -696,6 +699,11 @@ namespace Spring.Http
 
             if (mediaTypes.Count > 1)
             {
+                // Stable sort
+                for (int i = 0; i < mediaTypes.Count; i++)
+                {
+                    mediaTypes[i].SortIndex = i;
+                }
                 mediaTypes.Sort(QUALITY_VALUE_COMPARER);
             }
         }
@@ -726,7 +734,7 @@ namespace Spring.Http
                 }
                 else if (x.type != y.type)
                 { // audio/basic == text/html
-                    return 0;
+                    return x.SortIndex.CompareTo(y.SortIndex); // Stable sort
                 }
                 else
                 { // mediaType1.type == mediaType2.type
@@ -740,7 +748,7 @@ namespace Spring.Http
                     }
                     else if (x.subtype != y.subtype)
                     { // audio/basic == audio/wave
-                        return 0;
+                        return x.SortIndex.CompareTo(y.SortIndex); // Stable sort
                     }
                     else
                     { // mediaType2.subtype == mediaType2.subtype
@@ -755,7 +763,12 @@ namespace Spring.Http
                         {
                             int paramsSize1 = x.parameters.Count;
                             int paramsSize2 = y.parameters.Count;
-                            return (paramsSize2 < paramsSize1 ? -1 : (paramsSize2 == paramsSize1 ? 0 : 1)); // audio/basic;level=1 < audio/basic
+                            int comp = (paramsSize2 < paramsSize1 ? -1 : (paramsSize2 == paramsSize1 ? 0 : 1)); // audio/basic;level=1 < audio/basic
+                            if (comp != 0)
+                            {
+                                return comp;
+                            }
+                            return x.SortIndex.CompareTo(y.SortIndex); // Stable sort
                         }
                     }
                 }
@@ -787,7 +800,7 @@ namespace Spring.Http
                 }
                 else if (x.type != y.type)
                 { // audio/basic == text/html
-                    return 0;
+                    return x.SortIndex.CompareTo(y.SortIndex); // Stable sort
                 }
                 else
                 { // mediaType1.type == mediaType2.type
@@ -801,13 +814,18 @@ namespace Spring.Http
                     }
                     else if (x.subtype != y.subtype)
                     { // audio/basic == audio/wave
-                        return 0;
+                        return x.SortIndex.CompareTo(y.SortIndex); // Stable sort
                     }
                     else
                     {
                         int paramsSize1 = x.parameters.Count;
                         int paramsSize2 = y.parameters.Count;
-                        return (paramsSize2 < paramsSize1 ? -1 : (paramsSize2 == paramsSize1 ? 0 : 1)); // audio/basic;level=1 < audio/basic
+                        int comp = (paramsSize2 < paramsSize1 ? -1 : (paramsSize2 == paramsSize1 ? 0 : 1)); // audio/basic;level=1 < audio/basic
+                        if (comp != 0)
+                        {
+                            return comp;
+                        }
+                        return x.SortIndex.CompareTo(y.SortIndex);  // Stable sort
                     }
                 }
             }
