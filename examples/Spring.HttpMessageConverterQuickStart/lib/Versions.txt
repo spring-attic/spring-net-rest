@@ -1,2 +1,0 @@
-Json.NET 4.0 Release 1
-Json.NET 3.5 Release 8 for Silverlight 3.0

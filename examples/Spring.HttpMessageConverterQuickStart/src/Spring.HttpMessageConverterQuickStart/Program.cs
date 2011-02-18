@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+using System.IO;
+using System.Drawing;
 
 using Spring.Rest.Client;
-using Spring.Http.Converters;
-using Newtonsoft.Json.Linq;
 
 using Spring.HttpMessageConverterQuickStart.Converters;
 
@@ -16,38 +14,17 @@ namespace Spring.HttpMessageConverterQuickStart
         {
             try
             {
-                RestTemplate rt = new RestTemplate("http://twitter.com");
-                // Add a new converter to the default list
-                rt.MessageConverters.Add(new NJsonHttpMessageConverter());
-#if SILVERLIGHT
-                rt.GetForObjectAsync<JArray>("/statuses/user_timeline.json?screen_name={name}&count={count}", 
-                    r =>
-                    {
-                        if (r.Error == null)
-                        {
-                            var tweets = from el in r.Response.Children()
-                                         select el.Value<string>("text");
-                            foreach (string tweet in tweets)
-                            {
-                                Console.WriteLine(String.Format("* {0}", tweet));
-                                Console.WriteLine();
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine(r.Error);
-                        }
-                    }, "SpringForNet", 10);
-#else
-                JArray jArray = rt.GetForObject<JArray>("/statuses/user_timeline.json?screen_name={name}&count={count}", "SpringForNet", 10);
-                var tweets = from el in jArray.Children()
-                             select el.Value<string>("text");
-                foreach (string tweet in tweets)
-                {
-                    Console.WriteLine(String.Format("* {0}", tweet));
-                    Console.WriteLine();
-                }
-#endif
+                // Configure RestTemplate by adding the new converter to the default list
+                RestTemplate template = new RestTemplate();
+                template.MessageConverters.Add(new ImageHttpMessageConverter());
+
+                // Get image from url
+                Bitmap gitHubLogo = template.GetForObject<Bitmap>("https://github.com/images/modules/header/logov3.png");
+
+                // Save image to disk
+                string filename = Path.Combine(Environment.CurrentDirectory, "GitHubLogo.png");
+                gitHubLogo.Save(filename);
+                Console.WriteLine(String.Format("Saved GitHub logo to '{0}'", filename));
             }
             catch (Exception ex)
             {

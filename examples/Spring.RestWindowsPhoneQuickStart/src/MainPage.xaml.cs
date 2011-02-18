@@ -10,7 +10,7 @@ namespace Spring.RestWindowsPhoneQuickStart
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        TwitterTemplate twitter = new TwitterTemplate();
+        TwitterClient twitter = new TwitterClient();
 
         // Constructor
         public MainPage()

@@ -33,7 +33,7 @@ namespace Spring.RestWindowsPhoneQuickStart.Twitter
 
     // Central class for interacting with Twitter
     // Simplified implementation that only performs unauthenticated operations against Twitter's API.
-    public class TwitterTemplate
+    public class TwitterClient
     {
         private RestTemplate restTemplate;
 
@@ -43,7 +43,7 @@ namespace Spring.RestWindowsPhoneQuickStart.Twitter
 
         private const string SEARCH_URL = "https://search.twitter.com/search.json?q={query}&rpp={rpp}&page={page}";
 
-        public TwitterTemplate()
+        public TwitterClient()
         {
             restTemplate = new RestTemplate(API_URL_BASE);
             restTemplate.MessageConverters.Add(new NJsonHttpMessageConverter());
