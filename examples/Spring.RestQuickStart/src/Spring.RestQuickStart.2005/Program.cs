@@ -1,49 +1,20 @@
-﻿using System;
-using System.Net;
-
-using Spring.Http;
-using Spring.Rest.Client;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Spring.RestQuickStart
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            try
-            {
-                RestTemplate rt = new RestTemplate("http://twitter.com");
-
-                // Exemple sync call
-                Console.WriteLine("Allowed methods : ");
-                foreach (HttpMethod method in rt.OptionsForAllow("/statuses/"))
-                {
-                    Console.WriteLine(method);
-                }
-
-                // Exemple async call
-                rt.GetForObjectAsync<string>("/statuses/user_timeline.xml?screen_name={name}&count={count}", 
-                    delegate(RestOperationCompletedEventArgs<string> eventArgs)
-                    {
-                        if (eventArgs.Error != null)
-                        {
-                            Console.WriteLine(eventArgs.Error);
-                        }
-                        else
-                        {
-                            Console.WriteLine(eventArgs.Response);
-                        }
-                    }, "SpringForNet", 5);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-			finally
-			{
-				Console.WriteLine("--- hit <return> to quit ---");
-				Console.ReadLine();
-			}
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new GoogleImagesForm());
         }
     }
 }

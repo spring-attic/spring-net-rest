@@ -1,23 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5B47D309-31C9-4282-86E2-11FC63DFF55B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{2C0174D0-4245-489C-B866-991FD47807AA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spring.RestQuickStart</RootNamespace>
     <AssemblyName>Spring.RestQuickStart</AssemblyName>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -30,15 +28,39 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Spring.Rest, Version=1.0.0.42, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json.Net20, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\bin\net\2.0\Debug\Newtonsoft.Json.Net20.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Http.Converters.NJson, Version=1.0.0.4820, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\bin\net\2.0\Debug\Spring.Http.Converters.NJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Rest, Version=1.0.0.4820, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\bin\net\2.0\Debug\Spring.Rest.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.XML" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoogleImages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GoogleImages.Designer.cs">
+      <DependentUpon>GoogleImages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GoogleImages.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GoogleImages.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,39 @@
+﻿<Window x:Class="Spring.RestQuickStart.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" MinHeight="480" MinWidth="640" Height="480" Width="640">
+    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Google Images" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBox Name="SearchTextBox" Width="200" VerticalAlignment="Center" Text="pinguins" />
+                <Button Name="SearchButton" Width="Auto" VerticalAlignment="Center" Content="SEARCH" Click="SearchButton_Click" />
+            </StackPanel>
+
+            <ItemsControl Grid.Row="2" Name="ResultsItemsControl">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Path=ThumbnailUrl}" 
+                            Width="{Binding Path=ThumbnailWidth}" 
+                            Height="{Binding Path=ThumbnailHeight}" 
+                            ToolTip="{Binding Path=SiteUrl}" 
+                            HorizontalAlignment="Center" 
+                            Margin="10,10,10,10"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </ScrollViewer>
+</Window>
