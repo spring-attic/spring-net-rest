@@ -314,7 +314,7 @@ namespace Spring.Http.Converters
 #elif SILVERLIGHT
             return System.Windows.Browser.HttpUtility.UrlDecode(url);
 #else
-            return System.Web.HttpUtility.UrlDecode(url, charset);
+            return UrlUtils.Decode(url, charset);
 #endif
         }
 
@@ -325,7 +325,7 @@ namespace Spring.Http.Converters
 #elif SILVERLIGHT
             return System.Windows.Browser.HttpUtility.UrlEncode(url);
 #else
-            return System.Web.HttpUtility.UrlEncode(url, charset);
+            return UrlUtils.Encode(url, charset);
 #endif
         }
 

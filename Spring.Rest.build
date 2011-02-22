@@ -254,6 +254,7 @@
       <arg value="/verbosity:minimal" />
       <arg value="/property:OutDir=${project.buildoutputdir}/"/>
       <arg value="/property:Configuration=${project.buildconfiguration}" />
+      <arg value="/property:DefineExtraConstants=STRONG" if="${project.sign}" />
       <arg value="/property:SignAssembly=true" if="${project.sign}" />
       <arg value="/property:AssemblyOriginatorKeyFile=..\..\Spring.Net.snk" if="${project.sign}" />
     </exec>

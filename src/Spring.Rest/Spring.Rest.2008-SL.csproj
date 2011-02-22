@@ -117,6 +117,7 @@
     <Compile Include="Util\IoUtils.cs" />
     <Compile Include="Util\StringUtils.cs" />
     <Compile Include="Util\UriTemplate.cs" />
+    <Compile Include="Util\UrlUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

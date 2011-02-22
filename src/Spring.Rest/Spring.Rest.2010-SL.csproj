@@ -124,6 +124,7 @@
     <Compile Include="Util\IoUtils.cs" />
     <Compile Include="Util\StringUtils.cs" />
     <Compile Include="Util\UriTemplate.cs" />
+    <Compile Include="Util\UrlUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

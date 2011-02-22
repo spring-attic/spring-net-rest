@@ -141,6 +141,7 @@
     <Compile Include="Util\SerializationTestUtils.cs" />
     <Compile Include="Util\UriTemplateTests.cs" />
     <Compile Include="Rest\Client\RestTemplateTests.cs" />
+    <Compile Include="Util\UrlUtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2008.csproj">

@@ -16,7 +16,8 @@ The 1.0.0 RC1 release of Spring.NET REST contains
 
 Spring.NET REST supports
 
-	* .NET 2.0, 3.5 and 4.0
+	* .NET 2.0
+	* .NET Client Profile 3.5 and 4.0
 	* Silverlight 3.0 and 4.0
 	* Windows Phone 7.0
 
@@ -30,12 +31,12 @@ None
 
 Release contents:
 
-	* "src" contains the C# source files for the framework.
-	* "test" contains the C# source files for the test suite.
 	* "bin" contains the distribution dll files.
-	* "lib" contains common libraries needed for building and running the framework.
 	* "doc" contains reference documentation and MSDN-style API help.
 	* "examples" contains sample applications.
+	* "lib" contains common libraries needed for building and running the framework.
+	* "src" contains the C# source files for the framework.
+	* "test" contains the C# source files for the test suite.
 
 The VS.NET solution for the framework and examples are provided.
 
@@ -50,9 +51,15 @@ The "bin" directory contains the following distinct dll files for use in applica
 Dependencies are those other than on the .NET BCL.
 
 	* "Spring.Rest" for all supported Framework versions
+	* Dependencies: Common.Logging for .NET 2.0, 3.5 and 4.0
+
+	* "Spring.Http.Converters.NJson" for all supported Framework versions
+	* Dependencies: Newtonsoft.Json
+
 	* "Spring.Http.Converters.Xml.Linq" for Silverlight
 	* "Spring.Http.Converters.Feed" for Silverlight
-	* Dependencies: Common.Logging for .NET 2.0, 3.5 and 4.0
+
+Debug build is done using /DEBUG:full and release build using /DEBUG:pdbonly flags.
 
 
 6. WHERE TO START?
