@@ -435,7 +435,6 @@ namespace Spring.Rest.Client
             mocks.ReplayAll();
 
             HttpResponseMessage result = template.PostForMessage("http://example.com", helloWorld);
-            Assert.IsNull(result.Body, "Invalid POST result");
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
             Assert.AreEqual("CREATED", result.StatusDescription, "Invalid status description");
         }

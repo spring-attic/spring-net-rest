@@ -84,7 +84,6 @@ namespace Spring.Http.Converters.Feed
             SyndicationItem item = new SyndicationItem("Bruno's item", "Bruno's content", null);
 
             HttpResponseMessage result = template.PostForMessage("feed/entry", item);
-            Assert.IsNull(result.Body, "Invalid content");
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
             Assert.AreEqual("Syndication item added with title 'Bruno's item'", result.StatusDescription, "Invalid status description");
         }
@@ -108,7 +107,6 @@ namespace Spring.Http.Converters.Feed
             SyndicationItem item = new SyndicationItem("Bruno's item", "Bruno's content", null);
 
             HttpResponseMessage result = template.PostForMessage("feed/entry", item);
-            Assert.IsNull(result.Body, "Invalid content");
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
             Assert.AreEqual("Syndication item added with title 'Bruno's item'", result.StatusDescription, "Invalid status description");
         }

@@ -61,8 +61,8 @@
 
   <target name="release">
     <property name="project.buildtype" value="release" />
-    <property name="project.zip-filename" value="Spring.Rest-${product.version}.zip" if="${(product.releasetype == '')}" />
-    <property name="project.zip-filename" value="Spring.Rest-${product.version}-${product.releasetype}.zip" if="${(product.releasetype != '')}" />
+    <property name="project.zip-filename" value="spring-net-rest-${product.version}.zip" if="${(product.releasetype == '')}" />
+    <property name="project.zip-filename" value="spring-net-rest-${product.version}-${product.releasetype}.zip" if="${(product.releasetype != '')}" />
     
     <call target="package-zip"/>
   </target>

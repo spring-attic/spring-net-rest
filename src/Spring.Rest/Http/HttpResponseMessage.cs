@@ -19,22 +19,52 @@
 #endregion
 
 using System.Net;
+using Spring.Util;
 
 namespace Spring.Http
 {
     /// <summary>
-    /// Represents a HTTP response message with no body.
+    /// Represents a HTTP response message, with no body, as defined in the HTTP specification. 
+    /// <a href="http://tools.ietf.org/html/rfc2616#section-6">HTTP 1.1, section 6</a>
     /// </summary>
     /// <author>Bruno Baia</author>
-    public class HttpResponseMessage : HttpResponseMessage<object>
+    public class HttpResponseMessage
     {
+        private HttpHeaders headers;
+        private HttpStatusCode statusCode;
+        private string statusDescription;
+
+        /// <summary>
+        /// Gets the response headers.
+        /// </summary>
+        public HttpHeaders Headers
+        {
+            get { return this.headers; }
+        }
+
+        /// <summary>
+        /// Gets the HTTP status code of the response.
+        /// </summary>
+        public HttpStatusCode StatusCode
+        {
+            get { return statusCode; }
+        }
+
+        /// <summary>
+        /// Gets the HTTP status description of the response.
+        /// </summary>
+        public string StatusDescription
+        {
+            get { return statusDescription; }
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="HttpResponseMessage"/> with the given status code and status description.
         /// </summary>
         /// <param name="statusCode">The HTTP status code.</param>
         /// <param name="statusDescription">The HTTP status description.</param>
         public HttpResponseMessage(HttpStatusCode statusCode, string statusDescription) :
-            base(null, null, statusCode, statusDescription)
+            this(new HttpHeaders(), statusCode, statusDescription)
         {
         }
 
@@ -44,9 +74,13 @@ namespace Spring.Http
         /// <param name="headers">The response headers.</param>
         /// <param name="statusCode">The HTTP status code.</param>
         /// <param name="statusDescription">The HTTP status description.</param>
-        public HttpResponseMessage(HttpHeaders headers, HttpStatusCode statusCode, string statusDescription) :
-            base(null, headers, statusCode, statusDescription)
+        public HttpResponseMessage(HttpHeaders headers, HttpStatusCode statusCode, string statusDescription)
         {
+            AssertUtils.ArgumentNotNull(headers, "headers");
+
+            this.headers = headers;
+            this.statusCode = statusCode;
+            this.statusDescription = statusDescription;
         }
     }
 }

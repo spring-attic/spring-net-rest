@@ -109,7 +109,6 @@ namespace Spring.Http.Converters.Json
             entity.Headers.ContentType = MediaType.APPLICATION_JSON;
 
             HttpResponseMessage result = template.PostForMessage("user", entity);
-            Assert.IsNull(result.Body, "Invalid content");
             Assert.AreEqual(new Uri(new Uri(uri), "/user/3"), result.Headers.Location, "Invalid location");
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
             Assert.AreEqual("User id '3' created with 'Lisa Baia'", result.StatusDescription, "Invalid status description");
@@ -123,7 +122,6 @@ namespace Spring.Http.Converters.Json
             User user = new User() { Name = "Lisa Baia" };
 
             HttpResponseMessage result = template.PostForMessage("user", user);
-            Assert.IsNull(result.Body, "Invalid content");
             Assert.AreEqual(new Uri(new Uri(uri), "/user/3"), result.Headers.Location, "Invalid location");
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
             Assert.AreEqual("User id '3' created with 'Lisa Baia'", result.StatusDescription, "Invalid status description");
@@ -138,7 +136,6 @@ namespace Spring.Http.Converters.Json
                 new JProperty("Name", new JValue("Lisa Baia")));
 
             HttpResponseMessage result = template.PostForMessage("user", user);
-            Assert.IsNull(result.Body, "Invalid content");
             Assert.AreEqual(new Uri(new Uri(uri), "/user/3"), result.Headers.Location, "Invalid location");
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
             Assert.AreEqual("User id '3' created with 'Lisa Baia'", result.StatusDescription, "Invalid status description");

@@ -1,0 +1,1 @@
+Set web project "Spring.RestSilverlightQuickStart.Web" as startup project !

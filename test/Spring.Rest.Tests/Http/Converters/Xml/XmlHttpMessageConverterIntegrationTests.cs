@@ -85,7 +85,6 @@ namespace Spring.Http.Converters.Xml
             User user = new User() { Name = "Lisa Baia" };
 
             HttpResponseMessage result = template.PostForMessage("user/dc", user);
-            Assert.IsNull(result.Body, "Invalid content");
             Assert.AreEqual(new Uri(new Uri(uri), "/user/dc/3"), result.Headers.Location, "Invalid location");
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
             Assert.AreEqual("User id '3' created with 'Lisa Baia'", result.StatusDescription, "Invalid status description");
@@ -111,7 +110,6 @@ namespace Spring.Http.Converters.Xml
                 new XElement("Name", "Lisa Baia"));
 
             HttpResponseMessage result = template.PostForMessage("user/xml", user);
-            Assert.IsNull(result.Body, "Invalid content");
             Assert.AreEqual(new Uri(new Uri(uri), "/user/xml/3"), result.Headers.Location, "Invalid location");
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
             Assert.AreEqual("User id '3' created with 'Lisa Baia'", result.StatusDescription, "Invalid status description");

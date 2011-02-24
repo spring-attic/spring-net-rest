@@ -86,7 +86,6 @@
     <Compile Include="Http\Converters\Xml\XmlDocumentHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Xml\XmlSerializableHttpMessageConverter.cs" />
     <Compile Include="Http\HttpEntity.cs" />
-    <Compile Include="Http\HttpEntity`1.cs" />
     <Compile Include="Http\HttpHeaders.cs" />
     <Compile Include="Http\HttpMethod.cs" />
     <Compile Include="Http\HttpResponseMessage.cs" />

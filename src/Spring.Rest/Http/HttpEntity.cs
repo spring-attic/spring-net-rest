@@ -18,20 +18,51 @@
 
 #endregion
 
+using Spring.Util;
+
 namespace Spring.Http
 {
     /// <summary>
     /// Represents a HTTP entity message, as defined in the HTTP specification. 
     /// <a href="http://tools.ietf.org/html/rfc2616#section-7">HTTP 1.1, section 7</a>
     /// </summary>
+    /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia</author>
-    public class HttpEntity : HttpEntity<object>
+    public class HttpEntity
     {
+        private HttpHeaders headers;
+        private object body;
+
+        /// <summary>
+        /// Gets the entity headers.
+        /// </summary>
+        public HttpHeaders Headers
+        {
+            get { return this.headers; }
+        }
+
+        /// <summary>
+        /// Gets the entity body. May be null.
+        /// </summary>
+        public object Body
+        {
+            get { return this.body; }
+        }
+
+        /// <summary>
+        /// Indicates whether this entity has a body.
+        /// </summary>
+        /// <returns></returns>
+        public bool HasBody
+        {
+            get { return (this.body != null); }
+        }
+
         /// <summary>
         /// Creates a new, empty instance of <see cref="HttpEntity"/> with no body or headers.
         /// </summary>
         public HttpEntity()
-            : base()
+            : this(null, new HttpHeaders())
         {
         }
 
@@ -39,8 +70,8 @@ namespace Spring.Http
         /// Creates a new instance of <see cref="HttpEntity"/> with the given body.
         /// </summary>
         /// <param name="body">The entity body.</param>
-        public HttpEntity(object body) :
-            base(body)
+        public HttpEntity(object body)
+            : this(body, new HttpHeaders())
         {
         }
 
@@ -48,8 +79,8 @@ namespace Spring.Http
         /// Creates a new instance of <see cref="HttpEntity"/> with the given headers.
         /// </summary>
         /// <param name="headers">The entity headers.</param>
-        public HttpEntity(HttpHeaders headers) :
-            base(headers)
+        public HttpEntity(HttpHeaders headers)
+            : this(null, headers)
         {
         }
 
@@ -58,9 +89,12 @@ namespace Spring.Http
         /// </summary>
         /// <param name="body">The entity body.</param>
         /// <param name="headers">The entity headers.</param>
-        public HttpEntity(object body, HttpHeaders headers) :
-            base(body, headers)
+        public HttpEntity(object body, HttpHeaders headers)
         {
+            AssertUtils.ArgumentNotNull(headers, "headers");
+
+            this.body = body;
+            this.headers = headers;
         }
     }
 }

@@ -174,7 +174,6 @@
     <Compile Include="Http\IHttpInputMessage.cs" />
     <Compile Include="Http\IHttpOutputMessage.cs" />
     <Compile Include="Http\HttpEntity.cs" />
-    <Compile Include="Http\HttpEntity`1.cs" />
     <Compile Include="Http\HttpHeaders.cs" />
     <Compile Include="Http\HttpResponseMessage.cs" />
     <Compile Include="Http\HttpResponseMessage`1.cs" />

@@ -28,56 +28,26 @@ namespace Spring.Http
     /// </summary>
     /// <typeparam name="T">The type of the response body.</typeparam>
     /// <author>Bruno Baia</author>
-    public class HttpResponseMessage<T> : HttpEntity<T> where T : class
+    public class HttpResponseMessage<T> : HttpResponseMessage where T : class
     {
-        private HttpStatusCode statusCode;
-        private string statusDescription;
+        private T body;
 
         /// <summary>
-        /// Gets the HTTP status code of the response.
+        /// Gets the response body. May be null.
         /// </summary>
-        public HttpStatusCode StatusCode
+        public T Body
         {
-            get { return statusCode; }
+            get { return this.body; }
         }
 
-        /// <summary>
-        /// Gets the HTTP status description of the response.
-        /// </summary>
-        public string StatusDescription
-        {
-            get { return statusDescription; }
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HttpResponseMessage{T}"/> with the given status code and status description.
-        /// </summary>
-        /// <param name="statusCode">The HTTP status code.</param>
-        /// <param name="statusDescription">The HTTP status description.</param>
-        public HttpResponseMessage(HttpStatusCode statusCode, string statusDescription) :
-            this(null, null, statusCode, statusDescription)
-        {
-        }
-
-        /// <summary>
+         /// <summary>
         /// Creates a new instance of <see cref="HttpResponseMessage{T}"/> with the given body, status code and status description.
         /// </summary>
         /// <param name="body">The response body.</param>
         /// <param name="statusCode">The HTTP status code.</param>
         /// <param name="statusDescription">The HTTP status description.</param>
         public HttpResponseMessage(T body, HttpStatusCode statusCode, string statusDescription) :
-            this(body, null, statusCode, statusDescription)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HttpResponseMessage{T}"/> with the given headers, status code and status description.
-        /// </summary>
-        /// <param name="headers">The response headers.</param>
-        /// <param name="statusCode">The HTTP status code.</param>
-        /// <param name="statusDescription">The HTTP status description.</param>
-        public HttpResponseMessage(HttpHeaders headers, HttpStatusCode statusCode, string statusDescription) :
-            this(null, headers, statusCode, statusDescription)
+            this(body, new HttpHeaders(), statusCode, statusDescription)
         {
         }
 
@@ -89,10 +59,9 @@ namespace Spring.Http
         /// <param name="statusCode">The HTTP status code.</param>
         /// <param name="statusDescription">The HTTP status description.</param>
         public HttpResponseMessage(T body, HttpHeaders headers, HttpStatusCode statusCode, string statusDescription) :
-            base(body, headers)
+            base(headers, statusCode, statusDescription)
         {
-            this.statusCode = statusCode;
-            this.statusDescription = statusDescription;
+            this.body = body;
         }
     }
 }

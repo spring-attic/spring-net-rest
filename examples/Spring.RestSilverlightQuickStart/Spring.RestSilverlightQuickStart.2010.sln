@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestSilverlightQuick
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestSilverlightQuickStart.Web.2010", "src\Spring.RestSilverlightQuickStart.Web\Spring.RestSilverlightQuickStart.Web.2010.csproj", "{2B40C3B9-E032-417A-9B6F-8AD4ECEE0397}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{90357664-58D2-48D8-B1E6-B8D97356B5CE}"
+	ProjectSection(SolutionItems) = preProject
+		readme.txt = readme.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
