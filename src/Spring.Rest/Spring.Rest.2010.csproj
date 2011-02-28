@@ -206,7 +206,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Util\UriTemplate.cs" />
-    <Compile Include="Util\UrlUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

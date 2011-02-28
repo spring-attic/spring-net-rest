@@ -164,7 +164,6 @@
     <Compile Include="Util\IoUtils.cs" />
     <Compile Include="Util\StringUtils.cs" />
     <Compile Include="Util\UriTemplate.cs" />
-    <Compile Include="Util\UrlUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

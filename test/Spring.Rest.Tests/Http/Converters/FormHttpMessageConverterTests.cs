@@ -88,7 +88,7 @@ namespace Spring.Http.Converters
         [Test]
         public void WriteForm()
         {
-            string expectedBody = "name+1=value+1&name+2=value+2%2b1&name+2=value+2%2b2&name+3";
+            string expectedBody = "name+1=value+1&name+2=value+2%2B1&name+2=value+2%2B2&name+3";
             NameValueCollection body = new NameValueCollection();
             body.Add("name 1", "value 1");
             body.Add("name 2", "value 2+1");

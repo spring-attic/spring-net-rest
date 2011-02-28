@@ -41,6 +41,9 @@ namespace Spring.Http.Converters
     /// types, and read the 'application/x-www-form-urlencoded' media type (but not 'multipart/form-data').
     /// </para>
     /// <para>
+    /// This converter uses UTF-8 to write form data as recommended by the W3C.
+    /// </para>
+    /// <para>
     /// In other words, this converter can read and write 'normal' HTML forms (as <see cref="NameValueCollection"/>), 
     /// and it can write multipart form (as <see cref="IDictionary{String,Object}"/>). 
     /// When writing multipart, this converter uses other <see cref="IHttpMessageConverter"/> to write the respective MIME parts. 
@@ -73,6 +76,11 @@ namespace Spring.Http.Converters
     /// <author>Bruno Baia (.NET)</author>
     public class FormHttpMessageConverter : IHttpMessageConverter
     {
+        /// <summary>
+        /// Default encoding for forms.
+        /// </summary>
+        public static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
+
         private static char[] BOUNDARY_CHARS =
 			new char[]{'-', '_', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
 					'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A',
@@ -80,7 +88,6 @@ namespace Spring.Http.Converters
 				 	'V', 'W', 'X', 'Y', 'Z'};
 
         private Random random;
-        private Encoding _charset;
         private IList<MediaType> _supportedMediaTypes;
         private IList<IHttpMessageConverter> _partConverters;
 
@@ -95,25 +102,12 @@ namespace Spring.Http.Converters
         }
 
         /// <summary>
-        /// Gets or sets the encoding used for writing form data.
-        /// </summary>
-        public Encoding Charset
-        {
-            get { return this._charset; }
-            set { _charset = value; }
-        }
-
-        /// <summary>
         /// Creates a new instance of the <see cref="FormHttpMessageConverter"/>.
         /// </summary>
         public FormHttpMessageConverter()
         {
             this.random = new Random();
-#if SILVERLIGHT
-            this._charset = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
-#else
-            this._charset = Encoding.GetEncoding("ISO-8859-1");
-#endif
+
             this._supportedMediaTypes = new List<MediaType>(2);
             this._supportedMediaTypes.Add(MediaType.APPLICATION_FORM_URLENCODED);
             this._supportedMediaTypes.Add(MediaType.MULTIPART_FORM_DATA);
@@ -196,7 +190,7 @@ namespace Spring.Http.Converters
             MediaType mediaType = message.Headers.ContentType;
             if (mediaType == null || !StringUtils.HasText(mediaType.CharSet))
             {
-                encoding = this._charset;
+                encoding = DEFAULT_CHARSET;
             }
             else
             {
@@ -217,12 +211,12 @@ namespace Spring.Http.Converters
                 int idx = pair.IndexOf('=');
                 if (idx == -1)
                 {
-                    result.Add(UrlDecode(pair, this._charset), null);
+                    result.Add(UrlDecode(pair), null);
                 }
                 else
                 {
-                    string name = UrlDecode(pair.Substring(0, idx), this._charset);
-                    string value = UrlDecode(pair.Substring(idx + 1), this._charset);
+                    string name = UrlDecode(pair.Substring(0, idx));
+                    string value = UrlDecode(pair.Substring(idx + 1));
                     result.Add(name, value);
                 }
             }
@@ -270,16 +264,16 @@ namespace Spring.Http.Converters
                 string[] values = form.GetValues(name);
                 if (values == null)
                 {
-                    builder.Append(UrlEncode(name, this._charset));
+                    builder.Append(UrlEncode(name));
                 }
                 else
                 {
                     for (int j = 0; j < values.Length; j++)
                     {
                         string value = values[j];
-                        builder.Append(UrlEncode(name, this._charset));
+                        builder.Append(UrlEncode(name));
                         builder.Append('=');
-                        builder.Append(UrlEncode(value, this._charset));
+                        builder.Append(UrlEncode(value));
                         if (j != (values.Length - 1))
                         {
                             builder.Append('&');
@@ -293,7 +287,7 @@ namespace Spring.Http.Converters
             }
 
             // Create a byte array of the data we want to send  
-            byte[] byteData = this._charset.GetBytes(builder.ToString());
+            byte[] byteData = DEFAULT_CHARSET.GetBytes(builder.ToString());
 
 //#if !SILVERLIGHT
 //            // Set the content length in the message headers  
@@ -307,25 +301,33 @@ namespace Spring.Http.Converters
             };
         }
 
-        private static string UrlDecode(string url, Encoding charset)
+        private static string UrlDecode(string url)
         {
+            if (url == null)
+            {
+                return null;
+            }
 #if WINDOWS_PHONE
             return System.Net.HttpUtility.UrlDecode(url);
 #elif SILVERLIGHT
             return System.Windows.Browser.HttpUtility.UrlDecode(url);
 #else
-            return UrlUtils.Decode(url, charset);
+            return Uri.UnescapeDataString(url.Replace('+', ' '));
 #endif
         }
 
-        private static string UrlEncode(string url, Encoding charset)
+        private static string UrlEncode(string url)
         {
+            if (url == null)
+            {
+                return null;
+            }
 #if WINDOWS_PHONE
             return System.Net.HttpUtility.UrlEncode(url);
 #elif SILVERLIGHT
             return System.Windows.Browser.HttpUtility.UrlEncode(url);
 #else
-            return UrlUtils.Encode(url, charset);
+            return Uri.EscapeDataString(url).Replace("%20", "+");
 #endif
         }
 

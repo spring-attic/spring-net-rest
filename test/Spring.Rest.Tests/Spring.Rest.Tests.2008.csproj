@@ -138,10 +138,12 @@
     <Compile Include="Http\MockHttpInputMessage.cs" />
     <Compile Include="Rest\Client\HttpStatusCodeExceptionTests.cs" />
     <Compile Include="Rest\Client\RestTemplateIntegrationTests.cs" />
+    <Compile Include="Util\AssertUtilsTests.cs" />
+    <Compile Include="Util\IoUtilsTests.cs" />
     <Compile Include="Util\SerializationTestUtils.cs" />
+    <Compile Include="Util\StringUtilsTests.cs" />
     <Compile Include="Util\UriTemplateTests.cs" />
     <Compile Include="Rest\Client\RestTemplateTests.cs" />
-    <Compile Include="Util\UrlUtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2008.csproj">
