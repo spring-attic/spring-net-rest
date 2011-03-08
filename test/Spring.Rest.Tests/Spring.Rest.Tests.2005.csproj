@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Http\Client\AbstractClientHttpRequestFactoryIntegrationTests.cs" />
+    <Compile Include="Http\Client\Interceptor\InterceptingClientHttpRequestFactoryTests.cs" />
     <Compile Include="Http\Client\WebClientHttpRequestFactoryIntegrationTests.cs" />
     <Compile Include="Http\Converters\ByteArrayHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\FileInfoHttpMessageConverterTests.cs" />

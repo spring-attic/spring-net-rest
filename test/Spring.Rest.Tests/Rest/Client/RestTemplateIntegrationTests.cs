@@ -31,6 +31,8 @@ using System.ServiceModel.Web;
 using NUnit.Framework;
 
 using Spring.Http;
+using Spring.Http.Client;
+using Spring.Http.Client.Interceptor;
 
 namespace Spring.Rest.Client
 {
@@ -267,6 +269,24 @@ namespace Spring.Rest.Client
         public void ServerError()
         {
             template.Execute<object>("servererror", HttpMethod.GET, null, null);
+        }
+
+        [Test]
+        public void UsingInterceptors()
+        {
+            NoOpInterceptor.counter = 0;
+            NoOpInterceptor interceptor1 = new NoOpInterceptor();
+            NoOpInterceptor interceptor2 = new NoOpInterceptor();
+            template.RequestInterceptors.Add(interceptor1);
+            template.RequestInterceptors.Add(interceptor2);
+
+            string result = template.PostForObject<string>("user", "Lisa Baia");
+            Assert.AreEqual("3", result, "Invalid content");
+
+            Assert.AreEqual(1, interceptor1.HandleRequestCounter);
+            Assert.AreEqual(2, interceptor2.HandleRequestCounter);
+            Assert.AreEqual(3, interceptor2.HandleResponseCounter);
+            Assert.AreEqual(4, interceptor1.HandleResponseCounter);   
         }
 
         #endregion
@@ -526,6 +546,75 @@ namespace Spring.Rest.Client
             if (exception != null)
             {
                 throw exception;
+            }
+        }
+
+        [Test]
+        public void UsingInterceptorsAsync()
+        {
+            ManualResetEvent manualEvent = new ManualResetEvent(false);
+            Exception exception = null;
+
+            NoOpInterceptor.counter = 0;
+            NoOpInterceptor interceptor1 = new NoOpInterceptor();
+            NoOpInterceptor interceptor2 = new NoOpInterceptor();
+            template.RequestInterceptors.Add(interceptor1);
+            template.RequestInterceptors.Add(interceptor2);
+
+            template.PostForObjectAsync<string>("user", "Lisa Baia",
+                delegate(RestOperationCompletedEventArgs<string> args)
+                {
+                    try
+                    {
+                        Assert.IsNull(args.Error, "Invalid response");
+                        Assert.IsFalse(args.Cancelled, "Invalid response");
+                        Assert.AreEqual("3", args.Response, "Invalid content");
+                    }
+                    catch (Exception ex)
+                    {
+                        exception = ex;
+                    }
+                    finally
+                    {
+                        manualEvent.Set();
+                    }
+                });
+
+            manualEvent.WaitOne();
+            if (exception != null)
+            {
+                throw exception;
+            }
+
+            Assert.AreEqual(1, interceptor1.HandleRequestCounter);
+            Assert.AreEqual(2, interceptor2.HandleRequestCounter);
+            Assert.AreEqual(3, interceptor2.HandleResponseCounter);
+            Assert.AreEqual(4, interceptor1.HandleResponseCounter);
+        }
+
+        #endregion
+
+        #region Test classes
+
+        private class NoOpInterceptor : IClientHttpRequestInterceptor
+        {
+            public static int counter = 0;
+            public int HandleRequestCounter { get; set; }
+            public int HandleResponseCounter { get; set; }
+
+            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
+            {
+                return creation.Create();
+            }
+
+            public void Execute(IClientHttpRequestExecution execution)
+            {
+                HandleRequestCounter = ++counter;
+                execution.Execute(
+                    delegate(IClientHttpResponse response)
+                    {
+                        HandleResponseCounter = ++counter;
+                    });
             }
         }
 

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 
 using Spring.Http;
 using Spring.Http.Client;
+using Spring.Http.Client.Interceptor;
 using Spring.Http.Converters;
 using Spring.Http.Converters.Xml;
 #if NET_3_5 || SILVERLIGHT
@@ -124,6 +125,7 @@ namespace Spring.Rest.Client
         private IList<IHttpMessageConverter> _messageConverters;
         private IClientHttpRequestFactory _requestFactory;
         private IResponseErrorHandler _errorHandler;
+        private IList<IClientHttpRequestInterceptor> _requestInterceptors;
 
         /// <summary>
         /// Gets or sets the base URL for the request.
@@ -179,6 +181,15 @@ namespace Spring.Rest.Client
             set { this._errorHandler = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the request interceptors.
+        /// </summary>
+        public IList<IClientHttpRequestInterceptor> RequestInterceptors
+        {
+            get { return this._requestInterceptors; }
+            set { this._requestInterceptors = value; }
+        }
+
         #endregion
 
         #region Constructor(s)
@@ -210,6 +221,7 @@ namespace Spring.Rest.Client
         {
             this._requestFactory = new WebClientHttpRequestFactory();
             this._errorHandler = new DefaultResponseErrorHandler();
+            this._requestInterceptors = new List<IClientHttpRequestInterceptor>();
 
             this._messageConverters = new List<IHttpMessageConverter>();
 
@@ -1907,7 +1919,7 @@ namespace Spring.Rest.Client
         /// <returns>An arbitrary object, as returned by the <see cref="IResponseExtractor{T}"/>.</returns>  
         protected virtual T DoExecute<T>(Uri uri, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor) where T : class
         {
-            IClientHttpRequest request = this._requestFactory.CreateRequest(uri, method);
+            IClientHttpRequest request = this.GetClientHttpRequestFactory().CreateRequest(uri, method);
 
             if (requestCallback != null)
             {
@@ -1961,7 +1973,7 @@ namespace Spring.Rest.Client
             IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor,
             Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class
         {
-            IClientHttpRequest request = this._requestFactory.CreateRequest(uri, method);
+            IClientHttpRequest request = this.GetClientHttpRequestFactory().CreateRequest(uri, method);
 
             ExecuteState<T> state = new ExecuteState<T>(uri, method, responseExtractor, this._errorHandler, methodCompleted);
 
@@ -2114,6 +2126,18 @@ namespace Spring.Rest.Client
         }
 
         #endregion
+
+        private IClientHttpRequestFactory GetClientHttpRequestFactory()
+        {
+            if (this._requestInterceptors != null && this._requestInterceptors.Count > 0)
+            {
+                return new InterceptingClientHttpRequestFactory(this._requestFactory, this._requestInterceptors);
+            }
+            else
+            {
+                return this._requestFactory;
+            }
+        }
 
         private static void LogResponseStatus(Uri uri, HttpMethod method, IClientHttpResponse response) 
         {
