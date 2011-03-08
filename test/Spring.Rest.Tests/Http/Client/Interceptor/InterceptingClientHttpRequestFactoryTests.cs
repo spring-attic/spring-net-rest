@@ -73,8 +73,11 @@ namespace Spring.Http.Client.Interceptor
             IClientHttpResponse response = request.Execute();
 
             Assert.IsTrue(interceptor1.executeInvoked);
+            Assert.IsFalse(interceptor1.isAsync);
             Assert.IsTrue(interceptor2.executeInvoked);
+            Assert.IsFalse(interceptor2.isAsync);
             Assert.IsTrue(interceptor3.executeInvoked);
+            Assert.IsFalse(interceptor3.isAsync);
             Assert.IsTrue(this.requestMock.executed);
 
             Assert.AreSame(this.responseMock, response);
@@ -119,7 +122,9 @@ namespace Spring.Http.Client.Interceptor
             }
 
             Assert.IsTrue(interceptor1.executeInvoked);
+            Assert.IsTrue(interceptor1.isAsync);
             Assert.IsTrue(interceptor2.executeInvoked);
+            Assert.IsTrue(interceptor2.isAsync);
             Assert.IsTrue(this.requestMock.executed);
             Assert.IsNotNull(responseMock.Headers.Get("AfterExecution"));
         }
@@ -205,8 +210,9 @@ namespace Spring.Http.Client.Interceptor
 
         private sealed class NoOpInterceptor : IClientHttpRequestInterceptor
         {
-            public bool createInvoked = false;
-            public bool executeInvoked = false;
+            public bool createInvoked;
+            public bool executeInvoked;
+            public bool isAsync;
 
             public IClientHttpRequest Create(IClientHttpRequestCreation creation)
             {
@@ -216,6 +222,7 @@ namespace Spring.Http.Client.Interceptor
 
             public void Execute(IClientHttpRequestExecution execution)
             {
+                this.isAsync = execution.IsAsync;
                 this.executeInvoked = true;
                 execution.Execute();
             }

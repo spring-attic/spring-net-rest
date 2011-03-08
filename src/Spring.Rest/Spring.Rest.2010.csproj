@@ -111,6 +111,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Collections\Specialized\NameValueCollection.cs" />
     <Compile Include="Http\Client\ClientHttpRequestCompletedEventArgs.cs" />
+    <Compile Include="Http\Client\Interceptor\BasicSigningRequestInterceptor.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestCreation.cs" />
     <Compile Include="Http\Client\IClientHttpRequest.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestExecution.cs" />

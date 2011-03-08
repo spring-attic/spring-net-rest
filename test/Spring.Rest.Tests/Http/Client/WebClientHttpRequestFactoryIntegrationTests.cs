@@ -33,7 +33,7 @@ using NUnit.Framework;
 namespace Spring.Http.Client
 {
     /// <summary>
-    /// Unit tests for the WebClientHttpRequestFactory class.
+    /// Integration tests for the WebClientHttpRequestFactory class.
     /// </summary>
     /// <author>Bruno Baia</author>
     [TestFixture]
@@ -67,8 +67,8 @@ namespace Spring.Http.Client
         public void Timeout()
         {
             this.webRequestFactory.Timeout = 1000;
-            IClientHttpRequest request = this.CreateRequest("/sleep/2", HttpMethod.GET);
 
+            IClientHttpRequest request = this.CreateRequest("/sleep/2", HttpMethod.GET);
             try
             {
                 request.Execute();
@@ -85,12 +85,10 @@ namespace Spring.Http.Client
         [Test]
         public void BasicAuthorizationKO()
         {
-            IClientHttpRequest request = this.CreateRequest("/basic/echo", HttpMethod.PUT);
-            string authInfo = "bruno:password";
-            authInfo = Convert.ToBase64String(Encoding.UTF8.GetBytes(authInfo));
-            request.Headers["Authorization"] = "Basic " + authInfo;
-            request.Headers.ContentLength = 0;
+            this.webRequestFactory.Credentials = new NetworkCredential("bruno", "password");
 
+            IClientHttpRequest request = this.CreateRequest("/basic/echo", HttpMethod.PUT);
+            request.Headers.ContentLength = 0;
             using (IClientHttpResponse response = request.Execute())
             {
                 Assert.AreEqual(HttpStatusCode.Forbidden, response.StatusCode, "Invalid status code");
@@ -100,12 +98,10 @@ namespace Spring.Http.Client
         [Test]
         public void BasicAuthorizationOK()
         {
-            IClientHttpRequest request = this.CreateRequest("/basic/echo", HttpMethod.PUT);
-            string authInfo = "login:password";
-            authInfo = Convert.ToBase64String(Encoding.UTF8.GetBytes(authInfo));
-            request.Headers["Authorization"] = "Basic " + authInfo;
-            request.Headers.ContentLength = 0;
+            this.webRequestFactory.Credentials = new NetworkCredential("login", "password");
 
+            IClientHttpRequest request = this.CreateRequest("/basic/echo", HttpMethod.PUT);
+            request.Headers.ContentLength = 0;
             using (IClientHttpResponse response = request.Execute())
             {
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Invalid status code");
@@ -117,7 +113,6 @@ namespace Spring.Http.Client
         {
             IClientHttpRequest request = this.CreateRequest("/ntlm/echo", HttpMethod.PUT);
             request.Headers.ContentLength = 0;
-
             using (IClientHttpResponse response = request.Execute())
             {
                 Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode, "Invalid status code");
@@ -128,9 +123,9 @@ namespace Spring.Http.Client
         public void NtlmAuthorizationOK()
         {
             this.webRequestFactory.UseDefaultCredentials = true;
+
             IClientHttpRequest request = this.CreateRequest("/ntlm/echo", HttpMethod.PUT);
             request.Headers.ContentLength = 0;
-
             using (IClientHttpResponse response = request.Execute())
             {
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Invalid status code");
