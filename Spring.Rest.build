@@ -125,8 +125,7 @@
     <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2008.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
-    <call target="test-assemblies"/>
-    <!--<call target="testcover-assemblies"/>-->
+    <call target="testcover-assemblies"/>
   </target>
 
   <target name="build-net-4.0">
