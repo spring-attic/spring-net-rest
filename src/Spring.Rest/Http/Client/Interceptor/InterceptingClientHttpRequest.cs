@@ -272,7 +272,10 @@ namespace Spring.Http.Client.Interceptor
                             {
                                 action(args.Response);
                             }
-                            this.executeCompleted(args);
+                            if (this.executeCompleted != null)
+                            {
+                                this.executeCompleted(args);
+                            }
                         });
                 }
             }

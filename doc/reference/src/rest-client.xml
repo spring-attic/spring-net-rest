@@ -329,99 +329,68 @@ requestFactory.Proxy.Credentials = new <classname>NetworkCredential</classname>(
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
 template.RequestFactory = requestFactory;</programlisting>
       </para>
-        
-      <section id="resttemplate-requestfactory-authentication">
-        <title>Authenticating requests</title>
-
-        <para>
-          Implementations of the <interfacename>IClientHttpRequestFactory</interfacename> 
-          interface can be used to authenticate requests at the RestTemplate level.
-        </para>
-
-        <simplesect>
-          <title>Basic authentication</title>
-
-          <para>
-            An example of <interfacename>IClientHttpRequestFactory</interfacename> implementation 
-            to configure Basic authentication is shown below :
-          </para>
-          
-          <programlisting language="csharp">public class <classname>BasicSigningClientHttpRequestFactory</classname> : <interfacename>IClientHttpRequestFactory</interfacename>
-{
-  private <interfacename>IClientHttpRequestFactory</interfacename> requestFactory;
-  private string authorizationHeader;
-
-  public <classname>BasicSigningClientHttpRequestFactory</classname>(string username, string password)
-    : this(new <classname>WebClientHttpRequestFactory</classname>(), username, password)
-  {
-  }
-
-  public <classname>BasicSigningClientHttpRequestFactory</classname>(
-    <interfacename>IClientHttpRequestFactory</interfacename> requestFactory, string username, string password)
-  {
-    this.requestFactory = requestFactory;
-    
-    string authInfo = <classname>String</classname>.Format("{0}:{1}", username, password);
-    authInfo = <classname>Convert</classname>.ToBase64String(<classname>Encoding</classname>.UTF8.GetBytes(authInfo));
-    this.authorizationHeader = "Basic " + authInfo;
-  }
-
-  public <interfacename>IClientHttpRequest</interfacename> CreateRequest(<classname>Uri</classname> uri, <classname>HttpMethod</classname> method)
-  {
-    <interfacename>IClientHttpRequest</interfacename> request = requestFactory.CreateRequest(uri, method);
-    request.Headers["Authorization"] = this.authorizationHeader;
-    return request;
-  }
-}
-
-<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
-template.RequestFactory = new <classname>BasicSigningClientHttpRequestFactory</classname>("username", "password");</programlisting>
-
-          <note>
-            <para>
-              Basic authentication can also be configured at the request level 
-              by settings the <literal>Authorization</literal> header :
-              <programlisting language="csharp">string authInfo = "username:password";
-authInfo = <classname>Convert</classname>.ToBase64String(<classname>Encoding</classname>.UTF8.GetBytes(authInfo));
-string authorizationHeader = "Basic " + authInfo;
-
-<classname>HttpEntity</classname> entity = new <classname>HttpEntity</classname>(requestBody);
-request.Headers["Authorization"] = authorizationHeader;
-template.PostForLocation("/hotels/bookings", entity, 1);</programlisting>
-            </para>
-          </note>
-        </simplesect>
-
-        <simplesect>
-          <title>NTLM authentication</title>
-          
-          <para>
-            Default implementation <classname>WebClientHttpRequestFactory</classname> 
-            can be used to set up NTLM authentication as shown below :
-          </para>
-
-          <programlisting language="csharp"><classname>WebClientHttpRequestFactory</classname> requestFactory = new <classname>WebClientHttpRequestFactory</classname>();
-//requestFactory.UseDefaultCredentials = true;
-requestFactory.Credentials = new <classname>NetworkCredential</classname>("userName", "password", "domain");
-
-<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
-template.RequestFactory = requestFactory;</programlisting>
-          
-        </simplesect>
-
-        <simplesect>
-          <title>OAuth authentication</title>
-
-          <para>
-            This will be supported in a future version based on the Spring.Security 
-            and/or Spring.Social Java projects (<classname>OAuthSigningClientHttpRequestFactory</classname>).
-          </para>
-        </simplesect>
-            
-      </section>
 
     </section>
 
+    <section id="resttemplate-requestinterceptor">
+      <title>Request interceptors</title>
+
+      <para>
+        <classname>RestTemplate</classname> allows you to intercept HTTP request creation and/or execution.
+        <sbr/>You can create your own interceptor by implementing the 
+        <interfacename>IClientHttpRequestInterceptor</interfacename> and register it 
+        via the <methodname>RequestInterceptors</methodname> property.
+        <sbr/>The <interfacename>IClientHttpRequestInterceptor</interfacename> interface 
+        is shown below.
+      </para>
+      
+      <programlisting language="csharp">public interface <interfacename>IClientHttpRequestInterceptor</interfacename>
+{
+  // Intercept request creation
+  <interfacename>IClientHttpRequest</interfacename> Create(<interfacename>IClientHttpRequestCreation</interfacename> creation);
+
+  // Intercept request execution
+  void Execute(<interfacename>IClientHttpRequestExecution</interfacename> execution);
+}</programlisting>
+
+      <para>
+        An example of an interceptor measuring HTTP request execution time is shown below.
+      </para>
+      
+      <programlisting language="csharp">public class <classname>PerfRequestInterceptor</classname> : <interfacename>IClientHttpRequestInterceptor</interfacename>
+{
+  public <interfacename>IClientHttpRequest</interfacename> Create(<interfacename>IClientHttpRequestCreation</interfacename> creation)
+  {
+    return creation.Create();
+  }
+
+  public void Execute(<interfacename>IClientHttpRequestExecution</interfacename> execution)
+  {
+    <classname>Stopwatch</classname> stopwatch = <classname>Stopwatch</classname>.StartNew();
+    execution.Execute(response =>
+      {
+        stopwatch.Stop();
+        <classname>Console</classname>.WriteLine(<classname>String</classname>.Format(
+          "{0} {1} request for '{2}' took {3}ms and resulted in {4:d} - {4}",
+          execution.IsAsync ? "Async" : "Sync",
+          execution.Method,
+          execution.Uri,
+          stopwatch.ElapsedMilliseconds, 
+          response.StatusCode));
+      });
+  }
+}
+
+<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>();
+template.RequestInterceptors.Add(new <classname>PerfRequestInterceptor</classname>());</programlisting>
+
+      <para>
+        Note that the <interfacename>IClientHttpRequestExecution</interfacename>.<methodname>Execute</methodname> method 
+        takes a delegate as parameter to support both synchrone and asynchrone request execution.
+      </para>
+      
+    </section>
+      
     <section id="resttemplate-container">
       <title>Using the Spring.NET container</title>
 
@@ -447,6 +416,62 @@ template.RequestFactory = requestFactory;</programlisting>
       
   </section>
 
+  <section id="resttemplate-authentication">
+    <title>Authenticating requests</title>
+    
+    <section id="resttemplate-authentication-httpwebrequest">
+      <title>Using HttpWebRequest .NET class</title>
+          
+      <para>
+        Default <link linkend="resttemplate-requestfactory">request factory</link> implementation 
+        <classname>WebClientHttpRequestFactory</classname>, that uses the <classname>HttpWebRequest</classname> 
+        class, can be used to authenticate the HTTP request.
+        <sbr/>Supported authentication schemes include Basic, Digest, Negotiate (SPNEGO), Kerberos, NTLM, 
+        and Certificates.
+      </para>
+
+      <para>
+        <programlisting language="csharp"><classname>WebClientHttpRequestFactory</classname> requestFactory = new <classname>WebClientHttpRequestFactory</classname>();
+requestFactory.Credentials = new <classname>NetworkCredential</classname>("userName", "password", "domain");
+
+<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+template.RequestFactory = requestFactory;</programlisting>
+        or directly casting the default request factory to <classname>WebClientHttpRequestFactory</classname> :    
+      <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+((<classname>WebClientHttpRequestFactory</classname>)template.RequestFactory).UseDefaultCredentials = true;</programlisting>
+      </para>
+      
+    </section>
+
+    <section id="resttemplate-authentication-basic">
+      <title>Basic authentication</title>
+
+      <para>
+        Basic authentication is supported by the <classname>WebClientHttpRequestFactory</classname> 
+        (see <link linkend="resttemplate-authentication-httpwebrequest">previous section</link>), 
+        but this implementation will wait the challenge response from server before to send 
+        the 'Authorization' header value. This can be an issue in some cases.
+        <sbr/>Spring provides a custom <link linkend="resttemplate-requestinterceptor">request interceptor</link> 
+        named <classname>BasicSigningRequestInterceptor</classname> that forces Basic authentication.
+      </para>
+          
+      <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+template.RequestInterceptors.Add(new <classname>BasicSigningRequestInterceptor</classname>("login", "password"));</programlisting>
+
+    </section>
+
+    <section id="resttemplate-authentication-oauth">
+      <title>OAuth</title>
+
+      <para>
+        This will be supported in a future version based on the Spring.Social Java project.
+        <sbr/>The implementation is based on <link linkend="resttemplate-requestinterceptor">request interceptors</link> 
+        (<classname>OAuthSigningRequestInterceptor</classname>).
+      </para>
+    </section>
+            
+  </section>
+  
   <section id="resttemplate-exchangemethod">
     <title>Dealing with HTTP messages</title>
 
