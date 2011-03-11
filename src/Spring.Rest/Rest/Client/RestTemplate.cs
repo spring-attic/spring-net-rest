@@ -1982,14 +1982,7 @@ namespace Spring.Rest.Client
                 requestCallback.DoWithRequest(request);
             }
 
-            if (methodCompleted == null)
-            {
-                request.ExecuteAsync(null, null);
-            }
-            else
-            {
-                request.ExecuteAsync(state, ResponseReceivedCallback<T>);
-            }
+            request.ExecuteAsync(state, ResponseReceivedCallback<T>);
 
             return new RestOperationCanceler(request);
         }
@@ -1997,18 +1990,16 @@ namespace Spring.Rest.Client
         private static void ResponseReceivedCallback<T>(ClientHttpRequestCompletedEventArgs responseReceived) where T : class
         {
             ExecuteState<T> state = (ExecuteState<T>)responseReceived.UserState;
-            if (!responseReceived.Cancelled && responseReceived.Error == null)
+            
+            T value = null;
+            Exception exception = responseReceived.Error;
+            bool cancelled = responseReceived.Cancelled;
+            if (exception == null && !cancelled)
             {
                 using (IClientHttpResponse response = responseReceived.Response)
                 {
-                    if (response == null)
+                    if (response != null)
                     {
-                        state.MethodCompleted(new RestOperationCompletedEventArgs<T>(null, null, false, null));
-                    }
-                    else
-                    {
-                        T value = null;
-                        Exception exception = null;
                         try
                         {
                             if (state.ResponseErrorHandler.HasError(response))
@@ -2029,16 +2020,12 @@ namespace Spring.Rest.Client
                         {
                             exception = ex;
                         }
-                        finally
-                        {
-                            state.MethodCompleted(new RestOperationCompletedEventArgs<T>(value, exception, false, null));
-                        }
                     }
                 }
             }
-            else
+            if (state.MethodCompleted != null)
             {
-                state.MethodCompleted(new RestOperationCompletedEventArgs<T>(null, responseReceived.Error, responseReceived.Cancelled, null));
+                state.MethodCompleted(new RestOperationCompletedEventArgs<T>(value, exception, cancelled, null));
             }
         }
 
