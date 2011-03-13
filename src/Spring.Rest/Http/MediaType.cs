@@ -121,7 +121,7 @@ namespace Spring.Http
         private IDictionary<string, string> parameters;
 
         // Stable sort management
-        private int SortIndex;
+        private int SortIndex = 0;
 
         /// <summary>
         /// Gets the primary type.
@@ -528,13 +528,22 @@ namespace Spring.Http
             {
                 return comp;
             }
-            foreach(string key in this.parameters.Keys)
+            string[] thisKeys = new string[this.parameters.Keys.Count];
+            this.parameters.Keys.CopyTo(thisKeys, 0);
+            Array.Sort(thisKeys, StringComparer.InvariantCultureIgnoreCase);
+            string[] otherKeys = new string[other.parameters.Keys.Count];
+            other.parameters.Keys.CopyTo(otherKeys, 0);
+            Array.Sort(otherKeys, StringComparer.InvariantCultureIgnoreCase);
+            for (int i = 0; i < this.parameters.Count; i++)
             {
-                if (!other.parameters.ContainsKey(key))
+                string thisKey = thisKeys[i];
+                string otherKey = otherKeys[i];
+                comp = String.Compare(thisKey, otherKey, StringComparison.InvariantCultureIgnoreCase);
+                if (comp != 0)
                 {
-                    return -1;
+                    return comp;
                 }
-                comp = String.Compare(this.parameters[key], other.parameters[key]);
+                comp = String.Compare(this.parameters[thisKey], other.parameters[otherKey]);
                 if (comp != 0)
                 {
                     return comp;

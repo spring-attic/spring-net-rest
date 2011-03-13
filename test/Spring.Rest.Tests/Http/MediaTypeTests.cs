@@ -240,7 +240,7 @@ namespace Spring.Http
             // shuffle & sort 10 times
             for (int i = 0; i < 10; i++)
             {
-                result.Sort(ShuffleComparison);
+                Shuffle<MediaType>(result);
                 result.Sort();
 
                 for (int j = 0; j < result.Count; j++)
@@ -360,7 +360,7 @@ namespace Spring.Http
             // shuffle & sort 10 times
             for (int i = 0; i < 10; i++)
             {
-                result.Sort(ShuffleComparison);
+                Shuffle<MediaType>(result);
                 MediaType.SortBySpecificity(result);
 
                 for (int j = 0; j < result.Count; j++)
@@ -465,7 +465,7 @@ namespace Spring.Http
             // shuffle & sort 10 times
             for (int i = 0; i < 10; i++)
             {
-                result.Sort(ShuffleComparison);
+                Shuffle<MediaType>(result);
                 MediaType.SortByQualityValue(result);
 
                 for (int j = 0; j < result.Count; j++)
@@ -506,15 +506,19 @@ namespace Spring.Http
 
         #region Utils
 
-        private static int ShuffleComparison(MediaType mediaType1, MediaType mediaType2)
+        public static void Shuffle<T>(IList<T> list)
         {
-            if (mediaType1 == mediaType2)
-            {
-                return 0;
-            }
+            Random rnd = new Random();
 
-            Random rd = new Random();
-            return rd.Next(-1, 2);
+            int i = list.Count;
+            while (i >= 1)
+            {
+                i--;
+                var nextIndex = rnd.Next(i, list.Count);
+                T val = list[nextIndex];
+                list[nextIndex] = list[i];
+                list[i] = val;
+            }
         }
 
         private static IDictionary<TKey, TValue> SingletonDictionary<TKey, TValue>(TKey key, TValue value)
