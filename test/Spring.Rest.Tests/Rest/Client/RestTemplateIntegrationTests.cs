@@ -614,6 +614,7 @@ namespace Spring.Rest.Client
                     delegate(IClientHttpResponse response)
                     {
                         HandleResponseCounter = ++counter;
+                        return response;
                     });
             }
         }

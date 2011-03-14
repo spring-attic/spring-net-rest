@@ -183,12 +183,12 @@ namespace Spring.Http.Client.Interceptor
                 this.DoExecute(null);
             }
 
-            void IClientHttpRequestExecution.Execute(Action<IClientHttpResponse> requestExecuted)
+            void IClientHttpRequestExecution.Execute(ClientHttpResponseDelegate requestExecuted)
             {
                 this.DoExecute(requestExecuted);
             }
 
-            protected abstract void DoExecute(Action<IClientHttpResponse> requestExecuted);
+            protected abstract void DoExecute(ClientHttpResponseDelegate requestExecuted);
         }
 
 #if !SILVERLIGHT
@@ -207,10 +207,10 @@ namespace Spring.Http.Client.Interceptor
             public IClientHttpResponse Execute()
             {
                 this.DoExecute(null);
-                return response;
+                return this.response;
             }
 
-            protected override void DoExecute(Action<IClientHttpResponse> requestExecuted)
+            protected override void DoExecute(ClientHttpResponseDelegate requestExecuted)
             {
                 if (enumerator.MoveNext())
                 {
@@ -218,11 +218,11 @@ namespace Spring.Http.Client.Interceptor
                 }
                 else
                 {
-                    response = this.delegateRequest.Execute();
+                    this.response = this.delegateRequest.Execute();
                 }
                 if (requestExecuted != null)
                 {
-                    requestExecuted(response);
+                    this.response = requestExecuted(this.response);
                 }
             }
         }
@@ -233,7 +233,7 @@ namespace Spring.Http.Client.Interceptor
             private object asyncState;
             private Action<ClientHttpRequestCompletedEventArgs> executeCompleted;
 
-            private IList<Action<IClientHttpResponse>> responseActions;
+            private IList<ClientHttpResponseDelegate> responseDelegates;
 
             public RequestAsyncExecution(
                 IClientHttpRequest delegateRequest,
@@ -245,7 +245,7 @@ namespace Spring.Http.Client.Interceptor
             {
                 this.asyncState = ayncState;
                 this.executeCompleted = executeCompleted;
-                responseActions = new List<Action<IClientHttpResponse>>();
+                responseDelegates = new List<ClientHttpResponseDelegate>();
             }
 
             public void Execute()
@@ -253,11 +253,11 @@ namespace Spring.Http.Client.Interceptor
                 this.DoExecute(null);
             }
 
-            protected override void DoExecute(Action<IClientHttpResponse> requestExecuted)
+            protected override void DoExecute(ClientHttpResponseDelegate requestExecuted)
             {
                 if (requestExecuted != null)
                 {
-                    this.responseActions.Insert(0, requestExecuted);
+                    this.responseDelegates.Insert(0, requestExecuted);
                 }
                 if (enumerator.MoveNext())
                 {
@@ -268,13 +268,22 @@ namespace Spring.Http.Client.Interceptor
                     this.delegateRequest.ExecuteAsync(this.asyncState, 
                         delegate(ClientHttpRequestCompletedEventArgs args)
                         {
-                            foreach (Action<IClientHttpResponse> action in this.responseActions)
+                            if (args.Error == null && !args.Cancelled && this.responseDelegates.Count > 0)
                             {
-                                action(args.Response);
+                                IClientHttpResponse response = args.Response;
+                                foreach (ClientHttpResponseDelegate action in this.responseDelegates)
+                                {
+                                    response = action(response);
+                                }
+                                this.executeCompleted(new ClientHttpRequestCompletedEventArgs(
+                                    response, args.Error, args.Cancelled, args.UserState));
                             }
-                            if (this.executeCompleted != null)
+                            else
                             {
-                                this.executeCompleted(args);
+                                if (this.executeCompleted != null)
+                                {
+                                    this.executeCompleted(args);
+                                }
                             }
                         });
                 }

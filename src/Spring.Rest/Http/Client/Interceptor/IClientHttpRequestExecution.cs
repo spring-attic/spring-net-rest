@@ -48,12 +48,12 @@ namespace Spring.Http.Client.Interceptor
         Uri Uri { get; }
 
         /// <summary>
-        /// Gets the message headers.
+        /// Gets the request message headers.
         /// </summary>
         HttpHeaders Headers { get; }
 
         /// <summary>
-        /// Gets or sets the delegate that writes the body message as a stream.
+        /// Gets or sets the delegate that writes the request body message as a stream.
         /// </summary>
         Action<Stream> Body { get;  set; }
 
@@ -64,20 +64,21 @@ namespace Spring.Http.Client.Interceptor
         /// Used to invoke the next interceptor in the interceptor chain, 
         /// or - if the calling interceptor is last - execute the request itself.
         /// </remarks>
-        /// <seealso cref="M:Execute(Action{IClientHttpResponse} requestExecuted)"/>
+        /// <seealso cref="M:Execute(ClientHttpResponseDelegate requestExecuted)"/>
         void Execute();
 
         /// <summary>
-        /// Execute the request with the current context.
+        /// Execute the request with the current context and handle the response result.
         /// </summary>
         /// <remarks>
         /// Used to invoke the next interceptor in the interceptor chain, 
         /// or - if the calling interceptor is last - execute the request itself.
         /// </remarks>
         /// <param name="requestExecuted">
-        /// The <see cref="Action{IClientHttpResponse}"/> to perform when the execution completes.
+        /// The <see cref="ClientHttpResponseDelegate">delegate</see> called 
+        /// when the execution completes.
         /// </param>
         /// <seealso cref="M:Execute()"/>
-        void Execute(Action<IClientHttpResponse> requestExecuted);
+        void Execute(ClientHttpResponseDelegate requestExecuted);
     }
 }

@@ -514,7 +514,7 @@ namespace Spring.Http
             while (i >= 1)
             {
                 i--;
-                var nextIndex = rnd.Next(i, list.Count);
+                int nextIndex = rnd.Next(i, list.Count);
                 T val = list[nextIndex];
                 list[nextIndex] = list[i];
                 list[i] = val;

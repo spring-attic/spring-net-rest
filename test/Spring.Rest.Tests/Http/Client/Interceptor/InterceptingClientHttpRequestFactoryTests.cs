@@ -206,6 +206,19 @@ namespace Spring.Http.Client.Interceptor
             Assert.AreEqual("New body", result);
         }
 
+        [Test]
+        public void ChangeResponse()
+        {
+            ChangeResponseInterceptor interceptor = new ChangeResponseInterceptor();
+            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
+                new IClientHttpRequestInterceptor[] { interceptor });
+
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpResponse response = request.Execute();
+
+            Assert.AreNotSame(this.responseMock, response);
+        }
+
         #region Inner classes
 
         private sealed class NoOpInterceptor : IClientHttpRequestInterceptor
@@ -256,6 +269,7 @@ namespace Spring.Http.Client.Interceptor
                 execution.Execute(delegate(IClientHttpResponse response)
                 {
                     response.Headers.Add("AfterExecution", "MyValue");
+                    return response;
                 });
             }
         }
@@ -303,6 +317,22 @@ namespace Spring.Http.Client.Interceptor
                     stream.Write(bytes, 0, bytes.Length);
                 };
                 execution.Execute();
+            }
+        }
+
+        private sealed class ChangeResponseInterceptor : IClientHttpRequestInterceptor
+        {
+            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
+            {
+                return creation.Create();
+            }
+
+            public void Execute(IClientHttpRequestExecution execution)
+            {
+                execution.Execute(delegate(IClientHttpResponse response)
+                {
+                    return new ResponseMock();
+                });
             }
         }
 

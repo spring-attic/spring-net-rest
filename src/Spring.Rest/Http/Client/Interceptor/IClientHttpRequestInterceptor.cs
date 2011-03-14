@@ -71,7 +71,7 @@ namespace Spring.Http.Client.Interceptor
         /// <ul>
         /// <li>execute the request using the <see cref="M:IClientHttpRequestExecution.Execute()"/> method,</li>
         /// <strong>or</strong>
-        /// <li>execute the request using the <see cref="M:IClientHttpRequestExecution.Execute(Action{IClientHttpResponse} requestExecuted)"/> method 
+        /// <li>execute the request using the <see cref="M:IClientHttpRequestExecution.Execute(ClientHttpResponseDelegate requestExecuted)"/> method 
         /// to examine the response,</li>
         /// <strong>or</strong>
         /// <li>do not execute the request to block the execution altogether.</li>

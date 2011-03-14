@@ -27,7 +27,6 @@ namespace Spring.Http.Client.Interceptor
     /// given to an interceptor.
     /// </summary>
     /// <seealso cref="IClientHttpRequestInterceptor"/>
-    /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia</author>
     public interface IClientHttpRequestCreation
     {

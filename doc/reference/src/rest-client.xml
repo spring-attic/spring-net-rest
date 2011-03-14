@@ -368,16 +368,17 @@ template.RequestFactory = requestFactory;</programlisting>
   {
     <classname>Stopwatch</classname> stopwatch = <classname>Stopwatch</classname>.StartNew();
     execution.Execute(response =>
-      {
-        stopwatch.Stop();
-        <classname>Console</classname>.WriteLine(<classname>String</classname>.Format(
-          "{0} {1} request for '{2}' took {3}ms and resulted in {4:d} - {4}",
-          execution.IsAsync ? "Async" : "Sync",
-          execution.Method,
-          execution.Uri,
-          stopwatch.ElapsedMilliseconds, 
-          response.StatusCode));
-      });
+    {
+      stopwatch.Stop();
+      <classname>Console</classname>.WriteLine(<classname>String</classname>.Format(
+        "{0} {1} request for '{2}' took {3}ms and resulted in {4:d} - {4}",
+        execution.IsAsync ? "Async" : "Sync",
+        execution.Method,
+        execution.Uri,
+        stopwatch.ElapsedMilliseconds, 
+        response.StatusCode));
+      return response;  
+    });
   }
 }
 

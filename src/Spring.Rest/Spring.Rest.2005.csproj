@@ -98,6 +98,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Http\Client\Interceptor\BasicSigningRequestInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\ClientHttpResponseDelegate.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestCreation.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestExecution.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestInterceptor.cs" />
