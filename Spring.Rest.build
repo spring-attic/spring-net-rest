@@ -42,6 +42,15 @@
     <delete dir="${bin.dir}" />
   </target>
 
+  <target name="ncoverexplorer" depends="clean">
+    <property name="product.fullname.temp" value="${product.fullname}"/>
+    <property name="project.buildconfiguration" value="Debug" />
+    <call target="build-net-3.5" />
+    <exec program="${tools.dir}/NCoverExplorer/NCoverExplorer.exe" workingdir="${project.buildoutputdir}">
+      <arg path="${project.buildoutputdir}/Spring.Rest.Tests.dll-TestCoverage.xml" />
+    </exec>
+  </target>  
+
   <target name="build" depends="clean">
     <echo message="NAnt current .NET Framework = ${nant.settings.currentframework}" />
     <property name="product.fullname.temp" value="${product.fullname}"/>
