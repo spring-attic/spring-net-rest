@@ -176,7 +176,7 @@ namespace Spring.Rest.Client.Support
         {
             MemoryStream mStream = new MemoryStream();
             HttpHeaders headers = new HttpHeaders();
-            headers.ContentType = new MediaType("text", "plain", charSet.WebName);
+            headers.ContentType = new MediaType("text", "plain", charSet);
             if (body != null)
             {
                 byte[] bytes = charSet.GetBytes(body);

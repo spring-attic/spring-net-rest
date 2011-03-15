@@ -19,6 +19,7 @@
 #endregion
 
 using System;
+using System.Text;
 using System.Collections.Generic;
 
 namespace Spring.Http.Converters
@@ -231,6 +232,26 @@ namespace Spring.Http.Converters
         protected virtual MediaType GetDefaultContentType(Type type)
         {
             return (this._supportedMediaTypes.Count > 0 ? this._supportedMediaTypes[0] : null);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Encoding">character set</see> for the given Internet media type.
+        /// </summary>
+        /// <param name="contentType">The Internet media type.</param>
+        /// <param name="defaultEncoding">
+        /// The default character to use if not specified by the media type.
+        /// </param>
+        /// <returns>The character set.</returns>
+        protected Encoding GetContentTypeCharset(MediaType contentType, Encoding defaultEncoding)
+        {
+            if (contentType != null && contentType.CharSet != null)
+            {
+                return contentType.CharSet;
+            }
+            else
+            {
+                return defaultEncoding;
+            }
         }
 
         /// <summary>

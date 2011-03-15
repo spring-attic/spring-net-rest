@@ -68,11 +68,10 @@ namespace Spring.Http.Converters
         public void ReadForm()
         {
             String body = "name+1=value+1&name+2=value+2%2B1&name+2=value+2%2B2&name+3";
-            string charSet = "ISO-8859-1";
-            Encoding charSetEncoding = Encoding.GetEncoding(charSet);
+            Encoding charSet = Encoding.GetEncoding("ISO-8859-1");
             MediaType mediaType = new MediaType("application", "x-www-form-urlencoded", charSet);
 
-            MockHttpInputMessage message = new MockHttpInputMessage(body, charSetEncoding);
+            MockHttpInputMessage message = new MockHttpInputMessage(body, charSet);
             message.Headers.ContentType = mediaType;
 
             NameValueCollection result = converter.Read<NameValueCollection>(message);
@@ -94,16 +93,15 @@ namespace Spring.Http.Converters
             body.Add("name 2", "value 2+1");
             body.Add("name 2", "value 2+2");
             body.Add("name 3", null);
-            string charSet = "ISO-8859-1";
-            Encoding charSetEncoding = Encoding.GetEncoding(charSet);
+            Encoding charSet = Encoding.GetEncoding("ISO-8859-1");
 
             MockHttpOutputMessage message = new MockHttpOutputMessage();
 
             converter.Write(body, MediaType.APPLICATION_FORM_URLENCODED, message);
 
-            Assert.AreEqual(expectedBody, message.GetBodyAsString(charSetEncoding), "Invalid result");
+            Assert.AreEqual(expectedBody, message.GetBodyAsString(charSet), "Invalid result");
             Assert.AreEqual(new MediaType("application", "x-www-form-urlencoded"), message.Headers.ContentType, "Invalid content-type");
-            //Assert.AreEqual(charSetEncoding.GetBytes(expectedBody).Length, message.Headers.ContentLength, "Invalid content-length");
+            //Assert.AreEqual(charSet.GetBytes(expectedBody).Length, message.Headers.ContentLength, "Invalid content-length");
         }
 
         [Test]

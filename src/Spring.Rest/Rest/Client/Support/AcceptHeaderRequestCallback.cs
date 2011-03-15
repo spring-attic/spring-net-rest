@@ -21,7 +21,6 @@
 using System;
 using System.Collections.Generic;
 
-using Spring.Util;
 using Spring.Http;
 using Spring.Http.Client;
 using Spring.Http.Converters;
@@ -83,7 +82,7 @@ namespace Spring.Rest.Client.Support
                     {
                         foreach (MediaType supportedMediaType in messageConverter.SupportedMediaTypes)
                         {
-                            if (StringUtils.HasText(supportedMediaType.CharSet))
+                            if (supportedMediaType.CharSet != null)
                             {
                                 allSupportedMediaTypes.Add(new MediaType(
                                     supportedMediaType.Type, supportedMediaType.Subtype));

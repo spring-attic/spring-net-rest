@@ -22,8 +22,6 @@ using System.IO;
 using System.Xml;
 using System.Text;
 
-using Spring.Util;
-
 namespace Spring.Http.Converters.Xml
 {
     /// <summary>
@@ -87,16 +85,7 @@ namespace Spring.Http.Converters.Xml
         protected override void WriteInternal(object content, IHttpOutputMessage message)
         {
             // Get the message encoding
-            Encoding encoding;
-            MediaType mediaType = message.Headers.ContentType;
-            if (mediaType == null || !StringUtils.HasText(mediaType.CharSet))
-            {
-                encoding = DEFAULT_CHARSET;
-            }
-            else
-            {
-                encoding = Encoding.GetEncoding(mediaType.CharSet);
-            }
+            Encoding encoding = this.GetContentTypeCharset(message.Headers.ContentType, DEFAULT_CHARSET);
 
             XmlWriterSettings settings = this.GetXmlWriterSettings();
             settings.Encoding = encoding;

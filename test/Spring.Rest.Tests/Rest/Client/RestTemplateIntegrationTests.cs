@@ -736,7 +736,7 @@ namespace Spring.Rest.Client
                 UriTemplate template = new UriTemplate("/user/{id}");
 
                 MediaType mediaType = MediaType.Parse(context.IncomingRequest.ContentType);
-                Encoding encoding = (mediaType == null) ? Encoding.UTF8 : Encoding.GetEncoding(mediaType.CharSet);
+                Encoding encoding = (mediaType == null) ? Encoding.UTF8 : mediaType.CharSet;
 
                 string id = (users.Count + 1).ToString(); // generate new ID
                 string name;
@@ -777,7 +777,7 @@ namespace Spring.Rest.Client
                 MediaType mediaType = MediaType.Parse(context.IncomingRequest.ContentType);
 
                 string name;
-                using (StreamReader reader = new StreamReader(stream, Encoding.GetEncoding(mediaType.CharSet)))
+                using (StreamReader reader = new StreamReader(stream, mediaType.CharSet))
                 {
                     name = reader.ReadToEnd();
                 }

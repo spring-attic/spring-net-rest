@@ -25,7 +25,6 @@ using System.Runtime.Serialization;
 using System.Security.Permissions;
 
 using Spring.Http;
-using Spring.Util;
 
 namespace Spring.Rest.Client
 {
@@ -125,7 +124,7 @@ namespace Spring.Rest.Client
                 return null;
             }
             MediaType contentType = this.response.Headers.ContentType;
-            Encoding charset = (contentType != null && StringUtils.HasText(contentType.CharSet)) ? Encoding.GetEncoding(contentType.CharSet) : DEFAULT_CHARSET;
+            Encoding charset = (contentType != null && contentType.CharSet != null) ? contentType.CharSet : DEFAULT_CHARSET;
             return charset.GetString(this.response.Body, 0, this.response.Body.Length);
         }
     }

@@ -27,7 +27,6 @@ using Spring.Collections.Specialized;
 #else
 using System.Collections.Specialized;
 #endif
-using Spring.Util;
 
 namespace Spring.Http.Converters
 {
@@ -186,16 +185,8 @@ namespace Spring.Http.Converters
         public T Read<T>(IHttpInputMessage message) where T : class
         {
             // Get the message encoding
-            Encoding encoding;
-            MediaType mediaType = message.Headers.ContentType;
-            if (mediaType == null || !StringUtils.HasText(mediaType.CharSet))
-            {
-                encoding = DEFAULT_CHARSET;
-            }
-            else
-            {
-                encoding = Encoding.GetEncoding(mediaType.CharSet);
-            }
+            MediaType contentType = message.Headers.ContentType;
+            Encoding encoding = (contentType != null && contentType.CharSet != null) ? contentType.CharSet : DEFAULT_CHARSET;
 
             // Read from the message stream  
             string body;

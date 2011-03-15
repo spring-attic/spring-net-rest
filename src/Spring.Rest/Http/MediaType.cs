@@ -161,15 +161,13 @@ namespace Spring.Http
         /// <summary>
         /// Gets the character set, as indicated by a 'charset' parameter, if any.
         /// </summary>
-        public string CharSet
+        public Encoding CharSet
         {
             get
             {
                 string charSet = null;
                 this.parameters.TryGetValue(PARAM_CHARSET, out charSet);
-                return charSet;
-                //string charSet = this.parameters[PARAM_CHARSET];
-                //return (charSet != null ? Charset.forName(charSet) : null);
+                return charSet != null ? Encoding.GetEncoding(charSet) : null;
             }
         }
 
@@ -219,6 +217,18 @@ namespace Spring.Http
             this(type, subtype)
         {
             this.parameters.Add(PARAM_CHARSET, charSet);
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MediaType"/> for the given primary type, subtype and character set. 
+        /// </summary>
+        /// <param name="type">The primary type.</param>
+        /// <param name="subtype">The subtype.</param>
+        /// <param name="charSet">The character set</param>
+        public MediaType(string type, string subtype, Encoding charSet) :
+            this(type, subtype)
+        {
+            this.parameters.Add(PARAM_CHARSET, charSet.WebName);
         }
 
         /// <summary>
@@ -302,7 +312,7 @@ namespace Spring.Http
                         foreach(string key in this.parameters.Keys)
                         {
                             if (!otherMediaType.parameters.ContainsKey(key) ||
-                                !String.Equals(otherMediaType.parameters[key], this.parameters[key]))
+                                !String.Equals(otherMediaType.parameters[key], this.parameters[key], StringComparison.OrdinalIgnoreCase))
                             {
                                 return false;
                             }

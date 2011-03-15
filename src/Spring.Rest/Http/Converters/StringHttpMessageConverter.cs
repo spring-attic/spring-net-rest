@@ -22,8 +22,6 @@ using System;
 using System.IO;
 using System.Text;
 
-using Spring.Util;
-
 namespace Spring.Http.Converters
 {
     /// <summary>
@@ -80,16 +78,7 @@ namespace Spring.Http.Converters
         protected override T ReadInternal<T>(IHttpInputMessage message)
         {
             // Get the message encoding
-            Encoding encoding;
-            MediaType mediaType = message.Headers.ContentType;
-            if (mediaType == null || !StringUtils.HasText(mediaType.CharSet))
-            {
-                encoding = DEFAULT_CHARSET;
-            }
-            else
-            {
-                encoding = Encoding.GetEncoding(mediaType.CharSet);
-            }
+            Encoding encoding = GetContentTypeCharset(message.Headers.ContentType, DEFAULT_CHARSET);
 
             // Read from the message stream
             using (StreamReader reader = new StreamReader(message.Body, encoding))
@@ -107,16 +96,7 @@ namespace Spring.Http.Converters
         protected override void WriteInternal(object content, IHttpOutputMessage message)
         {
             // Get the message encoding
-            Encoding encoding;
-            MediaType mediaType = message.Headers.ContentType;
-            if (mediaType == null || !StringUtils.HasText(mediaType.CharSet))
-            {
-                encoding = DEFAULT_CHARSET;
-            }
-            else
-            {
-                encoding = Encoding.GetEncoding(mediaType.CharSet);
-            }
+            Encoding encoding = GetContentTypeCharset(message.Headers.ContentType, DEFAULT_CHARSET);
 
             // Create a byte array of the data we want to send  
             byte[] byteData = encoding.GetBytes(content as string);

@@ -62,11 +62,10 @@ namespace Spring.Http.Converters
 	    public void Read() 
         {
             string body = "Hello Bruno Baïa";
-            string charSet = "utf-8";
-            Encoding charSetEncoding = Encoding.GetEncoding(charSet);
+            Encoding charSet = Encoding.UTF8;
             MediaType mediaType = new MediaType("text", "plain", charSet);
 
-            MockHttpInputMessage message = new MockHttpInputMessage(body, charSetEncoding);
+            MockHttpInputMessage message = new MockHttpInputMessage(body, charSet);
             message.Headers.ContentType = mediaType;
             
             string result = converter.Read<string>(message);
@@ -77,34 +76,32 @@ namespace Spring.Http.Converters
         public void WriteDefaultCharset()
         {
             string body = "H\u00e9llo W\u00f6rld";
-            string charSet = "ISO-8859-1";
-            Encoding charSetEncoding = Encoding.GetEncoding(charSet);
+            Encoding charSet = Encoding.GetEncoding("ISO-8859-1");
             MediaType mediaType = new MediaType("text", "plain", charSet);
 
             MockHttpOutputMessage message = new MockHttpOutputMessage();
 
             converter.Write(body, null, message);
 
-            Assert.AreEqual(body, message.GetBodyAsString(charSetEncoding), "Invalid result");
+            Assert.AreEqual(body, message.GetBodyAsString(charSet), "Invalid result");
             Assert.AreEqual(mediaType, message.Headers.ContentType, "Invalid content-type");
-            //Assert.AreEqual(charSetEncoding.GetBytes(body).Length, message.Headers.ContentLength, "Invalid content-length");
+            //Assert.AreEqual(charSet.GetBytes(body).Length, message.Headers.ContentLength, "Invalid content-length");
         }
 
         [Test]
         public void WriteUTF8()
         {
             string body = "H\u00e9llo W\u00f6rld";
-            string charSet = "UTF-8";
-            Encoding charSetEncoding = Encoding.GetEncoding(charSet);
+            Encoding charSet = Encoding.UTF8;
             MediaType mediaType = new MediaType("text", "plain", charSet);
 
             MockHttpOutputMessage message = new MockHttpOutputMessage();
 
             converter.Write(body, mediaType, message);
 
-            Assert.AreEqual(body, message.GetBodyAsString(charSetEncoding), "Invalid result");
+            Assert.AreEqual(body, message.GetBodyAsString(charSet), "Invalid result");
             Assert.AreEqual(mediaType, message.Headers.ContentType, "Invalid content-type");
-            //Assert.AreEqual(charSetEncoding.GetBytes(body).Length, message.Headers.ContentLength, "Invalid content-length");
+            //Assert.AreEqual(charSet.GetBytes(body).Length, message.Headers.ContentLength, "Invalid content-length");
         }
     }
 }

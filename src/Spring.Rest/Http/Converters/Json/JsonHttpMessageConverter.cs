@@ -27,8 +27,6 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
-using Spring.Util;
-
 namespace Spring.Http.Converters.Json
 {
     /// <summary>
@@ -138,16 +136,7 @@ namespace Spring.Http.Converters.Json
             };
 #else
             // Get the message encoding
-            Encoding encoding;
-            MediaType mediaType = message.Headers.ContentType;
-            if (mediaType == null || !StringUtils.HasText(mediaType.CharSet))
-            {
-                encoding = DEFAULT_CHARSET;
-            }
-            else
-            {
-                encoding = Encoding.GetEncoding(mediaType.CharSet);
-            }
+            Encoding encoding = this.GetContentTypeCharset(message.Headers.ContentType, DEFAULT_CHARSET);
 
             DataContractJsonSerializer serializer = this.GetSerializer(content.GetType());
             
