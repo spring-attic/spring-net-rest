@@ -122,14 +122,15 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        [ExpectedException(typeof(HttpServerErrorException), ExpectedMessage = "The server returned 'InternalServerError' with the status code 500.")]
+        [ExpectedException(typeof(HttpServerErrorException), ExpectedMessage = "The server returned 'Internal Server Error' with the status code 500 - InternalServerError.")]
         public void ErrorHandling()
         {
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET))
                 .Return(request);
             ExpectGetResponse();
             Expect.Call<bool>(errorHandler.HasError(response)).Return(true);
-            Expect.Call(delegate() { errorHandler.HandleError(response); }).Throw(new HttpServerErrorException(HttpStatusCode.InternalServerError));
+            Expect.Call(delegate() { errorHandler.HandleError(response); }).Throw(new HttpServerErrorException(
+                new HttpResponseMessage<byte[]>(new byte[0], HttpStatusCode.InternalServerError, "Internal Server Error")));
 
             mocks.ReplayAll();
 

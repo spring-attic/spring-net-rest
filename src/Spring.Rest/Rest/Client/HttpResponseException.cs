@@ -20,8 +20,12 @@
 
 using System;
 using System.Net;
+using System.Text;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
+
+using Spring.Http;
+using Spring.Util;
 
 namespace Spring.Rest.Client
 {
@@ -33,50 +37,27 @@ namespace Spring.Rest.Client
 #if !SILVERLIGHT
     [Serializable]
 #endif
-    public class HttpStatusCodeException : RestClientException
+    public class HttpResponseException : RestClientException
     {
-        private HttpStatusCode statusCode;
-        private string statusDescription;
+        private HttpResponseMessage<byte[]> response;
 
         /// <summary>
-        /// Gets the HTTP status code.
+        /// Gets the HTTP response message.
         /// </summary>
-        public HttpStatusCode StatusCode
+        public HttpResponseMessage<byte[]> Response
         {
-            get { return this.statusCode; }
+            get { return this.response; }
         }
 
         /// <summary>
-        /// Gets the HTTP status description.
+        /// Creates a new instance of <see cref="HttpResponseException"/> 
+        /// based on a HTTP response message.
         /// </summary>
-        public string StatusDescription
+        /// <param name="response">The HTTP response message.</param>
+        public HttpResponseException(HttpResponseMessage<byte[]> response)
+            : base(String.Format("The server returned '{0}' with the status code {1:d} - {1}.", response.StatusDescription, response.StatusCode))
         {
-            get { return this.statusDescription; }
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HttpStatusCodeException"/> 
-        /// based on a <see cref="HttpStatusCode"/>.
-        /// </summary>
-        /// <param name="statusCode">The HTTP status code.</param>
-        public HttpStatusCodeException(HttpStatusCode statusCode)
-            : base(String.Format("The server returned '{0}' with the status code {0:d}.", statusCode))
-        {
-            this.statusCode = statusCode;
-            this.statusDescription = statusCode.ToString();
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HttpStatusCodeException"/> 
-        /// based on a <see cref="HttpStatusCode"/> and a status description.
-        /// </summary>
-        /// <param name="statusCode">The HTTP status code.</param>
-        /// <param name="statusDescription">The HTTP status description.</param>
-        public HttpStatusCodeException(HttpStatusCode statusCode, string statusDescription)
-            : base(String.Format("The server returned '{0}' with the status code {1:d} - {1}.", statusDescription, statusCode))
-        {
-            this.statusCode = statusCode;
-            this.statusDescription = statusDescription;
+            this.response = response;
         }
 
 #if !SILVERLIGHT
@@ -91,13 +72,12 @@ namespace Spring.Rest.Client
         /// The <see cref="System.Runtime.Serialization.StreamingContext"/>
         /// that contains contextual information about the source or destination.
         /// </param>
-        protected HttpStatusCodeException(SerializationInfo info, StreamingContext context)
+        protected HttpResponseException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
             if (info != null)
             {
-                this.statusCode = (HttpStatusCode)info.GetInt32("StatusCode");
-                this.statusDescription = info.GetString("StatusDescription");
+                this.response = (HttpResponseMessage<byte[]>)info.GetValue("Response", typeof(HttpResponseMessage<byte[]>));
             }
         }
 
@@ -120,10 +100,21 @@ namespace Spring.Rest.Client
             base.GetObjectData(info, context);
             if (info != null)
             {
-                info.AddValue("StatusCode", (int)this.statusCode);
-                info.AddValue("StatusDescription", this.statusDescription);
+                info.AddValue("Response", this.response);
             }
         }
 #endif
+
+        /// <summary>
+        /// Returns the response body as a string.
+        /// </summary>
+        /// <returns>The response body.</returns>
+        public string GetResponseBodyAsString()
+        {
+            MediaType contentType = this.response.Headers.ContentType;
+            Encoding charset = (contentType != null && StringUtils.HasText(contentType.CharSet)) ? Encoding.GetEncoding(contentType.CharSet) : null;
+
+            return charset.GetString(this.response.Body, 0, this.response.Body.Length);
+        }
     }
 }

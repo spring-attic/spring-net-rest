@@ -101,8 +101,8 @@
     <Compile Include="Http\IHttpOutputMessage.cs" />
     <Compile Include="Http\MediaType.cs" />
     <Compile Include="Rest\Client\HttpClientErrorException.cs" />
+    <Compile Include="Rest\Client\HttpResponseException.cs" />
     <Compile Include="Rest\Client\HttpServerErrorException.cs" />
-    <Compile Include="Rest\Client\HttpStatusCodeException.cs" />
     <Compile Include="Rest\Client\IRequestCallback.cs" />
     <Compile Include="Rest\Client\IResponseErrorHandler.cs" />
     <Compile Include="Rest\Client\IResponseExtractor.cs" />

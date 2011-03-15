@@ -117,7 +117,7 @@
     <Compile Include="Http\HttpHeadersTests.cs" />
     <Compile Include="Http\MediaTypeTests.cs" />
     <Compile Include="Http\MockHttpInputMessage.cs" />
-    <Compile Include="Rest\Client\HttpStatusCodeExceptionTests.cs" />
+    <Compile Include="Rest\Client\HttpResponseExceptionTests.cs" />
     <Compile Include="Rest\Client\RestTemplateIntegrationTests.cs" />
     <Compile Include="Rest\Client\RestTemplateTests.cs" />
     <Compile Include="Util\AssertUtilsTests.cs" />

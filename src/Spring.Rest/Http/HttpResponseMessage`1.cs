@@ -18,6 +18,7 @@
 
 #endregion
 
+using System;
 using System.Net;
 
 namespace Spring.Http
@@ -28,6 +29,9 @@ namespace Spring.Http
     /// </summary>
     /// <typeparam name="T">The type of the response body.</typeparam>
     /// <author>Bruno Baia</author>
+#if !SILVERLIGHT
+    [Serializable]
+#endif
     public class HttpResponseMessage<T> : HttpResponseMessage where T : class
     {
         private T body;

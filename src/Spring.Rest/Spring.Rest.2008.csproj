@@ -141,8 +141,8 @@
     <Compile Include="Http\HttpResponseMessage`1.cs" />
     <Compile Include="Http\IHttpOutputMessage.cs" />
     <Compile Include="Rest\Client\HttpClientErrorException.cs" />
+    <Compile Include="Rest\Client\HttpResponseException.cs" />
     <Compile Include="Rest\Client\HttpServerErrorException.cs" />
-    <Compile Include="Rest\Client\HttpStatusCodeException.cs" />
     <Compile Include="Rest\Client\IResponseErrorHandler.cs" />
     <Compile Include="Rest\Client\IRestAsyncOperations.cs" />
     <Compile Include="Rest\Client\RestOperationCanceler.cs" />

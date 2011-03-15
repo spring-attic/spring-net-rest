@@ -18,8 +18,10 @@
 
 #endregion
 
+using System.IO;
 using System.Net;
 
+using Spring.Http;
 using Spring.Http.Client;
 
 namespace Spring.Rest.Client.Support
@@ -65,16 +67,16 @@ namespace Spring.Rest.Client.Support
         /// <param name="response">The response with the error</param>
         public virtual void HandleError(IClientHttpResponse response)
         {
-            int type = (int)response.StatusCode / 100;
-            switch (type)
+            byte[] body = new byte[0];
+            int contentLength = (int)response.Headers.ContentLength;
+            if (contentLength >= 0)
             {
-                case 4 :
-                    throw new HttpClientErrorException(response.StatusCode, response.StatusDescription);
-                case 5:
-                    throw new HttpServerErrorException(response.StatusCode, response.StatusDescription);
-                default :
-                    throw new HttpStatusCodeException(response.StatusCode, response.StatusDescription);
+                using (BinaryReader reader = new BinaryReader(response.Body))
+                {
+                    body = reader.ReadBytes(contentLength);
+                }
             }
+            this.HandleError(new HttpResponseMessage<byte[]>(body, response.Headers, response.StatusCode, response.StatusDescription));
         }
 
         #endregion
@@ -90,6 +92,28 @@ namespace Spring.Rest.Client.Support
         {
             int type = (int)statusCode / 100;
             return type == 4 || type == 5;
+        }
+
+        /// <summary>
+        /// Throws an exception if the response status code is a client code error (4xx) 
+        /// or a server code error (5xx). 
+        /// This method is only called when <see cref="M:HasError"/> has returned <see langword="true"/>.
+        /// </summary>
+        /// <param name="response">The response message with the error</param>
+        /// <exception cref="HttpClientErrorException">If the response status code is a client error (4xx).</exception>
+        /// <exception cref="HttpServerErrorException">If the response status code is a server error (4xx).</exception>
+        public virtual void HandleError(HttpResponseMessage<byte[]> response)
+        {
+            int type = (int)response.StatusCode / 100;
+            switch (type)
+            {
+                case 4:
+                    throw new HttpClientErrorException(response);
+                case 5:
+                    throw new HttpServerErrorException(response);
+                default:
+                    throw new HttpResponseException(response);
+            }
         }
     }
 }

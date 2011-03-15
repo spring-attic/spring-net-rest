@@ -22,6 +22,8 @@ using System;
 using System.Net;
 using System.Runtime.Serialization;
 
+using Spring.Http;
+
 namespace Spring.Rest.Client
 {
     /// <summary>
@@ -32,26 +34,15 @@ namespace Spring.Rest.Client
 #if !SILVERLIGHT
     [Serializable]
 #endif
-    public class HttpClientErrorException : HttpStatusCodeException
+    public class HttpClientErrorException : HttpResponseException
     {
         /// <summary>
         /// Creates a new instance of <see cref="HttpClientErrorException"/> 
-        /// based on a <see cref="HttpStatusCode"/>.
+        /// based on a HTTP response message.
         /// </summary>
-        /// <param name="statusCode">The HTTP status code.</param>
-        public HttpClientErrorException(HttpStatusCode statusCode)
-            : base (statusCode)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HttpClientErrorException"/> 
-        /// based on a <see cref="HttpStatusCode"/> and a status description.
-        /// </summary>
-        /// <param name="statusCode">The HTTP status code.</param>
-        /// <param name="statusDescription">The HTTP status description.</param>
-        public HttpClientErrorException(HttpStatusCode statusCode, string statusDescription)
-            : base (statusCode, statusDescription)
+        /// <param name="response">The HTTP response message.</param>
+        public HttpClientErrorException(HttpResponseMessage<byte[]> response)
+            : base (response)
         {
         }
 

@@ -20,11 +20,11 @@
 
 using System;
 using System.Globalization;
-
-#if SILVERLIGHT
-using Spring.Collections.Specialized;
-#else
+#if !SILVERLIGHT
+using System.Runtime.Serialization;
 using System.Collections.Specialized;
+#else
+using Spring.Collections.Specialized;
 #endif
 
 namespace Spring.Http
@@ -34,6 +34,9 @@ namespace Spring.Http
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia (.NET)</author>    
+#if !SILVERLIGHT
+    [Serializable]
+#endif
     public class HttpHeaders : NameValueCollection
     {
         private const string ACCEPT = "Accept";
@@ -62,6 +65,24 @@ namespace Spring.Http
             base(8, StringComparer.OrdinalIgnoreCase)
         {
         }
+
+#if !SILVERLIGHT
+        /// <summary>
+        /// Creates a new instance of the <see cref="HttpHeaders"/> class.
+        /// </summary>
+        /// <param name="info">
+        /// The <see cref="SerializationInfo"/> that holds the serialized object data 
+        /// about the exception being thrown.
+        /// </param>
+        /// <param name="context">
+        /// The <see cref="StreamingContext"/> that contains contextual information 
+        /// about the source or destination.
+        /// </param>
+        protected HttpHeaders(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
+#endif
 
         #endregion
 
