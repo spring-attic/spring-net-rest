@@ -120,6 +120,7 @@
     <Compile Include="Rest\Client\HttpResponseExceptionTests.cs" />
     <Compile Include="Rest\Client\RestTemplateIntegrationTests.cs" />
     <Compile Include="Rest\Client\RestTemplateTests.cs" />
+    <Compile Include="Rest\Client\Support\DefaultResponseErrorHandlerTests.cs" />
     <Compile Include="Util\AssertUtilsTests.cs" />
     <Compile Include="Util\IoUtilsTests.cs" />
     <Compile Include="Util\SerializationTestUtils.cs" />

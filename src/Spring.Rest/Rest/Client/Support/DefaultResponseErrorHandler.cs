@@ -67,7 +67,7 @@ namespace Spring.Rest.Client.Support
         /// <param name="response">The response with the error</param>
         public virtual void HandleError(IClientHttpResponse response)
         {
-            byte[] body = new byte[0];
+            byte[] body = null;
             int contentLength = (int)response.Headers.ContentLength;
             if (contentLength >= 0)
             {

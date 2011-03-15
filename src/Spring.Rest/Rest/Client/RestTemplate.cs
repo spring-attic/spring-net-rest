@@ -1930,7 +1930,7 @@ namespace Spring.Rest.Client
             {
                 if (response != null)
                 {
-                    if (this._errorHandler.HasError(response))
+                    if (this._errorHandler != null && this._errorHandler.HasError(response))
                     {
                         HandleResponseError(uri, method, response, this._errorHandler);
                     }
@@ -2002,7 +2002,7 @@ namespace Spring.Rest.Client
                     {
                         try
                         {
-                            if (state.ResponseErrorHandler.HasError(response))
+                            if (state.ResponseErrorHandler != null && state.ResponseErrorHandler.HasError(response))
                             {
                                 HandleResponseError(state.Uri, state.Method, response, state.ResponseErrorHandler);
                             }

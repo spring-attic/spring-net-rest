@@ -35,6 +35,7 @@ namespace Spring.Rest.Client
     [TestFixture]
     public class HttpResponseExceptionTests
     {
+        [Test]
         public void BinarySerialization()
         {
             byte[] body = new byte[2] { 0, 1 };

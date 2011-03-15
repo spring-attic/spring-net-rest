@@ -191,6 +191,25 @@ namespace Spring.Rest.Client
         }
 
         [Test]
+        [ExpectedException(typeof(RestClientException),
+            ExpectedMessage = "Could not write request: no suitable IHttpMessageConverter found for request type [System.String] and content type [foo/bar]")]
+        public void PostUnsupportedMediaType()
+        {
+            string helloWorld = "Hello World";
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            MediaType contentType = new MediaType("foo", "bar");
+            Expect.Call<bool>(converter.CanWrite(typeof(string), contentType)).Return(false);
+            HttpHeaders requestHeaders = new HttpHeaders();
+            Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
+
+            mocks.ReplayAll();
+
+            HttpEntity entity = new HttpEntity(helloWorld);
+            entity.Headers.ContentType = contentType;
+            template.PostForLocation("http://example.com", entity);
+        }
+
+        [Test]
         public void GetForMessage() 
         {
             Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);

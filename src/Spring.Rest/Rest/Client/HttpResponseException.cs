@@ -39,6 +39,15 @@ namespace Spring.Rest.Client
 #endif
     public class HttpResponseException : RestClientException
     {
+        /// <summary>
+        /// Default encoding for responses as string.
+        /// </summary>
+#if SILVERLIGHT
+        private static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
+#else
+        private static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
+#endif
+
         private HttpResponseMessage<byte[]> response;
 
         /// <summary>
@@ -111,9 +120,12 @@ namespace Spring.Rest.Client
         /// <returns>The response body.</returns>
         public string GetResponseBodyAsString()
         {
+            if (this.response.Body == null)
+            {
+                return null;
+            }
             MediaType contentType = this.response.Headers.ContentType;
-            Encoding charset = (contentType != null && StringUtils.HasText(contentType.CharSet)) ? Encoding.GetEncoding(contentType.CharSet) : null;
-
+            Encoding charset = (contentType != null && StringUtils.HasText(contentType.CharSet)) ? Encoding.GetEncoding(contentType.CharSet) : DEFAULT_CHARSET;
             return charset.GetString(this.response.Body, 0, this.response.Body.Length);
         }
     }

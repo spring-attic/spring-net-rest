@@ -256,19 +256,45 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        [ExpectedException(typeof(HttpClientErrorException), 
-            ExpectedMessage = "The server returned 'Not Found' with the status code 404 - NotFound.")]
         public void ClientError()
         {
-            template.Execute<object>("clienterror", HttpMethod.GET, null, null);
+            try
+            {
+                template.Execute<object>("clienterror", HttpMethod.GET, null, null);
+                Assert.Fail("RestTemplate should throw an exception");
+            }
+            catch (Exception ex)
+            {
+                HttpClientErrorException clientErrorException = ex as HttpClientErrorException;
+                Assert.IsNotNull(clientErrorException, "Exception HttpClientErrorException expected");
+                Assert.AreEqual("The server returned 'Not Found' with the status code 404 - NotFound.", clientErrorException.Message);
+                Assert.IsTrue(clientErrorException.Response.Body.Length == 0);
+                Assert.IsTrue(clientErrorException.Response.Headers.ContentLength == 0);
+                Assert.AreEqual(String.Empty, clientErrorException.GetResponseBodyAsString());
+                Assert.AreEqual(HttpStatusCode.NotFound, clientErrorException.Response.StatusCode);
+                Assert.AreEqual("Not Found", clientErrorException.Response.StatusDescription);
+            }
         }
 
         [Test]
-        [ExpectedException(typeof(HttpServerErrorException), 
-            ExpectedMessage = "The server returned 'Internal Server Error' with the status code 500 - InternalServerError.")]
         public void ServerError()
         {
-            template.Execute<object>("servererror", HttpMethod.GET, null, null);
+            try
+            {
+                template.Execute<object>("servererror", HttpMethod.GET, null, null);
+                Assert.Fail("RestTemplate should throw an exception");
+            }
+            catch (Exception ex)
+            {
+                HttpServerErrorException serverErrorException = ex as HttpServerErrorException;
+                Assert.IsNotNull(serverErrorException, "Exception HttpServerErrorException expected");
+                Assert.AreEqual("The server returned 'Internal Server Error' with the status code 500 - InternalServerError.", serverErrorException.Message);
+                Assert.IsTrue(serverErrorException.Response.Body.Length == 0);
+                Assert.IsTrue(serverErrorException.Response.Headers.ContentLength == 0);
+                Assert.AreEqual(String.Empty, serverErrorException.GetResponseBodyAsString());
+                Assert.AreEqual(HttpStatusCode.InternalServerError, serverErrorException.Response.StatusCode);
+                Assert.AreEqual("Internal Server Error", serverErrorException.Response.StatusDescription);
+            }
         }
 
         [Test]
@@ -478,8 +504,6 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        [ExpectedException(typeof(HttpServerErrorException),
-            ExpectedMessage = "The server returned 'Internal Server Error' with the status code 500 - InternalServerError.")]
         public void ServerErrorAsync()
         {
             ManualResetEvent manualEvent = new ManualResetEvent(false);
@@ -491,9 +515,16 @@ namespace Spring.Rest.Client
                     try
                     {
                         Assert.IsFalse(args.Cancelled, "Invalid response");
-
                         Assert.IsNotNull(args.Error, "Invalid response");
-                        exception = args.Error;
+                        HttpServerErrorException serverErrorException = args.Error as HttpServerErrorException;
+                        Assert.IsNotNull(serverErrorException, "Exception HttpServerErrorException expected");
+                        Assert.AreEqual("The server returned 'Internal Server Error' with the status code 500 - InternalServerError.", serverErrorException.Message);
+                        Assert.IsTrue(serverErrorException.Response.Body.Length == 0);
+                        Assert.IsTrue(serverErrorException.Response.Headers.ContentLength == 0);
+                        Assert.AreEqual(String.Empty, serverErrorException.GetResponseBodyAsString());
+                        Assert.AreEqual(HttpStatusCode.InternalServerError, serverErrorException.Response.StatusCode);
+                        Assert.AreEqual("Internal Server Error", serverErrorException.Response.StatusDescription);
+
                     }
                     catch (Exception ex)
                     {
