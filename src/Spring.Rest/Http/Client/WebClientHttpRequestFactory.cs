@@ -94,7 +94,7 @@ namespace Spring.Http.Client
         /// Gets or sets proxy information for the request.
         /// </summary>
         /// <remarks>
-        ///  The default value is set by calling the <see cref="P:System.Net.GlobalProxySelection.Select"/> property.
+        /// The default value is set by calling the <see cref="P:System.Net.GlobalProxySelection.Select"/> property.
         /// </remarks>
         public IWebProxy Proxy
         {
@@ -113,6 +113,19 @@ namespace Spring.Http.Client
         {
             get { return this._timeout; }
             set { this._timeout = value; }
+        }
+
+        private bool? _expect100Continue;
+        /// <summary>
+        /// Gets or sets a boolean value that determines whether 100-Continue behavior is used.
+        /// </summary>
+        /// <remarks>
+        /// The default value is <see langword="true"/>.
+        /// </remarks>
+        public bool? Expect100Continue
+        {
+            get { return this._expect100Continue; }
+            set { this._expect100Continue = value; }
         }
 #endif
 
@@ -210,6 +223,10 @@ namespace Spring.Http.Client
             if (this._timeout != null)
             {
                 this.httpWebRequest.Timeout = this._timeout.Value;
+            }
+            if (this._expect100Continue != null)
+            {
+                this.httpWebRequest.ServicePoint.Expect100Continue = this._expect100Continue.Value;
             }
 #endif
 
