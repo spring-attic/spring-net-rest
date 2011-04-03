@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="Sandcastle" default="shfb" xmlns="http://nant.sf.net/release/0.91-alpha2/nant.xsd">
+
+  <property name="project.basedir" value="${project::get-base-directory()}" />
+  <property name="project.targetdir" value="${project.basedir}\target" />
+
+  <if test="${not property::exists('msbuild.exe')}">
+    <readregistry property="net40.install.dir" key="SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\InstallPath" hive="LocalMachine" failonerror="true" />
+    <property name="msbuild.exe" value="${net40.install.dir}\msbuild.exe" />
+  </if>
+
+  <target name="help">
+    <echo message="Available tasks :" />
+    <echo message=" all" />
+    <echo message=" shfb" />
+    <echo message=" clean-all" />
+  </target>
+  
+  <target name="all" depends="clean-all,shfb" />
+
+  <target name="shfb">
+    <echo message="Building Sandcastle Help File Builder project..." />
+    <property name="product.version" value="1.0.0"/>
+    <property name="sandcastle.helptitle" value="Spring.NET REST Client Framework - API Documentation" />
+    <property name="sandcastle.helptitle" value="Spring.NET REST Client Framework ${product.version} - API Documentation" if="${property::exists('product.version')}" />
+    <exec program="${msbuild.exe}">
+      <arg value="${project.basedir}\src\Spring.Rest.shfbproj"/>
+      <arg value="/property:Configuration=Release" />
+      <arg value="/property:Platform=AnyCPU" />
+      <arg value="/property:OutputPath=${project.targetdir}"/>
+      <arg value="/property:HelpTitle=${sandcastle.helptitle}" />
+    </exec>
+  </target>
+
+  <target name="clean-all" description="Deletes every format of api docs">
+    <echo message="Deleting all api documentation builds from all configurations" />
+    <delete dir="${project.targetdir}" if="${directory::exists(project.targetdir)}" failonerror="false" />
+  </target>
+
+</project>

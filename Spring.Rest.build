@@ -186,8 +186,10 @@
   </target>
 
   <target name="doc">
-    <echo message="Generating documentation" />
+    <echo message="Generating reference documentation" />
     <nant buildfile="${doc.dir}/reference/docbook.build" target="all" />
+    <!--<echo message="Generating API documentation" />
+    <nant buildfile="${doc.dir}/api/sandcastle.build" target="all" />-->
   </target>
 
   <target name="package" depends="build,doc" description="Builds all modules and documentation">
@@ -242,6 +244,11 @@
         <include name="**\*" />
       </fileset>
     </copy>
+    <!--<copy todir="${package.dir}\doc\api">
+      <fileset basedir="${doc.dir}\api\target">
+        <include name="**\*.chm" />
+      </fileset>
+    </copy>-->
   </target>
 
   <target name="package-zip" depends="package" description="Build Package distribution as .zip file">
