@@ -130,15 +130,22 @@ namespace Spring.Http.Converters
         /// <returns><see langword="true"/> if readable; otherwise <see langword="false"/></returns>
         public bool CanRead(Type type, MediaType mediaType)
         {
-            if (!typeof(NameValueCollection).IsAssignableFrom(type)) 
+            if (typeof(NameValueCollection).IsAssignableFrom(type)) 
             {
-			    return false;
-            }
-		    if (mediaType != null) 
-            {
-			    return MediaType.APPLICATION_FORM_URLENCODED.Includes(mediaType);
+    		    if (mediaType == null) 
+                {
+                    return true;
+                }
+                foreach (MediaType supportedMediaType in this._supportedMediaTypes)
+                {
+                    if (!supportedMediaType.Equals(MediaType.MULTIPART_FORM_DATA) && 
+                        supportedMediaType.Includes(mediaType))
+                    {
+                        return true;
+                    }
+                }
 		    }
-		    return true;
+		    return false;
         }
 
         /// <summary>
@@ -151,17 +158,22 @@ namespace Spring.Http.Converters
         /// <returns><see langword="true"/> if writable; otherwise <see langword="false"/></returns>
         public bool CanWrite(Type type, MediaType mediaType)
         {
-            if (!typeof(NameValueCollection).IsAssignableFrom(type) && 
-                !typeof(IDictionary<string, object>).IsAssignableFrom(type))
+            if (typeof(NameValueCollection).IsAssignableFrom(type) ||
+                typeof(IDictionary<string, object>).IsAssignableFrom(type))
             {
-                return false;
+                if (mediaType == null)
+                {
+                    return true;
+                }
+                foreach (MediaType supportedMediaType in this._supportedMediaTypes)
+                {
+                    if (supportedMediaType.IsCompatibleWith(mediaType))
+                    {
+                        return true;
+                    }
+                }
             }
-            if (mediaType != null)
-            {
-                return MediaType.APPLICATION_FORM_URLENCODED.IsCompatibleWith(mediaType) || 
-                    MediaType.MULTIPART_FORM_DATA.IsCompatibleWith(mediaType);
-            }
-            return true;
+            return false;
         }
 
         /// <summary>

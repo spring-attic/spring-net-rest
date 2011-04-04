@@ -54,6 +54,14 @@ namespace Spring.Http.Converters
         }
 
         [Test]
+        public void CanReadAddedSupportedMediaType()
+        {
+            converter.SupportedMediaTypes.Add(MediaType.TEXT_XML);
+            
+            Assert.IsTrue(converter.CanRead(typeof(NameValueCollection), new MediaType("text", "xml")));
+        }
+
+        [Test]
         public void CanWrite() 
         {
             Assert.IsTrue(converter.CanWrite(typeof(NameValueCollection), new MediaType("application", "x-www-form-urlencoded")));
