@@ -1,11 +1,11 @@
-The Spring.NET REST project, Release 1.0.0 RC1 (Date TBD)
----------------------------------------------------------
+The Spring.NET REST project, Release 1.0.0 (April 7, 2011)
+----------------------------------------------------------
 https://github.com/SpringSource/spring-net-rest
 
 
 1. INTRODUCTION
 
-The 1.0.0 RC1 release of Spring.NET REST contains
+The 1.0.0 release of Spring.NET REST contains
 
 	* A RestTemplate class for client-side access to RESTful services.
 	* A set of HTTP message converters used to marshal objects into the HTTP request body 
@@ -93,6 +93,3 @@ To get the sources, check them out at the git repository at https://github.com/S
 
 We are always happy to receive your feedback on the forums. If you think you found a bug, have an improvement suggestion
 or feature request, please submit a ticket in JIRA (see link above).
-
-
-9. ACKNOWLEDGEMENTS

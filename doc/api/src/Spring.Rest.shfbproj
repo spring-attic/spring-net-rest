@@ -29,12 +29,12 @@
     <PlugInConfigurations>
       <PlugInConfig id="Version Builder" enabled="True">
         <configuration>
-          <currentProject label=".NET Framework" version="4.0" ripOldApis="False" />
+          <currentProject label=".NET Framework" version="4.0 Client Profile" ripOldApis="False" />
           <versions>
             <version label=".NET Framework" version="2.0" helpFileProject="Spring.Rest-net-2.0.shfbproj" />
-            <version label=".NET Framework" version="3.5" helpFileProject="Spring.Rest-net-3.5.shfbproj" />
-            <version label="Silverlight" version="3" helpFileProject="Spring.Rest-sl-3.0.shfbproj" />
-            <version label="Silverlight" version="4" helpFileProject="Spring.Rest-sl-4.0.shfbproj" />
+            <version label=".NET Framework" version="3.5 Client Profile" helpFileProject="Spring.Rest-net-3.5.shfbproj" />
+            <version label="Silverlight" version="3.0" helpFileProject="Spring.Rest-sl-3.0.shfbproj" />
+            <version label="Silverlight" version="4.0" helpFileProject="Spring.Rest-sl-4.0.shfbproj" />
             <version label="Windows Phone" version="7.0" helpFileProject="Spring.Rest-wp-7.0.shfbproj" />
           </versions>
         </configuration>
@@ -89,13 +89,13 @@
     <BuildLogFile>
     </BuildLogFile>
     <HelpTitle>Spring.NET REST Client Framework - API Documentation</HelpTitle>
-    <MSHelpViewerSdkLinkType>None</MSHelpViewerSdkLinkType>
+    <MSHelpViewerSdkLinkType>Msdn</MSHelpViewerSdkLinkType>
     <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
     <FooterText>Sponsored by SpringSource</FooterText>
     <CopyrightHref>
     </CopyrightHref>
     <CopyrightText>Copies of this document may be made for your own use and for distribution to others, provided that you do not charge any fee for such copies and further provided that each copy contains this Copyright Notice, whether distributed in print or electronically.</CopyrightText>
-    <IncludeFavorites>True</IncludeFavorites>
+    <IncludeFavorites>False</IncludeFavorites>
     <HeaderText>
     </HeaderText>
     <KeepLogFile>True</KeepLogFile>

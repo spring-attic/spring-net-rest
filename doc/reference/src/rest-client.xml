@@ -284,14 +284,7 @@ template.MessageConverters.Add(new <classname>JsonHttpMessageConverter</classnam
       implementation which gives the user total control over the response.
       </para>
 
-      <para>
-        
-
-        <methodname />
-
-        <sbr />
-
-        <programlisting language="csharp">public class <classname>MyResponseErrorHandler</classname> : <interfacename>IResponseErrorHandler</interfacename>
+      <para><programlisting language="csharp">public class <classname>MyResponseErrorHandler</classname> : <interfacename>IResponseErrorHandler</interfacename>
 {
   public bool HasError(<interfacename>IClientHttpResponse</interfacename> response)
   {
@@ -411,7 +404,14 @@ template.RequestInterceptors.Add(new <classname>PerfRequestInterceptor</classnam
     &lt;object type="MyErrorHandler"/&gt;
   &lt;/property&gt;
   &lt;property name="MessageConverters"&gt;
-    &lt;object type="MyHttpMessageConverter"/&gt;
+    &lt;list&gt;
+      &lt;object type="MyHttpMessageConverter"/&gt;
+    &lt;/list&gt;
+  &lt;/property&gt;
+  &lt;property name="RequestInterceptors"&gt;
+    &lt;list&gt;
+      &lt;object type="MyClientHttpRequestInterceptor"/&gt;
+    &lt;/list&gt;
   &lt;/property&gt;
   &lt;property name="RequestFactory.UseDefaultCredentials" value="true"/&gt;
   &lt;property name="RequestFactory.Timeout" value="10000"/&gt;
@@ -465,8 +465,7 @@ template.RequestInterceptors.Add(new <classname>BasicSigningRequestInterceptor</
 
       <para>This will be supported in a future version based on the
       Spring.Social Java project. The implementation is based on <link
-      linkend="resttemplate-requestinterceptor">request interceptors</link>
-      (<classname>OAuthSigningRequestInterceptor</classname>). </para>
+      linkend="resttemplate-requestinterceptor">request interceptors</link>. </para>
     </section>
   </section>
 

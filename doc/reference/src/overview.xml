@@ -15,12 +15,7 @@
   object-based world of .NET consumers of HTTP services. The Spring.Rest
   project contains the RestTemplate helper class which allows developers to
   focus on the issues of delivering business value in their applications
-  rather than focusing on low-level plumbing concerns. provides higher level
-  methods that correspond to each of the six main HTTP methods that make
-  invoking many RESTful services a one-liner and help to enforce REST best
-  practices. This It is conceptually similar to other template classes in
-  Spring, such as <classname>AdoTemplate</classname> and
-  <classname>NmsTemplate</classname>. </para>
+  rather than focusing on low-level plumbing concerns.</para>
 
   <para><classname>RestTemplate</classname> provides higher level methods that
   correspond to each of the six main HTTP methods that make invoking many
@@ -49,5 +44,5 @@
 
   <note>RestTemplate has been available in the Java version of the Spring
   Framework for many years and has recently been adapted to use proper .NET
-  idioms by Bruno Baia.</note>
+  idioms.</note>
 </chapter>

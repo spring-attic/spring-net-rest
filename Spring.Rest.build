@@ -19,7 +19,7 @@
   
   <property name="product.version" value="1.0.0" />
   <!-- alpha / beta# / rc# -->
-  <property name="product.releasetype" value="RC1" />
+  <property name="product.releasetype" value="" />
   <property name="product.fullname" value="${product.name} ${product.version}" if="${(product.releasetype == '')}" />
   <property name="product.fullname" value="${product.name} ${product.version} (${product.releasetype})" if="${(product.releasetype != '')}" />
 
@@ -63,15 +63,15 @@
   <target name="daily">
     <property name="project.buildtype" value="daily" />
     <property name="product.fullname" value="${product.name} (Daily build from ${datetime::get-month(datetime.now)}/${datetime::get-day(datetime.now)}/${datetime::get-year(datetime.now)})" />
-    <property name="project.zip-filename" value="spring-net-rest-${datetime::get-year(datetime.now)}${string::pad-left(datetime::get-month(datetime.now), 2, '0')}${string::pad-left(datetime::get-day(datetime.now), 2, '0')}-${string::pad-left(datetime::get-hour(datetime.now), 2, '0')}${string::pad-left(datetime::get-minute(datetime.now), 2, '0')}.zip" />
+    <property name="project.zip-filename" value="Spring.Rest-${datetime::get-year(datetime.now)}${string::pad-left(datetime::get-month(datetime.now), 2, '0')}${string::pad-left(datetime::get-day(datetime.now), 2, '0')}-${string::pad-left(datetime::get-hour(datetime.now), 2, '0')}${string::pad-left(datetime::get-minute(datetime.now), 2, '0')}.zip" />
     
     <call target="package-zip"/>
   </target>
 
   <target name="release">
     <property name="project.buildtype" value="release" />
-    <property name="project.zip-filename" value="spring-net-rest-${product.version}.zip" if="${(product.releasetype == '')}" />
-    <property name="project.zip-filename" value="spring-net-rest-${product.version}-${product.releasetype}.zip" if="${(product.releasetype != '')}" />
+    <property name="project.zip-filename" value="Spring.Rest-${product.version}.zip" if="${(product.releasetype == '')}" />
+    <property name="project.zip-filename" value="Spring.Rest-${product.version}-${product.releasetype}.zip" if="${(product.releasetype != '')}" />
     
     <call target="package-zip"/>
   </target>
