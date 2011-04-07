@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="resttemplate" xmlns="http://docbook.org/ns/docbook" version="5.0">
+<chapter id="resttemplate" version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:ns52="http://www.w3.org/2000/svg"
+         xmlns:ns5="http://www.w3.org/1999/xlink"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>RestTemplate</title>
 
-  <para>
-    Invoking RESTful services in .NET is typically done using the
-    <classname>HttpWebRequest</classname> class. 
-    For common REST operations this approach is too low level as shown below.
-  </para>
+  <para>Invoking RESTful services in .NET is typically done using the
+  <classname>HttpWebRequest</classname> class. For common REST operations this
+  approach is too low level as shown below.</para>
 
   <programlisting language="csharp"><classname>Uri</classname> address = new <classname>Uri</classname>("http://example.com/hotels/1/bookings");
 
@@ -34,169 +37,169 @@ using (<classname>HttpWebResponse</classname> response = request.GetResponse() a
 }</programlisting>
 
   <note>
-    <para>
-      There is another class called <classname>WebClient</classname> but does not support 
-      HTTP headers and HTTP status code/description.
-    </para>
+    <para>There is another class called <classname>WebClient</classname> but
+    does not support HTTP headers and HTTP status code/description.</para>
   </note>
 
-  <para>
-    RestTemplate provides higher level methods that correspond to each
-    of the six main HTTP methods that make invoking many RESTful services a
-    one-liner and enforce REST best practices.
-  </para>
+  <para>RestTemplate provides higher level methods that correspond to each of
+  the six main HTTP methods that make invoking many RESTful services a
+  one-liner and enforce REST best practices.</para>
 
   <section id="resttemplate-operations">
     <title>REST operations</title>
-    
+
     <table frame="all">
       <title>Overview of RestTemplate methods</title>
+
       <tgroup cols="2">
-        <colspec colwidth="30*"/>
-        <colspec colwidth="70*"/>
+        <colspec colwidth="30*" />
+
+        <colspec colwidth="70*" />
+
         <tbody>
           <row>
             <entry>
               <emphasis role="bold">HTTP Method</emphasis>
             </entry>
+
             <entry>
               <emphasis role="bold">RestTemplate Method</emphasis>
             </entry>
           </row>
+
           <row>
             <entry>DELETE</entry>
-            <entry>
-              <ulink url="#">Delete(Uri url)</ulink> and 2 more
-            </entry>
+
+            <entry><ulink url="#">Delete(Uri url)</ulink> and 2 more</entry>
           </row>
+
           <row>
             <entry>GET</entry>
-            <entry>
-              <ulink url="#">GetForObject&lt;T&gt;(Uri url)</ulink> and 2 more
-            </entry>
+
+            <entry><ulink url="#">GetForObject&lt;T&gt;(Uri url)</ulink> and 2
+            more</entry>
           </row>
+
           <row>
-            <entry></entry>
-            <entry>
-              <ulink url="#">GetForMessage&lt;T&gt;(Uri url)</ulink> and 2 more
-            </entry>
+            <entry />
+
+            <entry><ulink url="#">GetForMessage&lt;T&gt;(Uri url)</ulink> and
+            2 more</entry>
           </row>
+
           <row>
             <entry>HEAD</entry>
-            <entry>
-              <ulink url="#">HeadForHeaders(Uri url)</ulink> and 2 more
-            </entry>
+
+            <entry><ulink url="#">HeadForHeaders(Uri url)</ulink> and 2
+            more</entry>
           </row>
+
           <row>
             <entry>OPTIONS</entry>
-            <entry>
-              <ulink url="#">OptionsForAllow(Uri url)</ulink> and 2 more
-            </entry>
+
+            <entry><ulink url="#">OptionsForAllow(Uri url)</ulink> and 2
+            more</entry>
           </row>
+
           <row>
             <entry>POST</entry>
-            <entry>
-              <ulink url="#">PostForLocation&lt;T&gt;(Uri url, object request)</ulink> and 2 more
-            </entry>
+
+            <entry><ulink url="#">PostForLocation&lt;T&gt;(Uri url, object
+            request)</ulink> and 2 more</entry>
           </row>
+
           <row>
-            <entry></entry>
-            <entry>
-              <ulink url="#">PostForObject&lt;T&gt;(Uri url, object request)</ulink> and 2 more
-            </entry>
+            <entry />
+
+            <entry><ulink url="#">PostForObject&lt;T&gt;(Uri url, object
+            request)</ulink> and 2 more</entry>
           </row>
+
           <row>
-            <entry></entry>
-            <entry>
-              <ulink url="#">PostForMessage&lt;T&gt;(Uri url, object request)</ulink> and 2 more
-            </entry>
+            <entry />
+
+            <entry><ulink url="#">PostForMessage&lt;T&gt;(Uri url, object
+            request)</ulink> and 2 more</entry>
           </row>
+
           <row>
-            <entry></entry>
-            <entry>
-              <ulink url="#">PostForMessage(Uri url, object request)</ulink> and 2 more
-            </entry>
+            <entry />
+
+            <entry><ulink url="#">PostForMessage(Uri url, object
+            request)</ulink> and 2 more</entry>
           </row>
+
           <row>
             <entry>PUT</entry>
-            <entry>
-              <ulink url="#">Put(Uri url, object request)</ulink> and 2 more
-            </entry>
+
+            <entry><ulink url="#">Put(Uri url, object request)</ulink> and 2
+            more</entry>
           </row>
         </tbody>
       </tgroup>
     </table>
 
-    <para>
-      The 2 others methods takes URI template arguments in two forms, either as a
-      <literal>object</literal> variable length argument or an
-      <literal>IDictionary&lt;string, object&gt;</literal>. 
-      <sbr/>For example,
-    <programlisting language="csharp">// using variable length arguments
+    <para>The two other methods mentioned take URI template arguments in two
+    forms, either as a <literal>object</literal> variable length argument or
+    an <literal>IDictionary&lt;string, object&gt;</literal>. <sbr />For
+    example, <programlisting language="csharp">// using variable length arguments
 string result = restTemplate.GetForObject&lt;string&gt;("http://example.com/hotels/{hotel}/bookings/{booking}", 42, 21);
 
 // using a IDictionary&lt;string, object&gt;
 <interfacename>IDictionary</interfacename>&lt;string, object&gt; vars = new <interfacename>Dictionary</interfacename>&lt;string, object&gt;(1);
 vars.Add("hotel", 42);
-string result = restTemplate.GetForObject&lt;string&gt;("http://example.com/hotels/{hotel}/rooms/{hotel}", vars);</programlisting>
-    </para>
-      
-    <para>
-      The names of <classname>RestTemplate</classname> methods follow a
-      naming convention, the first part indicates what HTTP method is being
-      invoked and the second part indicates what is returned. 
-      For example,
-      <itemizedlist>
-        <listitem>
-          The method <methodname>GetForObject&lt;T&gt;()</methodname> will perform a GET,
-          and return the HTTP response body converted into an object type of your choice.
-        </listitem>
-        <listitem>
-          The method <methodname>PostForLocation()</methodname> will do a POST,
-          converting the given object into a HTTP request and return the
-          response HTTP Location header where the newly created object can be found.
-        </listitem>
-        <listitem>
-          The method <methodname>PostForMessage&lt;T&gt;()</methodname> will do a POST,
-          converting the given object into a HTTP request and return the full HTTP response message 
-          composed of the status code and description, the response headers and 
-          the responde body converted into an object type of your choice.
-        </listitem>
-      </itemizedlist>
-    </para>
+string result = restTemplate.GetForObject&lt;string&gt;("http://example.com/hotels/{hotel}/rooms/{hotel}", vars);</programlisting></para>
 
-    <para>
-      The request object to be POSTed or PUTed, 
-      may be a <classname>HttpEntity</classname> instance in order to add additional HTTP headers. 
-      An example is shown below.
-      <programlisting language="csharp"><classname>Booking</classname> requestBody = // create booking request content
+    <para>The names of <classname>RestTemplate</classname> methods follow a
+    naming convention, the first part indicates what HTTP method is being
+    invoked and the second part indicates what is returned. For example,
+    <itemizedlist>
+        <listitem>The method <methodname>GetForObject&lt;T&gt;()</methodname>
+        will perform a GET, and return the HTTP response body converted into
+        an object type of your choice.</listitem>
+
+        <listitem>The method <methodname>PostForLocation()</methodname> will
+        do a POST, converting the given object into a HTTP request and return
+        the response HTTP Location header where the newly created object can
+        be found.</listitem>
+
+        <listitem>The method
+        <methodname>PostForMessage&lt;T&gt;()</methodname> will do a POST,
+        converting the given object into a HTTP request and return the full
+        HTTP response message composed of the status code and description, the
+        response headers and the response body converted into an object type
+        of your choice.</listitem>
+      </itemizedlist></para>
+
+    <para>The request object to be POSTed or PUTed, may be a
+    <classname>HttpEntity</classname> instance in order to add additional HTTP
+    headers. An example is shown below. <programlisting language="csharp"><classname>Booking</classname> requestBody = // create booking request content
 <classname>HttpEntity</classname> entity = new <classname>HttpEntity</classname>(requestBody);
 entity.Headers["MyRequestHeader"] = "MyValue";
 
-template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);</programlisting>
-    </para>
+template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);</programlisting></para>
 
     <note>
-      <para>
-        These operations are synchrone and are not available for Silverlight 
-        and Windows Phone because all related network calls have to be asynchrone.
-      </para>
+      <para>These operations are synchronous and are not available for
+      Silverlight and Windows Phone because all related network calls have to
+      be asynchronous.</para>
     </note>
 
     <section id="resttemplate-operations-async">
-      <title>Asynchrone operations</title>
-      
-      <para>
-        All REST operations are also available for asynchronous calls.
-        <classname>RestTemplate</classname> methods are suffixed by 'Async'.
-        <sbr/>This have been initialy added to support Silverlight and Windows Phone, 
-        but nothing prevents you from using them for Windows Forms and 
-        WPF applications to not freeze the UI when invoking RESTful services.
-        <sbr/>An example using an asynchrone method is shown below :
-      </para>
+      <title>Asynchronous operations</title>
+
+      <para>All REST operations are also available for asynchronous calls.
+      <classname />The asynchronous methods are suffixed by the word 'Async'
+      based on common .NET naming conventions. </para>
+
+      <para><sbr />Note, that asynchronous call were initially added to
+      support Silverlight and Windows Phone, but nothing prevents you from
+      using them for Windows Forms and WPF applications to not freeze the UI
+      when invoking RESTful services. <sbr />An example using an asynchronous
+      method is shown below :</para>
 
       <programlisting language="csharp">template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings", 
-  r =>
+  r =&gt;
   {
     if (r.Error != null)
     {
@@ -207,9 +210,7 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
       <classname>Console</classname>.WriteLine(r.Response);
     }
   });</programlisting>
-
     </section>
-    
   </section>
 
   <section id="resttemplate-configuration">
@@ -217,68 +218,79 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
 
     <section id="resttemplate-baseaddress">
       <title>Base address</title>
-      
-      <para>
-        In some cases it may be useful to set up the base url of the request once. 
-        This is possible by setting the base address in the constructor or property <methodname>BaseAddress</methodname>.
-        <sbr/>For example: 
-<programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+
+      <para>In some cases it may be useful to set up the base url of the
+      request once. This is possible by setting the base address in the
+      constructor or by setting the property
+      <methodname>BaseAddress</methodname>. <sbr />For example:
+      <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
 <classname>Booking</classname> booking1 = template.GetForObject&lt;<classname>Booking</classname>&gt;("/hotels/{id}/bookings", 1);
-<classname>Booking</classname> booking2 = template.GetForObject&lt;<classname>Booking</classname>&gt;("/hotels/{id}/bookings", 2);</programlisting>          
-      </para>
-        
+<classname>Booking</classname> booking2 = template.GetForObject&lt;<classname>Booking</classname>&gt;("/hotels/{id}/bookings", 2);</programlisting></para>
     </section>
 
     <section id="resttemplate-messageconverters">
       <title>HTTP message converters</title>
 
-      <para>
-        Objects passed to and returned from REST operations are converted to and
-        from HTTP messages by <interfacename>IHttpMessageConverter</interfacename> instances.
-        <sbr/>Converters for the main mime types are registered by default, but you
-        can also write your own converter and register it via the
-        <methodname>MessageConverters</methodname> property.
-      </para>
-      <para>
-        The default converter instances registered with the template, depending of the target Framework, 
-        are <classname>ByteArrayHttpMessageConverter</classname>, <classname>StringHttpMessageConverter</classname>, 
-        <classname>FormHttpMessageConverter</classname>, <classname>XmlDocumentHttpMessageConverter</classname>, 
-        <classname>XElementHttpMessageConverter</classname>, <classname>Atom10FeedHttpMessageConverter</classname> 
-        and <classname>Rss20FeedHttpMessageConverter</classname>.
-        <sbr/>You can override these defaults using the <methodname>MessageConverters</methodname> 
-        property as would be required if using the 
-        <classname>XmlSerializableHttpMessageConverter</classname>/<classname>DataContractHttpMessageConverter</classname> 
-        or <classname>JsonHttpMessageConverter</classname>/<classname>NJsonHttpMessageConverter</classname>.
-        <sbr/>For example : 
-        <programlisting language="csharp">// Add a new converter to the default list
+      <para>Objects passed to and returned from REST operations are converted
+      to and from HTTP messages by
+      <interfacename>IHttpMessageConverter</interfacename> instances.
+      <sbr /></para>
+
+      <para>Converters for the main mime types are registered by default, but
+      you can also write your own converter and register it via the
+      <methodname>MessageConverters</methodname> property.</para>
+
+      <para>The default converter instances registered with the template,
+      depending of the target Framework, are
+      <classname>ByteArrayHttpMessageConverter</classname>,
+      <classname>StringHttpMessageConverter</classname>,
+      <classname>FormHttpMessageConverter</classname>,
+      <classname>XmlDocumentHttpMessageConverter</classname>,
+      <classname>XElementHttpMessageConverter</classname>,
+      <classname>Atom10FeedHttpMessageConverter</classname> and
+      <classname>Rss20FeedHttpMessageConverter</classname>. <sbr /></para>
+
+      <para>You can override these defaults using the
+      <methodname>MessageConverters</methodname> property. This is required if
+      you want to use the
+      <classname>XmlSerializableHttpMessageConverter</classname>/<classname>DataContractHttpMessageConverter</classname>
+      or
+      <classname>JsonHttpMessageConverter</classname>/<classname>NJsonHttpMessageConverter</classname>.
+      <sbr /></para>
+
+      <para>For example : <programlisting language="csharp">// Add a new converter to the default list
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://twitter.com");
-template.MessageConverters.Add(new <classname>JsonHttpMessageConverter</classname>());</programlisting>
-      </para>
-        
-      <para>
-        <sbr/>See <link linkend="http-messageconversion">HTTP message conversion</link> chapter 
-        for detailed description of each converter.
-      </para>
-        
+template.MessageConverters.Add(new <classname>JsonHttpMessageConverter</classname>());</programlisting></para>
+
+      <para><sbr />See <link linkend="http-messageconversion">HTTP message
+      conversion</link> chapter for detailed description of each
+      converter.</para>
     </section>
 
     <section id="resttemplate-errorhandling">
       <title>Error handling</title>
-      
-      <para>
-        In case of an exception processing the HTTP method, an exception
-        of the type <classname>RestClientException</classname> will be thrown.
-        <sbr/>The interface <interfacename>IResponseErrorHandler</interfacename> allows you 
-        to determine whether a particular response has an error or not.
-        <sbr/>The default implementation throws an exception when a 
-        HTTP client or server error happens (HTTP status code 4xx or 5xx).
+
+      <para>In case of an exception processing the HTTP method, an exception
+      of the type <classname>RestClientException</classname> will be thrown.
+      The interface <interfacename>IResponseErrorHandler</interfacename>
+      allows you to determine whether a particular response has an error. The
+      default implementation throws an exception when a HTTP client or server
+      error happens (HTTP status code 4xx or 5xx).</para>
+
+      <para>The default behavior can be changed by plugging in another
+      implementation into the <classname>RestTemplate</classname> via the
+      <methodname>ErrorHandler</methodname> property. The example below shows
+      a custom <interfacename>IResponseErrorHandler</interfacename>
+      implementation which gives the user total control over the response.
       </para>
 
       <para>
-        The default behavior can be changed by plugging in another implementation into
-        the <classname>RestTemplate</classname> via the <methodname>ErrorHandler</methodname> property.
-        <sbr/>The example below shows a custom <interfacename>IResponseErrorHandler</interfacename> implementation
-        which gives the user total control over the response.
+        
+
+        <methodname />
+
+        <sbr />
+
         <programlisting language="csharp">public class <classname>MyResponseErrorHandler</classname> : <interfacename>IResponseErrorHandler</interfacename>
 {
   public bool HasError(<interfacename>IClientHttpResponse</interfacename> response)
@@ -302,48 +314,44 @@ if (responseMessage.StatusCode == <classname>HttpStatusCode</classname>.NotFound
   // ...
 }</programlisting>
       </para>
-
     </section>
 
     <section id="resttemplate-requestfactory">
-      <title>Request factory</title>      
-      
-      <para>
-        <classname>RestTemplate</classname> uses a request factory to create 
-        instances of the <interfacename>IClientHttpRequest</interfacename> interface. 
-        Default implementation uses the .NET Framework class <classname>HttpWebRequest</classname>.
-        <sbr/>This can be overridden by specifying an implementation of
-        <interfacename>IClientHttpRequestFactory</interfacename> via the
-        <methodname>RequestFactory</methodname> property.
-      </para>
-        
-      <para>
-        Default implementation <classname>WebClientHttpRequestFactory</classname> 
-        uses an instance of <classname>HttpWebRequest</classname> which can be configured 
-        with credentials information or proxy settings.
-        <sbr/>An example setting the proxy is shown below :
-        <programlisting language="csharp"><classname>WebClientHttpRequestFactory</classname> requestFactory = new <classname>WebClientHttpRequestFactory</classname>();
+      <title>Request factory</title>
+
+      <para><classname>RestTemplate</classname> uses a request factory to
+      create instances of the
+      <interfacename>IClientHttpRequest</interfacename> interface. Default
+      implementation uses the .NET Framework class
+      <classname>HttpWebRequest</classname>. This can be overridden by
+      specifying an implementation of
+      <interfacename>IClientHttpRequestFactory</interfacename> via the
+      <methodname>RequestFactory</methodname> property.<sbr /></para>
+
+      <para>The default implementation
+      <classname>WebClientHttpRequestFactory</classname> uses an instance of
+      <classname>HttpWebRequest</classname> which can be configured with
+      credentials information or proxy settings. An example setting the proxy
+      is shown below : <sbr /><programlisting language="csharp"><classname>WebClientHttpRequestFactory</classname> requestFactory = new <classname>WebClientHttpRequestFactory</classname>();
 requestFactory.Proxy = new <classname>WebProxy</classname>("http://proxy.example.com:8080");
 requestFactory.Proxy.Credentials = new <classname>NetworkCredential</classname>("userName", "password", "domain");
 
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
-template.RequestFactory = requestFactory;</programlisting>
-      </para>
-
+template.RequestFactory = requestFactory;</programlisting></para>
     </section>
 
     <section id="resttemplate-requestinterceptor">
       <title>Request interceptors</title>
 
-      <para>
-        <classname>RestTemplate</classname> allows you to intercept HTTP request creation and/or execution.
-        <sbr/>You can create your own interceptor by implementing the 
-        <interfacename>IClientHttpRequestInterceptor</interfacename> and register it 
-        via the <methodname>RequestInterceptors</methodname> property.
-        <sbr/>The <interfacename>IClientHttpRequestInterceptor</interfacename> interface 
-        is shown below.
-      </para>
-      
+      <para><classname>RestTemplate</classname> allows you to intercept HTTP
+      request creation and/or execution. You can create your own interceptor
+      by implementing the
+      <interfacename>IClientHttpRequestInterceptor</interfacename> and
+      register it via the <methodname>RequestInterceptors</methodname>
+      property. <sbr /><sbr />The
+      <interfacename>IClientHttpRequestInterceptor</interfacename> interface
+      is shown below.</para>
+
       <programlisting language="csharp">public interface <interfacename>IClientHttpRequestInterceptor</interfacename>
 {
   // Intercept request creation
@@ -353,10 +361,9 @@ template.RequestFactory = requestFactory;</programlisting>
   void Execute(<interfacename>IClientHttpRequestExecution</interfacename> execution);
 }</programlisting>
 
-      <para>
-        An example of an interceptor measuring HTTP request execution time is shown below.
-      </para>
-      
+      <para>An example of an interceptor measuring HTTP request execution time
+      is shown below.</para>
+
       <programlisting language="csharp">public class <classname>PerfRequestInterceptor</classname> : <interfacename>IClientHttpRequestInterceptor</interfacename>
 {
   public <interfacename>IClientHttpRequest</interfacename> Create(<interfacename>IClientHttpRequestCreation</interfacename> creation)
@@ -367,7 +374,7 @@ template.RequestFactory = requestFactory;</programlisting>
   public void Execute(<interfacename>IClientHttpRequestExecution</interfacename> execution)
   {
     <classname>Stopwatch</classname> stopwatch = <classname>Stopwatch</classname>.StartNew();
-    execution.Execute(response =>
+    execution.Execute(response =&gt;
     {
       stopwatch.Stop();
       <classname>Console</classname>.WriteLine(<classname>String</classname>.Format(
@@ -385,116 +392,104 @@ template.RequestFactory = requestFactory;</programlisting>
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>();
 template.RequestInterceptors.Add(new <classname>PerfRequestInterceptor</classname>());</programlisting>
 
-      <para>
-        Note that the <interfacename>IClientHttpRequestExecution</interfacename>.<methodname>Execute</methodname> method 
-        takes a delegate as parameter to support both synchrone and asynchrone request execution.
-      </para>
-      
+      <para>Note that the
+      <interfacename>IClientHttpRequestExecution</interfacename>.<methodname>Execute</methodname>
+      method takes a delegate as parameter to support both synchronous and
+      asynchronous request execution.</para>
     </section>
-      
+
     <section id="resttemplate-container">
       <title>Using the Spring.NET container</title>
 
-      <para>
-        <classname>RestTemplate</classname>, as any other class can be configured 
-        in the Spring.NET container.
-        <sbr/>For example, using XML configuration :
-      </para>
+      <para><classname>RestTemplate</classname>, as any other class can be
+      configured in the Spring.NET container. <sbr />For example, using XML
+      configuration :</para>
 
-      <programlisting language="myxml"><![CDATA[<object id="RestTemplate" type="Spring.Rest.Client.RestTemplate, Spring.Rest">
-  <constructor-arg name="baseAddress" value="http://example.com"/>
-  <property name="ErrorHandler">
-    <object type="MyErrorHandler"/>
-  </property>
-  <property name="MessageConverters">
-    <object type="MyHttpMessageConverter"/>
-  </property>
-  <property name="RequestFactory.UseDefaultCredentials" value="true"/>
-  <property name="RequestFactory.Timeout" value="10000"/>
-</object>]]></programlisting>
-        
+      <programlisting language="myxml">&lt;object id="RestTemplate" type="Spring.Rest.Client.RestTemplate, Spring.Rest"&gt;
+  &lt;constructor-arg name="baseAddress" value="http://example.com"/&gt;
+  &lt;property name="ErrorHandler"&gt;
+    &lt;object type="MyErrorHandler"/&gt;
+  &lt;/property&gt;
+  &lt;property name="MessageConverters"&gt;
+    &lt;object type="MyHttpMessageConverter"/&gt;
+  &lt;/property&gt;
+  &lt;property name="RequestFactory.UseDefaultCredentials" value="true"/&gt;
+  &lt;property name="RequestFactory.Timeout" value="10000"/&gt;
+&lt;/object&gt;</programlisting>
     </section>
-      
   </section>
 
   <section id="resttemplate-authentication">
     <title>Authenticating requests</title>
-    
+
     <section id="resttemplate-authentication-httpwebrequest">
       <title>Using HttpWebRequest .NET class</title>
-          
-      <para>
-        Default <link linkend="resttemplate-requestfactory">request factory</link> implementation 
-        <classname>WebClientHttpRequestFactory</classname>, that uses the <classname>HttpWebRequest</classname> 
-        class, can be used to authenticate the HTTP request.
-        <sbr/>Supported authentication schemes include Basic, Digest, Negotiate (SPNEGO), Kerberos, NTLM, 
-        and Certificates.
-      </para>
 
-      <para>
-        <programlisting language="csharp"><classname>WebClientHttpRequestFactory</classname> requestFactory = new <classname>WebClientHttpRequestFactory</classname>();
+      <para>The default <link linkend="resttemplate-requestfactory">request
+      factory</link> implementation
+      <classname>WebClientHttpRequestFactory</classname>, that uses the
+      <classname>HttpWebRequest</classname> class, can be used to authenticate
+      the HTTP request. Supported authentication schemes include Basic,
+      Digest, Negotiate (SPNEGO), Kerberos, NTLM, and Certificates.</para>
+
+      <para><programlisting language="csharp"><classname>WebClientHttpRequestFactory</classname> requestFactory = new <classname>WebClientHttpRequestFactory</classname>();
 requestFactory.Credentials = new <classname>NetworkCredential</classname>("userName", "password", "domain");
 
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
-template.RequestFactory = requestFactory;</programlisting>
-        or directly casting the default request factory to <classname>WebClientHttpRequestFactory</classname> :    
-      <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
-((<classname>WebClientHttpRequestFactory</classname>)template.RequestFactory).UseDefaultCredentials = true;</programlisting>
-      </para>
-      
+template.RequestFactory = requestFactory;</programlisting>You can also
+      directly cast the default request factory to
+      <classname>WebClientHttpRequestFactory</classname> : <programlisting
+      language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+((<classname>WebClientHttpRequestFactory</classname>)template.RequestFactory).UseDefaultCredentials = true;</programlisting></para>
     </section>
 
     <section id="resttemplate-authentication-basic">
       <title>Basic authentication</title>
 
-      <para>
-        Basic authentication is supported by the <classname>WebClientHttpRequestFactory</classname> 
-        (see <link linkend="resttemplate-authentication-httpwebrequest">previous section</link>), 
-        but this implementation will wait the challenge response from server before to send 
-        the 'Authorization' header value. This can be an issue in some cases.
-        <sbr/>Spring provides a custom <link linkend="resttemplate-requestinterceptor">request interceptor</link> 
-        named <classname>BasicSigningRequestInterceptor</classname> that forces Basic authentication.
-      </para>
-          
+      <para>Basic authentication is supported by the
+      <classname>WebClientHttpRequestFactory</classname> (see <link
+      linkend="resttemplate-authentication-httpwebrequest">previous
+      section</link>), but this implementation will wait the challenge
+      response from server before to send the 'Authorization' header value. As
+      this can be an issue in some cases, Spring provides a custom <link
+      linkend="resttemplate-requestinterceptor">request interceptor</link>
+      named <classname>BasicSigningRequestInterceptor</classname> that forces
+      Basic authentication. This is shown below<sbr /></para>
+
       <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
 template.RequestInterceptors.Add(new <classname>BasicSigningRequestInterceptor</classname>("login", "password"));</programlisting>
-
     </section>
 
     <section id="resttemplate-authentication-oauth">
       <title>OAuth</title>
 
-      <para>
-        This will be supported in a future version based on the Spring.Social Java project.
-        <sbr/>The implementation is based on <link linkend="resttemplate-requestinterceptor">request interceptors</link> 
-        (<classname>OAuthSigningRequestInterceptor</classname>).
-      </para>
+      <para>This will be supported in a future version based on the
+      Spring.Social Java project. The implementation is based on <link
+      linkend="resttemplate-requestinterceptor">request interceptors</link>
+      (<classname>OAuthSigningRequestInterceptor</classname>). </para>
     </section>
-            
   </section>
-  
+
   <section id="resttemplate-exchangemethod">
     <title>Dealing with HTTP messages</title>
 
-    <para>
-      Besides the REST operations described in a <link linkend="resttemplate-operations">previous section</link>, 
-      the <classname>RestTemplate</classname> also has the <methodname>Exchange()</methodname> method, 
-      which can be used for arbitrary HTTP method execution based on HTTP messages.
-      <sbr/>The method takes as arguments the HTTP request message composed of 
-      the request uri, the HTTP method and the HTTP entity (headers and body) and 
-      returns the HTTP response message composed of the status code, status description and 
-      the HTTP entity (headers and body).
-    </para>
-    
+    <para>Besides the REST operations described in the <link
+    linkend="resttemplate-operations">previous section</link>, the
+    <classname>RestTemplate</classname> also has the
+    <methodname>Exchange()</methodname> method, which can be used for
+    arbitrary HTTP method execution based on HTTP messages. The method takes
+    as arguments the HTTP request message composed of the request Uri, the
+    HTTP method and the HTTP entity (headers and body) and returns the HTTP
+    response message composed of the status code, status description and the
+    HTTP entity (headers and body).</para>
+
     <programlisting language="csharp"><classname>HttpResponseMessage</classname>&lt;T&gt; Exchange&lt;T&gt;(<classname>Uri</classname> url, <classname>HttpMethod</classname> method, <classname>HttpEntity</classname> requestEntity) where T : class;
 
 // also has 2 overloads for URI template based URL.</programlisting>
 
-    <para>
-      Perhaps most importantly, the <methodname>Exchange()</methodname>
-      method can be used to add request headers and read response headers 
-      for every REST operation. For example:
-    </para>
+    <para>Perhaps most importantly, the <methodname>Exchange()</methodname>
+    method can be used to add request headers and read response headers for
+    every REST operation. For example:</para>
 
     <programlisting language="csharp"><classname>HttpEntity</classname> requestEntity = new <classname>HttpEntity</classname>();
 requestEntity.Headers["MyRequestHeader"] = "MyValue";
@@ -506,55 +501,46 @@ string body = response.Body;
 <classname>HttpStatusCode</classname> statusCode = response.StatusCode;
 string statusDescription = response.StatusDescription;</programlisting>
 
-    <para>
-      In the above example, we first prepare a request message that contains the
-      <literal>MyRequestHeader</literal> header. We then retrieve the response message, 
-      and read the <literal>MyResponseHeader</literal>.
-    </para>
-    
+    <para>In the above example, we first prepare a request message that
+    contains the <literal>MyRequestHeader</literal> header. We then retrieve
+    the response message, and read the
+    <literal>MyResponseHeader</literal>.</para>
   </section>
-      
+
   <section id="resttemplate-executemethod">
     <title>Under the hood...</title>
-      
-    <para>
-      Last but not least, the <methodname>Execute()</methodname> method 
-      is behind everything <classname>RestTemplate</classname> does.
-    </para>
+
+    <para>Last but not least, the <methodname>Execute()</methodname> method is
+    behind everything <classname>RestTemplate</classname> does.</para>
 
     <programlisting language="csharp">T Execute&lt;T&gt;(<classname>Uri</classname> url, <classname>HttpMethod</classname> method, <interfacename>IRequestCallback</interfacename> requestCallback, <interfacename>IResponseExtractor</interfacename>&lt;T&gt; responseExtractor) where T : class;
 
 // also has 2 overloads for URI template based URL.</programlisting>
 
-    <para>
-      The <interfacename>IRequestCallback</interfacename> interface is defined as
-    </para>
+    <para>The <interfacename>IRequestCallback</interfacename> interface is
+    defined as</para>
 
     <programlisting language="csharp">public interface <interfacename>IRequestCallback</interfacename>
 {
   void DoWithRequest(<interfacename>IClientHttpRequest</interfacename> request);
 }</programlisting>
 
-    <para>
-      The <interfacename>IResponseExtractor</interfacename>&lt;T&gt; interface is defined as
-    </para>
+    <para>The <interfacename>IResponseExtractor</interfacename>&lt;T&gt;
+    interface is defined as</para>
 
     <programlisting language="csharp">public interface <interfacename>IResponseExtractor</interfacename>&lt;T&gt; where T : class
 {
   T ExtractData(<interfacename>IClientHttpResponse</interfacename> response);
 }</programlisting>
 
-    <para>
-      The <methodname>Execute</methodname> method allow you to manipulate 
-      the request/response headers, write to the request body and 
-      read from the response body. 
-      <sbr/>When using the execute method you do not have to worry
-      about any resource management, the template will always close the
-      request and handle any errors. Refer to the API documentation for more
-      information on using the execute method and the meaning of its other
-      method arguments.
-    </para>
-      
+    <para>The <methodname>Execute</methodname> method allow you to manipulate
+    the request/response headers, write to the request body and read from the
+    response body. </para>
+
+    <para>Note, when using the execute method you do not have to worry about
+    any resource management, the template will always close the request and
+    handle any errors. Refer to the API documentation for more information on
+    using the execute method and the meaning of its other method
+    arguments.</para>
   </section>
-      
 </chapter>

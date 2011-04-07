@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<chapter id="http-messageconversion" xmlns="http://docbook.org/ns/docbook" version="5.0">
+<chapter id="http-messageconversion" version="5.0"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:ns52="http://www.w3.org/2000/svg"
+         xmlns:ns5="http://www.w3.org/1999/xlink"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
   <title>HTTP Message Conversion</title>
 
-  <para>
-    Objects passed to and returned from some REST operations are converted 
-    to HTTP requests and from HTTP responses by <interfacename>IHttpMessageConverters</interfacename>.
-    <sbr/>The <interfacename>IHttpMessageConverter</interfacename> interface is
-    shown below to give you a better feel for its functionality.
-  </para>
+  <para>Objects passed to and returned from some REST operations are converted
+  to HTTP requests and from HTTP responses by
+  <interfacename>IHttpMessageConverters</interfacename>. The
+  <interfacename>IHttpMessageConverter</interfacename> interface is shown
+  below to give you a better feel for its functionality.</para>
 
   <programlisting language="csharp">public interface <interfacename>IHttpMessageConverters</interfacename>
 {
@@ -27,459 +32,562 @@
   void Write(object content, <classname>MediaType</classname> contentType, <interfacename>IHttpOutputMessage</interfacename> message);
 }</programlisting>
 
-  <para>
-    Concrete implementations for the main media (mime) types are
-    provided in the framework and most are <link linkend="resttemplate-messageconverters">registered by default</link> 
-    with the <classname>RestTemplate</classname> on the client-side.
-  </para>
+  <para>Concrete implementations for the main media (mime) types are provided
+  in the framework and most are <link
+  linkend="resttemplate-messageconverters">registered by default</link> with
+  the <classname>RestTemplate</classname> on the client-side.</para>
 
   <table frame="all">
     <title>Supported HTTP message converters by Framework</title>
+
     <tgroup cols="7">
       <tbody>
         <row>
           <entry>
             <emphasis role="bold">Supported MIME types</emphasis>
           </entry>
+
           <entry align="center">
             <emphasis role="bold">.NET 2.0</emphasis>
           </entry>
+
           <entry align="center">
             <emphasis role="bold">.NET 3.5</emphasis>
           </entry>
+
           <entry align="center">
             <emphasis role="bold">.NET 4.0</emphasis>
           </entry>
+
           <entry align="center">
             <emphasis role="bold">Silverlight 3.0</emphasis>
           </entry>
+
           <entry align="center">
             <emphasis role="bold">Silverlight 4.0</emphasis>
           </entry>
+
           <entry align="center">
             <emphasis role="bold">Windows Phone 7.0</emphasis>
           </entry>
         </row>
+
         <row>
           <entry>
-            <link linkend="http-byteconverter">ByteArrayHttpMessageConverter</link>
+            <link
+            linkend="http-byteconverter">ByteArrayHttpMessageConverter</link>
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
         </row>
+
         <row>
           <entry>
-            <link linkend="http-stringconverter">StringHttpMessageConverter</link>
+            <link
+            linkend="http-stringconverter">StringHttpMessageConverter</link>
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
         </row>
+
         <row>
           <entry>
-            <link linkend="http-formconverter">FileInfoHttpMessageConverter</link>
+            <link
+            linkend="http-formconverter">FileInfoHttpMessageConverter</link>
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
         </row>
+
         <row>
           <entry>
             <link linkend="http-formconverter">FormHttpMessageConverter</link>
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
         </row>
+
         <row>
           <entry>
-            <link linkend="http-xmldocumentconverter">XmlDocumentHttpMessageConverter</link>
+            <link
+            linkend="http-xmldocumentconverter">XmlDocumentHttpMessageConverter</link>
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
-          <entry>
-          </entry>
-          <entry>
-          </entry>
-          <entry>
-          </entry>
+
+          <entry />
+
+          <entry />
+
+          <entry />
         </row>
+
         <row>
           <entry>
-            <link linkend="http-xelementconverter">XElementHttpMessageConverter</link>
+            <link
+            linkend="http-xelementconverter">XElementHttpMessageConverter</link>
           </entry>
-          <entry>
-          </entry>
+
+          <entry />
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(1)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(1)</superscript>
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(1)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(1)</superscript>
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
         </row>
+
         <row>
           <entry>
-            <link linkend="http-xmlserializerconverter">XmlSerializableHttpMessageConverter</link>
+            <link
+            linkend="http-xmlserializerconverter">XmlSerializableHttpMessageConverter</link>
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
-          <entry>
-          </entry>
-          <entry>
-          </entry>
-          <entry>
-          </entry>
-          <entry>
-          </entry>
-          <entry>
-          </entry>
+
+          <entry />
+
+          <entry />
+
+          <entry />
+
+          <entry />
+
+          <entry />
         </row>
+
         <row>
           <entry>
-            <link linkend="http-datacontractserializerconverter">DataContractHttpMessageConverter</link>
+            <link
+            linkend="http-datacontractserializerconverter">DataContractHttpMessageConverter</link>
           </entry>
-          <entry>
-          </entry>
+
+          <entry />
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
         </row>
+
         <row>
           <entry>
             <link linkend="http-jsonconverter">JsonHttpMessageConverter</link>
           </entry>
-          <entry>
-          </entry>
+
+          <entry />
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
         </row>
+
         <row>
-          <entry>
-            <link linkend="http-njsonconverter">NJsonHttpMessageConverter</link>
-            <sbr/>Json.NET (Newtonsoft.Json)
-          </entry>
+          <entry><link
+          linkend="http-njsonconverter">NJsonHttpMessageConverter</link>
+          <sbr />Json.NET (Newtonsoft.Json)</entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(3)</superscript>
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(3)</superscript>
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(3)</superscript>
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(3)</superscript>
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(3)</superscript>
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(3)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(3)</superscript>
           </entry>
         </row>
+
         <row>
           <entry>
-            <link linkend="http-feedconverters-atom10">Atom10FeedHttpMessageConverter</link>
+            <link
+            linkend="http-feedconverters-atom10">Atom10FeedHttpMessageConverter</link>
           </entry>
-          <entry>
-          </entry>
+
+          <entry />
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(2)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(2)</superscript>
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(2)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(2)</superscript>
           </entry>
-          <entry>
-          </entry>
+
+          <entry />
         </row>
+
         <row>
           <entry>
-            <link linkend="http-feedconverters-rss20">Rss20FeedHttpMessageConverter</link>
+            <link
+            linkend="http-feedconverters-rss20">Rss20FeedHttpMessageConverter</link>
           </entry>
-          <entry>
-          </entry>
+
+          <entry />
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(2)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(2)</superscript>
           </entry>
+
           <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" /><superscript>(2)</superscript>
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(2)</superscript>
           </entry>
-          <entry>
-          </entry>
+
+          <entry />
         </row>
       </tbody>
     </tgroup>
-    <para>
-      (1) See <link linkend="http-xelementconverter-silverlight">Silverlight support for XElementHttpMessageConverter</link>
-    </para>
-    <para>
-      (2) See <link linkend="http-feedconverters-silverlight">Silverlight support for feed converters</link>
-    </para>
-    <para>
-      (3) See <link linkend="http-njsonconverter">support for Json.NET (Newtonsoft.Json) converter</link>
-    </para>
+
+    <para>(1) See <link
+    linkend="http-xelementconverter-silverlight">Silverlight support for
+    XElementHttpMessageConverter</link></para>
+
+    <para>(2) See <link linkend="http-feedconverters-silverlight">Silverlight
+    support for feed converters</link></para>
+
+    <para>(3) See <link linkend="http-njsonconverter">support for Json.NET
+    (Newtonsoft.Json) converter</link></para>
   </table>
 
-  <para>
-    The implementations of <interfacename>IHttpMessageConverter</interfacename>s 
-    are described in the following sections. 
-    <sbr/>For all converters a default media type is used but can be overridden 
-    by setting the <methodname>SupportedMediaTypes</methodname> property.
-  </para>
+  <para>The implementations of
+  <interfacename>IHttpMessageConverter</interfacename>s are described in the
+  following sections. <sbr />For all converters a default media type is used
+  but can be overridden by setting the
+  <methodname>SupportedMediaTypes</methodname> property.</para>
 
-  <para>
-    Refer to the API documentation for more information and 
-    to unit tests for example scenarios about each converters.
-  </para>
-  
+  <para>Refer to the API documentation for more information and to unit tests
+  for example scenarios about each converters.</para>
+
   <section id="http-byteconverter">
     <title>ByteArrayMessageConverter</title>
 
-    <para>
-      Supports all the .NET Framework versions.
-    </para>
-    
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation 
-      that can read and write byte arrays from the HTTP request and response.
-      <sbr/>By default, this converter supports all media types (<literal>'*/*'</literal>), 
-      and writes with a <literal>Content-Type</literal> of
-      <literal>'application/octet-stream'</literal>.
-    </para>
+    <para>Supports all the .NET Framework versions.</para>
+
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write byte arrays from the HTTP request
+    and response. <sbr />By default, this converter supports all media types
+    (<literal>'*/*'</literal>), and writes with a
+    <literal>Content-Type</literal> of
+    <literal>'application/octet-stream'</literal>.</para>
   </section>
-  
+
   <section id="http-stringconverter">
     <title>StringHttpMessageConverter</title>
 
-    <para>
-      Supports all the .NET Framework versions.
-    </para>
-    
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation 
-      that can read and write Strings from the HTTP request and response.
-      <sbr/>By default, this converter supports all text media types
-      (<literal>'text/*'</literal>), and writes with a
-      <literal>Content-Type</literal> of <literal>'text/plain'</literal>.
-    </para>
+    <para>Supports all the .NET Framework versions.</para>
+
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write Strings from the HTTP request and
+    response. <sbr />By default, this converter supports all text media types
+    (<literal>'text/*'</literal>), and writes with a
+    <literal>Content-Type</literal> of <literal>'text/plain'</literal>.</para>
   </section>
-  
+
   <section id="http-fileinfoconverter">
     <title>FileInfoHttpMessageConverter</title>
 
-    <para>
-      Supports all the .NET Framework versions.
-    </para>
+    <para>Supports all the .NET Framework versions.</para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> 
-      implementation that can write file content to the HTTP request.
-      <sbr/>By default, this converter supports all text media types
-      (<literal>'*/*'</literal>).
-    </para>
-    
-    <para>
-      A mapping between file extension and mime types is used to determine 
-      the Content-Type of written files. 
-      <sbr/>If no <literal>Content-Type</literal> is available, 
-      <literal>'application/octet-stream'</literal> is used.
-    </para>
-    
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can write file content to the HTTP request. <sbr />By
+    default, this converter supports all text media types
+    (<literal>'*/*'</literal>).</para>
+
+    <para>A mapping between file extension and mime types is used to determine
+    the Content-Type of written files. <sbr />If no
+    <literal>Content-Type</literal> is available,
+    <literal>'application/octet-stream'</literal> is used.</para>
+
     <table frame="all">
       <title>Default mime mapping registered with the converter</title>
+
       <tgroup cols="2">
         <tbody>
           <row>
             <entry>
               <emphasis role="bold">File extension</emphasis>
             </entry>
+
             <entry>
               <emphasis role="bold">Mime type</emphasis>
             </entry>
           </row>
+
           <row>
             <entry>.bmp</entry>
+
             <entry>image/bmp</entry>
           </row>
+
           <row>
             <entry>.jpg</entry>
+
             <entry>image/jpg</entry>
           </row>
+
           <row>
             <entry>.jpeg</entry>
+
             <entry>image/jpeg</entry>
           </row>
+
           <row>
             <entry>.pdf</entry>
+
             <entry>application/pdf</entry>
           </row>
+
           <row>
             <entry>.png</entry>
+
             <entry>image/png</entry>
           </row>
+
           <row>
             <entry>.tif</entry>
+
             <entry>image/tiff</entry>
           </row>
+
           <row>
             <entry>.txt</entry>
+
             <entry>text/plain</entry>
           </row>
+
           <row>
             <entry>.zip</entry>
+
             <entry>application/x-zip-compressed</entry>
           </row>
         </tbody>
       </tgroup>
     </table>
 
-    <para>
-      You can override these defaults using the
-      <methodname>MimeMapping</methodname> property.
-    </para>
-    <para>
-      You can also set the <literal>Content-Type</literal> header directly 
-      as shown in the following example with a file upload :
-    </para>
-    
+    <para>You can override these defaults using the
+    <methodname>MimeMapping</methodname> property.</para>
+
+    <para>You can also set the <literal>Content-Type</literal> header directly
+    as shown in the following example with a file upload :</para>
+
     <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>(); // FormHttpMessageConverter is configured by default
-<interfacename>IDictionary</interfacename>&lt;string, object> parts = new <classname>Dictionary</classname>&lt;string, object>();
+<interfacename>IDictionary</interfacename>&lt;string, object&gt; parts = new <classname>Dictionary</classname>&lt;string, object&gt;();
 <classname>HttpEntity</classname> entity = new <classname>HttpEntity</classname>(new <classname>FileInfo</classname>(@"C:\myFile.xls"));
 entity.Headers["Content-Type"] = "application/vnd.ms-excel";
 parts.Add("file", entity);
 template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
-    
   </section>
-  
+
   <section id="http-formconverter">
     <title>FormHttpMessageConverter</title>
 
-    <para>
-      Supports all the .NET Framework versions.
-    </para>
+    <para>Supports all the .NET Framework versions.</para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation
-      that can handle form data from the HTTP request and response.
-      <sbr/>By default, this converter reads and writes the media
-      type <literal>'application/x-www-form-urlencoded'</literal>.
-      <sbr/>Form data is read from and written into a <literal>NameValueCollection</literal>.
-    </para>
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can handle form data from the HTTP request and
+    response. <sbr />By default, this converter reads and writes the media
+    type <literal>'application/x-www-form-urlencoded'</literal>. <sbr />Form
+    data is read from and written into a
+    <literal>NameValueCollection</literal>.</para>
 
     <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>(); // FormHttpMessageConverter is configured by default
 <classname>NameValueCollection</classname> form = new <classname>NameValueCollection</classname>();
@@ -488,224 +596,188 @@ form.Add("field 2", "value 2");
 form.Add("field 2", "value 3");
 template.PostForLocation("http://example.com/myForm", form);</programlisting>
 
-    <para>
-      This converter also writes multipart form data (i.e. file uploads)
-      defined by the <literal>'multipart/form-data'</literal> media type.
-      <sbr/>Multipart form data is written into an <literal>IDictionary&lt;string, object&gt;</literal>.
-    </para>
+    <para>This converter also writes multipart form data (i.e. file uploads)
+    defined by the <literal>'multipart/form-data'</literal> media type.
+    <sbr />Multipart form data is written into an
+    <literal>IDictionary&lt;string, object&gt;</literal>.</para>
 
     <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>(); // FormHttpMessageConverter is configured by default
-<interfacename>IDictionary</interfacename>&lt;string, object> parts = new <classname>Dictionary</classname>&lt;string, object>();
+<interfacename>IDictionary</interfacename>&lt;string, object&gt; parts = new <classname>Dictionary</classname>&lt;string, object&gt;();
 parts.Add("field 1", "value 1");
 parts.Add("file", new <classname>FileInfo</classname>(@"C:\myFile.jpg"));
 template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
-    
-    <para>
-      <sbr/>When writing multipart, this converter uses other 
-      <interfacename>IHttpMessageConverter</interfacename> to write the respective MIME parts.
-      <sbr/>By default, basic converters <link linkend="http-stringconverter">StringHttpMessageConverter</link> 
-      and <link linkend="http-fileinfoconverter">FileInfoHttpMessageConverter</link> are registered 
-      to support <literal>String</literal> and <literal>FileInfo</literal> part types. 
-      These can be overridden by setting the <literal>PartConverters</literal> property.
-    </para>
-    
+
+    <para><sbr />When writing multipart, this converter uses other
+    <interfacename>IHttpMessageConverter</interfacename> to write the
+    respective MIME parts. <sbr />By default, basic converters <link
+    linkend="http-stringconverter">StringHttpMessageConverter</link> and <link
+    linkend="http-fileinfoconverter">FileInfoHttpMessageConverter</link> are
+    registered to support <literal>String</literal> and
+    <literal>FileInfo</literal> part types. These can be overridden by setting
+    the <literal>PartConverters</literal> property.</para>
   </section>
 
   <section id="http-xmldocumentconverter">
     <title>XmlDocumentHttpMessageConverter</title>
 
-    <para>
-      Supports .NET Framework 2.0, 3.5 and 4.0.
-    </para>
+    <para>Supports .NET Framework 2.0, 3.5 and 4.0.</para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation
-      that can read and write XML using the .NET Framework class <literal>XmlDocument</literal>.
-      <sbr/>By default, this converter supports media types
-      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>,
-      and <literal>'application/*-xml'</literal>.
-    </para>
-    
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write XML using the .NET Framework class
+    <literal>XmlDocument</literal>. <sbr />By default, this converter supports
+    media types <literal>'text/xml'</literal>,
+    <literal>'application/xml'</literal>, and
+    <literal>'application/*-xml'</literal>.</para>
   </section>
 
   <section id="http-xelementconverter">
     <title>XElementHttpMessageConverter</title>
 
-    <para>
-      Supports .NET Framework 3.5, 4.0. and Windows Phone.
-      <sbr/><link linkend="http-xelementconverter-silverlight">Supports Silverlight</link> using <literal>Spring.Http.Converters.Xml.Linq.dll</literal>.
-    </para>
+    <para>Supports .NET Framework 3.5, 4.0. and Windows Phone. <sbr /><link
+    linkend="http-xelementconverter-silverlight">Supports Silverlight</link>
+    using <literal>Spring.Http.Converters.Xml.Linq.dll</literal>.</para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation
-      that can read and write XML using the .NET Framework class 
-      <literal>XElement</literal> (Linq to Xml support).
-      <sbr/>By default, this converter supports media types
-      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>,
-      and <literal>'application/*-xml'</literal>.
-    </para>
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write XML using the .NET Framework class
+    <literal>XElement</literal> (Linq to Xml support). <sbr />By default, this
+    converter supports media types <literal>'text/xml'</literal>,
+    <literal>'application/xml'</literal>, and
+    <literal>'application/*-xml'</literal>.</para>
 
     <section id="http-xelementconverter-silverlight">
       <title>Silverlight support</title>
 
-      <para>
-        This converter requires a reference to <literal>System.Xml.Linq.dll</literal>
-        which is not part of the runtime intalled with the Silverlight plug-in. 
-        <sbr/>The dll is included with the SDK, and will be packaged into the Xap file downloaded by the client.
-        <sbr/>To optimize weight of the <literal>Spring.Rest.dll</literal> file, <classname>XElementHttpMessageConverter</classname> 
-        is available as an external dll <literal>Spring.Http.Converters.Xml.Linq.dll</literal>.
-      </para>
+      <para>This converter requires a reference to
+      <literal>System.Xml.Linq.dll</literal> which is not part of the runtime
+      installed with the Silverlight plug-in. <sbr />The dll is included with
+      the SDK, and will be packaged into the Xap file downloaded by the
+      client. <sbr />To optimize weight of the
+      <literal>Spring.Rest.dll</literal> file,
+      <classname>XElementHttpMessageConverter</classname> is available as an
+      external dll
+      <literal>Spring.Http.Converters.Xml.Linq.dll</literal>.</para>
 
-      <para>
-        Taking as an example the RestSilverlightQuickstart,
-        the XAP file size increases from 29,5Ko to 76,4Kb using Linq to Xml,
-        hence the importance of providing this converter separately.
-      </para>
-      
-      <para>
-        To use this converter with the <classname>RestTemplate</classname>, 
-        you will have to add it to the message converters it : 
-        <programlisting language="csharp">template.MessageConverters.Add(new <classname>XElementHttpMessageConverter</classname>());</programlisting>
-      </para>
+      <para>Taking as an example the RestSilverlightQuickstart, the XAP file
+      size increases from 29,5Kb to 76,4Kb using Linq to Xml, hence the
+      importance of providing this converter separately.</para>
+
+      <para>To use this converter with the
+      <classname>RestTemplate</classname>, you will have to add it to the
+      message converters it : <programlisting language="csharp">template.MessageConverters.Add(new <classname>XElementHttpMessageConverter</classname>());</programlisting></para>
     </section>
-    
   </section>
-  
+
   <section id="http-xmlserializerconverter">
     <title>XmlSerializableHttpMessageConverter</title>
 
-    <para>
-      Supports .NET Framework 2.0, 3.5, 4.0 and Windows Phone.
-    </para>
+    <para>Supports .NET Framework 2.0, 3.5, 4.0 and Windows Phone.</para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation
-      that can read and write XML from .NET classes.
-      <sbr/>The converter uses the <literal>XmlSerializer</literal> .NET Framework class.
-      <sbr/>By default, this converter supports media types
-      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>,
-      and <literal>'application/*-xml'</literal>.
-    </para>
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write XML from .NET classes. <sbr />The
+    converter uses the <literal>XmlSerializer</literal> .NET Framework class.
+    <sbr />By default, this converter supports media types
+    <literal>'text/xml'</literal>, <literal>'application/xml'</literal>, and
+    <literal>'application/*-xml'</literal>.</para>
   </section>
 
   <section id="http-datacontractserializerconverter">
     <title>DataContractHttpMessageConverter</title>
 
-    <para>
-      Supports .NET Framework 3.5, 4.0, Silverlight and Windows Phone.
-    </para>
+    <para>Supports .NET Framework 3.5, 4.0, Silverlight and Windows
+    Phone.</para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation
-      that can read and write XML from .NET classes.
-      <sbr/>The converter uses the <literal>DataContractSerializer</literal> .NET Framework class.
-      <sbr/>By default, this converter supports media types
-      <literal>'text/xml'</literal>, <literal>'application/xml'</literal>,
-      and <literal>'application/*-xml'</literal>.
-    </para>
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write XML from .NET classes. <sbr />The
+    converter uses the <literal>DataContractSerializer</literal> .NET
+    Framework class. <sbr />By default, this converter supports media types
+    <literal>'text/xml'</literal>, <literal>'application/xml'</literal>, and
+    <literal>'application/*-xml'</literal>.</para>
   </section>
 
   <section id="http-jsonconverter">
     <title>JsonHttpMessageConverter</title>
 
-    <para>
-      Supports .NET Framework 3.5, 4.0, Silverlight and Windows Phone.
-    </para>
+    <para>Supports .NET Framework 3.5, 4.0, Silverlight and Windows
+    Phone.</para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation
-      that can read and write JSON from .NET classes.
-      <sbr/>The converter uses the <literal>DataContractJsonSerializer</literal> .NET Framework class.
-      <sbr/>By default, this converter supports media type <literal>'application/json'</literal>.
-    </para>
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write JSON from .NET classes. <sbr />The
+    converter uses the <literal>DataContractJsonSerializer</literal> .NET
+    Framework class. <sbr />By default, this converter supports media type
+    <literal>'application/json'</literal>.</para>
   </section>
-  
+
   <section id="http-njsonconverter">
     <title>NJsonHttpMessageConverter</title>
 
-    <para>
-      Supports all the .NET Framework versions using <literal>Spring.Http.Converters.NJson.dll</literal>.
-    </para>
+    <para>Supports all the .NET Framework versions using
+    <literal>Spring.Http.Converters.NJson.dll</literal>.</para>
 
-    <para>
-      An <interfacename>IHttpMessageConverter</interfacename> implementation
-      that can read and write JSON using the Json.NET (Newtonsoft.Json) library.
-      <sbr/>By default, this converter supports media type <literal>'application/json'</literal>.
-    </para>
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write JSON using the Json.NET
+    (Newtonsoft.Json) library. <sbr />By default, this converter supports
+    media type <literal>'application/json'</literal>.</para>
 
-    <para>
-      Unlike <literal>DataContractJsonSerializer</literal> .NET Framework class 
-      used by <link linkend="http-jsonconverter">JsonHttpMessageConverter</link>, 
-      this library supports getting/setting values from JSON directly, 
-      without the need to deserialize/serialize to a .NET class.
-    </para>
-    
-    <para>
-      To use this converter with the <classname>RestTemplate</classname>,
-      you will have to add it to the message converters list :
-      <programlisting language="csharp">template.MessageConverters.Add(new <classname>NJsonHttpMessageConverter</classname>());</programlisting>
-    </para>
+    <para>Unlike <literal>DataContractJsonSerializer</literal> .NET Framework
+    class used by <link
+    linkend="http-jsonconverter">JsonHttpMessageConverter</link>, this library
+    supports getting/setting values from JSON directly, without the need to
+    deserialize/serialize to a .NET class.</para>
 
-    <para>
-      See the Windows Phone quick start for an example of use.
-    </para>
+    <para>To use this converter with the <classname>RestTemplate</classname>,
+    you will have to add it to the message converters list : <programlisting
+    language="csharp">template.MessageConverters.Add(new <classname>NJsonHttpMessageConverter</classname>());</programlisting></para>
+
+    <para>See the Windows Phone quick start for an example of use.</para>
   </section>
 
   <section id="http-feedconverters">
     <title>Feed converters</title>
 
-    <para>
-      Supports .NET Framework 3.5, 4.0.
-      <sbr/><link linkend="http-feedconverters-silverlight">Supports Silverlight</link> using <literal>Spring.Http.Converters.Feed.dll</literal>.
-    </para>
-    
+    <para>Supports .NET Framework 3.5, 4.0. <sbr /><link
+    linkend="http-feedconverters-silverlight">Supports Silverlight</link>
+    using <literal>Spring.Http.Converters.Feed.dll</literal>.</para>
+
     <section id="http-feedconverters-atom10">
       <title>Atom10FeedHttpMessageConverter</title>
 
-      <para>
-        An <interfacename>IHttpMessageConverter</interfacename> implementation 
-        that can read and write Atom feeds using .NET Framework classes 
-        <literal>SyndicationFeed</literal> and <literal>SyndicationItem</literal>.
-        <sbr/>By default, this converter supports media type <literal>'application/atom+xml'</literal>.
-      </para>
+      <para>An <interfacename>IHttpMessageConverter</interfacename>
+      implementation that can read and write Atom feeds using .NET Framework
+      classes <literal>SyndicationFeed</literal> and
+      <literal>SyndicationItem</literal>. <sbr />By default, this converter
+      supports media type <literal>'application/atom+xml'</literal>.</para>
     </section>
 
     <section id="http-feedconverters-rss20">
       <title>Rss20FeedHttpMessageConverter</title>
 
-      <para>
-        An <interfacename>IHttpMessageConverter</interfacename> implementation
-        that can read and write RSS feeds using .NET Framework classes
-        <literal>SyndicationFeed</literal> and <literal>SyndicationItem</literal>.
-        <sbr/>By default, this converter supports media type <literal>'application/rss+xml'</literal>.
-      </para>
+      <para>An <interfacename>IHttpMessageConverter</interfacename>
+      implementation that can read and write RSS feeds using .NET Framework
+      classes <literal>SyndicationFeed</literal> and
+      <literal>SyndicationItem</literal>. <sbr />By default, this converter
+      supports media type <literal>'application/rss+xml'</literal>.</para>
     </section>
 
     <section id="http-feedconverters-silverlight">
       <title>Silverlight support</title>
 
-      <para>
-        These converters require a reference to <literal>System.ServiceModel.Syndication.dll</literal>
-        which is not part of the runtime intalled with the Silverlight plug-in.
-        <sbr/>The dll is included with the SDK, and will be packaged into the Xap file downloaded by the client.
-        <sbr/>To optimize weight of the <literal>Spring.Rest.dll</literal> file, feed converters 
-        are available as an external dll <literal>Spring.Http.Converters.Feed.dll</literal>.
-      </para>
+      <para>These converters require a reference to
+      <literal>System.ServiceModel.Syndication.dll</literal> which is not part
+      of the runtime intalled with the Silverlight plug-in. <sbr />The dll is
+      included with the SDK, and will be packaged into the Xap file downloaded
+      by the client. <sbr />To optimize weight of the
+      <literal>Spring.Rest.dll</literal> file, feed converters are available
+      as an external dll
+      <literal>Spring.Http.Converters.Feed.dll</literal>.</para>
 
-      <para>
-        Taking as an example the RestSilverlightQuickstart,
-        the XAP file size increases from 29,5Ko to 189Kb using feeds,
-        hence the importance of providing these converters separately.
-      </para>
-      
-      <para>
-        To use these converters with the <classname>RestTemplate</classname>,
-        you will have to add them to the message converters list :
-        <programlisting language="csharp">template.MessageConverters.Add(new <classname>Atom10FeedHttpMessageConverter</classname>());
-template.MessageConverters.Add(new <classname>Rss20FeedHttpMessageConverter</classname>());</programlisting>
-      </para>
+      <para>Taking as an example the RestSilverlightQuickstart, the XAP file
+      size increases from 29,5Ko to 189Kb using feeds, hence the importance of
+      providing these converters separately.</para>
+
+      <para>To use these converters with the
+      <classname>RestTemplate</classname>, you will have to add them to the
+      message converters list : <programlisting language="csharp">template.MessageConverters.Add(new <classname>Atom10FeedHttpMessageConverter</classname>());
+template.MessageConverters.Add(new <classname>Rss20FeedHttpMessageConverter</classname>());</programlisting></para>
     </section>
-    
   </section>
-
 </chapter>
