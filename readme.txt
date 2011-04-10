@@ -1,11 +1,12 @@
-The Spring.NET REST project, Release 1.0.0 (April 7, 2011)
-----------------------------------------------------------
+The Spring.NET REST Client project, Release 1.0.0 (April 11, 2011)
+------------------------------------------------------------------
 https://github.com/SpringSource/spring-net-rest
+DO NOT USE GITHUB DOWNLOAD BUTTON !!!
 
 
 1. INTRODUCTION
 
-The 1.0.0 release of Spring.NET REST contains
+The 1.0.0 release of Spring.NET REST Client contains
 
 	* A RestTemplate class for client-side access to RESTful services.
 	* A set of HTTP message converters used to marshal objects into the HTTP request body 
@@ -14,7 +15,7 @@ The 1.0.0 release of Spring.NET REST contains
 
 2. SUPPORTED FRAMEWORK VERSIONS
 
-Spring.NET REST supports
+Spring.NET REST Client supports
 
 	* .NET 2.0
 	* .NET Client Profile 3.5 and 4.0
@@ -42,7 +43,7 @@ The VS.NET solution for the framework and examples are provided.
 
 Latest info is available at the public website: http://www.springframework.net/
 
-Spring.NET REST is released under the terms of the Apache Software License (see license.txt).
+Spring.NET REST Client is released under the terms of the Apache Software License (see license.txt).
 
 
 5. DISTRIBUTION DLLs
