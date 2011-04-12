@@ -28,14 +28,14 @@ namespace Spring.Http.Client.Interceptor
 {
     /// <summary>
     /// Wrapper for an <see cref="IClientHttpRequest"/> that has support 
-    /// for <see cref="IClientHttpInterceptor"/>s.
+    /// for <see cref="IClientHttpRequestInterceptor"/>s.
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia</author>
     public class InterceptingClientHttpRequest : IClientHttpRequest
     {
         private IClientHttpRequest delegateRequest;
-        private IEnumerable<IClientHttpInterceptor> interceptors;
+        private IEnumerable<IClientHttpRequestInterceptor> interceptors;
 
         private Action<Stream> body;
 
@@ -46,12 +46,12 @@ namespace Spring.Http.Client.Interceptor
         /// <param name="interceptors">The interceptors that are to be applied. Can be <c>null</c>.</param>
         public InterceptingClientHttpRequest(
             IClientHttpRequest request,
-            IEnumerable<IClientHttpInterceptor> interceptors) 
+            IEnumerable<IClientHttpRequestInterceptor> interceptors) 
         {
             AssertUtils.ArgumentNotNull(request, "'request' must not be null");
 
             this.delegateRequest = request;
-            this.interceptors = interceptors != null ? interceptors : new IClientHttpInterceptor[0];
+            this.interceptors = interceptors != null ? interceptors : new IClientHttpRequestInterceptor[0];
         }
 
         #region IClientHttpRequest Members
@@ -137,12 +137,12 @@ namespace Spring.Http.Client.Interceptor
         {
             protected IClientHttpRequest delegateRequest;
             protected Action<Stream> body;
-            protected IEnumerator<IClientHttpInterceptor> enumerator;
+            protected IEnumerator<IClientHttpRequestInterceptor> enumerator;
 
             protected AbstractRequestContext(
                 IClientHttpRequest delegateRequest,
                 Action<Stream> body,
-                IEnumerable<IClientHttpInterceptor> interceptors)
+                IEnumerable<IClientHttpRequestInterceptor> interceptors)
             {
                 this.delegateRequest = delegateRequest;
                 this.body = body;
@@ -177,7 +177,7 @@ namespace Spring.Http.Client.Interceptor
             public RequestSyncExecution(
                 IClientHttpRequest delegateRequest,
                 Action<Stream> body,
-                IEnumerable<IClientHttpInterceptor> interceptors)
+                IEnumerable<IClientHttpRequestInterceptor> interceptors)
                 : base(delegateRequest, body, interceptors)
             {
             }
@@ -214,7 +214,7 @@ namespace Spring.Http.Client.Interceptor
             public RequestAsyncExecution(
                 IClientHttpRequest delegateRequest,
                 Action<Stream> body,
-                IEnumerable<IClientHttpInterceptor> interceptors, 
+                IEnumerable<IClientHttpRequestInterceptor> interceptors, 
                 object asyncState,
                 Action<ClientHttpRequestCompletedEventArgs> executeCompleted)
                 : base(delegateRequest, body, interceptors)

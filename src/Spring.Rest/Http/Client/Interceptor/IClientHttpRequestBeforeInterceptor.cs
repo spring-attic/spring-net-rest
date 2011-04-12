@@ -37,7 +37,7 @@ namespace Spring.Http.Client.Interceptor
     /// </remarks>
     /// <seealso cref="IClientHttpRequestContext"/>
     /// <author>Bruno Baia</author>
-    public interface IClientHttpRequestBeforeInterceptor : IClientHttpInterceptor
+    public interface IClientHttpRequestBeforeInterceptor : IClientHttpRequestInterceptor
     {
         /// <summary>
         /// The callback method before the given request is executed.

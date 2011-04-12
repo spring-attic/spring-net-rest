@@ -95,7 +95,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Http\Client\AbstractClientHttpRequestFactoryIntegrationTests.cs" />
-    <Compile Include="Http\Client\Interceptor\BasicSigningClientInterceptorIntegrationTests.cs" />
+    <Compile Include="Http\Client\Interceptor\BasicSigningRequestInterceptorIntegrationTests.cs" />
     <Compile Include="Http\Client\Interceptor\InterceptingClientHttpRequestFactoryTests.cs">
       <SubType>Code</SubType>
     </Compile>

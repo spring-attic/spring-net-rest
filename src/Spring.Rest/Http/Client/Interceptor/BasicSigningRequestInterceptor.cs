@@ -33,17 +33,17 @@ namespace Spring.Http.Client.Interceptor
     /// before to send the 'Authorization' header value.
     /// </remarks>
     /// <author>Bruno Baia</author>
-    public class BasicSigningClientInterceptor : IClientHttpRequestBeforeInterceptor
+    public class BasicSigningRequestInterceptor : IClientHttpRequestBeforeInterceptor
     {
         private string authorizationHeaderValue;
 
         /// <summary>
-        /// Creates a new instance of <see cref="BasicSigningClientInterceptor"/> 
+        /// Creates a new instance of <see cref="BasicSigningRequestInterceptor"/> 
         /// with the given user name and password.
         /// </summary>
         /// <param name="userName">The user name for HTTP authentication.</param>
         /// <param name="password">The password for HTTP authentication.</param>
-        public BasicSigningClientInterceptor(string userName, string password)
+        public BasicSigningRequestInterceptor(string userName, string password)
         {
             string authInfo = String.Format("{0}:{1}", userName, password);
             authInfo = Convert.ToBase64String(Encoding.UTF8.GetBytes(authInfo));

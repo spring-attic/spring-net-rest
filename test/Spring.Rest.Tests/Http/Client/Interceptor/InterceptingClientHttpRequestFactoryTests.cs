@@ -56,7 +56,7 @@ namespace Spring.Http.Client.Interceptor
             NoOpRequestFactoryInterceptor interceptor1 = new NoOpRequestFactoryInterceptor();
             NoOpRequestFactoryInterceptor interceptor2 = new NoOpRequestFactoryInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
+                new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
 
@@ -76,7 +76,7 @@ namespace Spring.Http.Client.Interceptor
             NoOpRequestBeforeInterceptor interceptor1 = new NoOpRequestBeforeInterceptor();
             NoOpRequestBeforeInterceptor interceptor2 = new NoOpRequestBeforeInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
+                new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
 
@@ -99,7 +99,7 @@ namespace Spring.Http.Client.Interceptor
             NoOpRequestSyncInterceptor interceptor1 = new NoOpRequestSyncInterceptor();
             NoOpRequestSyncInterceptor interceptor2 = new NoOpRequestSyncInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock, 
-                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
+                new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
 
@@ -125,7 +125,7 @@ namespace Spring.Http.Client.Interceptor
             NoOpRequestAsyncInterceptor interceptor1 = new NoOpRequestAsyncInterceptor();
             ChangeHeaderInterceptor interceptor2 = new ChangeHeaderInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
+                new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)
@@ -164,7 +164,7 @@ namespace Spring.Http.Client.Interceptor
             NoOpExecutionInterceptor interceptor1 = new NoOpExecutionInterceptor();
             NoOpRequestSyncInterceptor interceptor2 = new NoOpRequestSyncInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
+                new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             IClientHttpResponse response = request.Execute();
@@ -182,7 +182,7 @@ namespace Spring.Http.Client.Interceptor
             NoOpExecutionInterceptor interceptor1 = new NoOpExecutionInterceptor();
             NoOpRequestAsyncInterceptor interceptor2 = new NoOpRequestAsyncInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
+                new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)
@@ -216,7 +216,7 @@ namespace Spring.Http.Client.Interceptor
         {
             ChangeHeaderInterceptor interceptor = new ChangeHeaderInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor });
+                new IClientHttpRequestInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
 
@@ -235,7 +235,7 @@ namespace Spring.Http.Client.Interceptor
         {
             ChangeUriRequestFactoryInterceptor interceptor = new ChangeUriRequestFactoryInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor });
+                new IClientHttpRequestInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             Assert.AreEqual(new Uri("http://example.com/2"), requestMock.Uri);
@@ -246,7 +246,7 @@ namespace Spring.Http.Client.Interceptor
         {
             ChangeMethodRequestFactoryInterceptor interceptor = new ChangeMethodRequestFactoryInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor });
+                new IClientHttpRequestInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             Assert.AreEqual(HttpMethod.POST, requestMock.Method);
@@ -257,7 +257,7 @@ namespace Spring.Http.Client.Interceptor
         {
             ChangeBodyInterceptor interceptor = new ChangeBodyInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor });
+                new IClientHttpRequestInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             request.Execute();
@@ -278,7 +278,7 @@ namespace Spring.Http.Client.Interceptor
         {
             ChangeResponseInterceptor interceptor = new ChangeResponseInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor });
+                new IClientHttpRequestInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             IClientHttpResponse response = request.Execute();
@@ -294,7 +294,7 @@ namespace Spring.Http.Client.Interceptor
 
             ChangeResponseInterceptor interceptor = new ChangeResponseInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpInterceptor[] { interceptor });
+                new IClientHttpRequestInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)

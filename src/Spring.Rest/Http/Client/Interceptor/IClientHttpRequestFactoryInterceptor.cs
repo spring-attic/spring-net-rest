@@ -27,7 +27,7 @@ namespace Spring.Http.Client.Interceptor
     /// </summary>
     /// <seealso cref="IClientHttpRequestFactoryCreation"/>
     /// <author>Bruno Baia</author>
-    public interface IClientHttpRequestFactoryInterceptor : IClientHttpInterceptor
+    public interface IClientHttpRequestFactoryInterceptor : IClientHttpRequestInterceptor
     {
         /// <summary>
         /// Intercept the given request creation, and return the created request. 

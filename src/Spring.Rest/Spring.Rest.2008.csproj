@@ -104,14 +104,14 @@
     <Compile Include="Http\Client\IClientHttpRequest.cs" />
     <Compile Include="Http\Client\IClientHttpRequestFactory.cs" />
     <Compile Include="Http\Client\IClientHttpResponse.cs" />
-    <Compile Include="Http\Client\Interceptor\BasicSigningClientInterceptor.cs" />
-    <Compile Include="Http\Client\Interceptor\IClientHttpInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\BasicSigningRequestInterceptor.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestAsyncExecution.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestAsyncInterceptor.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestBeforeInterceptor.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestContext.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestFactoryCreation.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestFactoryInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestInterceptor.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestSyncExecution.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpRequestSyncInterceptor.cs" />
     <Compile Include="Http\Client\Interceptor\IClientHttpResponseAsyncContext.cs" />

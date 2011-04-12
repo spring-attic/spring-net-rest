@@ -125,7 +125,7 @@ namespace Spring.Rest.Client
         private IList<IHttpMessageConverter> _messageConverters;
         private IClientHttpRequestFactory _requestFactory;
         private IResponseErrorHandler _errorHandler;
-        private IList<IClientHttpInterceptor> _clientInterceptors;
+        private IList<IClientHttpRequestInterceptor> _requestInterceptors;
 
         /// <summary>
         /// Gets or sets the base URL for the request.
@@ -182,12 +182,12 @@ namespace Spring.Rest.Client
         }
 
         /// <summary>
-        /// Gets or sets the client interceptors.
+        /// Gets or sets the request interceptors.
         /// </summary>
-        public IList<IClientHttpInterceptor> ClientInterceptors
+        public IList<IClientHttpRequestInterceptor> RequestInterceptors
         {
-            get { return this._clientInterceptors; }
-            set { this._clientInterceptors = value; }
+            get { return this._requestInterceptors; }
+            set { this._requestInterceptors = value; }
         }
 
         #endregion
@@ -221,7 +221,7 @@ namespace Spring.Rest.Client
         {
             this._requestFactory = new WebClientHttpRequestFactory();
             this._errorHandler = new DefaultResponseErrorHandler();
-            this._clientInterceptors = new List<IClientHttpInterceptor>();
+            this._requestInterceptors = new List<IClientHttpRequestInterceptor>();
 
             this._messageConverters = new List<IHttpMessageConverter>();
 
@@ -2095,9 +2095,9 @@ namespace Spring.Rest.Client
 
         private IClientHttpRequestFactory GetClientHttpRequestFactory()
         {
-            if (this._clientInterceptors != null && this._clientInterceptors.Count > 0)
+            if (this._requestInterceptors != null && this._requestInterceptors.Count > 0)
             {
-                return new InterceptingClientHttpRequestFactory(this._requestFactory, this._clientInterceptors);
+                return new InterceptingClientHttpRequestFactory(this._requestFactory, this._requestInterceptors);
             }
             else
             {

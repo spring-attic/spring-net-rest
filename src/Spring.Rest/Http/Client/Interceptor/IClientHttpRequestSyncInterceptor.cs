@@ -29,7 +29,7 @@ namespace Spring.Http.Client.Interceptor
     /// <seealso cref="IClientHttpRequestSyncExecution"/>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia</author>
-    public interface IClientHttpRequestSyncInterceptor : IClientHttpInterceptor
+    public interface IClientHttpRequestSyncInterceptor : IClientHttpRequestInterceptor
     {
         /// <summary>
         /// Intercept the given synchronous request execution. 

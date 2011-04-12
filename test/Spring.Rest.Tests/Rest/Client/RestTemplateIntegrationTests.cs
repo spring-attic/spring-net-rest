@@ -305,9 +305,9 @@ namespace Spring.Rest.Client
             NoOpRequestSyncInterceptor interceptor1 = new NoOpRequestSyncInterceptor();
             NoOpRequestBeforeInterceptor interceptor2 = new NoOpRequestBeforeInterceptor();
             NoOpRequestSyncInterceptor interceptor3 = new NoOpRequestSyncInterceptor();
-            template.ClientInterceptors.Add(interceptor1);
-            template.ClientInterceptors.Add(interceptor2);
-            template.ClientInterceptors.Add(interceptor3);
+            template.RequestInterceptors.Add(interceptor1);
+            template.RequestInterceptors.Add(interceptor2);
+            template.RequestInterceptors.Add(interceptor3);
 
             string result = template.PostForObject<string>("user", "Lisa Baia");
             Assert.AreEqual("3", result, "Invalid content");
@@ -597,10 +597,10 @@ namespace Spring.Rest.Client
             NoOpRequestSyncInterceptor interceptor2 = new NoOpRequestSyncInterceptor();
             NoOpRequestBeforeInterceptor interceptor3 = new NoOpRequestBeforeInterceptor();
             NoOpRequestAsyncInterceptor interceptor4 = new NoOpRequestAsyncInterceptor();
-            template.ClientInterceptors.Add(interceptor1);
-            template.ClientInterceptors.Add(interceptor2);
-            template.ClientInterceptors.Add(interceptor3);
-            template.ClientInterceptors.Add(interceptor4);
+            template.RequestInterceptors.Add(interceptor1);
+            template.RequestInterceptors.Add(interceptor2);
+            template.RequestInterceptors.Add(interceptor3);
+            template.RequestInterceptors.Add(interceptor4);
 
             template.PostForObjectAsync<string>("user", "Lisa Baia",
                 delegate(RestOperationCompletedEventArgs<string> args)

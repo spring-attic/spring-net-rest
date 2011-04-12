@@ -23,14 +23,14 @@ using System;
 namespace Spring.Http.Client.Interceptor
 {
     /// <summary>
-    /// Marker interfaces for client-side HTTP interceptors. 
+    /// Marker interfaces for client-side HTTP request interceptors. 
     /// </summary>
     /// <remarks>
     /// This interface is not used directly. 
     /// Use the various derived interfaces to intercept specific events.
     /// </remarks>
     /// <author>Bruno Baia</author>
-    public interface IClientHttpInterceptor
+    public interface IClientHttpRequestInterceptor
     {
     }
 }

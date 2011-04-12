@@ -27,7 +27,7 @@ namespace Spring.Http.Client.Interceptor
     /// </summary>
     /// <seealso cref="IClientHttpRequestAsyncExecution"/>
     /// <author>Bruno Baia</author>
-    public interface IClientHttpRequestAsyncInterceptor : IClientHttpInterceptor
+    public interface IClientHttpRequestAsyncInterceptor : IClientHttpRequestInterceptor
     {
         /// <summary>
         /// Intercept the given asynchronous request execution. 
