@@ -300,19 +300,23 @@ namespace Spring.Rest.Client
         [Test]
         public void UsingInterceptors()
         {
-            NoOpInterceptor.counter = 0;
-            NoOpInterceptor interceptor1 = new NoOpInterceptor();
-            NoOpInterceptor interceptor2 = new NoOpInterceptor();
-            template.RequestInterceptors.Add(interceptor1);
-            template.RequestInterceptors.Add(interceptor2);
+            NoOpRequestSyncInterceptor.counter = 0;
+            NoOpRequestBeforeInterceptor.counter = 0;
+            NoOpRequestSyncInterceptor interceptor1 = new NoOpRequestSyncInterceptor();
+            NoOpRequestBeforeInterceptor interceptor2 = new NoOpRequestBeforeInterceptor();
+            NoOpRequestSyncInterceptor interceptor3 = new NoOpRequestSyncInterceptor();
+            template.ClientInterceptors.Add(interceptor1);
+            template.ClientInterceptors.Add(interceptor2);
+            template.ClientInterceptors.Add(interceptor3);
 
             string result = template.PostForObject<string>("user", "Lisa Baia");
             Assert.AreEqual("3", result, "Invalid content");
 
             Assert.AreEqual(1, interceptor1.HandleRequestCounter);
-            Assert.AreEqual(2, interceptor2.HandleRequestCounter);
-            Assert.AreEqual(3, interceptor2.HandleResponseCounter);
-            Assert.AreEqual(4, interceptor1.HandleResponseCounter);   
+            Assert.AreEqual(2, interceptor3.HandleRequestCounter);
+            Assert.AreEqual(3, interceptor3.HandleResponseCounter);
+            Assert.AreEqual(4, interceptor1.HandleResponseCounter);
+            Assert.AreEqual(1, interceptor2.HandleCounter);
         }
 
         #endregion
@@ -586,11 +590,17 @@ namespace Spring.Rest.Client
             ManualResetEvent manualEvent = new ManualResetEvent(false);
             Exception exception = null;
 
-            NoOpInterceptor.counter = 0;
-            NoOpInterceptor interceptor1 = new NoOpInterceptor();
-            NoOpInterceptor interceptor2 = new NoOpInterceptor();
-            template.RequestInterceptors.Add(interceptor1);
-            template.RequestInterceptors.Add(interceptor2);
+            NoOpRequestAsyncInterceptor.counter = 0;
+            NoOpRequestSyncInterceptor.counter = 0;
+            NoOpRequestBeforeInterceptor.counter = 0;
+            NoOpRequestAsyncInterceptor interceptor1 = new NoOpRequestAsyncInterceptor();
+            NoOpRequestSyncInterceptor interceptor2 = new NoOpRequestSyncInterceptor();
+            NoOpRequestBeforeInterceptor interceptor3 = new NoOpRequestBeforeInterceptor();
+            NoOpRequestAsyncInterceptor interceptor4 = new NoOpRequestAsyncInterceptor();
+            template.ClientInterceptors.Add(interceptor1);
+            template.ClientInterceptors.Add(interceptor2);
+            template.ClientInterceptors.Add(interceptor3);
+            template.ClientInterceptors.Add(interceptor4);
 
             template.PostForObjectAsync<string>("user", "Lisa Baia",
                 delegate(RestOperationCompletedEventArgs<string> args)
@@ -618,34 +628,57 @@ namespace Spring.Rest.Client
             }
 
             Assert.AreEqual(1, interceptor1.HandleRequestCounter);
-            Assert.AreEqual(2, interceptor2.HandleRequestCounter);
-            Assert.AreEqual(3, interceptor2.HandleResponseCounter);
+            Assert.AreEqual(2, interceptor4.HandleRequestCounter);
+            Assert.AreEqual(3, interceptor4.HandleResponseCounter);
             Assert.AreEqual(4, interceptor1.HandleResponseCounter);
+            Assert.AreEqual(1, interceptor3.HandleCounter);
+            Assert.AreEqual(0, interceptor2.HandleRequestCounter);
+            Assert.AreEqual(0, interceptor2.HandleResponseCounter);
         }
 
         #endregion
 
         #region Test classes
 
-        private class NoOpInterceptor : IClientHttpRequestInterceptor
+        private class NoOpRequestBeforeInterceptor : IClientHttpRequestBeforeInterceptor
+        {
+            public static int counter = 0;
+            public int HandleCounter { get; set; }
+
+            public void BeforeExecute(IClientHttpRequestContext request)
+            {
+                HandleCounter = ++counter;
+            }
+        }
+
+        private class NoOpRequestSyncInterceptor : IClientHttpRequestSyncInterceptor
         {
             public static int counter = 0;
             public int HandleRequestCounter { get; set; }
             public int HandleResponseCounter { get; set; }
 
-            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
-            {
-                return creation.Create();
-            }
-
-            public void Execute(IClientHttpRequestExecution execution)
+            public IClientHttpResponse Execute(IClientHttpRequestSyncExecution execution)
             {
                 HandleRequestCounter = ++counter;
-                execution.Execute(
-                    delegate(IClientHttpResponse response)
+                IClientHttpResponse response = execution.Execute();
+                HandleResponseCounter = ++counter;
+                return response;
+            }
+        }
+
+        private class NoOpRequestAsyncInterceptor : IClientHttpRequestAsyncInterceptor
+        {
+            public static int counter = 0;
+            public int HandleRequestCounter { get; set; }
+            public int HandleResponseCounter { get; set; }
+
+            public void ExecuteAsync(IClientHttpRequestAsyncExecution execution)
+            {
+                HandleRequestCounter = ++counter;
+                execution.ExecuteAsync(
+                    delegate(IClientHttpResponseAsyncContext ctx)
                     {
                         HandleResponseCounter = ++counter;
-                        return response;
                     });
             }
         }

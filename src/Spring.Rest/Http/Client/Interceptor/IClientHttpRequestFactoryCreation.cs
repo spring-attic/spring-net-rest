@@ -26,9 +26,9 @@ namespace Spring.Http.Client.Interceptor
     /// Represents the context of a client-side HTTP request creation, 
     /// given to an interceptor.
     /// </summary>
-    /// <seealso cref="IClientHttpRequestInterceptor"/>
+    /// <seealso cref="IClientHttpRequestFactoryInterceptor"/>
     /// <author>Bruno Baia</author>
-    public interface IClientHttpRequestCreation
+    public interface IClientHttpRequestFactoryCreation
     {
         /// <summary>
         /// Gets or sets the HTTP method of the request.

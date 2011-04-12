@@ -27,14 +27,14 @@ namespace Spring.Http.Client.Interceptor
 {
     /// <summary>
     /// Wrapper for an <see cref="IClientHttpRequestFactory"/> that has support 
-    /// for <see cref="IClientHttpRequestInterceptor"/>s.
+    /// for <see cref="IClientHttpInterceptor"/>s.
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia</author>
     public class InterceptingClientHttpRequestFactory : IClientHttpRequestFactory
     {
         private IClientHttpRequestFactory requestFactory;
-        private IEnumerable<IClientHttpRequestInterceptor> interceptors;
+        private IEnumerable<IClientHttpInterceptor> interceptors;
 
         /// <summary>
         /// Creates a new instance of the <see cref="InterceptingClientHttpRequestFactory"/> with the given parameters.
@@ -43,15 +43,15 @@ namespace Spring.Http.Client.Interceptor
         /// <param name="interceptors">The interceptors that are to be applied. Can be <c>null</c>.</param>
         public InterceptingClientHttpRequestFactory(
             IClientHttpRequestFactory requestFactory,
-            IEnumerable<IClientHttpRequestInterceptor> interceptors)
+            IEnumerable<IClientHttpInterceptor> interceptors)
         {
             AssertUtils.ArgumentNotNull(requestFactory, "'requestFactory' must not be null");
 
             this.requestFactory = requestFactory;
-            this.interceptors = interceptors != null ? interceptors : new IClientHttpRequestInterceptor[0];
+            this.interceptors = interceptors != null ? interceptors : new IClientHttpInterceptor[0];
         }
 
-        #region IClientHttpRequestFactory Membres
+        #region IClientHttpRequestFactory Members
 
         /// <summary>
         /// Create a new <see cref="IClientHttpRequest"/> for the specified URI and HTTP method.
@@ -63,23 +63,23 @@ namespace Spring.Http.Client.Interceptor
         {
             RequestCreation requestCreation = new RequestCreation(uri, method, this.requestFactory, this.interceptors);
             IClientHttpRequest request = requestCreation.Create();
-            return new InterceptingClientHttpRequest(request, interceptors);
+            return new InterceptingClientHttpRequest(request, this.interceptors);
         }
 
         #endregion
 
-        #region RequestCreation inner class
+        #region IClientHttpRequestFactoryCreation implementation
 
-        private sealed class RequestCreation : IClientHttpRequestCreation
+        private sealed class RequestCreation : IClientHttpRequestFactoryCreation
         {
             private Uri uri;
             private HttpMethod method;
             private IClientHttpRequestFactory delegateRequestFactory;
-            private IEnumerator<IClientHttpRequestInterceptor> enumerator;
+            private IEnumerator<IClientHttpInterceptor> enumerator;
 
             public RequestCreation(Uri uri, HttpMethod method,
                 IClientHttpRequestFactory delegateRequestFactory,
-                IEnumerable<IClientHttpRequestInterceptor> interceptors)
+                IEnumerable<IClientHttpInterceptor> interceptors)
             {
                 this.uri = uri;
                 this.method = method;
@@ -103,7 +103,11 @@ namespace Spring.Http.Client.Interceptor
             {
                 if (enumerator.MoveNext())
                 {
-                    return enumerator.Current.Create(this);
+                    if (enumerator.Current is IClientHttpRequestFactoryInterceptor)
+                    {
+                        return ((IClientHttpRequestFactoryInterceptor)enumerator.Current).Create(this);
+                    }
+                    return this.Create();
                 }
                 else
                 {

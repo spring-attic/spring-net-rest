@@ -33,11 +33,11 @@ using NUnit.Framework;
 namespace Spring.Http.Client.Interceptor
 {
     /// <summary>
-    /// Integration tests for the BasicSigningRequestInterceptor class.
+    /// Integration tests for the BasicSigningClientInterceptor class.
     /// </summary>
     /// <author>Bruno Baia</author>
     [TestFixture]
-    public class BasicSigningRequestInterceptorIntegrationTests
+    public class BasicSigningClientInterceptorIntegrationTests
     {
         private const string BASE_URL = "http://localhost:1337";
         private WebServiceHost webServiceHost;
@@ -64,11 +64,11 @@ namespace Spring.Http.Client.Interceptor
             webServiceHost.Close();
         }
 
-        private IClientHttpRequest CreateRequest(BasicSigningRequestInterceptor requestInterceptor, string path, HttpMethod method)
+        private IClientHttpRequest CreateRequest(BasicSigningClientInterceptor requestInterceptor, string path, HttpMethod method)
         {
             IClientHttpRequestFactory requestFactory = new InterceptingClientHttpRequestFactory(
                 new WebClientHttpRequestFactory(),
-                new IClientHttpRequestInterceptor[] { requestInterceptor });
+                new IClientHttpInterceptor[] { requestInterceptor });
 
             Uri uri = new Uri(BASE_URL + path);
             IClientHttpRequest request = requestFactory.CreateRequest(uri, method);
@@ -82,7 +82,7 @@ namespace Spring.Http.Client.Interceptor
         public void BasicAuthorizationKO()
         {
             IClientHttpRequest request = this.CreateRequest(
-                new BasicSigningRequestInterceptor("bruno", "baia"), "/basic/echo", HttpMethod.PUT);
+                new BasicSigningClientInterceptor("bruno", "baia"), "/basic/echo", HttpMethod.PUT);
             request.Headers.ContentLength = 0;
             using (IClientHttpResponse response = request.Execute())
             {
@@ -94,7 +94,7 @@ namespace Spring.Http.Client.Interceptor
         public void BasicAuthorizationOK()
         {
             IClientHttpRequest request = this.CreateRequest(
-                new BasicSigningRequestInterceptor("login", "password"), "/basic/echo", HttpMethod.PUT);
+                new BasicSigningClientInterceptor("login", "password"), "/basic/echo", HttpMethod.PUT);
             request.Headers.ContentLength = 0;
             using (IClientHttpResponse response = request.Execute())
             {

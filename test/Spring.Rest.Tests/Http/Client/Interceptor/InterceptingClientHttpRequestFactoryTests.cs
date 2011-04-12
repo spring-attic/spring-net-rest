@@ -51,35 +51,68 @@ namespace Spring.Http.Client.Interceptor
         }
 
         [Test]
-        public void CreationAndSyncExecution()
+        public void Creation()
         {
-            NoOpInterceptor interceptor1 = new NoOpInterceptor();
-            NoOpInterceptor interceptor2 = new NoOpInterceptor();
-            NoOpInterceptor interceptor3 = new NoOpInterceptor();
-            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock, 
-                new IClientHttpRequestInterceptor[] { interceptor1, interceptor2, interceptor3 });
+            NoOpRequestFactoryInterceptor interceptor1 = new NoOpRequestFactoryInterceptor();
+            NoOpRequestFactoryInterceptor interceptor2 = new NoOpRequestFactoryInterceptor();
+            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
+                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
 
-            Assert.IsTrue(interceptor1.createInvoked);
-            Assert.IsTrue(interceptor2.createInvoked);
-            Assert.IsTrue(interceptor3.createInvoked);
+            Assert.IsTrue(interceptor1.invoked);
+            Assert.IsTrue(interceptor2.invoked);
             Assert.IsTrue(this.requestFactoryMock.created);
-            Assert.IsFalse(interceptor1.executeInvoked);
-            Assert.IsFalse(interceptor2.executeInvoked);
-            Assert.IsFalse(interceptor3.executeInvoked);
+            Assert.IsFalse(this.requestMock.executed);
+
+            IClientHttpResponse response = request.Execute();
+            Assert.IsTrue(this.requestMock.executed);
+            Assert.AreSame(this.responseMock, response);
+        }
+
+        [Test]
+        public void BeforeExecution()
+        {
+            NoOpRequestBeforeInterceptor interceptor1 = new NoOpRequestBeforeInterceptor();
+            NoOpRequestBeforeInterceptor interceptor2 = new NoOpRequestBeforeInterceptor();
+            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
+                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
+
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+
+            Assert.IsFalse(interceptor1.invoked);
+            Assert.IsFalse(interceptor2.invoked);
+            Assert.IsTrue(this.requestFactoryMock.created);
             Assert.IsFalse(this.requestMock.executed);
 
             IClientHttpResponse response = request.Execute();
 
-            Assert.IsTrue(interceptor1.executeInvoked);
-            Assert.IsFalse(interceptor1.isAsync);
-            Assert.IsTrue(interceptor2.executeInvoked);
-            Assert.IsFalse(interceptor2.isAsync);
-            Assert.IsTrue(interceptor3.executeInvoked);
-            Assert.IsFalse(interceptor3.isAsync);
+            Assert.IsTrue(interceptor1.invoked);
+            Assert.IsTrue(interceptor2.invoked);
             Assert.IsTrue(this.requestMock.executed);
+            Assert.AreSame(this.responseMock, response);
+        }
 
+        [Test]
+        public void SyncExecution()
+        {
+            NoOpRequestSyncInterceptor interceptor1 = new NoOpRequestSyncInterceptor();
+            NoOpRequestSyncInterceptor interceptor2 = new NoOpRequestSyncInterceptor();
+            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock, 
+                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
+
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+
+            Assert.IsFalse(interceptor1.invoked);
+            Assert.IsFalse(interceptor2.invoked);
+            Assert.IsTrue(this.requestFactoryMock.created);
+            Assert.IsFalse(this.requestMock.executed);
+
+            IClientHttpResponse response = request.Execute();
+
+            Assert.IsTrue(interceptor1.invoked);
+            Assert.IsTrue(interceptor2.invoked);
+            Assert.IsTrue(this.requestMock.executed);
             Assert.AreSame(this.responseMock, response);
         }
 
@@ -89,11 +122,10 @@ namespace Spring.Http.Client.Interceptor
             ManualResetEvent manualEvent = new ManualResetEvent(false);
             Exception exception = null;
 
-            NoOpInterceptor interceptor1 = new NoOpInterceptor();
-            NoOpInterceptor interceptor2 = new NoOpInterceptor();
-            ChangeHeaderInterceptor interceptor3 = new ChangeHeaderInterceptor();
+            NoOpRequestAsyncInterceptor interceptor1 = new NoOpRequestAsyncInterceptor();
+            ChangeHeaderInterceptor interceptor2 = new ChangeHeaderInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpRequestInterceptor[] { interceptor1, interceptor2, interceptor3 });
+                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)
@@ -103,7 +135,7 @@ namespace Spring.Http.Client.Interceptor
                     Assert.IsNull(args.Error, "Invalid response");
                     Assert.IsFalse(args.Cancelled, "Invalid response");
                     Assert.AreSame(this.responseMock, args.Response, "Invalid response");
-                    Assert.IsNotNull(args.Response.Headers.Get("AfterExecution"));
+                    Assert.IsNotNull(args.Response.Headers.Get("AfterAsyncExecution"));
                 }
                 catch (Exception ex)
                 {
@@ -121,26 +153,61 @@ namespace Spring.Http.Client.Interceptor
                 throw exception;
             }
 
-            Assert.IsTrue(interceptor1.executeInvoked);
-            Assert.IsTrue(interceptor1.isAsync);
-            Assert.IsTrue(interceptor2.executeInvoked);
-            Assert.IsTrue(interceptor2.isAsync);
+            Assert.IsTrue(interceptor1.invoked);
             Assert.IsTrue(this.requestMock.executed);
-            Assert.IsNotNull(responseMock.Headers.Get("AfterExecution"));
+            Assert.IsNotNull(responseMock.Headers.Get("AfterAsyncExecution"));
         }
 
         [Test]
-        public void NoExecution()
+        public void NoSyncExecution()
         {
-            NoExecutionInterceptor interceptor1 = new NoExecutionInterceptor();
-            NoOpInterceptor interceptor2 = new NoOpInterceptor();
-            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock, 
-                new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
+            NoOpExecutionInterceptor interceptor1 = new NoOpExecutionInterceptor();
+            NoOpRequestSyncInterceptor interceptor2 = new NoOpRequestSyncInterceptor();
+            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
+                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             IClientHttpResponse response = request.Execute();
 
-            Assert.IsFalse(interceptor2.executeInvoked);
+            Assert.IsFalse(interceptor2.invoked);
+            Assert.IsFalse(requestMock.executed);
+        }
+
+        [Test]
+        public void NoAsyncExecution()
+        {
+            ManualResetEvent manualEvent = new ManualResetEvent(false);
+            Exception exception = null;
+
+            NoOpExecutionInterceptor interceptor1 = new NoOpExecutionInterceptor();
+            NoOpRequestAsyncInterceptor interceptor2 = new NoOpRequestAsyncInterceptor();
+            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
+                new IClientHttpInterceptor[] { interceptor1, interceptor2 });
+
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)
+            {
+                try
+                {
+                    Assert.Fail("No Execution");
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                }
+                finally
+                {
+                    manualEvent.Set();
+                }
+            });
+
+            //manualEvent.WaitOne();
+            if (exception != null)
+            {
+                throw exception;
+            }
+
+            Assert.IsFalse(interceptor2.invoked);
             Assert.IsFalse(requestMock.executed);
         }
 
@@ -148,27 +215,27 @@ namespace Spring.Http.Client.Interceptor
         public void ChangeHeaders()
         {
             ChangeHeaderInterceptor interceptor = new ChangeHeaderInterceptor();
-            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock, 
-                new IClientHttpRequestInterceptor[] { interceptor });
+            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
+                new IClientHttpInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
 
             Assert.IsNotNull(requestMock.Headers.Get("AfterCreation"));
-            Assert.IsNull(requestMock.Headers.Get("BeforeExecution"));
+            Assert.IsNull(requestMock.Headers.Get("BeforeSyncExecution"));
+            Assert.IsNull(responseMock.Headers.Get("AfterSyncExecution"));
 
             request.Execute();
 
-            Assert.IsNotNull(requestMock.Headers.Get("AfterCreation"));
-            Assert.IsNotNull(requestMock.Headers.Get("BeforeExecution"));
-            Assert.IsNotNull(responseMock.Headers.Get("AfterExecution"));
+            Assert.IsNotNull(requestMock.Headers.Get("BeforeSyncExecution"));
+            Assert.IsNotNull(responseMock.Headers.Get("AfterSyncExecution"));
         }
 
         [Test]
         public void ChangeUri()
         {
-            ChangeUriInterceptor interceptor = new ChangeUriInterceptor();
-            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock, 
-                new IClientHttpRequestInterceptor[] { interceptor });
+            ChangeUriRequestFactoryInterceptor interceptor = new ChangeUriRequestFactoryInterceptor();
+            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
+                new IClientHttpInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             Assert.AreEqual(new Uri("http://example.com/2"), requestMock.Uri);
@@ -177,9 +244,9 @@ namespace Spring.Http.Client.Interceptor
         [Test]
         public void ChangeMethod()
         {
-            ChangeMethodInterceptor interceptor = new ChangeMethodInterceptor();
+            ChangeMethodRequestFactoryInterceptor interceptor = new ChangeMethodRequestFactoryInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpRequestInterceptor[] { interceptor });
+                new IClientHttpInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             Assert.AreEqual(HttpMethod.POST, requestMock.Method);
@@ -190,7 +257,7 @@ namespace Spring.Http.Client.Interceptor
         {
             ChangeBodyInterceptor interceptor = new ChangeBodyInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpRequestInterceptor[] { interceptor });
+                new IClientHttpInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             request.Execute();
@@ -211,7 +278,7 @@ namespace Spring.Http.Client.Interceptor
         {
             ChangeResponseInterceptor interceptor = new ChangeResponseInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
-                new IClientHttpRequestInterceptor[] { interceptor });
+                new IClientHttpInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
             IClientHttpResponse response = request.Execute();
@@ -219,120 +286,195 @@ namespace Spring.Http.Client.Interceptor
             Assert.AreNotSame(this.responseMock, response);
         }
 
+        [Test]
+        public void ChangeResponseAsync()
+        {
+            ManualResetEvent manualEvent = new ManualResetEvent(false);
+            Exception exception = null;
+
+            ChangeResponseInterceptor interceptor = new ChangeResponseInterceptor();
+            requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
+                new IClientHttpInterceptor[] { interceptor });
+
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)
+            {
+                try
+                {
+                    Assert.IsNull(args.Error, "Invalid response");
+                    Assert.IsFalse(args.Cancelled, "Invalid response");
+                    Assert.AreNotSame(this.responseMock, args.Response, "Invalid response");
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                }
+                finally
+                {
+                    manualEvent.Set();
+                }
+            });
+
+            manualEvent.WaitOne();
+            if (exception != null)
+            {
+                throw exception;
+            }
+        }
+
         #region Inner classes
 
-        private sealed class NoOpInterceptor : IClientHttpRequestInterceptor
+        private sealed class NoOpRequestFactoryInterceptor : IClientHttpRequestFactoryInterceptor
         {
-            public bool createInvoked;
-            public bool executeInvoked;
-            public bool isAsync;
+            public bool invoked;
 
-            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
+            public IClientHttpRequest Create(IClientHttpRequestFactoryCreation creation)
             {
-                this.createInvoked = true;
+                this.invoked = true;
                 return creation.Create();
             }
+        }
+        private sealed class NoOpRequestBeforeInterceptor : IClientHttpRequestBeforeInterceptor
+        {
+            public bool invoked;
 
-            public void Execute(IClientHttpRequestExecution execution)
+            public void BeforeExecute(IClientHttpRequestContext request)
             {
-                this.isAsync = execution.IsAsync;
-                this.executeInvoked = true;
-                execution.Execute();
+                this.invoked = true;
             }
         }
 
-        private sealed class NoExecutionInterceptor : IClientHttpRequestInterceptor
+        private sealed class NoOpRequestSyncInterceptor : IClientHttpRequestSyncInterceptor
         {
-            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
-            {
-                return creation.Create();
-            }
+            public bool invoked;
 
-            public void Execute(IClientHttpRequestExecution execution)
+            public IClientHttpResponse Execute(IClientHttpRequestSyncExecution execution)
             {
-                //execution.Execute();
+                this.invoked = true;
+                return execution.Execute();
             }
         }
 
-        private sealed class ChangeHeaderInterceptor : IClientHttpRequestInterceptor
+        private sealed class NoOpRequestAsyncInterceptor : IClientHttpRequestAsyncInterceptor
         {
-            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
+            public bool invoked;
+
+            public void ExecuteAsync(IClientHttpRequestAsyncExecution execution)
+            {
+                this.invoked = true;
+                execution.ExecuteAsync();
+            }
+        }
+
+        private sealed class NoOpExecutionInterceptor : 
+            IClientHttpRequestSyncInterceptor,
+            IClientHttpRequestAsyncInterceptor
+        {
+            public IClientHttpResponse Execute(IClientHttpRequestSyncExecution execution)
+            {
+                return null; //execution.Execute();
+            }
+
+            public void ExecuteAsync(IClientHttpRequestAsyncExecution execution)
+            {
+                //execution.ExecuteAsync();
+            }
+        }
+
+        private sealed class ChangeHeaderInterceptor : 
+            IClientHttpRequestFactoryInterceptor,
+            IClientHttpRequestSyncInterceptor, 
+            IClientHttpRequestAsyncInterceptor
+        {
+            // IClientHttpRequestFactoryInterceptor
+            public IClientHttpRequest Create(IClientHttpRequestFactoryCreation creation)
             {
                 IClientHttpRequest request = creation.Create();
                 request.Headers.Add("AfterCreation", "MyValue");
                 return request;
             }
 
-            public void Execute(IClientHttpRequestExecution execution)
+            // IClientHttpRequestSyncInterceptor
+            public IClientHttpResponse Execute(IClientHttpRequestSyncExecution execution)
             {
-                execution.Headers.Add("BeforeExecution", "MyValue");
-                execution.Execute(delegate(IClientHttpResponse response)
-                {
-                    response.Headers.Add("AfterExecution", "MyValue");
-                    return response;
-                });
+                execution.Headers.Add("BeforeSyncExecution", "MyValue");
+                IClientHttpResponse response = execution.Execute();
+                response.Headers.Add("AfterSyncExecution", "MyValue");
+                return response;
+            }
+
+            // IClientHttpRequestAsyncInterceptor
+            public void ExecuteAsync(IClientHttpRequestAsyncExecution execution)
+            {
+                execution.Headers.Add("BeforeAsyncExecution", "MyValue");
+                execution.ExecuteAsync(
+                    delegate(IClientHttpResponseAsyncContext ctx)
+                    {
+                        ctx.Response.Headers.Add("AfterAsyncExecution", "MyValue");
+                    });
             }
         }
 
-        private sealed class ChangeUriInterceptor : IClientHttpRequestInterceptor
+        private sealed class ChangeUriRequestFactoryInterceptor : IClientHttpRequestFactoryInterceptor
         {
-            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
+            public IClientHttpRequest Create(IClientHttpRequestFactoryCreation creation)
             {
                 creation.Uri = new Uri("http://example.com/2");
                 return creation.Create();
             }
-
-            public void Execute(IClientHttpRequestExecution execution)
-            {
-                execution.Execute();
-            }
         }
 
-        private sealed class ChangeMethodInterceptor : IClientHttpRequestInterceptor
+        private sealed class ChangeMethodRequestFactoryInterceptor : IClientHttpRequestFactoryInterceptor
         {
-            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
+            public IClientHttpRequest Create(IClientHttpRequestFactoryCreation creation)
             {
                 creation.Method = HttpMethod.POST;
                 return creation.Create();
             }
-
-            public void Execute(IClientHttpRequestExecution execution)
-            {
-                execution.Execute();
-            }
         }
 
-        private sealed class ChangeBodyInterceptor : IClientHttpRequestInterceptor
+        private sealed class ChangeBodyInterceptor : 
+            IClientHttpRequestSyncInterceptor, 
+            IClientHttpRequestAsyncInterceptor
         {
-            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
-            {
-                return creation.Create();
-            }
-
-            public void Execute(IClientHttpRequestExecution execution)
+            public IClientHttpResponse Execute(IClientHttpRequestSyncExecution execution)
             {
                 byte[] bytes = Encoding.UTF8.GetBytes("New body");
                 execution.Body = delegate(Stream stream)
                 {
                     stream.Write(bytes, 0, bytes.Length);
                 };
-                execution.Execute();
+                return execution.Execute();
+            }
+
+            public void ExecuteAsync(IClientHttpRequestAsyncExecution execution)
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes("New body");
+                execution.Body = delegate(Stream stream)
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                };
+                execution.ExecuteAsync();
             }
         }
 
-        private sealed class ChangeResponseInterceptor : IClientHttpRequestInterceptor
+        private sealed class ChangeResponseInterceptor : 
+            IClientHttpRequestSyncInterceptor, 
+            IClientHttpRequestAsyncInterceptor 
         {
-            public IClientHttpRequest Create(IClientHttpRequestCreation creation)
+            public IClientHttpResponse Execute(IClientHttpRequestSyncExecution execution)
             {
-                return creation.Create();
+                execution.Execute();
+                return new ResponseMock();
             }
 
-            public void Execute(IClientHttpRequestExecution execution)
+            public void ExecuteAsync(IClientHttpRequestAsyncExecution execution)
             {
-                execution.Execute(delegate(IClientHttpResponse response)
-                {
-                    return new ResponseMock();
-                });
+                execution.ExecuteAsync(
+                    delegate(IClientHttpResponseAsyncContext ctx)
+                    {
+                        ctx.Response = new ResponseMock();
+                    });
             }
         }
 

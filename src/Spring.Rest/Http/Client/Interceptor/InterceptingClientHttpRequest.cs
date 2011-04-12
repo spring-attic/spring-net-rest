@@ -28,14 +28,14 @@ namespace Spring.Http.Client.Interceptor
 {
     /// <summary>
     /// Wrapper for an <see cref="IClientHttpRequest"/> that has support 
-    /// for <see cref="IClientHttpRequestInterceptor"/>s.
+    /// for <see cref="IClientHttpInterceptor"/>s.
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia</author>
     public class InterceptingClientHttpRequest : IClientHttpRequest
     {
         private IClientHttpRequest delegateRequest;
-        private IEnumerable<IClientHttpRequestInterceptor> interceptors;
+        private IEnumerable<IClientHttpInterceptor> interceptors;
 
         private Action<Stream> body;
 
@@ -46,15 +46,15 @@ namespace Spring.Http.Client.Interceptor
         /// <param name="interceptors">The interceptors that are to be applied. Can be <c>null</c>.</param>
         public InterceptingClientHttpRequest(
             IClientHttpRequest request,
-            IEnumerable<IClientHttpRequestInterceptor> interceptors) 
+            IEnumerable<IClientHttpInterceptor> interceptors) 
         {
             AssertUtils.ArgumentNotNull(request, "'request' must not be null");
 
             this.delegateRequest = request;
-            this.interceptors = interceptors != null ? interceptors : new IClientHttpRequestInterceptor[0];
+            this.interceptors = interceptors != null ? interceptors : new IClientHttpInterceptor[0];
         }
 
-        #region IClientHttpRequest Membres
+        #region IClientHttpRequest Members
 
         /// <summary>
         /// Gets the HTTP method of the request.
@@ -118,7 +118,7 @@ namespace Spring.Http.Client.Interceptor
         public void ExecuteAsync(object state, Action<ClientHttpRequestCompletedEventArgs> executeCompleted)
         {
             RequestAsyncExecution requestAsyncExecution = new RequestAsyncExecution(this.delegateRequest, this.body, this.interceptors, state, executeCompleted);
-            requestAsyncExecution.Execute();
+            requestAsyncExecution.ExecuteAsync();
         }
 
         /// <summary>
@@ -131,161 +131,222 @@ namespace Spring.Http.Client.Interceptor
 
         #endregion
 
-        #region IClientHttpRequestExecution implementations
+        #region Inner class definitions
 
-        private abstract class AbstractRequestExecution : IClientHttpRequestExecution
+        private abstract class AbstractRequestContext  : IClientHttpRequestContext
         {
             protected IClientHttpRequest delegateRequest;
             protected Action<Stream> body;
-            protected IEnumerator<IClientHttpRequestInterceptor> enumerator;
-            protected bool isAsync;
+            protected IEnumerator<IClientHttpInterceptor> enumerator;
 
-            protected AbstractRequestExecution(
+            protected AbstractRequestContext(
                 IClientHttpRequest delegateRequest,
                 Action<Stream> body,
-                IEnumerable<IClientHttpRequestInterceptor> interceptors, 
-                bool isAsync)
+                IEnumerable<IClientHttpInterceptor> interceptors)
             {
                 this.delegateRequest = delegateRequest;
                 this.body = body;
                 this.enumerator = interceptors.GetEnumerator();
-                this.isAsync = isAsync;
             }
 
-            bool IClientHttpRequestExecution.IsAsync
-            {
-                get { return this.isAsync; }
-            }
-
-            HttpMethod IClientHttpRequestExecution.Method
+            public HttpMethod Method
             {
                 get { return this.delegateRequest.Method; }
             }
 
-            Uri IClientHttpRequestExecution.Uri
+            public Uri Uri
             {
                 get { return this.delegateRequest.Uri; }
             }
 
-            HttpHeaders IClientHttpRequestExecution.Headers
+            public HttpHeaders Headers
             {
                 get { return this.delegateRequest.Headers; }
             }
 
-            Action<Stream> IClientHttpRequestExecution.Body
+            public Action<Stream> Body
             {
                 get { return this.body; }
                 set { this.delegateRequest.Body = value; }
             }
-
-            void IClientHttpRequestExecution.Execute()
-            {
-                this.DoExecute(null);
-            }
-
-            void IClientHttpRequestExecution.Execute(ClientHttpResponseDelegate requestExecuted)
-            {
-                this.DoExecute(requestExecuted);
-            }
-
-            protected abstract void DoExecute(ClientHttpResponseDelegate requestExecuted);
         }
 
 #if !SILVERLIGHT
-        private sealed class RequestSyncExecution : AbstractRequestExecution
+        private sealed class RequestSyncExecution : AbstractRequestContext, IClientHttpRequestSyncExecution
         {
-            private IClientHttpResponse response;
-
             public RequestSyncExecution(
                 IClientHttpRequest delegateRequest,
                 Action<Stream> body,
-                IEnumerable<IClientHttpRequestInterceptor> interceptors)
-                : base(delegateRequest, body, interceptors, false)
+                IEnumerable<IClientHttpInterceptor> interceptors)
+                : base(delegateRequest, body, interceptors)
             {
             }
 
             public IClientHttpResponse Execute()
             {
-                this.DoExecute(null);
-                return this.response;
-            }
-
-            protected override void DoExecute(ClientHttpResponseDelegate requestExecuted)
-            {
                 if (enumerator.MoveNext())
                 {
-                    enumerator.Current.Execute(this);
+                    if (enumerator.Current is IClientHttpRequestSyncInterceptor)
+                    {
+                        return ((IClientHttpRequestSyncInterceptor)enumerator.Current).Execute(this);
+                    }
+                    if (enumerator.Current is IClientHttpRequestBeforeInterceptor)
+                    {
+                        ((IClientHttpRequestBeforeInterceptor)enumerator.Current).BeforeExecute(this);
+                    }                    
+                    return this.Execute();
                 }
                 else
                 {
-                    this.response = this.delegateRequest.Execute();
-                }
-                if (requestExecuted != null)
-                {
-                    this.response = requestExecuted(this.response);
+                    return this.delegateRequest.Execute();
                 }
             }
         }
 #endif
 
-        private sealed class RequestAsyncExecution : AbstractRequestExecution
+        private sealed class RequestAsyncExecution : AbstractRequestContext, IClientHttpRequestAsyncExecution
         {
             private object asyncState;
-            private Action<ClientHttpRequestCompletedEventArgs> executeCompleted;
+            private Action<ClientHttpRequestCompletedEventArgs> interceptedExecuteCompleted;
 
-            private IList<ClientHttpResponseDelegate> responseDelegates;
+            private IList<Action<IClientHttpResponseAsyncContext>> executeCompletedDelegates;
 
             public RequestAsyncExecution(
                 IClientHttpRequest delegateRequest,
                 Action<Stream> body,
-                IEnumerable<IClientHttpRequestInterceptor> interceptors,
-                object ayncState,
+                IEnumerable<IClientHttpInterceptor> interceptors, 
+                object asyncState,
                 Action<ClientHttpRequestCompletedEventArgs> executeCompleted)
-                : base(delegateRequest, body, interceptors, true)
+                : base(delegateRequest, body, interceptors)
             {
-                this.asyncState = ayncState;
-                this.executeCompleted = executeCompleted;
-                responseDelegates = new List<ClientHttpResponseDelegate>();
+                this.asyncState = asyncState;
+                this.interceptedExecuteCompleted = executeCompleted;
+                this.executeCompletedDelegates = new List<Action<IClientHttpResponseAsyncContext>>();
             }
 
-            public void Execute()
+            public object AsyncState
             {
-                this.DoExecute(null);
+                get { return this.asyncState; }
+                set { this.asyncState = value; }
             }
 
-            protected override void DoExecute(ClientHttpResponseDelegate requestExecuted)
+            public void ExecuteAsync()
             {
-                if (requestExecuted != null)
+                this.ExecuteAsync(null);
+            }
+
+            public void ExecuteAsync(Action<IClientHttpResponseAsyncContext> executeCompleted)
+            {
+                if (executeCompleted != null)
                 {
-                    this.responseDelegates.Insert(0, requestExecuted);
+                    this.executeCompletedDelegates.Insert(0, executeCompleted);
                 }
                 if (enumerator.MoveNext())
                 {
-                    enumerator.Current.Execute(this);
+                    if (enumerator.Current is IClientHttpRequestAsyncInterceptor)
+                    {
+                        ((IClientHttpRequestAsyncInterceptor)enumerator.Current).ExecuteAsync(this);
+                    }
+                    else
+                    {
+                        if (enumerator.Current is IClientHttpRequestBeforeInterceptor)
+                        {
+                            ((IClientHttpRequestBeforeInterceptor)enumerator.Current).BeforeExecute(this);
+                        }
+                        this.ExecuteAsync(null);
+                    }
                 }
                 else
                 {
-                    this.delegateRequest.ExecuteAsync(this.asyncState, 
+                    this.delegateRequest.ExecuteAsync(this.asyncState,
                         delegate(ClientHttpRequestCompletedEventArgs args)
                         {
-                            if (args.Error == null && !args.Cancelled && this.responseDelegates.Count > 0)
+                            ResponseAsyncContext responseAsyncContext = new ResponseAsyncContext(args);
+                            foreach (Action<IClientHttpResponseAsyncContext> action in this.executeCompletedDelegates)
                             {
-                                IClientHttpResponse response = args.Response;
-                                foreach (ClientHttpResponseDelegate action in this.responseDelegates)
-                                {
-                                    response = action(response);
-                                }
-                                this.executeCompleted(new ClientHttpRequestCompletedEventArgs(
-                                    response, args.Error, args.Cancelled, args.UserState));
+                                action(responseAsyncContext);
                             }
-                            else
+
+                            if (this.interceptedExecuteCompleted != null)
                             {
-                                if (this.executeCompleted != null)
-                                {
-                                    this.executeCompleted(args);
-                                }
+                                interceptedExecuteCompleted(responseAsyncContext.GetCompletedEventArgs());
                             }
                         });
+                }
+            }
+        }
+
+        private sealed class ResponseAsyncContext : IClientHttpResponseAsyncContext
+        {
+            private bool hasChanged;
+            private IClientHttpResponse response;
+            private bool cancelled;
+            private Exception error;
+            private object userState;
+
+            private ClientHttpRequestCompletedEventArgs completedEventArgs;
+
+            public IClientHttpResponse Response
+            {
+                get { return this.completedEventArgs.Response; }
+                set
+                {
+                    this.hasChanged = true;
+                    this.response = value;
+                }
+            }
+
+            public bool Cancelled
+            {
+                get { return this.completedEventArgs.Cancelled; }
+                set
+                {
+                    this.hasChanged = true;
+                    this.cancelled = value;
+                }
+            }
+
+            public Exception Error
+            {
+                get { return this.completedEventArgs.Error; }
+                set
+                {
+                    this.hasChanged = true;
+                    this.error = value;
+                }
+            }
+
+            public object UserState
+            {
+                get { return this.completedEventArgs.UserState; }
+                set
+                {
+                    this.hasChanged = true;
+                    this.userState = value;
+                }
+            }
+
+            public ResponseAsyncContext(ClientHttpRequestCompletedEventArgs completedEventArgs)
+            {
+                this.completedEventArgs = completedEventArgs;
+            }
+
+            public ClientHttpRequestCompletedEventArgs GetCompletedEventArgs()
+            {
+                if (!this.hasChanged)
+                {
+                    return this.completedEventArgs;
+                }
+                else
+                {
+                    if (this.error != null || this.cancelled)
+                    {
+                        return new ClientHttpRequestCompletedEventArgs(null, this.error, this.cancelled, this.userState);
+                    }
+                    else
+                    {
+                        return new ClientHttpRequestCompletedEventArgs(this.response, this.error, this.cancelled, this.userState);
+                    }
                 }
             }
         }

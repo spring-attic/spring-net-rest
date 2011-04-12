@@ -24,61 +24,40 @@ using System.IO;
 namespace Spring.Http.Client.Interceptor
 {
     /// <summary>
-    /// Represents the context of a client-side HTTP request execution, 
+    /// Represents the context of an asynchronous client-side HTTP request execution, 
     /// given to an interceptor.
     /// </summary>
-    /// <seealso cref="IClientHttpRequestInterceptor"/>
-    /// <author>Arjen Poutsma</author>
+    /// <seealso cref="IClientHttpRequestAsyncInterceptor"/>
     /// <author>Bruno Baia</author>
-    public interface IClientHttpRequestExecution
+    public interface IClientHttpRequestAsyncExecution : IClientHttpRequestContext
     {
         /// <summary>
-        /// Indicates whether the request execution is asynchrone.
+        /// Gets or sets the optional user-defined object that is passed to the method invoked 
+        /// when the asynchronous operation completes.
         /// </summary>
-        bool IsAsync { get; }
+        object AsyncState { get; set; }
 
         /// <summary>
-        /// Gets the HTTP method of the request.
-        /// </summary>
-        HttpMethod Method { get; }
-
-        /// <summary>
-        /// Gets the URI of the request.
-        /// </summary>
-        Uri Uri { get; }
-
-        /// <summary>
-        /// Gets the request message headers.
-        /// </summary>
-        HttpHeaders Headers { get; }
-
-        /// <summary>
-        /// Gets or sets the delegate that writes the request body message as a stream.
-        /// </summary>
-        Action<Stream> Body { get;  set; }
-
-        /// <summary>
-        /// Execute the request with the current context.
+        /// Execute the request asynchronously with the current context.
         /// </summary>
         /// <remarks>
         /// Used to invoke the next interceptor in the interceptor chain, 
         /// or - if the calling interceptor is last - execute the request itself.
         /// </remarks>
-        /// <seealso cref="M:Execute(ClientHttpResponseDelegate requestExecuted)"/>
-        void Execute();
+        /// <seealso cref="M:ExecuteAsync(Action{IClientHttpResponseAsyncContext} executeCompleted)"/>
+        void ExecuteAsync();
 
         /// <summary>
-        /// Execute the request with the current context and handle the response result.
+        /// Execute the request asynchronously with the current context and handle the response result.
         /// </summary>
         /// <remarks>
         /// Used to invoke the next interceptor in the interceptor chain, 
         /// or - if the calling interceptor is last - execute the request itself.
         /// </remarks>
-        /// <param name="requestExecuted">
-        /// The <see cref="ClientHttpResponseDelegate">delegate</see> called 
-        /// when the execution completes.
+        /// <param name="executeCompleted">
+        /// The <see cref="Action{IClientHttpResponseAsyncContext}"/> to perform when the asynchronous execution completes.
         /// </param>
-        /// <seealso cref="M:Execute()"/>
-        void Execute(ClientHttpResponseDelegate requestExecuted);
+        /// <seealso cref="M:ExecuteAsync()"/>
+        void ExecuteAsync(Action<IClientHttpResponseAsyncContext> executeCompleted);
     }
 }

@@ -125,7 +125,7 @@ namespace Spring.Rest.Client
         private IList<IHttpMessageConverter> _messageConverters;
         private IClientHttpRequestFactory _requestFactory;
         private IResponseErrorHandler _errorHandler;
-        private IList<IClientHttpRequestInterceptor> _requestInterceptors;
+        private IList<IClientHttpInterceptor> _clientInterceptors;
 
         /// <summary>
         /// Gets or sets the base URL for the request.
@@ -182,12 +182,12 @@ namespace Spring.Rest.Client
         }
 
         /// <summary>
-        /// Gets or sets the request interceptors.
+        /// Gets or sets the client interceptors.
         /// </summary>
-        public IList<IClientHttpRequestInterceptor> RequestInterceptors
+        public IList<IClientHttpInterceptor> ClientInterceptors
         {
-            get { return this._requestInterceptors; }
-            set { this._requestInterceptors = value; }
+            get { return this._clientInterceptors; }
+            set { this._clientInterceptors = value; }
         }
 
         #endregion
@@ -221,7 +221,7 @@ namespace Spring.Rest.Client
         {
             this._requestFactory = new WebClientHttpRequestFactory();
             this._errorHandler = new DefaultResponseErrorHandler();
-            this._requestInterceptors = new List<IClientHttpRequestInterceptor>();
+            this._clientInterceptors = new List<IClientHttpInterceptor>();
 
             this._messageConverters = new List<IHttpMessageConverter>();
 
@@ -1975,7 +1975,7 @@ namespace Spring.Rest.Client
         {
             IClientHttpRequest request = this.GetClientHttpRequestFactory().CreateRequest(uri, method);
 
-            ExecuteState<T> state = new ExecuteState<T>(uri, method, responseExtractor, this._errorHandler, methodCompleted);
+            RestAsyncOperationState<T> state = new RestAsyncOperationState<T>(uri, method, responseExtractor, this._errorHandler, methodCompleted);
 
             if (requestCallback != null)
             {
@@ -1989,7 +1989,7 @@ namespace Spring.Rest.Client
 
         private static void ResponseReceivedCallback<T>(ClientHttpRequestCompletedEventArgs responseReceived) where T : class
         {
-            ExecuteState<T> state = (ExecuteState<T>)responseReceived.UserState;
+            RestAsyncOperationState<T> state = (RestAsyncOperationState<T>)responseReceived.UserState;
             
             T value = null;
             Exception exception = responseReceived.Error;
@@ -2026,27 +2026,6 @@ namespace Spring.Rest.Client
             if (state.MethodCompleted != null)
             {
                 state.MethodCompleted(new RestOperationCompletedEventArgs<T>(value, exception, cancelled, null));
-            }
-        }
-
-        private sealed class ExecuteState<T> where T : class
-        {
-            public Uri Uri;
-            public HttpMethod Method;
-            public IResponseExtractor<T> ResponseExtractor;
-            public IResponseErrorHandler ResponseErrorHandler;
-            public Action<RestOperationCompletedEventArgs<T>> MethodCompleted;
-
-            public ExecuteState(Uri uri, HttpMethod method, 
-                IResponseExtractor<T> responseExtractor, 
-                IResponseErrorHandler responseErrorHandler, 
-                Action<RestOperationCompletedEventArgs<T>> methodCompleted)
-            {
-                this.Uri = uri;
-                this.Method = method;
-                this.ResponseExtractor = responseExtractor;
-                this.ResponseErrorHandler = responseErrorHandler;
-                this.MethodCompleted = methodCompleted;
             }
         }
 
@@ -2116,9 +2095,9 @@ namespace Spring.Rest.Client
 
         private IClientHttpRequestFactory GetClientHttpRequestFactory()
         {
-            if (this._requestInterceptors != null && this._requestInterceptors.Count > 0)
+            if (this._clientInterceptors != null && this._clientInterceptors.Count > 0)
             {
-                return new InterceptingClientHttpRequestFactory(this._requestFactory, this._requestInterceptors);
+                return new InterceptingClientHttpRequestFactory(this._requestFactory, this._clientInterceptors);
             }
             else
             {
