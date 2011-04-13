@@ -1,5 +1,5 @@
-The Spring.NET REST Client project, Release 1.0.0 (April 11, 2011)
-------------------------------------------------------------------
+The Spring.NET REST Client project, Release 1.0.0 GA (April 13, 2011)
+---------------------------------------------------------------------
 https://github.com/SpringSource/spring-net-rest
 DO NOT USE GITHUB DOWNLOAD BUTTON !!!
 
