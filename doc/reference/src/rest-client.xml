@@ -338,57 +338,55 @@ template.RequestFactory = requestFactory;</programlisting></para>
 
       <para><classname>RestTemplate</classname> allows you to intercept HTTP
       request creation and/or execution. You can create your own interceptor
-      by implementing the
-      <interfacename>IClientHttpRequestInterceptor</interfacename> and
-      register it via the <methodname>RequestInterceptors</methodname>
-      property. <sbr /><sbr />The
-      <interfacename>IClientHttpRequestInterceptor</interfacename> interface
-      is shown below.</para>
+      and register it via the <methodname>RequestInterceptors</methodname>
+      property. <sbr /><sbr />Four types of interceptors are provided :
+      <itemizedlist>
+        <listitem><interfacename>IClientHttpRequestFactoryInterceptor</interfacename> 
+        will intercept request creation, allowing to modify the HTTP URI and method, 
+        and to customize the newly created request.</listitem>
 
-      <programlisting language="csharp">public interface <interfacename>IClientHttpRequestInterceptor</interfacename>
-{
-  // Intercept request creation
-  <interfacename>IClientHttpRequest</interfacename> Create(<interfacename>IClientHttpRequestCreation</interfacename> creation);
+        <listitem><interfacename>IClientHttpRequestBeforeInterceptor</interfacename> 
+        will intercept request before its execution, allowing to modify 
+        the HTTP headers and body. This interceptor supports both synchronous and 
+        asynchronous requests.</listitem>
 
-  // Intercept request execution
-  void Execute(<interfacename>IClientHttpRequestExecution</interfacename> execution);
-}</programlisting>
+        <listitem><interfacename>IClientHttpRequestSyncInterceptor</interfacename> 
+        will intercept synchronous request execution, giving total control of  
+        the execution (error management, logging, perf, etc.).</listitem>
+        
+        <listitem><interfacename>IClientHttpRequestAsyncInterceptor</interfacename> 
+        will intercept asynchronous request execution, giving total control of  
+        the execution (error management, logging, perf, etc.).</listitem>
+      </itemizedlist></para>
 
       <para>An example of an interceptor measuring HTTP request execution time
       is shown below.</para>
 
-      <programlisting language="csharp">public class <classname>PerfRequestInterceptor</classname> : <interfacename>IClientHttpRequestInterceptor</interfacename>
+      <programlisting language="csharp">public class <classname>PerfRequestSyncInterceptor</classname> : <interfacename>IClientHttpRequestSyncInterceptor</interfacename>
 {
-  public <interfacename>IClientHttpRequest</interfacename> Create(<interfacename>IClientHttpRequestCreation</interfacename> creation)
+  public <interfacename>IClientHttpResponse</interfacename> Execute(<interfacename>IClientHttpRequestSyncExecution</interfacename> execution)
   {
-    return creation.Create();
-  }
-
-  public void Execute(<interfacename>IClientHttpRequestExecution</interfacename> execution)
-  {
-    <classname>Stopwatch</classname> stopwatch = <classname>Stopwatch</classname>.StartNew();
-    execution.Execute(response =&gt;
-    {
-      stopwatch.Stop();
-      <classname>Console</classname>.WriteLine(<classname>String</classname>.Format(
-        "{0} {1} request for '{2}' took {3}ms and resulted in {4:d} - {4}",
-        execution.IsAsync ? "Async" : "Sync",
-        execution.Method,
-        execution.Uri,
-        stopwatch.ElapsedMilliseconds, 
-        response.StatusCode));
-      return response;  
-    });
+    <classname>Stopwatch</classname> stopwatch = <classname>Stopwatch</classname>.StartNew();   
+    <interfacename>IClientHttpResponse</interfacename> response = execution.Execute();
+    stopwatch.Stop();
+    
+    <classname>Console</classname>.WriteLine(<classname>String</classname>.Format(
+      "Sync {0} request for '{1}' took {2}ms and resulted in {3:d} - {3}",
+      execution.Method,
+      execution.Uri,
+      stopwatch.ElapsedMilliseconds, 
+      response.StatusCode));
+    
+    return response;  
   }
 }
 
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>();
-template.RequestInterceptors.Add(new <classname>PerfRequestInterceptor</classname>());</programlisting>
+template.RequestInterceptors.Add(new <classname>PerfRequestSyncInterceptor</classname>());</programlisting>
 
-      <para>Note that the
-      <interfacename>IClientHttpRequestExecution</interfacename>.<methodname>Execute</methodname>
-      method takes a delegate as parameter to support both synchronous and
-      asynchronous request execution.</para>
+      <para>Note that you can also make <classname>PerfRequestSyncInterceptor</classname> 
+      implement <interfacename>IClientHttpRequestAsyncInterceptor</interfacename> 
+      to support both synchronous and asynchronous requests.</para>
     </section>
 
     <section id="resttemplate-container">
