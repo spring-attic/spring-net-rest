@@ -26,7 +26,7 @@ using Spring.Http;
 namespace Spring.Rest.Client
 {
     /// <summary>
-    /// Interface specifying a basic set of RESTful asynchrone operations. 
+    /// Interface specifying a basic set of RESTful asynchronous operations. 
     /// </summary>
     /// <remarks>
     /// Not often used directly, but a useful option to enhance testability, 
@@ -52,7 +52,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler GetForObjectAsync<T>(string url, Action<RestOperationCompletedEventArgs<T>> getCompleted, params object[] uriVariables) where T : class;
 
@@ -70,7 +70,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler GetForObjectAsync<T>(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<T>> getCompleted) where T : class;
 
@@ -84,7 +84,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler GetForObjectAsync<T>(Uri url, Action<RestOperationCompletedEventArgs<T>> getCompleted) where T : class;
 
@@ -102,7 +102,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler GetForMessageAsync<T>(string url, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> getCompleted, params object[] uriVariables) where T : class;
 
@@ -120,7 +120,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler GetForMessageAsync<T>(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> getCompleted) where T : class;
 
@@ -134,7 +134,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous GET method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler GetForMessageAsync<T>(Uri url, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> getCompleted) where T : class;
 
@@ -154,7 +154,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler HeadForHeadersAsync(string url, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted, params object[] uriVariables);
 
@@ -170,7 +170,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous HEAD method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler HeadForHeadersAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted);
 
@@ -182,7 +182,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous HEAD method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler HeadForHeadersAsync(Uri url, Action<RestOperationCompletedEventArgs<HttpHeaders>> headCompleted);
 
@@ -209,7 +209,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForLocationAsync(string url, object request, Action<RestOperationCompletedEventArgs<Uri>> postCompleted, params object[] uriVariables);
 
@@ -232,7 +232,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForLocationAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<Uri>> postCompleted);
 
@@ -249,7 +249,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForLocationAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<Uri>> postCompleted);
 
@@ -272,7 +272,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForObjectAsync<T>(string url, object request, Action<RestOperationCompletedEventArgs<T>> postCompleted, params object[] uriVariables) where T : class;
 
@@ -295,7 +295,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForObjectAsync<T>(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<T>> postCompleted) where T : class;
 
@@ -312,7 +312,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForObjectAsync<T>(Uri url, object request, Action<RestOperationCompletedEventArgs<T>> postCompleted) where T : class;
 
@@ -335,7 +335,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForMessageAsync<T>(string url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> postCompleted, params object[] uriVariables) where T : class;
 
@@ -358,7 +358,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForMessageAsync<T>(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> postCompleted) where T : class;
 
@@ -375,7 +375,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForMessageAsync<T>(Uri url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> postCompleted) where T : class;
 
@@ -397,7 +397,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForMessageAsync(string url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> postCompleted, params object[] uriVariables);
 
@@ -419,7 +419,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForMessageAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> postCompleted);
 
@@ -435,7 +435,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous POST method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PostForMessageAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> postCompleted);
 
@@ -460,7 +460,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PutAsync(string url, object request, Action<RestOperationCompletedEventArgs<object>> putCompleted, params object[] uriVariables);
 
@@ -481,7 +481,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PutAsync(string url, object request, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<object>> putCompleted);
 
@@ -496,7 +496,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler PutAsync(Uri url, object request, Action<RestOperationCompletedEventArgs<object>> putCompleted);
 
@@ -516,7 +516,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler DeleteAsync(string url, Action<RestOperationCompletedEventArgs<object>> deleteCompleted, params object[] uriVariables);
 
@@ -532,7 +532,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler DeleteAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<object>> deleteCompleted);
 
@@ -544,7 +544,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous PUT method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler DeleteAsync(Uri url, Action<RestOperationCompletedEventArgs<object>> deleteCompleted);
 
@@ -564,7 +564,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler OptionsForAllowAsync(string url, Action<RestOperationCompletedEventArgs<IList<HttpMethod>>> optionsCompleted, params object[] uriVariables);
 
@@ -580,7 +580,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous OPTIONS method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler OptionsForAllowAsync(string url, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<IList<HttpMethod>>> optionsCompleted);
 
@@ -592,7 +592,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous OPTIONS method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler OptionsForAllowAsync(Uri url, Action<RestOperationCompletedEventArgs<IList<HttpMethod>>> optionsCompleted);
 
@@ -619,7 +619,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExchangeAsync<T>(string url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> methodCompleted, params object[] uriVariables) where T : class;
 
@@ -641,7 +641,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExchangeAsync<T>(string url, HttpMethod method, HttpEntity requestEntity, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> methodCompleted) where T : class;
 
@@ -659,7 +659,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExchangeAsync<T>(Uri url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage<T>>> methodCompleted) where T : class;
 
@@ -680,7 +680,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExchangeAsync(string url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> methodCompleted, params object[] uriVariables);
 
@@ -701,7 +701,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExchangeAsync(string url, HttpMethod method, HttpEntity requestEntity, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> methodCompleted);
 
@@ -718,7 +718,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExchangeAsync(Uri url, HttpMethod method, HttpEntity requestEntity, Action<RestOperationCompletedEventArgs<HttpResponseMessage>> methodCompleted);
 
@@ -743,7 +743,7 @@ namespace Spring.Rest.Client
         /// </param>       
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExecuteAsync<T>(string url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, Action<RestOperationCompletedEventArgs<T>> methodCompleted, params object[] uriVariables) where T : class;
 
@@ -764,7 +764,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExecuteAsync<T>(string url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, IDictionary<string, object> uriVariables, Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class;
 
@@ -781,7 +781,7 @@ namespace Spring.Rest.Client
         /// The <code>Action&lt;T&gt;</code> to perform when the asynchronous method completes.
         /// </param>  
         /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchrone operation.
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExecuteAsync<T>(Uri url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class;
 

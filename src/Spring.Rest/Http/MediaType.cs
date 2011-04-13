@@ -512,7 +512,7 @@ namespace Spring.Http
             return false;
         }
 
-        #region IComparable<MediaType> Membres
+        #region IComparable<MediaType> Members
 
         /// <summary>
         /// Compares this <see cref="MediaType"/> to another alphabetically.

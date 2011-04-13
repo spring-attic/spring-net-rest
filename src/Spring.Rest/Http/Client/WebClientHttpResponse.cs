@@ -59,7 +59,7 @@ namespace Spring.Http.Client
             this.Initialize();
         }
 
-        #region IClientHttpResponse Membres
+        #region IClientHttpResponse Members
 
         /// <summary>
         /// Gets the message headers.

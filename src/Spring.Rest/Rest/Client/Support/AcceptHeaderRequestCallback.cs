@@ -61,7 +61,7 @@ namespace Spring.Rest.Client.Support
             this.messageConverters = messageConverters;
         }
 
-        #region IRequestCallback Membres
+        #region IRequestCallback Members
 
         /// <summary>
         /// Gets called by <see cref="RestTemplate"/> with an <see cref="IClientHttpRequest"/> to write data. 

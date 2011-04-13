@@ -199,7 +199,7 @@ namespace Spring.Collections.Specialized
             }
         }
 
-        #region IEnumerable<string> Membres
+        #region IEnumerable<string> Members
 
         IEnumerator<string> IEnumerable<string>.GetEnumerator()
         {
@@ -208,7 +208,7 @@ namespace Spring.Collections.Specialized
 
         #endregion
 
-        #region IEnumerable Membres
+        #region IEnumerable Members
 
         IEnumerator IEnumerable.GetEnumerator()
         {

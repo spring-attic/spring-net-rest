@@ -118,7 +118,7 @@ namespace Spring.Http.Converters
             //this._partConverters.Add(new ResourceHttpMessageConverter());
         }
 
-        #region IHttpMessageConverter Membres
+        #region IHttpMessageConverter Members
 
         /// <summary>
         /// Indicates whether the given class can be read by this converter.
@@ -485,7 +485,7 @@ namespace Spring.Http.Converters
                 this.bodyWriter = bodyWriter;
             }
 
-            #region IHttpMessage Membres
+            #region IHttpMessage Members
 
             public HttpHeaders Headers
             {

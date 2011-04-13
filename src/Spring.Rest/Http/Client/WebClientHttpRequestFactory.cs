@@ -104,7 +104,7 @@ namespace Spring.Http.Client
 
         private int? _timeout;
         /// <summary>
-        /// Gets or sets the time-out value in milliseconds for synchrone request only.
+        /// Gets or sets the time-out value in milliseconds for synchronous request only.
         /// </summary>
         /// <remarks>
         /// The default is 100,000 milliseconds (100 seconds).
@@ -157,7 +157,7 @@ namespace Spring.Http.Client
         }
 #endif
 
-        #region IClientHttpRequestFactory Membres
+        #region IClientHttpRequestFactory Members
 
         /// <summary>
         /// Create a new <see cref="IClientHttpRequest"/> for the specified URI and HTTP method.

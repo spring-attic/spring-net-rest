@@ -67,7 +67,7 @@ namespace Spring.Http.Converters
 
         #endregion
 
-        #region IHttpMessageConverter Membres
+        #region IHttpMessageConverter Members
 
         /// <summary>
         /// Indicates whether the given class can be read by this converter.

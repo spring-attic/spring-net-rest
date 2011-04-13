@@ -25,7 +25,7 @@ using Spring.Http;
 namespace Spring.Rest.Client.Support
 {
     /// <summary>
-    /// Represents the state of an asynchrone REST operation 
+    /// Represents the state of an asynchronous REST operation 
     /// that is passed to the request asynchronous execution method.
     /// </summary>
     /// <typeparam name="T">The type of the response value.</typeparam>
