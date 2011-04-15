@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Spring.Rest</id>
+    <title>Spring.Rest</title>
+    <version>1.0.0</version>
+    <iconUrl>http://springframework.net/images/SpringSource_Leaves32x32.png</iconUrl>
+    <projectUrl>http://www.springframework.net/</projectUrl>
+    <licenseUrl>http://www.springframework.net/license.html</licenseUrl>
+    <authors>SpringSource</authors>
+    <description>Spring.NET REST Client Framework</description>
+    <summary>Simplifies communication with HTTP servers, and enforces RESTful principles.</summary>
+    <language>en-US</language>
+    <tags>Spring REST HTTP</tags>
+  </metadata>
+  <files>
+    <file src=".\tools\Install.ps1" target="tools" />
+    <file src=".\lib\net\2.0\Release\Spring.Rest.dll" target="lib\net20" />
+    <file src=".\lib\net\2.0\Release\Spring.Rest.pdb" target="lib\net20" />
+    <file src=".\lib\net\2.0\Release\Spring.Rest.xml" target="lib\net20" />
+    <file src=".\lib\net\3.5\Release\Spring.Rest.dll" target="lib\net35" />
+    <file src=".\lib\net\3.5\Release\Spring.Rest.pdb" target="lib\net35" />
+    <file src=".\lib\net\3.5\Release\Spring.Rest.xml" target="lib\net35" />
+    <file src=".\lib\net\3.5\Release\Spring.Rest.dll" target="lib\net35-client" />
+    <file src=".\lib\net\3.5\Release\Spring.Rest.pdb" target="lib\net35-client" />
+    <file src=".\lib\net\3.5\Release\Spring.Rest.xml" target="lib\net35-client" />
+    <file src=".\lib\net\4.0\Release\Spring.Rest.dll" target="lib\net40" />
+    <file src=".\lib\net\4.0\Release\Spring.Rest.pdb" target="lib\net40" />
+    <file src=".\lib\net\4.0\Release\Spring.Rest.xml" target="lib\net40" />
+    <file src=".\lib\net\4.0\Release\Spring.Rest.dll" target="lib\net40-client" />
+    <file src=".\lib\net\4.0\Release\Spring.Rest.pdb" target="lib\net40-client" />
+    <file src=".\lib\net\4.0\Release\Spring.Rest.xml" target="lib\net40-client" />
+    <file src=".\lib\sl\3.0\Release\Spring.Rest.dll" target="lib\sl3" />
+    <file src=".\lib\sl\3.0\Release\Spring.Rest.pdb" target="lib\sl3" />
+    <file src=".\lib\sl\3.0\Release\Spring.Rest.xml" target="lib\sl3" />
+    <file src=".\lib\sl\4.0\Release\Spring.Rest.dll" target="lib\sl4" />
+    <file src=".\lib\sl\4.0\Release\Spring.Rest.pdb" target="lib\sl4" />
+    <file src=".\lib\sl\4.0\Release\Spring.Rest.xml" target="lib\sl4" />
+    <file src=".\lib\wp\7.0\Release\Spring.Rest.dll" target="lib\sl4-wp" />
+    <file src=".\lib\wp\7.0\Release\Spring.Rest.pdb" target="lib\sl4-wp" />
+  </files>
+</package>
