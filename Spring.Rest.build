@@ -10,6 +10,7 @@
   <property name="bin.dir" value="${root.dir}\bin" />
   <property name="doc.dir" value="${root.dir}\doc" />
   <property name="tools.dir" value="${root.dir}\tools" />
+  <property name="setup.dir" value="${root.dir}\setup" />
   
   <property name="product.name" value="Spring.NET REST Client Framework" />
   <property name="product.company" value="SpringSource" />
@@ -65,7 +66,7 @@
     <property name="product.fullname" value="${product.name} (Daily build from ${datetime::get-month(datetime.now)}/${datetime::get-day(datetime.now)}/${datetime::get-year(datetime.now)})" />
     <property name="project.zip-filename" value="Spring.Rest-${datetime::get-year(datetime.now)}${string::pad-left(datetime::get-month(datetime.now), 2, '0')}${string::pad-left(datetime::get-day(datetime.now), 2, '0')}-${string::pad-left(datetime::get-hour(datetime.now), 2, '0')}${string::pad-left(datetime::get-minute(datetime.now), 2, '0')}.zip" />
     
-    <call target="package-zip"/>
+    <call target="package-deploy"/>
   </target>
 
   <target name="release">
@@ -73,7 +74,8 @@
     <property name="project.zip-filename" value="Spring.Rest-${product.version}.zip" if="${(product.releasetype == '')}" />
     <property name="project.zip-filename" value="Spring.Rest-${product.version}-${product.releasetype}.zip" if="${(product.releasetype != '')}" />
     
-    <call target="package-zip"/>
+    <call target="package-deploy"/>
+    <call target="nuget-deploy"/>
   </target>
 
   
@@ -251,7 +253,23 @@
     </copy>
   </target>
 
-  <target name="package-zip" depends="package" description="Build Package distribution as .zip file">
+  <target name="nuget" depends="build">
+    <echo message="Generating NuGet package..." />
+    <if test="${property::exists('product.version')}">
+      <xmlpoke file="${setup.dir}\NuGet\src\Spring.Rest.nuspec" xpath="/n:package/n:metadata/n:version" value="${product.version}">
+        <namespaces>
+          <namespace prefix="n" uri="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" />
+        </namespaces>
+      </xmlpoke>
+    </if>
+    <mkdir dir="${build.dir}"/>
+    <exec program="${setup.dir}\NuGet\lib\NuGet.exe" workingdir="${build.dir}" verbose="true">
+      <arg value="pack" />
+      <arg value="${setup.dir}\NuGet\src\Spring.Rest.nuspec" />
+    </exec>
+  </target>
+
+  <target name="package-deploy" depends="package" description="Deploy Package distribution as .zip file">
     <echo message="Zipping package..." />
     <zip zipfile="${deploy.dir}\${project.zip-filename}">
       <fileset basedir="${package.dir}">
@@ -259,6 +277,14 @@
         <exclude name="*.zip" />
       </fileset>
     </zip>
+  </target>
+
+  <target name="nuget-deploy" depends="nuget">
+    <copy todir="${deploy.dir}">
+      <fileset basedir="${build.dir}">
+        <include name="*.nupkg" />
+      </fileset>
+    </copy>
   </target>
 
   <target name="rebuild-solution" description="Rebuilds a given solution file">

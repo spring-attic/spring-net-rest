@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Spring.Rest</id>
@@ -15,28 +15,29 @@
   </metadata>
   <files>
     <file src=".\tools\Install.ps1" target="tools" />
-    <file src=".\lib\net\2.0\Release\Spring.Rest.dll" target="lib\net20" />
-    <file src=".\lib\net\2.0\Release\Spring.Rest.pdb" target="lib\net20" />
-    <file src=".\lib\net\2.0\Release\Spring.Rest.xml" target="lib\net20" />
-    <file src=".\lib\net\3.5\Release\Spring.Rest.dll" target="lib\net35" />
-    <file src=".\lib\net\3.5\Release\Spring.Rest.pdb" target="lib\net35" />
-    <file src=".\lib\net\3.5\Release\Spring.Rest.xml" target="lib\net35" />
-    <file src=".\lib\net\3.5\Release\Spring.Rest.dll" target="lib\net35-client" />
-    <file src=".\lib\net\3.5\Release\Spring.Rest.pdb" target="lib\net35-client" />
-    <file src=".\lib\net\3.5\Release\Spring.Rest.xml" target="lib\net35-client" />
-    <file src=".\lib\net\4.0\Release\Spring.Rest.dll" target="lib\net40" />
-    <file src=".\lib\net\4.0\Release\Spring.Rest.pdb" target="lib\net40" />
-    <file src=".\lib\net\4.0\Release\Spring.Rest.xml" target="lib\net40" />
-    <file src=".\lib\net\4.0\Release\Spring.Rest.dll" target="lib\net40-client" />
-    <file src=".\lib\net\4.0\Release\Spring.Rest.pdb" target="lib\net40-client" />
-    <file src=".\lib\net\4.0\Release\Spring.Rest.xml" target="lib\net40-client" />
-    <file src=".\lib\sl\3.0\Release\Spring.Rest.dll" target="lib\sl3" />
-    <file src=".\lib\sl\3.0\Release\Spring.Rest.pdb" target="lib\sl3" />
-    <file src=".\lib\sl\3.0\Release\Spring.Rest.xml" target="lib\sl3" />
-    <file src=".\lib\sl\4.0\Release\Spring.Rest.dll" target="lib\sl4" />
-    <file src=".\lib\sl\4.0\Release\Spring.Rest.pdb" target="lib\sl4" />
-    <file src=".\lib\sl\4.0\Release\Spring.Rest.xml" target="lib\sl4" />
-    <file src=".\lib\wp\7.0\Release\Spring.Rest.dll" target="lib\sl4-wp" />
-    <file src=".\lib\wp\7.0\Release\Spring.Rest.pdb" target="lib\sl4-wp" />
+    <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.dll" target="lib\net20" />
+    <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.pdb" target="lib\net20" />
+    <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.xml" target="lib\net20" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Rest.dll" target="lib\net35" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Rest.pdb" target="lib\net35" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Rest.xml" target="lib\net35" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Rest.dll" target="lib\net35-client" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Rest.pdb" target="lib\net35-client" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Rest.xml" target="lib\net35-client" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.dll" target="lib\net40" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.pdb" target="lib\net40" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.xml" target="lib\net40" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.dll" target="lib\net40-client" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.pdb" target="lib\net40-client" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.xml" target="lib\net40-client" />
+    <file src="..\..\..\bin\sl\3.0\Release\Spring.Rest.dll" target="lib\sl3" />
+    <file src="..\..\..\bin\sl\3.0\Release\Spring.Rest.pdb" target="lib\sl3" />
+    <file src="..\..\..\bin\sl\3.0\Release\Spring.Rest.xml" target="lib\sl3" />
+    <file src="..\..\..\bin\sl\4.0\Release\Spring.Rest.dll" target="lib\sl4" />
+    <file src="..\..\..\bin\sl\4.0\Release\Spring.Rest.pdb" target="lib\sl4" />
+    <file src="..\..\..\bin\sl\4.0\Release\Spring.Rest.xml" target="lib\sl4" />
+    <file src="..\..\..\bin\wp\7.0\Release\Spring.Rest.dll" target="lib\sl4-wp" />
+    <file src="..\..\..\bin\wp\7.0\Release\Spring.Rest.pdb" target="lib\sl4-wp" />
+    <file src="..\..\..\bin\wp\7.0\Release\Spring.Rest.xml" target="lib\sl4-wp" />
   </files>
 </package>
