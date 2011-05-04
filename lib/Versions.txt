@@ -1,5 +1,5 @@
 Rhino.Mocks 3.6
 NUnit 2.5.9
 Common.Logging 2.0
-Json.NET 4.0 Release 1
+Json.NET 4.0 Release 2
 Json.NET 3.5 Release 8 for Silverlight 3.0
