@@ -387,6 +387,17 @@ namespace Spring.Http.Client
                             this.httpWebRequest.Accept = this.headers[header];
                             break;
                         }
+#if SILVERLIGHT
+                    case "COOKIE":
+                        {
+                            if (this.httpWebRequest.CookieContainer == null)
+                            {
+                                this.httpWebRequest.CookieContainer = new CookieContainer();
+                            }
+                            this.httpWebRequest.CookieContainer.SetCookies(this.Uri, this.headers[header]);
+                            break;
+                        }
+#endif
 #if !SILVERLIGHT_3 && !WINDOWS_PHONE
                     case "CONTENT-LENGTH":
                         {
