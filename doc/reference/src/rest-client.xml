@@ -331,6 +331,20 @@ requestFactory.Proxy.Credentials = new <classname>NetworkCredential</classname>(
 
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
 template.RequestFactory = requestFactory;</programlisting></para>
+
+      <section id="resttemplate-requestfactory-silverlight">
+        <title>Silverlight support</title>
+
+        <para>
+          In Silverlight, HTTP handling can be performed by the browser or the client. 
+          See <ulink url="http://msdn.microsoft.com/en-us/library/dd920295(v=VS.95).aspx">How to: Specify Browser or Client HTTP Handling</ulink> on MSDN.
+          <sbr/>By default, <classname>WebClientHttpRequestFactory</classname> will use the browser HTTP stack 
+          for HTTP methods GET and POST, and force the client HTTP stack for other HTTP methods.
+          <sbr/>This can be overridden by setting the <methodname>WebRequestCreator</methodname> property.
+          <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+((<classname>WebClientHttpRequestFactory</classname>)rt.RequestFactory).WebRequestCreator = <classname>WebRequestCreatorType</classname>.ClientHttp;</programlisting></para>
+      </section>
+      
     </section>
 
     <section id="resttemplate-requestinterceptor">
