@@ -134,6 +134,7 @@ namespace Spring.Rest.Client.Support
                 }
                 throw new RestClientException(message);
             }
+#if !SILVERLIGHT
             else
             {
                 if (request.Headers.ContentLength == -1)
@@ -141,6 +142,7 @@ namespace Spring.Rest.Client.Support
                     request.Headers.ContentLength = 0;
                 }
             }
+#endif
         }
     }
 }

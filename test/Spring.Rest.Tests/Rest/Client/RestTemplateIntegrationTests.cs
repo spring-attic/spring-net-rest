@@ -80,6 +80,15 @@ namespace Spring.Rest.Client
             Assert.AreEqual("2", result, "Invalid content");
         }
 
+        [Test(Description = "SPRNETREST-4")]
+        public void GetStringWithHeaders()
+        {
+            HttpEntity entity = new HttpEntity();
+            entity.Headers["MyHeader"] = "MyValue";
+            HttpResponseMessage<string> result = template.Exchange<string>("users", HttpMethod.GET, entity);
+            Assert.AreEqual("2", result.Body, "Invalid content");
+        }
+
         [Test]
         public void GetStringVarArgsTemplateVariables()
         {
