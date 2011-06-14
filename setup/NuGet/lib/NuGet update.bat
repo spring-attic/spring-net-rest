@@ -1,0 +1,2 @@
+NuGet.exe update
+pause
