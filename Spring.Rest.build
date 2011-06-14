@@ -254,7 +254,10 @@
     </copy>
   </target>
 
-  <target name="nuget" depends="build">
+  <target name="nuget">
+    <if test="${not(directory::exists(bin.dir))}">
+      <fail message="'bin' directory is missing. Call 'build', 'daily' or 'release' target first." />
+    </if>
     <echo message="Generating NuGet package..." />
     <if test="${property::exists('product.version')}">
       <xmlpoke file="${setup.dir}\NuGet\src\Spring.Rest.nuspec" xpath="/n:package/n:metadata/n:version" value="${product.version}">
