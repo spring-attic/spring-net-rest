@@ -55,10 +55,13 @@
   <target name="build" depends="clean">
     <echo message="NAnt current .NET Framework = ${nant.settings.currentframework}" />
     <property name="product.fullname.temp" value="${product.fullname}"/>
+    <copy file="${root.dir}\src\CommonAssemblyInfo.cs" tofile="${root.dir}\src\CommonAssemblyInfo.cs.temp" />
     <property name="project.buildconfiguration" value="Debug" />
     <call target="build-all" />
     <property name="project.buildconfiguration" value="Release" />
     <call target="build-all" />
+    <copy file="${root.dir}\src\CommonAssemblyInfo.cs.temp" tofile="${root.dir}\src\CommonAssemblyInfo.cs" overwrite="true" />
+    <delete file="${root.dir}\src\CommonAssemblyInfo.cs.temp" />
   </target>
 
   <target name="daily">

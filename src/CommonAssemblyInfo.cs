@@ -20,5 +20,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademarkAttribute("Apache License, Version 2.0")]
 [assembly: AssemblyCultureAttribute("")]
 [assembly: AssemblyVersionAttribute("1.0.1.0")]
-[assembly: AssemblyConfigurationAttribute("?; 1.0.1.0; dev")]
+[assembly: AssemblyConfigurationAttribute("1.0.1.0; dev")]
 
