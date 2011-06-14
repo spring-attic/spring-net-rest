@@ -20,7 +20,6 @@
 
   <target name="shfb">
     <echo message="Building Sandcastle Help File Builder project..." />
-    <property name="product.version" value="1.0.0"/>
     <property name="sandcastle.helptitle" value="Spring.NET REST Client Framework - API Documentation" />
     <property name="sandcastle.helptitle" value="Spring.NET REST Client Framework ${product.version} - API Documentation" if="${property::exists('product.version')}" />
     <exec program="${msbuild.exe}">

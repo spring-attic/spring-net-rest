@@ -18,7 +18,7 @@
   <property name="product.url" value="http://www.springframework.net/" />
   <property name="product.description" value="Simplifies communication with HTTP servers, and enforces RESTful principles" />
   
-  <property name="product.version" value="1.0.0" />
+  <property name="product.version" value="1.0.1" />
   <!-- alpha / beta# / rc# -->
   <property name="product.releasetype" value="" />
   <property name="product.fullname" value="${product.name} ${product.version}" if="${(product.releasetype == '')}" />
@@ -217,6 +217,7 @@
       <fileset basedir="${root.dir}">
         <include name="*.sln"/>
         <include name="readme.txt"/>
+        <include name="changelog.txt"/>
         <include name="license.txt"/>
         <include name="examples\**"/>
         <include name="lib\**"/>
@@ -261,11 +262,20 @@
           <namespace prefix="n" uri="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" />
         </namespaces>
       </xmlpoke>
+      <xmlpoke file="${setup.dir}\NuGet\src\Spring.Http.Converters.NJson.nuspec" xpath="/n:package/n:metadata/n:version" value="${product.version}">
+        <namespaces>
+          <namespace prefix="n" uri="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" />
+        </namespaces>
+      </xmlpoke>
     </if>
     <mkdir dir="${build.dir}"/>
     <exec program="${setup.dir}\NuGet\lib\NuGet.exe" workingdir="${build.dir}" verbose="true">
       <arg value="pack" />
       <arg value="${setup.dir}\NuGet\src\Spring.Rest.nuspec" />
+    </exec>
+    <exec program="${setup.dir}\NuGet\lib\NuGet.exe" workingdir="${build.dir}" verbose="true">
+      <arg value="pack" />
+      <arg value="${setup.dir}\NuGet\src\Spring.Http.Converters.NJson.nuspec" />
     </exec>
   </target>
 

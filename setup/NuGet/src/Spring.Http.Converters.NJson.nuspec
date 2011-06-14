@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Spring.Http.Converters.NJson</id>
+    <title>Spring.Rest (Json.NET support)</title>
+    <!-- auto-generated -->
+    <version>1.0.1</version>
+    <iconUrl>http://springframework.net/images/SpringSource_Leaves32x32.png</iconUrl>
+    <projectUrl>http://www.springframework.net/</projectUrl>
+    <licenseUrl>http://www.springframework.net/license.html</licenseUrl>
+    <authors>SpringSource</authors>
+    <description>Json.NET support for Spring.NET REST Client Framework</description>
+    <summary>Json.NET support for Spring.NET REST Client Framework.</summary>
+    <language>en-US</language>
+    <tags>Spring REST HTTP JSON</tags>
+    <dependencies>
+      <dependency id="Spring.Rest" />
+      <dependency id="Newtonsoft.Json" version="4.0.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\content\App_Readme\Spring.Rest.txt" target="content\App_Readme" />
+    <file src="..\..\..\bin\net\2.0\Release\Spring.Http.Converters.NJson.dll" target="lib\net20" />
+    <file src="..\..\..\bin\net\2.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\net20" />
+    <file src="..\..\..\bin\net\2.0\Release\Spring.Http.Converters.NJson.xml" target="lib\net20" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.dll" target="lib\net35" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.pdb" target="lib\net35" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.xml" target="lib\net35" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.dll" target="lib\net35-client" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.pdb" target="lib\net35-client" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.xml" target="lib\net35-client" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.dll" target="lib\net40" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\net40" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.xml" target="lib\net40" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.dll" target="lib\net40-client" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\net40-client" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.xml" target="lib\net40-client" />
+    <file src="..\..\..\bin\sl\4.0\Release\Spring.Http.Converters.NJson.dll" target="lib\sl4" />
+    <file src="..\..\..\bin\sl\4.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\sl4" />
+    <file src="..\..\..\bin\sl\4.0\Release\Spring.Http.Converters.NJson.xml" target="lib\sl4" />
+    <file src="..\..\..\bin\wp\7.0\Release\Spring.Http.Converters.NJson.dll" target="lib\sl4-wp" />
+    <file src="..\..\..\bin\wp\7.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\sl4-wp" />
+    <file src="..\..\..\bin\wp\7.0\Release\Spring.Http.Converters.NJson.xml" target="lib\sl4-wp" />
+  </files>
+</package>

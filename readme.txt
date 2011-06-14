@@ -1,12 +1,12 @@
-The Spring.NET REST Client project, Release 1.0.0 GA (April 13, 2011)
----------------------------------------------------------------------
-https://github.com/SpringSource/spring-net-rest
-DO NOT USE GITHUB DOWNLOAD BUTTON !!!
+The Spring.NET REST Client project, Release 1.0.1 GA (June 14, 2011)
+--------------------------------------------------------------------
+Download full package with sources, documentation and examples at 
+http://www.springsource.com/download/community?project=Spring.NET%20REST%20Client
 
 
 1. INTRODUCTION
 
-The 1.0.0 release of Spring.NET REST Client contains
+The 1.0.1 release of Spring.NET REST Client contains
 
 	* A RestTemplate class for client-side access to RESTful services.
 	* A set of HTTP message converters used to marshal objects into the HTTP request body 

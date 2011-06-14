@@ -1,0 +1,4 @@
+Spring.NET REST Client Framework
+--------------------------------
+Download full package with sources, documentation and examples at 
+http://www.springsource.com/download/community?project=Spring.NET%20REST%20Client

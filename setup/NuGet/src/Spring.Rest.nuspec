@@ -3,7 +3,8 @@
   <metadata>
     <id>Spring.Rest</id>
     <title>Spring.Rest</title>
-    <version>1.0.0</version>
+    <!-- auto-generated -->
+    <version>1.0.1</version>
     <iconUrl>http://springframework.net/images/SpringSource_Leaves32x32.png</iconUrl>
     <projectUrl>http://www.springframework.net/</projectUrl>
     <licenseUrl>http://www.springframework.net/license.html</licenseUrl>
@@ -14,6 +15,7 @@
     <tags>Spring REST HTTP</tags>
   </metadata>
   <files>
+    <file src=".\content\App_Readme\Spring.Rest.txt" target="content\App_Readme" />
     <file src=".\tools\Install.ps1" target="tools" />
     <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.dll" target="lib\net20" />
     <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.pdb" target="lib\net20" />

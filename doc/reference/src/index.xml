@@ -10,11 +10,11 @@
     <title>Spring.NET REST Client Framework</title>
     <subtitle>Reference Documentation</subtitle>
     <!-- auto-generated -->
-    <releaseinfo>1.0.0</releaseinfo>
+    <releaseinfo>1.0.1</releaseinfo>
     <!-- auto-generated -->
-    <copyright>Copyright 2004-2011 SpringSource</copyright>
+    <copyright>Copyright 2011 SpringSource</copyright>
     <!-- auto-generated -->
-    <pubdate>Last Updated 2/4/2011</pubdate>
+    <pubdate>Last Updated 6/14/2011</pubdate>
     <authorgroup>
       <author>
         <firstname>Arjen</firstname>
@@ -34,8 +34,4 @@
       </para>
     </legalnotice>
   </bookinfo>
-  <toc />
-  &overview;
-  &rest-client;
-  &http-messageconversion;
-</book>
+  <toc />&overview;&rest-client;&http-messageconversion;</book>

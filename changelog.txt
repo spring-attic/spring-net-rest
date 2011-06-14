@@ -1,0 +1,13 @@
+SPRING.NET REST CLIENT FRAMEWORK CHANGELOG
+==========================================
+http://www.springframework.net
+
+Release Version 1.0.1 June 14, 2011
+
+Bug
+[SPRNETREST-3] - Allow to set 'COOKIE' header for silverlight applications
+[SPRNETREST-4] - Fix GET request with custom headers for silverlight applications
+
+Task
+[SPRNETREST-2] - Update JSON.NET version to 4.0 Release 2
+[SPRNETREST-5] - Document use of Browser or Client HTTP Handling for silverlight applications
