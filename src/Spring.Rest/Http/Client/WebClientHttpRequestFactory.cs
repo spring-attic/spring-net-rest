@@ -64,6 +64,18 @@ namespace Spring.Http.Client
 #endif
 #endif
 
+#if !CF_3_5
+        private CookieContainer _cookieContainer;
+        /// <summary>
+        /// Gets or sets the cookies for the request.
+        /// </summary>
+        public CookieContainer CookieContainer
+        {
+            get { return this._cookieContainer; }
+            set { this._cookieContainer = value; }
+        }
+#endif
+
         private ICredentials _credentials;
         /// <summary>
         /// Gets or sets authentication information for the request.
@@ -207,6 +219,12 @@ namespace Spring.Http.Client
                 this.httpWebRequest.UseDefaultCredentials = this._useDefaultCredentials.Value;
             }
 #endif
+#endif
+#if !CF_3_5
+            if (this._cookieContainer != null)
+            {
+                this.httpWebRequest.CookieContainer = this._cookieContainer;
+            }
 #endif
             if (this._credentials != null)
             {
