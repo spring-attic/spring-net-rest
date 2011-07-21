@@ -1,0 +1,152 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EC250517-15EF-4938-A5AF-17538AC03EBB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Spring</RootNamespace>
+    <AssemblyName>Spring.Rest</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>Smartphone</PlatformFamilyName>
+    <PlatformID>BD0CC567-F6FD-4ca3-99D2-063EFDFC0A39</PlatformID>
+    <OSVersion>5.1</OSVersion>
+    <DeployDirSuffix>Spring.Rest</DeployDirSuffix>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <NativePlatformName>Windows Mobile 5.0 Smartphone SDK</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\VS.Net.2008-CF\Spring.Rest\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CF_3_5</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DocumentationFile>Spring.Rest.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\VS.Net.2008-CF\Spring.Rest\Release\</OutputPath>
+    <DefineConstants>TRACE;CF_3_5</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DocumentationFile>Spring.Rest.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Collections\Specialized\NameValueCollection.cs" />
+    <Compile Include="Http\Client\ClientHttpRequestCompletedEventArgs.cs" />
+    <Compile Include="Http\Client\IClientHttpRequest.cs" />
+    <Compile Include="Http\Client\IClientHttpRequestFactory.cs" />
+    <Compile Include="Http\Client\IClientHttpResponse.cs" />
+    <Compile Include="Http\Client\Interceptor\BasicSigningRequestInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestAsyncExecution.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestAsyncInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestBeforeInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestContext.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestFactoryCreation.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestFactoryInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestSyncExecution.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestSyncInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpResponseAsyncContext.cs" />
+    <Compile Include="Http\Client\Interceptor\InterceptingClientHttpRequest.cs" />
+    <Compile Include="Http\Client\Interceptor\InterceptingClientHttpRequestFactory.cs" />
+    <Compile Include="Http\Client\WebClientHttpRequest.cs" />
+    <Compile Include="Http\Client\WebClientHttpRequestFactory.cs" />
+    <Compile Include="Http\Client\WebClientHttpResponse.cs" />
+    <Compile Include="Http\Converters\AbstractHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\ByteArrayHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Feed\AbstractFeedHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Feed\Atom10FeedHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Feed\Rss20FeedHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\FileInfoHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\FormHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\HttpMessageConversionException.cs" />
+    <Compile Include="Http\Converters\HttpMessageNotReadableException.cs" />
+    <Compile Include="Http\Converters\HttpMessageNotWritableException.cs" />
+    <Compile Include="Http\Converters\IHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Json\JsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\StringHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\AbstractXmlHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\DataContractHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\XElementHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\XmlDocumentHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\XmlSerializableHttpMessageConverter.cs" />
+    <Compile Include="Http\HttpEntity.cs" />
+    <Compile Include="Http\HttpHeaders.cs" />
+    <Compile Include="Http\HttpMethod.cs" />
+    <Compile Include="Http\HttpResponseMessage.cs" />
+    <Compile Include="Http\HttpResponseMessage`1.cs" />
+    <Compile Include="Http\IHttpInputMessage.cs" />
+    <Compile Include="Http\IHttpOutputMessage.cs" />
+    <Compile Include="Http\MediaType.cs" />
+    <Compile Include="Rest\Client\HttpClientErrorException.cs" />
+    <Compile Include="Rest\Client\HttpResponseException.cs" />
+    <Compile Include="Rest\Client\HttpServerErrorException.cs" />
+    <Compile Include="Rest\Client\IRequestCallback.cs" />
+    <Compile Include="Rest\Client\IResponseErrorHandler.cs" />
+    <Compile Include="Rest\Client\IResponseExtractor.cs" />
+    <Compile Include="Rest\Client\IRestAsyncOperations.cs" />
+    <Compile Include="Rest\Client\IRestOperations.cs" />
+    <Compile Include="Rest\Client\RestClientException.cs" />
+    <Compile Include="Rest\Client\RestOperationCanceler.cs" />
+    <Compile Include="Rest\Client\RestOperationCompletedEventArgs.cs" />
+    <Compile Include="Rest\Client\RestTemplate.cs" />
+    <Compile Include="Rest\Client\Support\AcceptHeaderRequestCallback.cs" />
+    <Compile Include="Rest\Client\Support\AllowHeaderResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\DefaultResponseErrorHandler.cs" />
+    <Compile Include="Rest\Client\Support\HeadersResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\HttpEntityRequestCallback.cs" />
+    <Compile Include="Rest\Client\Support\HttpMessageResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\HttpMessageResponseExtractor`1.cs" />
+    <Compile Include="Rest\Client\Support\LocationHeaderResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\MessageConverterResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\RestAsyncOperationState.cs" />
+    <Compile Include="Util\AssertUtils.cs" />
+    <Compile Include="Util\IoUtils.cs" />
+    <Compile Include="Util\StringUtils.cs" />
+    <Compile Include="Util\UriTemplate.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

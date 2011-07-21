@@ -19,6 +19,7 @@ Spring.NET REST Client supports
 
 	* .NET 2.0
 	* .NET Client Profile 3.5 and 4.0
+	* .NET Compact Framework 3.5
 	* Silverlight 3.0 and 4.0
 	* Windows Phone 7.0
 
@@ -74,6 +75,7 @@ Samples can be found int the "examples" directory.
 There is a solution file for different version of VS.NET
 	* Spring.Rest.2005.sln for use with VS.NET 2008
 	* Spring.Rest.2008.sln for use with VS.NET 2008
+	* Spring.Rest.2008-CF.sln for use with VS.NET 2008 and Compact Framework tools
 	* Spring.Rest.2008-SL.sln for use with VS.NET 2008 and Silverlight tools
 	* Spring.Rest.2010.sln for use with VS.NET 2010
 	* Spring.Rest.2010-SL.sln for use with VS.NET 2010 and Silverlight tools

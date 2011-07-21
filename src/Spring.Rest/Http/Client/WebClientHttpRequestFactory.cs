@@ -51,6 +51,7 @@ namespace Spring.Http.Client
             set { this._allowAutoRedirect = value; }
         }
 
+#if !CF_3_5
         private bool? _useDefaultCredentials;
         /// <summary>
         /// Gets or sets a boolean value that controls whether default credentials are sent with this request.
@@ -60,6 +61,7 @@ namespace Spring.Http.Client
             get { return this._useDefaultCredentials; }
             set { this._useDefaultCredentials = value; }
         }
+#endif
 #endif
 
         private ICredentials _credentials;
@@ -199,10 +201,12 @@ namespace Spring.Http.Client
             {
                 this.httpWebRequest.AllowAutoRedirect = this._allowAutoRedirect.Value;
             }
+#if !CF_3_5
             if (this._useDefaultCredentials.HasValue)
             {
                 this.httpWebRequest.UseDefaultCredentials = this._useDefaultCredentials.Value;
             }
+#endif
 #endif
             if (this._credentials != null)
             {

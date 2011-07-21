@@ -58,6 +58,7 @@ namespace Spring.Http.Client
 	    IClientHttpResponse Execute();
 #endif
 
+#if !CF_3_5
         /// <summary>
         /// Execute this request asynchronously.
         /// </summary>
@@ -74,5 +75,6 @@ namespace Spring.Http.Client
         /// Cancels a pending asynchronous operation.
         /// </summary>
         void CancelAsync();
+#endif
     }
 }

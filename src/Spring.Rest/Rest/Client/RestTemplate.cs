@@ -108,13 +108,17 @@ namespace Spring.Rest.Client
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia (.NET)</author>
     public class RestTemplate : 
-#if !SILVERLIGHT
-        IRestOperations, 
-#endif
+#if SILVERLIGHT
         IRestAsyncOperations
+#else
+#if !CF_3_5
+        IRestAsyncOperations, 
+#endif
+        IRestOperations
+#endif
     {
         #region Logging
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
         private static readonly Common.Logging.ILog LOG = Common.Logging.LogManager.GetLogger(typeof(RestTemplate));
 #endif
         #endregion
@@ -974,6 +978,7 @@ namespace Spring.Rest.Client
 
         #region IRestAsyncOperations Members
 
+#if !CF_3_5
         #region GET
 
         /// <summary>
@@ -1901,6 +1906,7 @@ namespace Spring.Rest.Client
         }
 
         #endregion
+#endif
 
         #endregion
 
@@ -1954,6 +1960,7 @@ namespace Spring.Rest.Client
 
         #region DoExecuteAsync
 
+#if !CF_3_5
         /// <summary>
         /// Asynchronously execute the HTTP request to the given URI, preparing the request with the 
         /// <see cref="IRequestCallback"/>, and reading the response with an <see cref="IResponseExtractor{T}"/>.
@@ -2028,6 +2035,7 @@ namespace Spring.Rest.Client
                 state.MethodCompleted(new RestOperationCompletedEventArgs<T>(value, exception, cancelled, null));
             }
         }
+#endif
 
         #endregion
 
@@ -2108,7 +2116,7 @@ namespace Spring.Rest.Client
         private static void LogResponseStatus(Uri uri, HttpMethod method, IClientHttpResponse response) 
         {
             #region Instrumentation
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
             if (LOG.IsDebugEnabled)
             {
                 LOG.Debug(String.Format(
@@ -2123,7 +2131,7 @@ namespace Spring.Rest.Client
             IResponseErrorHandler errorHandler) 
         {
             #region Instrumentation
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
             if (LOG.IsWarnEnabled)
             {
                 LOG.Warn(String.Format(

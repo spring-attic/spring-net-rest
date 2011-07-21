@@ -42,7 +42,9 @@ namespace Spring.Http.Client
         private HttpWebRequest httpWebRequest;
 
         private bool isExecuted;
+#if !CF_3_5
         private bool isCancelled;
+#endif
 
         /// <summary>
         /// Gets the <see cref="HttpWebRequest"/> instance used by the request.
@@ -156,6 +158,7 @@ namespace Spring.Http.Client
         }
 #endif
 
+#if !CF_3_5
         /// <summary>
         /// Execute this request asynchronously.
         /// </summary>
@@ -225,11 +228,14 @@ namespace Spring.Http.Client
                 }
             }
         }
+#endif
 
         #endregion
 
+
         #region Async methods/classes
 
+#if !CF_3_5
         private void ExecuteRequestCallback(IAsyncResult result)
         {
             ExecuteState state = (ExecuteState)result.AsyncState;
@@ -340,6 +346,7 @@ namespace Spring.Http.Client
                 this.AsyncOperation = asyncOperation;
             }
         }
+#endif
 
         #endregion
 

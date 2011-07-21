@@ -1,4 +1,5 @@
-﻿#region License
+﻿#if !CF_3_5
+#region License
 
 /*
  * Copyright 2002-2011 the original author or authors.
@@ -788,3 +789,4 @@ namespace Spring.Rest.Client
         #endregion
     }
 }
+#endif

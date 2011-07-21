@@ -28,7 +28,7 @@ namespace Spring.Http.Converters
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia (.NET)</author>
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
     [Serializable]
 #endif
     public class HttpMessageConversionException : Exception
@@ -65,7 +65,7 @@ namespace Spring.Http.Converters
         {
         }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
         /// <summary>
         /// Creates a new instance of the <see cref="HttpMessageConversionException"/> class.
         /// </summary>

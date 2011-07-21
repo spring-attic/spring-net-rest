@@ -39,24 +39,31 @@ namespace Spring.Http.Converters
         /// <summary>
         /// Default encoding for strings.
         /// </summary>
-#if SILVERLIGHT
+#if SILVERLIGHT || CF_3_5
         public static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
 #else
         public static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
 #endif
 
+#if SILVERLIGHT || CF_3_5
         /// <summary>
-        /// Creates a new instance of the <see cref="ByteArrayHttpMessageConverter"/> 
+        /// Creates a new instance of the <see cref="StringHttpMessageConverter"/> 
+        /// with 'text/plain; charset=utf-8', and '*/*' media types.
+        /// </summary>
+        public StringHttpMessageConverter() :
+            base(new MediaType("text", "plain", "UTF-8"), MediaType.ALL)
+        {
+        }
+#else
+                /// <summary>
+        /// Creates a new instance of the <see cref="StringHttpMessageConverter"/> 
         /// with 'text/plain; charset=ISO-8859-1', and '*/*' media types.
         /// </summary>
         public StringHttpMessageConverter() :
-#if SILVERLIGHT
-            base(new MediaType("text", "plain", "UTF-8"), MediaType.ALL)
-#else
             base(new MediaType("text", "plain", "ISO-8859-1"), MediaType.ALL)
-#endif
         {
         }
+#endif
 
         /// <summary>
         /// Indicates whether the given class is supported by this converter.

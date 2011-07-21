@@ -33,7 +33,7 @@ namespace Spring.Rest.Client
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia (.NET)</author>
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
     [Serializable]
 #endif
     public class HttpResponseException : RestClientException
@@ -41,7 +41,7 @@ namespace Spring.Rest.Client
         /// <summary>
         /// Default encoding for responses as string.
         /// </summary>
-#if SILVERLIGHT
+#if SILVERLIGHT || CF_3_5
         private static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
 #else
         private static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
@@ -68,7 +68,7 @@ namespace Spring.Rest.Client
             this.response = response;
         }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
         /// <summary>
         /// Creates a new instance of the <see cref="RestClientException"/> class.
         /// </summary>

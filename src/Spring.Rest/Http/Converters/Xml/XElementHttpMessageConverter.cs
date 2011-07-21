@@ -1,4 +1,4 @@
-﻿#if NET_3_5 || SILVERLIGHT_XML_LINQ || WINDOWS_PHONE
+﻿#if NET_3_5 || SILVERLIGHT_XML_LINQ || WINDOWS_PHONE || CF_3_5
 #region License
 
 /*

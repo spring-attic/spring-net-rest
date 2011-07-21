@@ -34,7 +34,7 @@ namespace Spring.Http
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia (.NET)</author>    
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
     [Serializable]
 #endif
     public class HttpHeaders : NameValueCollection
@@ -66,7 +66,7 @@ namespace Spring.Http
         {
         }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
         /// <summary>
         /// Creates a new instance of the <see cref="HttpHeaders"/> class.
         /// </summary>

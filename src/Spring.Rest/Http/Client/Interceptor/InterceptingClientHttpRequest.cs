@@ -105,6 +105,7 @@ namespace Spring.Http.Client.Interceptor
         }
 #endif
 
+#if !CF_3_5
         /// <summary>
         /// Execute this request asynchronously.
         /// </summary>
@@ -128,6 +129,7 @@ namespace Spring.Http.Client.Interceptor
         {
             this.delegateRequest.CancelAsync();
         }
+#endif
 
         #endregion
 
@@ -204,6 +206,7 @@ namespace Spring.Http.Client.Interceptor
         }
 #endif
 
+#if !CF_3_5
         private sealed class RequestAsyncExecution : AbstractRequestContext, IClientHttpRequestAsyncExecution
         {
             private object asyncState;
@@ -350,6 +353,7 @@ namespace Spring.Http.Client.Interceptor
                 }
             }
         }
+#endif
 
         #endregion
     }

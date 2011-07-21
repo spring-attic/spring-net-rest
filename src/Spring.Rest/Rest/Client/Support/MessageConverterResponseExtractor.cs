@@ -36,7 +36,7 @@ namespace Spring.Rest.Client.Support
     public class MessageConverterResponseExtractor<T> : IResponseExtractor<T> where T : class
     {
         #region Logging
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
         private static readonly Common.Logging.ILog LOG = Common.Logging.LogManager.GetLogger(typeof(MessageConverterResponseExtractor<T>));
 #endif
         #endregion
@@ -70,7 +70,7 @@ namespace Spring.Rest.Client.Support
                 if (messageConverter.CanRead(typeof(T), mediaType))
                 {
                     #region Instrumentation
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
                     if (LOG.IsDebugEnabled) 
                     {
                         LOG.Debug(String.Format(

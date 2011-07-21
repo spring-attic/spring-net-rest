@@ -40,7 +40,7 @@
   <table frame="all">
     <title>Supported HTTP message converters by Framework</title>
 
-    <tgroup cols="7">
+    <tgroup cols="8">
       <tbody>
         <row>
           <entry>
@@ -57,6 +57,10 @@
 
           <entry align="center">
             <emphasis role="bold">.NET 4.0</emphasis>
+          </entry>
+
+          <entry align="center">
+            <emphasis role="bold">.NET Compact Framework 3.5</emphasis>
           </entry>
 
           <entry align="center">
@@ -93,6 +97,10 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+          
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
@@ -107,6 +115,10 @@
           <entry>
             <link
             linkend="http-stringconverter">StringHttpMessageConverter</link>
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
 
           <entry align="center">
@@ -163,6 +175,10 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
         </row>
 
         <row>
@@ -182,6 +198,10 @@
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
 
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+          
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
@@ -213,6 +233,10 @@
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
 
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
           <entry />
 
           <entry />
@@ -227,6 +251,10 @@
           </entry>
 
           <entry />
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
@@ -267,6 +295,10 @@
 
           <entry />
 
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
           <entry />
 
           <entry />
@@ -289,6 +321,8 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
+          <entry />
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
@@ -317,6 +351,8 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
+          <entry />
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
@@ -371,6 +407,12 @@
 
             <superscript>(3)</superscript>
           </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+
+            <superscript>(3)</superscript>
+          </entry>
         </row>
 
         <row>
@@ -389,6 +431,8 @@
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
 
+          <entry />
+          
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
 
@@ -419,6 +463,8 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
+
+          <entry />
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
@@ -620,7 +666,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
   <section id="http-xmldocumentconverter">
     <title>XmlDocumentHttpMessageConverter</title>
 
-    <para>Supports .NET Framework 2.0, 3.5 and 4.0.</para>
+    <para>Supports .NET Framework 2.0, 3.5, 4.0 and .NET Compact Framework 3.5.</para>
 
     <para>An <interfacename>IHttpMessageConverter</interfacename>
     implementation that can read and write XML using the .NET Framework class
@@ -633,7 +679,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
   <section id="http-xelementconverter">
     <title>XElementHttpMessageConverter</title>
 
-    <para>Supports .NET Framework 3.5, 4.0. and Windows Phone. <sbr /><link
+    <para>Supports .NET Framework 3.5, 4.0, .NET Compact Framework 3.5 and Windows Phone. <sbr /><link
     linkend="http-xelementconverter-silverlight">Supports Silverlight</link>
     using <literal>Spring.Http.Converters.Xml.Linq.dll</literal>.</para>
 
@@ -670,7 +716,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
   <section id="http-xmlserializerconverter">
     <title>XmlSerializableHttpMessageConverter</title>
 
-    <para>Supports .NET Framework 2.0, 3.5, 4.0 and Windows Phone.</para>
+    <para>Supports .NET Framework 2.0, 3.5, 4.0, .NET Compact Framework 3.5 and Windows Phone.</para>
 
     <para>An <interfacename>IHttpMessageConverter</interfacename>
     implementation that can read and write XML from .NET classes. <sbr />The

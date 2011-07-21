@@ -35,7 +35,7 @@ namespace Spring.Rest.Client.Support
     public class HttpEntityRequestCallback : AcceptHeaderRequestCallback
     {
         #region Logging
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
         private static readonly Common.Logging.ILog LOG = Common.Logging.LogManager.GetLogger(typeof(HttpEntityRequestCallback));
 #endif
         #endregion
@@ -102,7 +102,7 @@ namespace Spring.Rest.Client.Support
                     if (messageConverter.CanWrite(requestBody.GetType(), requestContentType))
                     {
                         #region Instrumentation
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !CF_3_5
                         if (LOG.IsDebugEnabled)
                         {
                             if (requestContentType != null)
