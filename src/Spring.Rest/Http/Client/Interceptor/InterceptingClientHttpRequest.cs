@@ -282,26 +282,16 @@ namespace Spring.Http.Client.Interceptor
         private sealed class ResponseAsyncContext : IClientHttpResponseAsyncContext
         {
             private bool hasChanged;
-            private IClientHttpResponse response;
             private bool cancelled;
             private Exception error;
+            private IClientHttpResponse response;
             private object userState;
 
             private ClientHttpRequestCompletedEventArgs completedEventArgs;
 
-            public IClientHttpResponse Response
-            {
-                get { return this.completedEventArgs.Response; }
-                set
-                {
-                    this.hasChanged = true;
-                    this.response = value;
-                }
-            }
-
             public bool Cancelled
             {
-                get { return this.completedEventArgs.Cancelled; }
+                get { return this.cancelled; }
                 set
                 {
                     this.hasChanged = true;
@@ -311,7 +301,7 @@ namespace Spring.Http.Client.Interceptor
 
             public Exception Error
             {
-                get { return this.completedEventArgs.Error; }
+                get { return this.error; }
                 set
                 {
                     this.hasChanged = true;
@@ -319,9 +309,19 @@ namespace Spring.Http.Client.Interceptor
                 }
             }
 
+            public IClientHttpResponse Response
+            {
+                get { return this.response; }
+                set
+                {
+                    this.hasChanged = true;
+                    this.response = value;
+                }
+            }
+
             public object UserState
             {
-                get { return this.completedEventArgs.UserState; }
+                get { return this.userState; }
                 set
                 {
                     this.hasChanged = true;
@@ -331,6 +331,11 @@ namespace Spring.Http.Client.Interceptor
 
             public ResponseAsyncContext(ClientHttpRequestCompletedEventArgs completedEventArgs)
             {
+                this.cancelled = completedEventArgs.Cancelled;
+                this.error = completedEventArgs.Error;
+                this.response = completedEventArgs.Response;
+                this.userState = completedEventArgs.UserState;
+
                 this.completedEventArgs = completedEventArgs;
             }
 
@@ -342,14 +347,7 @@ namespace Spring.Http.Client.Interceptor
                 }
                 else
                 {
-                    if (this.error != null || this.cancelled)
-                    {
-                        return new ClientHttpRequestCompletedEventArgs(null, this.error, this.cancelled, this.userState);
-                    }
-                    else
-                    {
-                        return new ClientHttpRequestCompletedEventArgs(this.response, this.error, this.cancelled, this.userState);
-                    }
+                    return new ClientHttpRequestCompletedEventArgs(this.response, this.error, this.cancelled, this.userState);
                 }
             }
         }

@@ -291,19 +291,21 @@ namespace Spring.Http.Client.Interceptor
         {
             ManualResetEvent manualEvent = new ManualResetEvent(false);
             Exception exception = null;
+            Object state = new Object();
 
             ChangeResponseInterceptor interceptor = new ChangeResponseInterceptor();
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor });
 
             IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
-            request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)
+            request.ExecuteAsync(state, delegate(ClientHttpRequestCompletedEventArgs args)
             {
                 try
                 {
                     Assert.IsNull(args.Error, "Invalid response");
                     Assert.IsFalse(args.Cancelled, "Invalid response");
                     Assert.AreNotSame(this.responseMock, args.Response, "Invalid response");
+                    Assert.AreEqual(state, args.UserState);
                 }
                 catch (Exception ex)
                 {
@@ -546,7 +548,7 @@ namespace Spring.Http.Client.Interceptor
             public void ExecuteAsync(object state, Action<ClientHttpRequestCompletedEventArgs> executeCompleted)
             {
                 this.executed = true;
-                executeCompleted(new ClientHttpRequestCompletedEventArgs(this.responseMock, null, false, null));
+                executeCompleted(new ClientHttpRequestCompletedEventArgs(this.responseMock, null, false, state));
             }
 
             public void CancelAsync()
