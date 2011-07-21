@@ -73,7 +73,7 @@ Samples can be found int the "examples" directory.
 7. HOW TO BUILD
 
 There is a solution file for different version of VS.NET
-	* Spring.Rest.2005.sln for use with VS.NET 2008
+	* Spring.Rest.2005.sln for use with VS.NET 2005
 	* Spring.Rest.2008.sln for use with VS.NET 2008
 	* Spring.Rest.2008-CF.sln for use with VS.NET 2008 and Compact Framework tools
 	* Spring.Rest.2008-SL.sln for use with VS.NET 2008 and Silverlight tools
@@ -86,7 +86,7 @@ There is a solution file for different version of VS.NET
 
 The user forums at http://forum.springframework.net/ are available for you to submit questions, support requests, and interact with other Spring.NET users.
 
-Bug, issue and project tracking can be found at https://jira.springsource.org/browse/SPRNET
+Bug, issue and project tracking can be found at https://jira.springsource.org/browse/SPRNETREST
 
 A source repository browser is located at https://fisheye.springsource.org/changelog/spring-net-rest
 
