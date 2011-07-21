@@ -141,6 +141,16 @@ namespace Spring.Http.Client
             get { return this._expect100Continue; }
             set { this._expect100Continue = value; }
         }
+
+        private DecompressionMethods? _automaticDecompression;
+        /// <summary>
+        /// Gets or sets the type of decompression that is automatically used for the response result of this request.
+        /// </summary>
+        public DecompressionMethods? AutomaticDecompression
+        {
+            get { return this._automaticDecompression; }
+            set { this._automaticDecompression = value; }
+        }
 #endif
 
 #if SILVERLIGHT && !WINDOWS_PHONE
@@ -249,6 +259,10 @@ namespace Spring.Http.Client
             if (this._expect100Continue != null)
             {
                 this.httpWebRequest.ServicePoint.Expect100Continue = this._expect100Continue.Value;
+            }
+            if (this._automaticDecompression.HasValue)
+            {
+                this.httpWebRequest.AutomaticDecompression = this._automaticDecompression.Value;
             }
 #endif
 
