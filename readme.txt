@@ -1,7 +1,6 @@
 The Spring.NET REST Client project, Release 1.0.1 GA (June 14, 2011)
 --------------------------------------------------------------------
-Download full package with sources, documentation and examples at 
-http://www.springsource.com/download/community?project=Spring.NET%20REST%20Client
+http://www.springframework.net/rest/
 
 
 1. INTRODUCTION
