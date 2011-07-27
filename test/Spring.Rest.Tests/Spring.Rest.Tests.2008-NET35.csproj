@@ -1,9 +1,9 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9437475B-3897-A399-46BF-45F04CEE1821}</ProjectGuid>
+    <ProjectGuid>{F04CEE18-3897-A399-46BF-459437475B21}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -22,15 +22,16 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2005\Spring.Rest.Tests\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008\Spring.Rest.Tests\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET_2_0;NET_3_0;NET_3_5</DefineConstants>
     <DocumentationFile>
     </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
@@ -48,13 +49,13 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2005\Spring.Rest.Tests\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008\Spring.Rest.Tests\Release\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>TRACE;NET_2_0</DefineConstants>
+    <DefineConstants>TRACE;NET_2_0;NET_3_0;NET_3_5</DefineConstants>
     <DocumentationFile>
     </DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
@@ -75,9 +76,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\net\2.0\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json.Net20, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json.Net35, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\net\2.0\Newtonsoft.Json.Net20.dll</HintPath>
+      <HintPath>..\..\lib\net\3.5\Newtonsoft.Json.Net35.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -90,7 +91,25 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.IdentityModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -102,10 +121,12 @@
     <Compile Include="Http\Client\WebClientHttpRequestFactoryIntegrationTests.cs" />
     <Compile Include="Http\Converters\ByteArrayHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\FileInfoHttpMessageConverterTests.cs" />
-    <Compile Include="Http\Converters\FormHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Feed\Atom10FeedHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Feed\FeedHttpMessageConverterIntegrationTests.cs" />
     <Compile Include="Http\Converters\Feed\Rss20FeedHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\FormHttpMessageConverterTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Http\Converters\Json\JsonHttpMessageConverterIntegrationTests.cs" />
     <Compile Include="Http\Converters\Json\JsonHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Json\NJsonHttpMessageConverterTests.cs" />
@@ -121,22 +142,22 @@
     <Compile Include="Http\MockHttpInputMessage.cs" />
     <Compile Include="Rest\Client\HttpResponseExceptionTests.cs" />
     <Compile Include="Rest\Client\RestTemplateIntegrationTests.cs" />
-    <Compile Include="Rest\Client\RestTemplateTests.cs" />
     <Compile Include="Rest\Client\Support\DefaultResponseErrorHandlerTests.cs" />
     <Compile Include="Util\AssertUtilsTests.cs" />
     <Compile Include="Util\IoUtilsTests.cs" />
     <Compile Include="Util\SerializationTestUtils.cs" />
     <Compile Include="Util\StringUtilsTests.cs" />
     <Compile Include="Util\UriTemplateTests.cs" />
+    <Compile Include="Rest\Client\RestTemplateTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2005.csproj">
-      <Project>{E04EEC0F-14BF-13D1-0B3F-A7900FAC04BC}</Project>
-      <Name>Spring.Http.Converters.NJson.2005</Name>
+    <ProjectReference Include="..\..\src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2008-NET35.csproj">
+      <Project>{C14F79CA-1A1F-131D-0B3F-0F00EB04ECBC}</Project>
+      <Name>Spring.Http.Converters.NJson.2008</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Spring.Rest\Spring.Rest.2005.csproj">
-      <Project>{EE04EC0F-4B1F-1D13-B30F-00FAC04F79BC}</Project>
-      <Name>Spring.Rest.2005</Name>
+    <ProjectReference Include="..\..\src\Spring.Rest\Spring.Rest.2008-NET35.csproj">
+      <Project>{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}</Project>
+      <Name>Spring.Rest.2008</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

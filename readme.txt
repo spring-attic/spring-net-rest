@@ -72,13 +72,13 @@ Samples can be found int the "examples" directory.
 7. HOW TO BUILD
 
 There is a solution file for different version of VS.NET
-	* Spring.Rest.2005.sln for use with VS.NET 2005
-	* Spring.Rest.2008.sln for use with VS.NET 2008
-	* Spring.Rest.2008-CF.sln for use with VS.NET 2008 and Compact Framework tools
-	* Spring.Rest.2008-SL.sln for use with VS.NET 2008 and Silverlight tools
-	* Spring.Rest.2010.sln for use with VS.NET 2010
-	* Spring.Rest.2010-SL.sln for use with VS.NET 2010 and Silverlight tools
-	* Spring.Rest.2010-WP.sln for use with VS.NET 2010 and Windows Phone tools
+	* Spring.Rest.2005-NET20.sln for use with VS.NET 2005 and .NET 2.0
+	* Spring.Rest.2008-NET35.sln for use with VS.NET 2008 and .NET 3.5
+	* Spring.Rest.2008-CF35.sln  for use with VS.NET 2008 and Compact Framework 3.5
+	* Spring.Rest.2008-SL30.sln  for use with VS.NET 2008 and Silverlight 3.0 (Requires Silverlight tools)
+	* Spring.Rest.2010-NET40.sln for use with VS.NET 2010 and .NET 4.0
+	* Spring.Rest.2010-SL40.sln  for use with VS.NET 2010 and Silverlight 4.0 (Requires Silverlight tools)
+	* Spring.Rest.2010-WP70.sln  for use with VS.NET 2010 and Windows Phone 7.0  (Requires Windows Phone tools)
 
 
 8. SUPPORT

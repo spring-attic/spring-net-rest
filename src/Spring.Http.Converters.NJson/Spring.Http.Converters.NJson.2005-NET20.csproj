@@ -84,7 +84,7 @@
     <Compile Include="Http\Converters\Json\NJsonHttpMessageConverter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Spring.Rest\Spring.Rest.2005.csproj">
+    <ProjectReference Include="..\Spring.Rest\Spring.Rest.2005-NET20.csproj">
       <Project>{EE04EC0F-4B1F-1D13-B30F-00FAC04F79BC}</Project>
       <Name>Spring.Rest.2005</Name>
     </ProjectReference>

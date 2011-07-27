@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010 Express for Windows Phone
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2010-WP", "src\Spring.Rest\Spring.Rest.2010-WP.csproj", "{36227431-B822-461E-A7AF-651E34F23A8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2010-WP70", "src\Spring.Rest\Spring.Rest.2010-WP70.csproj", "{36227431-B822-461E-A7AF-651E34F23A8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Tests.2010-WP", "test\Spring.Rest.Tests\Spring.Rest.Tests.2010-WP.csproj", "{83D8AF31-6DF1-4D2F-BFD2-865E91E6976E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Tests.2010-WP70", "test\Spring.Rest.Tests\Spring.Rest.Tests.2010-WP70.csproj", "{83D8AF31-6DF1-4D2F-BFD2-865E91E6976E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2010-WP", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2010-WP.csproj", "{43362271-2B82-146E-7AAF-36523A1E4F8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2010-WP70", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2010-WP70.csproj", "{43362271-2B82-146E-7AAF-36523A1E4F8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

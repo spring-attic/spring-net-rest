@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2008-SL", "src\Spring.Rest\Spring.Rest.2008-SL.csproj", "{5A955F0B-EEC7-427C-9E6B-A26B8B51558D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2008-SL30", "src\Spring.Rest\Spring.Rest.2008-SL30.csproj", "{5A955F0B-EEC7-427C-9E6B-A26B8B51558D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Tests.2008-SL", "test\Spring.Rest.Tests\Spring.Rest.Tests.2008-SL.csproj", "{AEA0D437-A442-4381-B682-5873D66DB72C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Tests.2008-SL30", "test\Spring.Rest.Tests\Spring.Rest.Tests.2008-SL30.csproj", "{AEA0D437-A442-4381-B682-5873D66DB72C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.Feed.2008-SL", "src\Spring.Http.Converters.Feed\Spring.Http.Converters.Feed.2008-SL.csproj", "{55F0B59B-ECC7-527C-AE5B-155CA26B558D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.Feed.2008-SL30", "src\Spring.Http.Converters.Feed\Spring.Http.Converters.Feed.2008-SL30.csproj", "{55F0B59B-ECC7-527C-AE5B-155CA26B558D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.Xml.Linq.2008-SL", "src\Spring.Http.Converters.Xml.Linq\Spring.Http.Converters.Xml.Linq.2008-SL.csproj", "{B5155A9B-CEC7-127C-3E8B-55F0A26B858D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.Xml.Linq.2008-SL30", "src\Spring.Http.Converters.Xml.Linq\Spring.Http.Converters.Xml.Linq.2008-SL30.csproj", "{B5155A9B-CEC7-127C-3E8B-55F0A26B858D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2008-SL", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2008-SL.csproj", "{45A9B51B-BAC7-14AC-AE2B-2655F0AB856D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2008-SL30", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2008-SL30.csproj", "{45A9B51B-BAC7-14AC-AE2B-2655F0AB856D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

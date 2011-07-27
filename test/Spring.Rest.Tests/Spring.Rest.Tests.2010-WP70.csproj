@@ -54,7 +54,7 @@
     <Compile Include="Rest\Client\RestTemplateIntegrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Spring.Rest\Spring.Rest.2010-WP.csproj">
+    <ProjectReference Include="..\..\src\Spring.Rest\Spring.Rest.2010-WP70.csproj">
       <Project>{36227431-B822-461E-A7AF-651E34F23A8C}</Project>
       <Name>Spring.Rest.2010-WP</Name>
     </ProjectReference>

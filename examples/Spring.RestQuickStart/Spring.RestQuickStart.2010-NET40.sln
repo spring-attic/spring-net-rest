@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestQuickStart.2010", "src\Spring.RestQuickStart\Spring.RestQuickStart.2010.csproj", "{1A74A622-4A48-4A2F-8AB9-BFF765B14806}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestQuickStart.2010-NET40", "src\Spring.RestQuickStart\Spring.RestQuickStart.2010-NET40.csproj", "{1A74A622-4A48-4A2F-8AB9-BFF765B14806}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

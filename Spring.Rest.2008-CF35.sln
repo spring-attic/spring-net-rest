@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2008-CF", "src\Spring.Rest\Spring.Rest.2008-CF.csproj", "{EC250517-15EF-4938-A5AF-17538AC03EBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2008-CF35", "src\Spring.Rest\Spring.Rest.2008-CF35.csproj", "{EC250517-15EF-4938-A5AF-17538AC03EBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2008-CF", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2008-CF.csproj", "{51AC03E7-14E5-A9F8-B1AF-24538EC250BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2008-CF35", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2008-CF35.csproj", "{51AC03E7-14E5-A9F8-B1AF-24538EC250BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

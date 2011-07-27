@@ -1,10 +1,10 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2010", "src\Spring.Rest\Spring.Rest.2010.csproj", "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2010-NET40", "src\Spring.Rest\Spring.Rest.2010-NET40.csproj", "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Tests.2010", "test\Spring.Rest.Tests\Spring.Rest.Tests.2010.csproj", "{4594CEE7-3897-A3BF-9946-5B4374F01821}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Tests.2010-NET40", "test\Spring.Rest.Tests\Spring.Rest.Tests.2010-NET40.csproj", "{4594CEE7-3897-A3BF-9946-5B4374F01821}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2010", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2010.csproj", "{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2010-NET40", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2010-NET40.csproj", "{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

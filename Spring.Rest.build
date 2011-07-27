@@ -125,7 +125,7 @@
     <property name="project.framework" value="net-2.0"/>
     <property name="project.version" value="${product.version}.${project.buildnumber}20" />
     <property name="project.buildoutputdir" value="${bin.dir}\net\2.0\${project.buildconfiguration}" />
-    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2005.sln" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2005-NET20.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <call target="test-assemblies"/>
@@ -137,7 +137,7 @@
     <property name="project.framework" value="net-3.5"/>
     <property name="project.version" value="${product.version}.${project.buildnumber}35" />
     <property name="project.buildoutputdir" value="${bin.dir}\net\3.5\${project.buildconfiguration}" />
-    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2008.sln" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2008-NET35.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <call target="testcover-assemblies"/>
@@ -149,7 +149,7 @@
     <property name="project.framework" value="net-4.0"/>
     <property name="project.version" value="${product.version}.${project.buildnumber}40" />
     <property name="project.buildoutputdir" value="${bin.dir}\net\4.0\${project.buildconfiguration}" />
-    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010.sln" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-NET40.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <call target="test-assemblies"/>
@@ -161,7 +161,7 @@
     <property name="project.framework" value="cf-3.5"/>
     <property name="project.version" value="${product.version}.${project.buildnumber}35" />
     <property name="project.buildoutputdir" value="${bin.dir}\cf\3.5\${project.buildconfiguration}" />
-    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2008-CF.sln" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2008-CF35.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <!--<call target="test-assemblies"/>-->
@@ -173,7 +173,7 @@
     <property name="project.framework" value="sl-3.0"/>
     <property name="project.version" value="${product.version}.${project.buildnumber}30" />
     <property name="project.buildoutputdir" value="${bin.dir}\sl\3.0\${project.buildconfiguration}" />
-    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2008-SL.sln" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2008-SL30.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <!--<call target="test-assemblies"/>-->
@@ -185,7 +185,7 @@
     <property name="project.framework" value="sl-4.0"/>
     <property name="project.version" value="${product.version}.${project.buildnumber}40" />
     <property name="project.buildoutputdir" value="${bin.dir}\sl\4.0\${project.buildconfiguration}" />
-    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-SL.sln" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-SL40.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <!--<call target="test-assemblies"/>-->
@@ -197,7 +197,7 @@
     <property name="project.framework" value="wp-7.0"/>
     <property name="project.version" value="${product.version}.${project.buildnumber}70" />
     <property name="project.buildoutputdir" value="${bin.dir}\wp\7.0\${project.buildconfiguration}" />
-    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-WP.sln" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-WP70.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <!--<call target="test-assemblies"/>-->
