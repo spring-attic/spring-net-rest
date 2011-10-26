@@ -21,6 +21,8 @@
 using System;
 using System.IO;
 
+using Spring.Util;
+
 namespace Spring.Http.Converters
 {
     /// <summary>
@@ -64,9 +66,10 @@ namespace Spring.Http.Converters
         protected override T ReadInternal<T>(IHttpInputMessage message)
         {
             // Read from the message stream  
-            using (BinaryReader reader = new BinaryReader(message.Body))
+            using (MemoryStream tempStream = new MemoryStream())
             {
-                return reader.ReadBytes((int)message.Headers.ContentLength) as T;
+                IoUtils.CopyStream(message.Body, tempStream);
+                return tempStream.ToArray() as T;
             }
 	    }
 

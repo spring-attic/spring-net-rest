@@ -88,30 +88,6 @@ namespace Spring.Rest.Client.Support
         [Test]
         public void ThrowsClientExceptionWithNoBody()
         {
-            ExpectResponse(null, Encoding.UTF8, HttpStatusCode.NotFound, "NotFound");
-
-            mocks.ReplayAll();
-
-            Assert.IsTrue(responseErrorHandler.HasError(response));
-            try
-            {
-                responseErrorHandler.HandleError(response);
-                Assert.Fail("DefaultResponseErrorHandler.HandleError should throw an exception");
-            }
-            catch (Exception ex)
-            {
-                HttpClientErrorException clientErrorException = ex as HttpClientErrorException;
-                Assert.IsNotNull(clientErrorException, "Exception HttpClientErrorException expected");
-                Assert.IsNotNull(clientErrorException.Response);
-                Assert.AreEqual(-1, clientErrorException.Response.Headers.ContentLength);
-                Assert.IsNull (clientErrorException.Response.Body);
-                Assert.IsNull(clientErrorException.GetResponseBodyAsString());
-            }
-        }
-
-        [Test]
-        public void ThrowsClientExceptionWithEmptyBody()
-        {
             ExpectResponse(String.Empty, Encoding.UTF8, HttpStatusCode.NotFound, "NotFound");
 
             mocks.ReplayAll();
@@ -177,12 +153,9 @@ namespace Spring.Rest.Client.Support
             MemoryStream mStream = new MemoryStream();
             HttpHeaders headers = new HttpHeaders();
             headers.ContentType = new MediaType("text", "plain", charSet);
-            if (body != null)
-            {
-                byte[] bytes = charSet.GetBytes(body);
-                mStream = new MemoryStream(bytes);
-                headers.ContentLength = bytes.Length;
-            }
+            byte[] bytes = charSet.GetBytes(body);
+            mStream = new MemoryStream(bytes);
+            headers.ContentLength = bytes.Length;
 
             Expect.Call<Stream>(response.Body).Return(mStream).Repeat.Any();
             Expect.Call<HttpHeaders>(response.Headers).Return(headers).Repeat.Any();

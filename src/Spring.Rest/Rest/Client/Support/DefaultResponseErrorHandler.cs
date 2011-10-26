@@ -21,6 +21,7 @@
 using System.IO;
 using System.Net;
 
+using Spring.Util;
 using Spring.Http;
 using Spring.Http.Client;
 
@@ -68,13 +69,10 @@ namespace Spring.Rest.Client.Support
         public virtual void HandleError(IClientHttpResponse response)
         {
             byte[] body = null;
-            int contentLength = (int)response.Headers.ContentLength;
-            if (contentLength >= 0)
+            using (MemoryStream tempStream = new MemoryStream())
             {
-                using (BinaryReader reader = new BinaryReader(response.Body))
-                {
-                    body = reader.ReadBytes(contentLength);
-                }
+                IoUtils.CopyStream(response.Body, tempStream);
+                body = tempStream.ToArray();
             }
             this.HandleError(new HttpResponseMessage<byte[]>(body, response.Headers, response.StatusCode, response.StatusDescription));
         }
