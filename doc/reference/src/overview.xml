@@ -41,7 +41,7 @@
 
       <listitem>Silverlight 3.0 and 4.0</listitem>
 
-      <listitem>Windows Phone 7.0</listitem>
+      <listitem>Windows Phone 7.0 and 7.1</listitem>
     </itemizedlist></para>
 
   <note>RestTemplate has been available in the Java version of the Spring

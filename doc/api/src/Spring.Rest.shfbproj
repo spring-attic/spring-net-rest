@@ -36,6 +36,7 @@
             <version label="Silverlight" version="3.0" helpFileProject="Spring.Rest-sl-3.0.shfbproj" />
             <version label="Silverlight" version="4.0" helpFileProject="Spring.Rest-sl-4.0.shfbproj" />
             <version label="Windows Phone" version="7.0" helpFileProject="Spring.Rest-wp-7.0.shfbproj" />
+            <version label="Windows Phone" version="7.1" helpFileProject="Spring.Rest-wp-7.1.shfbproj" />
           </versions>
         </configuration>
       </PlugInConfig>

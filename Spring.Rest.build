@@ -117,6 +117,7 @@
     <call target="build-sl-3.0" />
     <call target="build-sl-4.0" />
     <call target="build-wp-7.0" />
+    <call target="build-wp-7.1" />
   </target>
 
   <target name="build-net-2.0">
@@ -198,6 +199,18 @@
     <property name="project.version" value="${product.version}.${project.buildnumber}70" />
     <property name="project.buildoutputdir" value="${bin.dir}\wp\7.0\${project.buildconfiguration}" />
     <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-WP70.sln" />
+    <call target="update-common-assemblyinfo" />
+    <call target="rebuild-solution"/>
+    <!--<call target="test-assemblies"/>-->
+  </target>
+
+  <target name="build-wp-7.1">
+    <echo message="Building for Windows Phone 7.1 with '${project.buildconfiguration}' configuration" />
+    <property name="product.fullname" value="${product.fullname.temp} for Windows Phone 7.1" />
+    <property name="project.framework" value="wp-7.1"/>
+    <property name="project.version" value="${product.version}.${project.buildnumber}71" />
+    <property name="project.buildoutputdir" value="${bin.dir}\wp\7.1\${project.buildconfiguration}" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-WP71.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <!--<call target="test-assemblies"/>-->

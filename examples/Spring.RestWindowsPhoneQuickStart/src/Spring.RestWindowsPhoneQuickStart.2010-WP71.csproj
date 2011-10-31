@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0D706C31-4D8C-468A-A49F-073AC3E23D3F}</ProjectGuid>
+    <ProjectGuid>{1E706C31-4D8C-468A-A49F-073AC3E23D3F}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -13,7 +13,7 @@
     <AssemblyName>Spring.RestWindowsPhoneQuickStart</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
     <SupportedCultures>
@@ -51,14 +51,14 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\bin\wp\7.0\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\bin\wp\7.1\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Http.Converters.NJson">
-      <HintPath>..\..\..\bin\wp\7.0\Debug\Spring.Http.Converters.NJson.dll</HintPath>
+      <HintPath>..\..\..\bin\wp\7.1\Debug\Spring.Http.Converters.NJson.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Rest, Version=1.0.0.42, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\bin\wp\7.0\Debug\Spring.Rest.dll</HintPath>
+      <HintPath>..\..\..\bin\wp\7.1\Debug\Spring.Rest.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
