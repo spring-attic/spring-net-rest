@@ -15,8 +15,8 @@
     <tags>Spring REST HTTP</tags>
   </metadata>
   <files>
-    <file src=".\content\App_Readme\Spring.Rest.txt" target="content\App_Readme" />
-    <file src=".\tools\Install.ps1" target="tools" />
+    <file src="content\App_Readme\Spring.Rest.txt" target="content\App_Readme" />
+    <file src="tools\Install.ps1" target="tools" />
     <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.dll" target="lib\net20" />
     <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.pdb" target="lib\net20" />
     <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.xml" target="lib\net20" />
@@ -41,5 +41,8 @@
     <file src="..\..\..\bin\wp\7.0\Release\Spring.Rest.dll" target="lib\sl4-wp" />
     <file src="..\..\..\bin\wp\7.0\Release\Spring.Rest.pdb" target="lib\sl4-wp" />
     <file src="..\..\..\bin\wp\7.0\Release\Spring.Rest.xml" target="lib\sl4-wp" />
+    <file src="..\..\..\bin\wp\7.1\Release\Spring.Rest.dll" target="lib\sl4-wp71" />
+    <file src="..\..\..\bin\wp\7.1\Release\Spring.Rest.pdb" target="lib\sl4-wp71" />
+    <file src="..\..\..\bin\wp\7.1\Release\Spring.Rest.xml" target="lib\sl4-wp71" />
   </files>
 </package>
