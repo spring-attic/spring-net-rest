@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\VS.Net.2008-SL\Spring.Rest\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008-SL30\Spring.Rest\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;SILVERLIGHT;SILVERLIGHT_3</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -30,7 +30,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\VS.Net.2008-SL\Spring.Rest\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008-SL30\Spring.Rest\Release\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT;SILVERLIGHT_3</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -48,7 +48,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Spring.Rest\Spring.Rest.2008-SL30.csproj">
       <Project>{5A955F0B-EEC7-427C-9E6B-A26B8B51558D}</Project>
-      <Name>Spring.Rest.2008-SL</Name>
+      <Name>Spring.Rest.2008-SL30</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

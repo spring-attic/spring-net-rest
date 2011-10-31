@@ -46,7 +46,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2010\Spring.Rest.Tests\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-NET40\Spring.Rest.Tests\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -70,7 +70,7 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2010\Spring.Rest.Tests\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-NET40\Spring.Rest.Tests\Release\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -161,11 +161,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2010-NET40.csproj">
       <Project>{E04EDAC0-651F-1D31-BBF4-09EF0C04F7BC}</Project>
-      <Name>Spring.Http.Converters.NJson.2010</Name>
+      <Name>Spring.Http.Converters.NJson.2010-NET40</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Spring.Rest\Spring.Rest.2010-NET40.csproj">
       <Project>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Project>
-      <Name>Spring.Rest.2010</Name>
+      <Name>Spring.Rest.2010-NET40</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

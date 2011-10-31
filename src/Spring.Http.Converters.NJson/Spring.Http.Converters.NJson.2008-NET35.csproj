@@ -27,7 +27,7 @@
     <TargetFrameworkSubset>Client</TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2008\Spring.Rest\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008-NET35\Spring.Rest\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -49,7 +49,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2008\Spring.Rest\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008-NET35\Spring.Rest\Release\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -88,7 +88,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Spring.Rest\Spring.Rest.2008-NET35.csproj">
       <Project>{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}</Project>
-      <Name>Spring.Rest.2008</Name>
+      <Name>Spring.Rest.2008-NET35</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

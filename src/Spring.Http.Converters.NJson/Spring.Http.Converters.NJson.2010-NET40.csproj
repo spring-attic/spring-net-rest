@@ -47,7 +47,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2010\Spring.Rest\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-NET40\Spring.Rest\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -69,7 +69,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2010\Spring.Rest\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-NET40\Spring.Rest\Release\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -107,7 +107,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Spring.Rest\Spring.Rest.2010-NET40.csproj">
       <Project>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Project>
-      <Name>Spring.Rest.2010</Name>
+      <Name>Spring.Rest.2010-NET40</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

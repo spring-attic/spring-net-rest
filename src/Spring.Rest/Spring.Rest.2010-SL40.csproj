@@ -28,7 +28,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\VS.Net.2010-SL\Spring.Rest\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-SL40\Spring.Rest\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -39,7 +39,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\VS.Net.2010-SL\Spring.Rest\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-SL40\Spring.Rest\Release\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>

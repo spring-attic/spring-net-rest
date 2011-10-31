@@ -25,7 +25,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2008\Spring.Rest.Tests\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008-NET35\Spring.Rest.Tests\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -49,7 +49,7 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2008\Spring.Rest.Tests\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008-NET35\Spring.Rest.Tests\Release\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -153,11 +153,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2008-NET35.csproj">
       <Project>{C14F79CA-1A1F-131D-0B3F-0F00EB04ECBC}</Project>
-      <Name>Spring.Http.Converters.NJson.2008</Name>
+      <Name>Spring.Http.Converters.NJson.2008-NET35</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Spring.Rest\Spring.Rest.2008-NET35.csproj">
       <Project>{FAC04F79-4B1F-1D13-B30F-00EE04EC0FBC}</Project>
-      <Name>Spring.Rest.2008</Name>
+      <Name>Spring.Rest.2008-NET35</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

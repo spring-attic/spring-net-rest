@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\VS.Net.2008-CF\Spring.Rest\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008-CF35\Spring.Rest\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;CF_3_5</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -36,7 +36,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\VS.Net.2008-CF\Spring.Rest\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2008-CF35\Spring.Rest\Release\</OutputPath>
     <DefineConstants>TRACE;CF_3_5</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>

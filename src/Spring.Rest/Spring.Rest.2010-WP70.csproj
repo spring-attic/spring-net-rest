@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\VS.Net.2010-WP\Spring.Rest\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-WP70\Spring.Rest\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -34,7 +34,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\VS.Net.2010-WP\Spring.Rest\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-WP70\Spring.Rest\Release\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>

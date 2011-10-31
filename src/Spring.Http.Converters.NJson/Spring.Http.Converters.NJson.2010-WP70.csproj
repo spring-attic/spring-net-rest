@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\VS.Net.2010-WP\Spring.Rest\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-WP70\Spring.Rest\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -34,7 +34,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\VS.Net.2010-WP\Spring.Rest\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2010-WP70\Spring.Rest\Release\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -57,7 +57,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Spring.Rest\Spring.Rest.2010-WP70.csproj">
       <Project>{36227431-B822-461E-A7AF-651E34F23A8C}</Project>
-      <Name>Spring.Rest.2010-WP</Name>
+      <Name>Spring.Rest.2010-WP70</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

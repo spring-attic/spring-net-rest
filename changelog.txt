@@ -1,6 +1,6 @@
 SPRING.NET REST CLIENT FRAMEWORK CHANGELOG
 ==========================================
-http://www.springframework.net
+http://www.springframework.net/rest/
 
 Release Version 1.0.1 June 14, 2011
 

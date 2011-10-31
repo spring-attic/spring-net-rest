@@ -24,7 +24,7 @@
     </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2005\Spring.Rest.Tests\Debug\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2005-NET20\Spring.Rest.Tests\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -48,7 +48,7 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\build\VS.Net.2005\Spring.Rest.Tests\Release\</OutputPath>
+    <OutputPath>..\..\build\VS.Net.2005-NET20\Spring.Rest.Tests\Release\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -132,11 +132,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2005-NET20.csproj">
       <Project>{E04EEC0F-14BF-13D1-0B3F-A7900FAC04BC}</Project>
-      <Name>Spring.Http.Converters.NJson.2005</Name>
+      <Name>Spring.Http.Converters.NJson.2005-NET20</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Spring.Rest\Spring.Rest.2005-NET20.csproj">
       <Project>{EE04EC0F-4B1F-1D13-B30F-00FAC04F79BC}</Project>
-      <Name>Spring.Rest.2005</Name>
+      <Name>Spring.Rest.2005-NET20</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
