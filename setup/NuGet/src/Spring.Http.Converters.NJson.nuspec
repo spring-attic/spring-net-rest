@@ -15,7 +15,7 @@
     <tags>Spring REST HTTP JSON</tags>
     <dependencies>
       <dependency id="Spring.Rest" />
-      <dependency id="Newtonsoft.Json" version="4.0.2" />
+      <dependency id="Newtonsoft.Json" version="4.0.3" />
     </dependencies>
   </metadata>
   <files>

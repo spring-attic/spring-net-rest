@@ -43,8 +43,8 @@
     <DocumentationFile>Spring.Http.Converters.NJson.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json.WindowsPhone">
-      <HintPath>..\..\lib\wp\7.0\Newtonsoft.Json.WindowsPhone.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\wp\7.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
