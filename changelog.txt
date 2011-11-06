@@ -2,6 +2,21 @@ SPRING.NET REST CLIENT FRAMEWORK CHANGELOG
 ==========================================
 http://www.springframework.net/rest/
 
+Release Version 1.0.2 November 7, 2011
+
+Bug
+[SPRNETREST-7]  - Fix IClientHttpRequestAsyncInterceptor interceptor when modifying the HTTP response
+[SPRNETREST-8]  - Support 'chunked' transfer encoding in HTTP response
+
+Task
+[SPRNETREST-10] - Update JSON.NET version to 4.0 Release 3
+
+New Feature
+[SPRNETREST-6]  - Add .NET Compact Framework 3.5 support
+[SPRNETREST-9]  - Add Windows Phone 7.1 support
+
+
+*******************************************************************************
 Release Version 1.0.1 June 14, 2011
 
 Bug

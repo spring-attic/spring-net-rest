@@ -1,2 +1,2 @@
-NuGet.exe update
+NuGet.exe update -self
 pause

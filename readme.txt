@@ -1,11 +1,11 @@
-The Spring.NET REST Client project, Release 1.0.1 GA (June 14, 2011)
---------------------------------------------------------------------
+The Spring.NET REST Client project, Release 1.0.2 GA (Nomvember 7, 2011)
+------------------------------------------------------------------------
 http://www.springframework.net/rest/
 
 
 1. INTRODUCTION
 
-The 1.0.1 release of Spring.NET REST Client contains
+The 1.0.2 release of Spring.NET REST Client contains
 
 	* A RestTemplate class for client-side access to RESTful services.
 	* A set of HTTP message converters used to marshal objects into the HTTP request body 
@@ -78,8 +78,8 @@ There is a solution file for different version of VS.NET
 	* Spring.Rest.2008-SL30.sln  for use with VS.NET 2008 and Silverlight 3.0 (Requires Silverlight tools)
 	* Spring.Rest.2010-NET40.sln for use with VS.NET 2010 and .NET 4.0
 	* Spring.Rest.2010-SL40.sln  for use with VS.NET 2010 and Silverlight 4.0 (Requires Silverlight tools)
-	* Spring.Rest.2010-WP70.sln  for use with VS.NET 2010 and Windows Phone 7.0  (Requires Windows Phone tools)
-	* Spring.Rest.2010-WP71.sln  for use with VS.NET 2010 and Windows Phone 7.1  (Requires Windows Phone tools)
+	* Spring.Rest.2010-WP70.sln  for use with VS.NET 2010 and Windows Phone 7.0 (Requires Windows Phone tools)
+	* Spring.Rest.2010-WP71.sln  for use with VS.NET 2010 and Windows Phone 7.1 (Requires Windows Phone tools)
 
 
 8. SUPPORT
