@@ -32,12 +32,6 @@ namespace Spring.Http.Client
     /// <author>Bruno Baia</author>
     public class WebClientHttpRequestFactory : IClientHttpRequestFactory
     {
-        /// <summary>
-        /// The .NET <see cref="HttpWebRequest"/> used by this factory 
-        /// or <see langword="null"/> if not created.
-        /// </summary>
-        private HttpWebRequest httpWebRequest;
-
         #region Properties
 
 #if !SILVERLIGHT_3
@@ -191,82 +185,84 @@ namespace Spring.Http.Client
         /// <returns>The created request</returns>
         public virtual IClientHttpRequest CreateRequest(Uri uri, HttpMethod method)
         {
+            HttpWebRequest httpWebRequest;
 #if SILVERLIGHT && !WINDOWS_PHONE
             switch (this._webRequestCreator)
             {
                 case WebRequestCreatorType.ClientHttp:
-                    this.httpWebRequest = (HttpWebRequest)System.Net.Browser.WebRequestCreator.ClientHttp.Create(uri);
+                    httpWebRequest = (HttpWebRequest)System.Net.Browser.WebRequestCreator.ClientHttp.Create(uri);
                     break;
                 case WebRequestCreatorType.BrowserHttp:
-                    this.httpWebRequest = (HttpWebRequest)System.Net.Browser.WebRequestCreator.BrowserHttp.Create(uri);
+                    httpWebRequest = (HttpWebRequest)System.Net.Browser.WebRequestCreator.BrowserHttp.Create(uri);
                     break;
                 case WebRequestCreatorType.Unknown:
+                default:
                     if (method == HttpMethod.GET || method == HttpMethod.POST)
                     {
-                        this.httpWebRequest = WebRequest.Create(uri) as HttpWebRequest;
+                        httpWebRequest = WebRequest.Create(uri) as HttpWebRequest;
                     }
                     else
                     {
                         // Force Client HTTP stack
-                        this.httpWebRequest = (HttpWebRequest)System.Net.Browser.WebRequestCreator.ClientHttp.Create(uri);
+                        httpWebRequest = (HttpWebRequest)System.Net.Browser.WebRequestCreator.ClientHttp.Create(uri);
                     }
                     break;
             }
 #else
-            this.httpWebRequest = WebRequest.Create(uri) as HttpWebRequest;
+            httpWebRequest = WebRequest.Create(uri) as HttpWebRequest;
 #endif
 
-            this.httpWebRequest.Method = method.ToString();
+            httpWebRequest.Method = method.ToString();
 
 #if !SILVERLIGHT_3
             if (this._allowAutoRedirect != null)
             {
-                this.httpWebRequest.AllowAutoRedirect = this._allowAutoRedirect.Value;
+                httpWebRequest.AllowAutoRedirect = this._allowAutoRedirect.Value;
             }
 #if !CF_3_5
             if (this._useDefaultCredentials.HasValue)
             {
-                this.httpWebRequest.UseDefaultCredentials = this._useDefaultCredentials.Value;
+                httpWebRequest.UseDefaultCredentials = this._useDefaultCredentials.Value;
             }
 #endif
 #endif
 #if !CF_3_5
             if (this._cookieContainer != null)
             {
-                this.httpWebRequest.CookieContainer = this._cookieContainer;
+                httpWebRequest.CookieContainer = this._cookieContainer;
             }
 #endif
             if (this._credentials != null)
             {
-                this.httpWebRequest.Credentials = this._credentials;
+                httpWebRequest.Credentials = this._credentials;
             }
 #if !SILVERLIGHT
             if (this._clientCertificates != null)
             {
                 foreach (X509Certificate2 certificate in this._clientCertificates)
                 {
-                    this.httpWebRequest.ClientCertificates.Add(certificate);
+                    httpWebRequest.ClientCertificates.Add(certificate);
                 }
             }
             if (this._proxy != null)
             {
-                this.httpWebRequest.Proxy = this._proxy;
+                httpWebRequest.Proxy = this._proxy;
             }
             if (this._timeout != null)
             {
-                this.httpWebRequest.Timeout = this._timeout.Value;
+                httpWebRequest.Timeout = this._timeout.Value;
             }
             if (this._expect100Continue != null)
             {
-                this.httpWebRequest.ServicePoint.Expect100Continue = this._expect100Continue.Value;
+                httpWebRequest.ServicePoint.Expect100Continue = this._expect100Continue.Value;
             }
             if (this._automaticDecompression.HasValue)
             {
-                this.httpWebRequest.AutomaticDecompression = this._automaticDecompression.Value;
+                httpWebRequest.AutomaticDecompression = this._automaticDecompression.Value;
             }
 #endif
 
-            return new WebClientHttpRequest(this.httpWebRequest);
+            return new WebClientHttpRequest(httpWebRequest);
         }
 
         #endregion

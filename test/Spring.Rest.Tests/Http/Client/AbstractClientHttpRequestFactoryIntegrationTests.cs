@@ -131,6 +131,35 @@ namespace Spring.Http.Client
         }
 
         [Test]
+        public void ThreadSafeCreateAndExecute()
+        {
+            ThreadInfo threadInfo = new ThreadInfo();
+            Thread[] threads = new Thread[10];
+            for (int i = 0; i < 10; i++)
+            {
+                Thread thread = new Thread(new ParameterizedThreadStart(
+                    delegate(object obj)
+                    {
+                        try
+                        {
+                            Echo();
+                        }
+                        catch
+                        {
+                            ((ThreadInfo)obj).HasFailed = true;
+                        }
+                    }));
+                thread.Start(threadInfo);
+                threads[i] = thread;
+            }
+            foreach (Thread thread in threads)
+            {
+                thread.Join();
+            }
+            Assert.IsFalse(threadInfo.HasFailed);
+        }
+
+        [Test]
 	    public void HttpMethods() 
         {
 		    AssertHttpMethod("get", HttpMethod.GET);
@@ -254,6 +283,35 @@ namespace Spring.Http.Client
         }
 
         [Test]
+        public void ThreadSafeCreateAndExecuteAsync()
+        {
+            ThreadInfo threadInfo = new ThreadInfo();
+            Thread[] threads = new Thread[10];
+            for (int i = 0; i < 10; i++)
+            {
+                Thread thread = new Thread(new ParameterizedThreadStart(
+                    delegate(object obj)
+                    {
+                        try
+                        {
+                            EchoAsync();
+                        }
+                        catch
+                        {
+                            ((ThreadInfo)obj).HasFailed = true;
+                        }
+                    }));
+                thread.Start(threadInfo);
+                threads[i] = thread;
+            }
+            foreach (Thread thread in threads)
+            {
+                thread.Join();
+            }
+            Assert.IsFalse(threadInfo.HasFailed);
+        }
+
+        [Test]
         public void HttpMethodsAsync()
         {
             AssertHttpMethodAsync("get", HttpMethod.GET);
@@ -338,6 +396,16 @@ namespace Spring.Http.Client
 
         #endregion
 
+        public class ThreadInfo
+        {
+            private bool _hasFailed;
+
+            public bool HasFailed
+            {
+                get { return _hasFailed; }
+                set { _hasFailed = value; }
+            }   
+        }
 
         #region Test service
 
