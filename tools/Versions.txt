@@ -1,4 +1,4 @@
 NAnt v0.91
-NUnit v2.5.9.10348
+NUnit v2.5.10
 NCover v1.5.8
 NCoverExplorer v1.4.0.7
