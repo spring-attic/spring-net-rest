@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="introduction" version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:ns52="http://www.w3.org/2000/svg"
+         xmlns:ns5="http://www.w3.org/1999/xlink"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Introduction</title>
+
+  <section xml:id="introduction-overview">
+    <title>Overview</title>
+    
+    <para>Interacting with HTTP-based services armed only with the relatively
+    low-level classes provided by the .NET Framework is possible, but often
+    leads to your having to repeat the same boilerplate code over and over again
+    as well as evolve your own set of helper methods to translate your objects
+    to and from the text-based world of HTTP requests and responses into the
+    object-based world of .NET consumers of HTTP services. The Spring.Rest
+    project contains the RestTemplate helper class which allows developers to
+    focus on the issues of delivering business value in their applications
+    rather than focusing on low-level plumbing concerns.</para>
+
+    <para><classname>RestTemplate</classname> provides higher level methods that
+    correspond to each of the six main HTTP methods that make invoking many
+    RESTful services a one-liner and help to enforce REST best practices. It is
+    conceptually similar to other template classes in Spring, such as
+    <classname>AdoTemplate</classname> and <classname>NmsTemplate</classname>.
+    It's behavior can be customized by providing callback methods and
+    configuring the <interfacename>IHttpMessageConverter</interfacename>s used
+    to marshal objects into the HTTP request body and to unmarshall any response
+    back into an object.</para>
+
+    <para>This documentation describes how to use the
+    <classname>RestTemplate</classname> and its associated
+    <interfacename>IHttpMessageConverter</interfacename>s.</para>
+
+    <para>Spring.NET REST Client Framework supports the following .NET
+    Frameworks : <itemizedlist>
+        <listitem>.NET 2.0</listitem>
+
+        <listitem>.NET Client Profile 3.5 and 4.0</listitem>
+
+        <listitem>.NET Compact Framework 3.5</listitem>
+
+        <listitem>Silverlight 3.0 and 4.0</listitem>
+
+        <listitem>Windows Phone 7.0 and 7.1</listitem>
+      </itemizedlist></para>
+
+    <note>RestTemplate has been available in the Java version of the Spring
+    Framework for many years and has recently been adapted to use proper .NET
+    idioms.</note>
+  </section>
+
+  <section xml:id="introduction-migrating-1.0">
+    <title>Migrating from 1.0</title>
+
+    <para>
+      Some API changes were made after 1.0. The file, 'breaking-changes.txt', 
+      in the root directory of the distribution contains the full listing of 
+      breaking changes made for 1.1.
+    </para>
+    
+  </section>
+
+  <section xml:id="introduction-licence">
+    <title>License Information</title>
+
+    <para>Spring.NET REST Client Framework is licensed according to the terms of the Apache License,
+    Version 2.0. The full text of this license are available online at <ulink
+    url="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</ulink>
+    . You can also view the full text of the license in the license.txt file
+    located in the root directory of the distribution.</para>
+  </section>
+</chapter>

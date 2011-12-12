@@ -14,11 +14,11 @@ using System.Runtime.InteropServices;
 
 [assembly: CLSCompliantAttribute(true)]
 [assembly: ComVisibleAttribute(false)]
-[assembly: AssemblyProductAttribute("Spring.NET REST Client Framework 1.0.2")]
+[assembly: AssemblyProductAttribute("Spring.NET REST Client Framework 1.1.0")]
 [assembly: AssemblyCompanyAttribute("http://www.springframework.net/")]
 [assembly: AssemblyCopyrightAttribute("Copyright 2011 SpringSource")]
 [assembly: AssemblyTrademarkAttribute("Apache License, Version 2.0")]
 [assembly: AssemblyCultureAttribute("")]
-[assembly: AssemblyVersionAttribute("1.0.2.0")]
-[assembly: AssemblyConfigurationAttribute("1.0.2.0; dev")]
+[assembly: AssemblyVersionAttribute("1.1.0.0")]
+[assembly: AssemblyConfigurationAttribute("1.1.0.0; dev")]
 
