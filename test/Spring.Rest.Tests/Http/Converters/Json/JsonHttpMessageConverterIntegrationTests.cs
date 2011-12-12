@@ -34,7 +34,7 @@ using NUnit.Framework;
 namespace Spring.Http.Converters.Json
 {
     /// <summary>
-    /// Integration tests for the JsonHttpMessageConverter and NJsonHttpMessageConverter class.
+    /// Integration tests for the DataContractJsonHttpMessageConverter and NJsonHttpMessageConverter class.
     /// </summary>
     /// <author>Bruno Baia</author>
     [TestFixture]
@@ -81,7 +81,7 @@ namespace Spring.Http.Converters.Json
         [Test]
         public void GetForObject()
         {
-            template.MessageConverters.Add(new JsonHttpMessageConverter());
+            template.MessageConverters.Add(new DataContractJsonHttpMessageConverter());
 
             User result = template.GetForObject<User>("user/{id}", 1);
             Assert.IsNotNull(result, "Invalid content");
@@ -117,7 +117,7 @@ namespace Spring.Http.Converters.Json
         [Test]
         public void PostObjectForMessage()
         {
-            template.MessageConverters.Add(new JsonHttpMessageConverter());
+            template.MessageConverters.Add(new DataContractJsonHttpMessageConverter());
 
             User user = new User() { Name = "Lisa Baia" };
 

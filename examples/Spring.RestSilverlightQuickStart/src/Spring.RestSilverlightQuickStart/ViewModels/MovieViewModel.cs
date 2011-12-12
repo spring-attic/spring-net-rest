@@ -22,7 +22,7 @@ namespace Spring.RestSilverlightQuickStart.ViewModels
             DeleteMovieCommand = new DelegateCommand(DeleteMovie, CanDeleteMovie);
 
             template = new RestTemplate("http://localhost:12345/Services/MovieService.svc/");
-            template.MessageConverters.Add(new JsonHttpMessageConverter());
+            template.MessageConverters.Add(new DataContractJsonHttpMessageConverter());
 
             RefreshMovies();
         }

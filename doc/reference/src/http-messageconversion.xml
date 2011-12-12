@@ -309,7 +309,7 @@
         <row>
           <entry>
             <link
-            linkend="http-datacontractserializerconverter">DataContractHttpMessageConverter</link>
+            linkend="http-datacontractconverter">DataContractHttpMessageConverter</link>
           </entry>
 
           <entry />
@@ -339,7 +339,7 @@
 
         <row>
           <entry>
-            <link linkend="http-jsonconverter">JsonHttpMessageConverter</link>
+            <link linkend="http-datacontractjsonconverter">DataContractJsonHttpMessageConverter</link>
           </entry>
 
           <entry />
@@ -726,7 +726,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     <literal>'application/*-xml'</literal>.</para>
   </section>
 
-  <section id="http-datacontractserializerconverter">
+  <section id="http-datacontractconverter">
     <title>DataContractHttpMessageConverter</title>
 
     <para>Supports .NET Framework 3.5, 4.0, Silverlight and Windows
@@ -740,8 +740,8 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     <literal>'application/*-xml'</literal>.</para>
   </section>
 
-  <section id="http-jsonconverter">
-    <title>JsonHttpMessageConverter</title>
+  <section id="http-datacontractjsonconverter">
+    <title>DataContractJsonHttpMessageConverter</title>
 
     <para>Supports .NET Framework 3.5, 4.0, Silverlight and Windows
     Phone.</para>
@@ -766,7 +766,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
 
     <para>Unlike <literal>DataContractJsonSerializer</literal> .NET Framework
     class used by <link
-    linkend="http-jsonconverter">JsonHttpMessageConverter</link>, this library
+    linkend="http-datacontractjsonconverter">DataContractJsonHttpMessageConverter</link>, this library
     supports getting/setting values from JSON directly, without the need to
     deserialize/serialize to a .NET class.</para>
 

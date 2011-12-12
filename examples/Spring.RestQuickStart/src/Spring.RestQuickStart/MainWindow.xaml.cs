@@ -25,7 +25,7 @@ namespace Spring.RestQuickStart
             // that supports getting/setting values from JSON directly, 
             // without the need to deserialize/serialize to a .NET class.
 
-            IHttpMessageConverter jsonConverter = new JsonHttpMessageConverter();
+            IHttpMessageConverter jsonConverter = new DataContractJsonHttpMessageConverter();
             jsonConverter.SupportedMediaTypes.Add(new MediaType("text", "javascript"));
 
             RestTemplate template = new RestTemplate();

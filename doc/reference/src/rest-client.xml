@@ -255,12 +255,12 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
       you want to use the
       <classname>XmlSerializableHttpMessageConverter</classname>/<classname>DataContractHttpMessageConverter</classname>
       or
-      <classname>JsonHttpMessageConverter</classname>/<classname>NJsonHttpMessageConverter</classname>.
+      <classname>DataContractJsonHttpMessageConverter</classname>/<classname>NJsonHttpMessageConverter</classname>.
       <sbr /></para>
 
       <para>For example : <programlisting language="csharp">// Add a new converter to the default list
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://twitter.com");
-template.MessageConverters.Add(new <classname>JsonHttpMessageConverter</classname>());</programlisting></para>
+template.MessageConverters.Add(new <classname>DataContractJsonHttpMessageConverter</classname>());</programlisting></para>
 
       <para><sbr />See <link linkend="http-messageconversion">HTTP message
       conversion</link> chapter for detailed description of each

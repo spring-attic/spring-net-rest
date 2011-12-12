@@ -26,18 +26,18 @@ using NUnit.Framework;
 namespace Spring.Http.Converters.Json
 {
     /// <summary>
-    /// Unit tests for the JsonHttpMessageConverter class.
+    /// Unit tests for the DataContractJsonHttpMessageConverter class.
     /// </summary>
     /// <author>Bruno Baia</author>
     [TestFixture]
-    public class JsonHttpMessageConverterTests
+    public class DataContractJsonHttpMessageConverterTests
     {
-        private JsonHttpMessageConverter converter;
+        private DataContractJsonHttpMessageConverter converter;
 
 	    [SetUp]
 	    public void SetUp() 
         {
-            converter = new JsonHttpMessageConverter();
+            converter = new DataContractJsonHttpMessageConverter();
 	    }
 
         [Test]

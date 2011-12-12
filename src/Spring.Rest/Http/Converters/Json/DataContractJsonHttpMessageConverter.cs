@@ -30,14 +30,15 @@ using System.Runtime.Serialization.Json;
 namespace Spring.Http.Converters.Json
 {
     /// <summary>
-    /// Implementation of <see cref="IHttpMessageConverter"/> that can read and write JSON.
+    /// Implementation of <see cref="IHttpMessageConverter"/> that can read and write JSON 
+    /// using <see cref="DataContractJsonSerializer"/>.
     /// </summary>
     /// <remarks>
     /// By default, this converter supports 'application/json' media type. 
     /// This can be overridden by setting the <see cref="P:SupportedMediaTypes"/> property.
     /// </remarks>
     /// <author>Bruno Baia</author>
-    public class JsonHttpMessageConverter : AbstractHttpMessageConverter
+    public class DataContractJsonHttpMessageConverter : AbstractHttpMessageConverter
     {
         /// <summary>
         /// Default encoding for JSON.
@@ -67,23 +68,23 @@ namespace Spring.Http.Converters.Json
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="JsonHttpMessageConverter"/> 
+        /// Creates a new instance of the <see cref="DataContractJsonHttpMessageConverter"/> 
         /// with the media type 'application/json'. 
         /// </summary>
-        public JsonHttpMessageConverter() :
+        public DataContractJsonHttpMessageConverter() :
             base(new MediaType("application", "json"))
         {
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="JsonHttpMessageConverter"/> 
+        /// Creates a new instance of the <see cref="DataContractJsonHttpMessageConverter"/> 
         /// with the media type 'application/json'. 
         /// </summary>
         /// <param name="requiresAttribute">
         /// If <c>true</c>, supports only classes decorated with 
         /// <see cref="DataContractAttribute"/> and <see cref="CollectionDataContractAttribute"/>. 
         /// </param>
-        public JsonHttpMessageConverter(bool requiresAttribute) :
+        public DataContractJsonHttpMessageConverter(bool requiresAttribute) :
             base(new MediaType("application", "json"))
         {
             this._requiresAttribute = requiresAttribute;

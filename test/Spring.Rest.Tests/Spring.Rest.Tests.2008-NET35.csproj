@@ -128,7 +128,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Http\Converters\Json\JsonHttpMessageConverterIntegrationTests.cs" />
-    <Compile Include="Http\Converters\Json\JsonHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Json\DataContractJsonHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Json\NJsonHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\StringHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Xml\DataContractHttpMessageConverterTests.cs" />
