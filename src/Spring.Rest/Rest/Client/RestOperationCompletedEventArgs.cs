@@ -28,7 +28,7 @@ namespace Spring.Rest.Client
     /// Provides data when an asynchronous REST operation completes.
     /// </summary>
     /// <typeparam name="T">The type of the response value.</typeparam>
-    /// <see cref="IRestAsyncOperations"/>
+    /// <see cref="IRestOperations"/>
     /// <see cref="RestTemplate"/>
     public class RestOperationCompletedEventArgs<T> : AsyncCompletedEventArgs where T : class
     {

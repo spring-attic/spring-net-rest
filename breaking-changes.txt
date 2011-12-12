@@ -1,3 +1,5 @@
 Changes (1.0 to 1.1)
 ====================
 
+1. Interface IRestAsyncOperations has been removed and merged with IRestOperations.
+

@@ -107,15 +107,7 @@ namespace Spring.Rest.Client
     /// <see cref="IResponseExtractor{T}"/>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia (.NET)</author>
-    public class RestTemplate : 
-#if SILVERLIGHT
-        IRestAsyncOperations
-#else
-#if !CF_3_5
-        IRestAsyncOperations, 
-#endif
-        IRestOperations
-#endif
+    public class RestTemplate : IRestOperations
     {
         #region Logging
 #if !SILVERLIGHT && !CF_3_5
@@ -973,10 +965,6 @@ namespace Spring.Rest.Client
 
         #endregion
 #endif
-
-        #endregion
-
-        #region IRestAsyncOperations Members
 
 #if !CF_3_5
         #region GET

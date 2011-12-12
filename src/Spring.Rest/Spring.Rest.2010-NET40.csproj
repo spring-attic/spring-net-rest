@@ -198,7 +198,6 @@
     <Compile Include="Rest\Client\IRequestCallback.cs" />
     <Compile Include="Rest\Client\IResponseErrorHandler.cs" />
     <Compile Include="Rest\Client\IResponseExtractor.cs" />
-    <Compile Include="Rest\Client\IRestAsyncOperations.cs" />
     <Compile Include="Rest\Client\IRestOperations.cs" />
     <Compile Include="Rest\Client\RestOperationCanceler.cs" />
     <Compile Include="Rest\Client\RestOperationCompletedEventArgs.cs" />
