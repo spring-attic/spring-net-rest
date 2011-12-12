@@ -10,5 +10,3 @@ obj
 buildlog.txt
 build
 package
-
-/src/Spring.Http.Converters.NJson/Spring.Rest.xml
