@@ -76,7 +76,7 @@ namespace Spring.Http.Client
         {
             get 
             {
-                return (HttpMethod)Enum.Parse(typeof(HttpMethod), this.httpWebRequest.Method, true);
+                return new HttpMethod(this.httpWebRequest.Method);
             }
         }
 

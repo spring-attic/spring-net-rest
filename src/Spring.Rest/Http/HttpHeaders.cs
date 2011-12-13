@@ -123,45 +123,6 @@ namespace Spring.Http
             }
         }
 
-        //**
-        // * Set the list of acceptable {@linkplain Charset charsets}, as specified by the {@code Accept-Charset} header.
-        // * @param acceptableCharsets the acceptable charsets
-        // */
-        //public void setAcceptCharset(List<Charset> acceptableCharsets) {
-        //    StringBuilder builder = new StringBuilder();
-        //    for (Iterator<Charset> iterator = acceptableCharsets.iterator(); iterator.hasNext();) {
-        //        Charset charset = iterator.next();
-        //        builder.append(charset.name().toLowerCase(Locale.ENGLISH));
-        //        if (iterator.hasNext()) {
-        //            builder.append(", ");
-        //        }
-        //    }
-        //    set(ACCEPT_CHARSET, builder.toString());
-        //}
-
-        //**
-        // * Return the list of acceptable {@linkplain Charset charsets}, as specified by the {@code Accept-Charset}
-        // * header.
-        // * @return the acceptable charsets
-        // */
-        //public List<Charset> getAcceptCharset() {
-        //    List<Charset> result = new ArrayList<Charset>();
-        //    String value = getFirst(ACCEPT_CHARSET);
-        //    if (value != null) {
-        //        String[] tokens = value.split(",\\s*");
-        //        for (String token : tokens) {
-        //            int paramIdx = token.indexOf(';');
-        //            if (paramIdx == -1) {
-        //                result.add(Charset.forName(token));
-        //            }
-        //            else {
-        //                result.add(Charset.forName(token.substring(0, paramIdx)));
-        //            }
-        //        }
-        //    }
-        //    return result;
-        //}
-
         /// <summary>
         /// Gets or sets the array of allowed <see cref="HttpMethod">HTTP methods</see>, 
         /// as specified by the 'Allow' header.
@@ -183,7 +144,7 @@ namespace Spring.Http
                     HttpMethod[] result = new HttpMethod[values.Length];
                     for (int i = 0; i < values.Length; i++)
                     {
-                        result[i] = (HttpMethod)Enum.Parse(typeof(HttpMethod), values[i], true);
+                        result[i] = new HttpMethod(values[i].Trim());
                     }
                     return result;
                 }
@@ -260,17 +221,6 @@ namespace Spring.Http
             }
         }
 
-        //**
-        // * Returns the date and time at which the message was created, as specified by the {@code Date} header.
-        // * <p>The date is returned as the number of milliseconds since January 1, 1970 GMT. Returns -1 when the date is unknown.
-        // * @return the creation date/time
-        // * @throws IllegalArgumentException if the value can't be converted to a date
-        // */
-        //**
-        // * Sets the date and time at which the message was created, as specified by the {@code Date} header.
-        // * <p>The date should be specified as the number of milliseconds since January 1, 1970 GMT.
-        // * @param date the date
-        // */
         /// <summary>
         /// Gets or sets the date and time at which the message was created, 
         /// as specified by the 'Date' header.
@@ -356,7 +306,7 @@ namespace Spring.Http
                     string[] result = new string[values.Length];
                     for (int i = 0; i < values.Length; i++)
                     {
-                        result[i] = Unquote(values[i]);
+                        result[i] = Unquote(values[i].Trim());
                     }
                     return result;
                 }
