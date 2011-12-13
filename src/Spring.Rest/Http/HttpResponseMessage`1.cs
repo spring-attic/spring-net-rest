@@ -24,7 +24,7 @@ using System.Net;
 namespace Spring.Http
 {
     /// <summary>
-    /// Represents a HTTP response message, as defined in the HTTP specification. 
+    /// Represents an HTTP response message, as defined in the HTTP specification. 
     /// <a href="http://tools.ietf.org/html/rfc2616#section-6">HTTP 1.1, section 6</a>
     /// </summary>
     /// <typeparam name="T">The type of the response body.</typeparam>

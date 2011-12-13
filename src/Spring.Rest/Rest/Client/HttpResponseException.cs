@@ -59,7 +59,7 @@ namespace Spring.Rest.Client
 
         /// <summary>
         /// Creates a new instance of <see cref="HttpResponseException"/> 
-        /// based on a HTTP response message.
+        /// based on an HTTP response message.
         /// </summary>
         /// <param name="response">The HTTP response message.</param>
         public HttpResponseException(HttpResponseMessage<byte[]> response)
