@@ -40,7 +40,7 @@
   <table frame="all">
     <title>Supported HTTP message converters by Framework</title>
 
-    <tgroup cols="8">
+    <tgroup cols="7">
       <tbody>
         <row>
           <entry>
@@ -64,11 +64,7 @@
           </entry>
 
           <entry align="center">
-            <emphasis role="bold">Silverlight 3.0</emphasis>
-          </entry>
-
-          <entry align="center">
-            <emphasis role="bold">Silverlight 4.0</emphasis>
+            <emphasis role="bold">Silverlight</emphasis>
           </entry>
 
           <entry align="center">
@@ -105,20 +101,12 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
-
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
-          </entry>
         </row>
 
         <row>
           <entry>
             <link
             linkend="http-stringconverter">StringHttpMessageConverter</link>
-          </entry>
-
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
 
           <entry align="center">
@@ -175,10 +163,6 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
-
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
-          </entry>
         </row>
 
         <row>
@@ -202,10 +186,6 @@
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
           
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
-          </entry>
-
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
@@ -240,8 +220,6 @@
           <entry />
 
           <entry />
-
-          <entry />
         </row>
 
         <row>
@@ -262,12 +240,6 @@
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
-          </entry>
-
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
-
-            <superscript>(1)</superscript>
           </entry>
 
           <entry align="center">
@@ -302,8 +274,6 @@
           <entry />
 
           <entry />
-
-          <entry />
         </row>
 
         <row>
@@ -323,10 +293,6 @@
           </entry>
 
           <entry />
-
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
-          </entry>
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
@@ -361,22 +327,12 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
-
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
-          </entry>
         </row>
 
         <row>
           <entry><link
           linkend="http-njsonconverter">NJsonHttpMessageConverter</link>
           <sbr />Json.NET (Newtonsoft.Json)</entry>
-
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
-
-            <superscript>(3)</superscript>
-          </entry>
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
@@ -432,12 +388,6 @@
           </entry>
 
           <entry />
-          
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
-
-            <superscript>(2)</superscript>
-          </entry>
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
@@ -465,12 +415,6 @@
           </entry>
 
           <entry />
-
-          <entry align="center">
-            <imagedata fileref="images/supported.png" format="PNG" />
-
-            <superscript>(2)</superscript>
-          </entry>
 
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />

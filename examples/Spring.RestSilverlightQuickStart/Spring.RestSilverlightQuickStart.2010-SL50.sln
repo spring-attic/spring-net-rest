@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestSilverlightQuickStart.2010-SL0", "src\Spring.RestSilverlightQuickStart\Spring.RestSilverlightQuickStart.2010-SL50.csproj", "{D21BD449-683C-44CA-B394-CC126DC49EF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestSilverlightQuickStart.Web.2010-SL50", "src\Spring.RestSilverlightQuickStart.Web\Spring.RestSilverlightQuickStart.Web.2010-SL50.csproj", "{3C40C3B9-E032-417A-9B6F-8AD4ECEE0397}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{90357664-58D2-48D8-B1E6-B8D97356B5CE}"
+	ProjectSection(SolutionItems) = preProject
+		readme.txt = readme.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D21BD449-683C-44CA-B394-CC126DC49EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D21BD449-683C-44CA-B394-CC126DC49EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D21BD449-683C-44CA-B394-CC126DC49EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D21BD449-683C-44CA-B394-CC126DC49EF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C40C3B9-E032-417A-9B6F-8AD4ECEE0397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C40C3B9-E032-417A-9B6F-8AD4ECEE0397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C40C3B9-E032-417A-9B6F-8AD4ECEE0397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C40C3B9-E032-417A-9B6F-8AD4ECEE0397}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

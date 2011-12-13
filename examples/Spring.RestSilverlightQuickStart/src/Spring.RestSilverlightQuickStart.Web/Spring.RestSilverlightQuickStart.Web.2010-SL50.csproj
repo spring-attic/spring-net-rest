@@ -6,14 +6,14 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2B40C3B9-E032-417A-9B6F-8AD4ECEE0397}</ProjectGuid>
+    <ProjectGuid>{3C40C3B9-E032-417A-9B6F-8AD4ECEE0397}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spring.RestSilverlightQuickStart</RootNamespace>
     <AssemblyName>Spring.RestSilverlightQuickStart.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SilverlightApplicationList>{C11BD449-683C-44CA-B394-CC126DC49EF1}|..\Spring.RestSilverlightQuickStart\Spring.RestSilverlightQuickStart.2010-SL40.csproj|ClientBin|False</SilverlightApplicationList>
+    <SilverlightApplicationList>{D21BD449-683C-44CA-B394-CC126DC49EF1}|..\Spring.RestSilverlightQuickStart\Spring.RestSilverlightQuickStart.2010-SL50.csproj|ClientBin|False</SilverlightApplicationList>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

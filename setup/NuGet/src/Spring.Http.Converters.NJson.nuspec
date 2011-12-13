@@ -38,6 +38,9 @@
     <file src="..\..\..\bin\sl\4.0\Release\Spring.Http.Converters.NJson.dll" target="lib\sl4" />
     <file src="..\..\..\bin\sl\4.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\sl4" />
     <file src="..\..\..\bin\sl\4.0\Release\Spring.Http.Converters.NJson.xml" target="lib\sl4" />
+    <file src="..\..\..\bin\sl\5.0\Release\Spring.Http.Converters.NJson.dll" target="lib\sl5" />
+    <file src="..\..\..\bin\sl\5.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\sl5" />
+    <file src="..\..\..\bin\sl\5.0\Release\Spring.Http.Converters.NJson.xml" target="lib\sl5" />
     <file src="..\..\..\bin\wp\7.0\Release\Spring.Http.Converters.NJson.dll" target="lib\sl4-wp" />
     <file src="..\..\..\bin\wp\7.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\sl4-wp" />
     <file src="..\..\..\bin\wp\7.0\Release\Spring.Http.Converters.NJson.xml" target="lib\sl4-wp" />

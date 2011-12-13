@@ -116,6 +116,7 @@
     <call target="build-cf-3.5" />
     <call target="build-sl-3.0" />
     <call target="build-sl-4.0" />
+    <call target="build-sl-5.0" />
     <call target="build-wp-7.0" />
     <call target="build-wp-7.1" />
   </target>
@@ -187,6 +188,18 @@
     <property name="project.version" value="${product.version}.${project.buildnumber}40" />
     <property name="project.buildoutputdir" value="${bin.dir}\sl\4.0\${project.buildconfiguration}" />
     <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-SL40.sln" />
+    <call target="update-common-assemblyinfo" />
+    <call target="rebuild-solution"/>
+    <!--<call target="test-assemblies"/>-->
+  </target>
+
+  <target name="build-sl-5.0">
+    <echo message="Building for Silverlight 5.0 with '${project.buildconfiguration}' configuration" />
+    <property name="product.fullname" value="${product.fullname.temp} for Silverlight 5.0" />
+    <property name="project.framework" value="sl-5.0"/>
+    <property name="project.version" value="${product.version}.${project.buildnumber}50" />
+    <property name="project.buildoutputdir" value="${bin.dir}\sl\5.0\${project.buildconfiguration}" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2010-SL50.sln" />
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <!--<call target="test-assemblies"/>-->
