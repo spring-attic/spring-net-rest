@@ -138,7 +138,7 @@ namespace Spring.Http.Converters
                 }
                 foreach (MediaType supportedMediaType in this._supportedMediaTypes)
                 {
-                    if (!supportedMediaType.Equals(MediaType.MULTIPART_FORM_DATA) && 
+                    if (supportedMediaType != MediaType.MULTIPART_FORM_DATA && 
                         supportedMediaType.Includes(mediaType))
                     {
                         return true;

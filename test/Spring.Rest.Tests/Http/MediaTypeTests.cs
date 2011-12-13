@@ -35,6 +35,61 @@ namespace Spring.Http
     public class MediaTypeTests
     {
         [Test]
+        public void Equals()
+        {
+            Assert.IsTrue(MediaType.TEXT_HTML.Equals(new MediaType("text", "html")));
+            Assert.IsTrue(((object)MediaType.TEXT_HTML).Equals(new MediaType("text", "html")));
+        }
+
+        [Test]
+        public void EqualsCaseInsensitive()
+        {
+            Assert.IsTrue(MediaType.TEXT_PLAIN.Equals(new MediaType("Text", "Plain")));
+        }
+
+        [Test]
+        public void EqualsNull()
+        {
+            Assert.IsFalse(MediaType.IMAGE_GIF.Equals(null));
+        }
+
+        [Test]
+        public void EqualsOperator()
+        {
+            Assert.IsTrue(MediaType.TEXT_PLAIN == new MediaType("text", "plain"));
+        }
+
+        [Test]
+        public void NotEqualsOperator()
+        {
+            Assert.IsTrue(MediaType.TEXT_PLAIN != MediaType.TEXT_HTML);
+        }
+
+        [Test]
+        public void GetHashCodeTest()
+        {
+            IDictionary<MediaType, string> dictionary = new Dictionary<MediaType, string>();
+            dictionary.Add(MediaType.TEXT_HTML, "value for text/html");
+            Assert.IsTrue(dictionary.ContainsKey(new MediaType("Text", "Html")));
+        }
+
+        [Test]
+        public void Equatable()
+        {
+            IList<MediaType> list = new List<MediaType>();
+            list.Add(MediaType.APPLICATION_JSON);
+            Assert.IsTrue(list.Contains(new MediaType("application", "json")));
+        }
+
+        [Test]
+        public void ToStringTest()
+        {
+            MediaType mediaType = new MediaType("text", "plain", 0.7);
+            String result = mediaType.ToString();
+            Assert.AreEqual("text/plain;q=0.7", result, "Invalid toString() returned");
+        }
+
+        [Test]
         public void Includes()
         {
             MediaType textPlain = MediaType.TEXT_PLAIN;
@@ -87,24 +142,6 @@ namespace Spring.Http
         }
 
         [Test]
-        public void TestToString()
-        {
-            MediaType mediaType = new MediaType("text", "plain", 0.7);
-            String result = mediaType.ToString();
-            Assert.AreEqual("text/plain;q=0.7", result, "Invalid toString() returned");
-        }
-
-        //[Test](expected= IllegalArgumentException.class)
-        //public void slashInType() {
-        //    new MediaType("text/plain");
-        //}
-
-        //[Test](expected= IllegalArgumentException.class)
-        //public void slashInSubtype() {
-        //    new MediaType("text", "/");
-        //}
-
-        [Test]
         public void GetDefaultQualityValue()
         {
             MediaType mediaType = new MediaType("text", "plain");
@@ -134,74 +171,6 @@ namespace Spring.Http
         {
             MediaType.Parse("audio/");
         }
-
-        //[Test](expected = IllegalArgumentException.class)
-        //public void parseIllegalType() {
-        //    MediaType.parse("audio(/basic");
-        //}
-
-        //[Test](expected = IllegalArgumentException.class)
-        //public void parseIllegalSubtype() {
-        //    MediaType.parse("audio/basic)");
-        //}
-
-        //[Test](expected = IllegalArgumentException.class)
-        //public void parseEmptyParameterAttribute() {
-        //    MediaType.parse("audio/*;=value");
-        //}
-
-        //[Test](expected = IllegalArgumentException.class)
-        //public void parseMediaTypeEmptyParameterValue() {
-        //    MediaType.parseMediaType("audio/*;attr=");
-        //}
-
-        //[Test](expected = IllegalArgumentException.class)
-        //public void parseIllegalParameterAttribute() {
-        //    MediaType.parse("audio/*;attr<=value");
-        //}
-
-        //[Test](expected = IllegalArgumentException.class)
-        //public void parseIllegalParameterValue() {
-        //    MediaType.parse("audio/*;attr=v>alue");
-        //}
-
-        //[Test](expected = IllegalArgumentException.class)
-        //public void parseIllegalQualityFactor() {
-        //    MediaType.parse("audio/basic;q=1.1");
-        //}
-
-        //[Test](expected = IllegalArgumentException.class)
-        //public void parseIllegalCharset() {
-        //    MediaType.parse("text/html; charset=foo-bar");
-        //}
-
-        //[Test]
-        //public void parseQuotedParameterValue() {
-        //    MediaType.parse("audio/*;attr=\"v>alue\"");
-        //}
-
-        //[Test](expected = IllegalArgumentException.class)
-        //public void parseIllegalQuotedParameterValue() {
-        //    MediaType.parse("audio/*;attr=\"");
-        //}
-
-        //[Test]
-        //public void parseCharset() throws Exception {
-        //    String s = "text/html; charset=iso-8859-1";
-        //    MediaType mediaType = MediaType.parse(s);
-        //    Assert.AreEqual("Invalid type", "text", mediaType.getType());
-        //    Assert.AreEqual("Invalid subtype", "html", mediaType.getSubtype());
-        //    Assert.AreEqual("Invalid charset", Charset.forName("ISO-8859-1"), mediaType.getCharSet());
-        //}
-
-        //[Test]
-        //public void parseQuotedCharset() {
-        //    String s = "application/xml;charset=\"utf-8\"";
-        //    MediaType mediaType = MediaType.parse(s);
-        //    Assert.AreEqual("Invalid type", "application", mediaType.getType());
-        //    Assert.AreEqual("Invalid subtype", "xml", mediaType.getSubtype());
-        //    Assert.AreEqual("Invalid charset", Charset.forName("UTF-8"), mediaType.getCharSet());
-        //}
 
         [Test]
         public void ParseURLConnectionMediaType()
@@ -495,14 +464,6 @@ namespace Spring.Http
                 Assert.AreSame(expected[i], result[i], "Invalid media type at " + i);
             }
         }
-
-        //[Test]
-        //public void testWithConversionService() {
-        //    ConversionService conversionService = ConversionServiceFactory.createDefaultConversionService();
-        //    Assert.IsTrue(conversionService.canConvert(String.class, MediaType.class));
-        //    MediaType mediaType = MediaType.parseMediaType("application/xml");
-        //    Assert.AreEqual(mediaType, conversionService.convert("application/xml", MediaType.class));
-        //}
 
         #region Utils
 

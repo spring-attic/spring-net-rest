@@ -199,14 +199,14 @@ namespace Spring.Http.Converters
         /// Returns true if the given media type includes any of the <see cref="P:SupportedMediaTypes">supported media types</see>.
         /// </summary>
         /// <param name="mediaType">
-        /// The media type to write, can be {@code null} if not specified. Typically the value of an 'Accept' header.
+        /// The media type to write, can be null if not specified. Typically the value of an 'Accept' header.
         /// </param>
         /// <returns>
         /// <see langword="true"/> if the supported media types are compatible with the media type, or if the media type is null.
         /// </returns>
         protected bool CanWrite(MediaType mediaType) 
         {
-            if (mediaType == null || mediaType.Equals(MediaType.ALL)) 
+            if (mediaType == null || mediaType == MediaType.ALL) 
             {
 		        return true;
 	        }

@@ -33,9 +33,8 @@ namespace Spring.Http
     /// <a href="http://tools.ietf.org/html/rfc2616#section-3.7">HTTP 1.1, section 3.7</a>
     /// </summary>
     /// <remarks>
-    /// Consists of a <see cref="P:Type"/> and a <see cref="P:SubType"/>. 
-    /// Also has functionality to parse media types from a string using <see cref="M:ParseMediaType(string)"/>, 
-    /// or multiple comma-separated media types using <see cref="M:ParseMediaTypes(string)"/>.
+    /// Consists of a <see cref="P:Type"/> and a <see cref="P:SubType"/>.  
+    /// Also has functionality to parse media types from a string using <see cref="M:Parse(string)"/>.
     /// </remarks>
     /// <author>Arjen Poutsma</author>
     /// <author>Juergen Hoeller</author>
@@ -43,75 +42,75 @@ namespace Spring.Http
 #if !SILVERLIGHT
     [Serializable]
 #endif
-    public class MediaType : IComparable<MediaType> 
+    public class MediaType : IEquatable<MediaType>, IComparable<MediaType> 
     {
         /// <summary>
-        /// Public constant media type that includes all media ranges (i.e. '*/*').
+        /// The media type that includes all media ranges (i.e. '*/*').
         /// </summary>
         public static readonly MediaType ALL = new MediaType("*", "*");
 
         /// <summary>
-        /// Public constant media type for 'application/atom+xml'.
+        /// The media type for 'application/atom+xml'.
         /// </summary>
         public static readonly MediaType APPLICATION_ATOM_XML = new MediaType("application", "atom+xml");
 
         /// <summary>
-        /// Public constant media type for 'application/x-www-form-urlencoded'.
+        /// The media type for 'application/x-www-form-urlencoded'.
         /// </summary>
         public static readonly MediaType APPLICATION_FORM_URLENCODED = new MediaType("application", "x-www-form-urlencoded");
 
         /// <summary>
-        /// Public constant media type for 'application/json'.
+        /// The media type for 'application/json'.
         /// </summary>
         public static readonly MediaType APPLICATION_JSON = new MediaType("application", "json");
 
         /// <summary>
-        /// Public constant media type for 'application/octet-stream'.
+        /// The media type for 'application/octet-stream'.
         /// </summary>
         public static readonly MediaType APPLICATION_OCTET_STREAM = new MediaType("application", "octet-stream");
 
         /// <summary>
-        /// Public constant media type for 'application/xhtml+xml'.
+        /// The media type for 'application/xhtml+xml'.
         /// </summary>
         public static readonly MediaType APPLICATION_XHTML_XML = new MediaType("application", "xhtml+xml");
 
         /// <summary>
-        /// Public constant media type for 'image/gif'.
+        /// The media type for 'image/gif'.
         /// </summary>
         public static readonly MediaType IMAGE_GIF = new MediaType("image", "gif");
 
         /// <summary>
-        /// Public constant media type for 'image/jpeg'.
+        /// The media type for 'image/jpeg'.
         /// </summary>
         public static readonly MediaType IMAGE_JPEG = new MediaType("image", "jpeg");
 
         /// <summary>
-        /// Public constant media type for 'image/png'.
+        /// The media type for 'image/png'.
         /// </summary>
         public static readonly MediaType IMAGE_PNG = new MediaType("image", "png");
 
         /// <summary>
-        /// Public constant media type for 'image/xml'.
+        /// The media type for 'image/xml'.
         /// </summary>
         public static readonly MediaType APPLICATION_XML = new MediaType("application", "xml");
 
         /// <summary>
-        /// Public constant media type for 'multipart/form-data'.
+        /// The media type for 'multipart/form-data'.
         /// </summary>
         public static readonly MediaType MULTIPART_FORM_DATA = new MediaType("multipart", "form-data");
 
         /// <summary>
-        /// Public constant media type for 'text/html'.
+        /// The media type for 'text/html'.
         /// </summary>
         public static readonly MediaType TEXT_HTML = new MediaType("text", "html");
 
         /// <summary>
-        /// Public constant media type for 'text/plain'.
+        /// The media type for 'text/plain'.
         /// </summary>
         public static readonly MediaType TEXT_PLAIN = new MediaType("text", "plain");
 
         /// <summary>
-        /// Public constant media type for 'text/xml'.
+        /// The media type for 'text/xml'.
         /// </summary>
         public static readonly MediaType TEXT_XML = new MediaType("text", "xml");
 
@@ -203,7 +202,7 @@ namespace Spring.Http
         /// <param name="type">The primary type.</param>
         /// <param name="subtype">The subtype.</param>
         public MediaType(string type, string subtype) :
-            this(type, subtype, new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase))
+            this(type, subtype, new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase))
         {
         }
 
@@ -264,88 +263,85 @@ namespace Spring.Http
         {
             AssertUtils.ArgumentHasText(type, "'type' must not be empty");
             AssertUtils.ArgumentHasText(subtype, "'subtype' must not be empty");
-            //checkToken(type);
-            //checkToken(subtype);
+
+            // TODO: check type (http://tools.ietf.org/html/rfc2616#section-2.2)
             this.type = type.ToLower(CultureInfo.InvariantCulture);
+            // TODO: check subtype (http://tools.ietf.org/html/rfc2616#section-2.2)
             this.subtype = subtype.ToLower(CultureInfo.InvariantCulture);
-            this.parameters = new Dictionary<string, string>(parameters, StringComparer.InvariantCultureIgnoreCase);
-            //if (parameters.Count > 0) 
-            //{
-            //    NameValueCollection m = new NameValueCollection(parameters.Count, null, new CaseInsensitiveComparer());
-            //    for (Map.Entry<String, String> entry : parameters.entrySet()) {
-            //        String attribute = entry.getKey();
-            //        String value = entry.getValue();
-            //        checkParameters(attribute, value);
-            //        m.put(attribute, unquote(value));
-            //    }
-            //    this.parameters = Collections.unmodifiableMap(m);
-            //}
-            //else 
-            //{
-            //    this.parameters = Collections.emptyMap();
-            //}
+            // TODO: check parameters (http://tools.ietf.org/html/rfc2616#section-2.2)
+            this.parameters = new Dictionary<string, string>(parameters, StringComparer.OrdinalIgnoreCase);
         }
 
+        #region IEquatable<MediaType> Members
+
         /// <summary>
-        /// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+        /// Indicates whether the current media type is equal to another <see cref="MediaType"/>.
         /// </summary>
-        /// <param name="obj">
-        /// The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>.
-        /// </param>
+        /// <param name="other">A <see cref="MediaType"/> to compare with this media type.</param>
         /// <returns>
-        /// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+        /// <see langword="true"/> if the specified <see cref="MediaType"/> is equal to the current media type; otherwise, <see langword="false"/>.
         /// </returns>
-        public override bool Equals(object obj)
+        public bool Equals(MediaType other)
         {
-            if (this == obj)
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, other))
             {
                 return true;
             }
-            if (obj is MediaType)
+            if (this.type == other.type && this.subtype == other.subtype)
             {
-                MediaType otherMediaType = (MediaType)obj;
-                if (this.type == otherMediaType.type && 
-                    this.subtype == otherMediaType.subtype)
+                if (other.parameters.Count == this.parameters.Count)
                 {
-                    if (otherMediaType.parameters.Count == this.parameters.Count)
+                    foreach (string key in this.parameters.Keys)
                     {
-                        foreach(string key in this.parameters.Keys)
+                        if (!other.parameters.ContainsKey(key) ||
+                            !String.Equals(other.parameters[key], this.parameters[key], StringComparison.OrdinalIgnoreCase))
                         {
-                            if (!otherMediaType.parameters.ContainsKey(key) ||
-                                !String.Equals(otherMediaType.parameters[key], this.parameters[key], StringComparison.OrdinalIgnoreCase))
-                            {
-                                return false;
-                            }
+                            return false;
                         }
-                        return true;
                     }
+                    return true;
                 }
             }
             return false;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Indicates whether the current media type is equal to another <see cref="T:System.Object"/>.
+        /// </summary>
+        /// <param name="obj">An <see cref="T:System.Object"/> to compare with this media type.</param>
+        /// <returns>
+        /// <see langword="true"/> if the specified <see cref="T:System.Object"/> is equal to the current media type; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as MediaType);
         }
 
         /// <summary>
         /// Serves as a hash function for a particular type.
         /// </summary>
         /// <remarks>
-        /// <see cref="M:System.Object.GetHashCode"/> is suitable for use in hashing algorithms and data structures like a hash table.
+        /// This method is suitable for use in hashing algorithms and data structures like a hash table.
         /// </remarks>
         /// <returns>
-        /// A hash code for the current <see cref="T:System.Object"/>.
+        /// A hash code for the current media type.
         /// </returns>
         public override int GetHashCode()
         {
-            int result = this.type.GetHashCode();
-            result = 31 * result + this.subtype.GetHashCode();
-            result = 31 * result + this.parameters.GetHashCode();
-            return result;
+            return this.ToString().ToUpper(CultureInfo.InvariantCulture).GetHashCode();
         }
 
         /// <summary>
-        /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object."/>
+        /// Returns a <see cref="T:System.String"/> that represents the current media type.
         /// </summary>
         /// <returns>
-        /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object."/>.
+        /// A <see cref="T:System.String"/> that represents the current media type.
         /// </returns>
         public override string ToString() 
         {
@@ -363,49 +359,35 @@ namespace Spring.Http
             return builder.ToString();
         }
 
-        // **
-        // * Checks the given token string for illegal characters, as defined in RFC 2616, section 2.2.
-        // * @throws IllegalArgumentException in case of illegal characters
-        // * @see <a href="http://tools.ietf.org/html/rfc2616#section-2.2">HTTP 1.1, section 2.2</a>
-        // */
-        //private void checkToken(String s) {
-        //    for (int i=0; i < s.length(); i++ ) {
-        //        char ch = s.charAt(i);
-        //        if (!TOKEN.get(ch)) {
-        //            throw new IllegalArgumentException("Invalid token character '" + ch + "' in token \"" + s + "\"");
-        //        }
-        //    }
-        //}
+        /// <summary>
+        /// Determines whether two specified media types have the same value.
+        /// </summary>
+        /// <param name="mediaType1">The first media type to compare, or <see langword="null"/>.</param>
+        /// <param name="mediaType2">The second media type to compare, or <see langword="null"/>.</param>
+        /// <returns>
+        /// <see langword="true"/> if values are the same; otherwise, <see langword="false"/>.
+        /// </returns>
+        public static bool operator ==(MediaType mediaType1, MediaType mediaType2)
+        {
+            if (Object.ReferenceEquals(mediaType1, null))
+            {
+                return Object.ReferenceEquals(mediaType2, null);
+            }
+            return mediaType1.Equals(mediaType2);
+        }
 
-        //private void checkParameters(String attribute, String value) {
-        //    Assert.hasLength(attribute, "parameter attribute must not be empty");
-        //    Assert.hasLength(value, "parameter value must not be empty");
-        //    checkToken(attribute);
-        //    if (PARAM_QUALITY_FACTOR.equals(attribute)) {
-        //        value = unquote(value);
-        //        double d = Double.parseDouble(value);
-        //        Assert.isTrue(d >= 0D && d <= 1D,
-        //                "Invalid quality value \"" + value + "\": should be between 0.0 and 1.0");
-        //    }
-        //    else if (PARAM_CHARSET.equals(attribute)) {
-        //        value = unquote(value);
-        //        Charset.forName(value);
-        //    }
-        //    else if (!isQuotedString(value)) {
-        //        checkToken(value);
-        //    }
-        //}
-
-        //private boolean isQuotedString(String s) {
-        //    return s.length() > 1 && s.startsWith("\"") && s.endsWith("\"") ;
-        //}
-
-        //private String unquote(String s) {
-        //    if (s == null) {
-        //        return null;
-        //    }
-        //    return isQuotedString(s) ? s.substring(1, s.length() - 1) : s;
-        //}
+        /// <summary>
+        /// Determines whether two specified media types have different values.
+        /// </summary>
+        /// <param name="mediaType1">The first media type to compare, or <see langword="null"/>.</param>
+        /// <param name="mediaType2">The second media type to compare, or <see langword="null"/>.</param>
+        /// <returns>
+        /// <see langword="true"/> if values are differents; otherwise, <see langword="false"/>.
+        /// </returns>
+        public static bool operator !=(MediaType mediaType1, MediaType mediaType2)
+        {
+            return !(mediaType1 == mediaType2);
+        }
 
         /// <summary>
         /// Return a generic parameter value, given a parameter name.
@@ -543,15 +525,15 @@ namespace Spring.Http
             }
             string[] thisKeys = new string[this.parameters.Keys.Count];
             this.parameters.Keys.CopyTo(thisKeys, 0);
-            Array.Sort(thisKeys, StringComparer.InvariantCultureIgnoreCase);
+            Array.Sort(thisKeys, StringComparer.OrdinalIgnoreCase);
             string[] otherKeys = new string[other.parameters.Keys.Count];
             other.parameters.Keys.CopyTo(otherKeys, 0);
-            Array.Sort(otherKeys, StringComparer.InvariantCultureIgnoreCase);
+            Array.Sort(otherKeys, StringComparer.OrdinalIgnoreCase);
             for (int i = 0; i < this.parameters.Count; i++)
             {
                 string thisKey = thisKeys[i];
                 string otherKey = otherKeys[i];
-                comp = String.Compare(thisKey, otherKey, StringComparison.InvariantCultureIgnoreCase);
+                comp = String.Compare(thisKey, otherKey, StringComparison.OrdinalIgnoreCase);
                 if (comp != 0)
                 {
                     return comp;
@@ -604,7 +586,7 @@ namespace Spring.Http
             string type = fullType.Substring(0, subIndex);
             string subtype = fullType.Substring(subIndex + 1);
 
-            IDictionary<string, string> parameters = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            IDictionary<string, string> parameters = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             if (parts.Length > 1)
             {
                 for (int i = 1; i < parts.Length; i++)
