@@ -333,7 +333,7 @@ namespace Spring.Rest.Client
 
         #endregion
 
-        #region Async (EAP)
+        #region Async
 
         [Test]
         public void GetStringAsync()
@@ -443,7 +443,7 @@ namespace Spring.Rest.Client
             string result = template.GetForObject<string>("users");
             Assert.AreEqual("2", result, "Invalid content");
 
-            template.DeleteAsync("user/2", null);
+            template.DeleteAsync("user/2", (Action<RestOperationCompletedEventArgs<object>>)null);
 
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
@@ -654,7 +654,68 @@ namespace Spring.Rest.Client
 
 #if NET_4_0 || SILVERLIGHT_5
         [Test]
-        public void ExchangeForMessageAsyncTask()
+        public void GetStringTaskAsync()
+        {
+            Assert.AreEqual("2", template.GetForObjectAsync<string>("users").Result);
+
+            template.GetForObjectAsync<string>("users")
+                .ContinueWith(task => 
+                {
+                    Assert.IsFalse(task.IsCanceled, "Invalid response");
+                    Assert.IsFalse(task.IsFaulted, "Invalid response");
+                    Assert.AreEqual("2", task.Result, "Invalid content");
+                })
+                .Wait();
+        }
+
+        [Test]
+        public void GetStringForMessageTaskAsync()
+        {
+            Assert.AreEqual("Bruno Baïa", template.GetForMessageAsync<string>("user/{id}", 1).Result.Body);
+
+            template.GetForMessageAsync<string>("user/{id}", 1)
+                .ContinueWith(task =>
+                {
+                    Assert.IsFalse(task.IsCanceled, "Invalid response");
+                    Assert.IsFalse(task.IsFaulted, "Invalid response");
+                    Assert.AreEqual("Bruno Baïa", task.Result.Body, "Invalid content");
+                    Assert.AreEqual(new MediaType("text", "plain", "utf-8"), task.Result.Headers.ContentType, "Invalid content-type");
+                    Assert.AreEqual(HttpStatusCode.OK, task.Result.StatusCode, "Invalid status code");
+                    Assert.AreEqual("OK", task.Result.StatusDescription, "Invalid status description");
+                })
+                .Wait();
+        }
+
+        [Test]
+        public void PostStringForMessageTaskAsync()
+        {
+            template.PostForMessageAsync<string>("user", "Lisa Baia")
+                .ContinueWith(task =>
+                {
+                    Assert.IsFalse(task.IsCanceled, "Invalid response");
+                    Assert.IsFalse(task.IsFaulted, "Invalid response");
+                    Assert.AreEqual(new Uri(new Uri(uri), "/user/3"), task.Result.Headers.Location, "Invalid location");
+                    Assert.AreEqual(HttpStatusCode.Created, task.Result.StatusCode, "Invalid status code");
+                    Assert.AreEqual("User id '3' created with 'Lisa Baia'", task.Result.StatusDescription, "Invalid status description");
+                    Assert.AreEqual("3", task.Result.Body, "Invalid content");
+                })
+                .Wait();
+        }
+
+        [Test]
+        public void DeleteAsyncWithNoContinuation()
+        {
+            string result = template.GetForObject<string>("users");
+            Assert.AreEqual("2", result, "Invalid content");
+
+            template.DeleteAsync("user/2").Wait();
+
+            result = template.GetForObject<string>("users");
+            Assert.AreEqual("1", result, "Invalid content");
+        }
+
+        [Test]
+        public void ExchangeForMessageTaskAsync()
         {
             template.ExchangeAsync("user/1", HttpMethod.PUT, new HttpEntity("Bruno Baia"), CancellationToken.None)
                 .ContinueWith(task =>
@@ -668,7 +729,7 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        public void ClientErrorAsyncTask()
+        public void ClientErrorTaskAsync()
         {
             template.ExecuteAsync<object>("clienterror", HttpMethod.GET, null, null, CancellationToken.None)
                 .ContinueWith(task =>
@@ -682,7 +743,7 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        public void ServerErrorAsyncTask()
+        public void ServerErrorTaskAsync()
         {
             template.ExecuteAsync<object>("servererror", HttpMethod.GET, null, null, CancellationToken.None)
                 .ContinueWith(task =>
@@ -696,7 +757,7 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        public void CancelAsyncTask()
+        public void CancelTaskAsync()
         {
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
@@ -712,7 +773,7 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        public void UsingInterceptorsAsyncTask()
+        public void UsingInterceptorsTaskAsync()
         {
             NoOpRequestAsyncInterceptor.counter = 0;
             NoOpRequestSyncInterceptor.counter = 0;

@@ -598,7 +598,7 @@ namespace Spring.Rest.Client
 
         #endregion
 
-        #region Asynchronous operations (EAP)
+        #region Asynchronous operations
 
 #if !CF_3_5
         #region GET
@@ -1358,6 +1358,419 @@ namespace Spring.Rest.Client
         #region Asynchronous operations (TPL)
 
 #if NET_4_0 || SILVERLIGHT_5
+        #region GET
+
+        /// <summary>
+        /// Asynchronously retrieve a representation by doing a GET on the specified URL. 
+        /// The response (if any) is converted.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<T> GetForObjectAsync<T>(string url, params object[] uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously retrieve a representation by doing a GET on the specified URL. 
+        /// The response (if any) is converted.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<T> GetForObjectAsync<T>(string url, IDictionary<string, object> uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously retrieve a representation by doing a GET on the specified URL. 
+        /// The response (if any) is converted.
+        /// </summary>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<T> GetForObjectAsync<T>(Uri url) where T : class;
+
+        /// <summary>
+        /// Asynchronously retrieve an entity by doing a GET on the specified URL. 
+        /// The response is converted and stored in an <see cref="HttpResponseMessage{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage<T>> GetForMessageAsync<T>(string url, params object[] uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously retrieve an entity by doing a GET on the specified URL. 
+        /// The response is converted and stored in an <see cref="HttpResponseMessage{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage<T>> GetForMessageAsync<T>(string url, IDictionary<string, object> uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously retrieve an entity by doing a GET on the specified URL. 
+        /// The response is converted and stored in an <see cref="HttpResponseMessage{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage<T>> GetForMessageAsync<T>(Uri url) where T : class;
+
+        #endregion
+
+        #region HEAD
+
+        /// <summary>
+        /// Asynchronously retrieve all headers of the resource specified by the URI template.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpHeaders> HeadForHeadersAsync(string url, params object[] uriVariables);
+
+        /// <summary>
+        /// Asynchronously retrieve all headers of the resource specified by the URI template.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpHeaders> HeadForHeadersAsync(string url, IDictionary<string, object> uriVariables);
+
+        /// <summary>
+        /// Asynchronously retrieve all headers of the resource specified by the URI template.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpHeaders> HeadForHeadersAsync(Uri url);
+
+        #endregion
+
+        #region POST
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the value of the 'Location' header. 
+        /// This header typically indicates where the new resource is stored.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </para>
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<Uri> PostForLocationAsync(string url, object request, params object[] uriVariables);
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the value of the 'Location' header. 
+        /// This header typically indicates where the new resource is stored.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </para>
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<Uri> PostForLocationAsync(string url, object request, IDictionary<string, object> uriVariables);
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the value of the 'Location' header. 
+        /// This header typically indicates where the new resource is stored.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<Uri> PostForLocationAsync(Uri url, object request);
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the representation found in the response. 
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </para>
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<T> PostForObjectAsync<T>(string url, object request, params object[] uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the representation found in the response. 
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </para>
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<T> PostForObjectAsync<T>(string url, object request, IDictionary<string, object> uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the representation found in the response. 
+        /// </summary>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<T> PostForObjectAsync<T>(Uri url, object request) where T : class;
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the response as <see cref="HttpResponseMessage{T}"/>. 
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </para>
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage<T>> PostForMessageAsync<T>(string url, object request, params object[] uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the response as <see cref="HttpResponseMessage{T}"/>. 
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </para>
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage<T>> PostForMessageAsync<T>(string url, object request, IDictionary<string, object> uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the response as <see cref="HttpResponseMessage{T}"/>. 
+        /// </summary>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage<T>> PostForMessageAsync<T>(Uri url, object request) where T : class;
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the response with no entity as <see cref="HttpResponseMessage"/>. 
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </para>
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage> PostForMessageAsync(string url, object request, params object[] uriVariables);
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the response with no entity as <see cref="HttpResponseMessage"/>. 
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </para>
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage> PostForMessageAsync(string url, object request, IDictionary<string, object> uriVariables);
+
+        /// <summary>
+        /// Asynchronously create a new resource by POSTing the given object to the URI template, 
+        /// and returns the response with no entity as <see cref="HttpResponseMessage"/>. 
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage> PostForMessageAsync(Uri url, object request);
+
+        #endregion
+
+        #region PUT
+
+        /// <summary>
+        /// Asynchronously create or update a resource by PUTting the given object to the URI.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </para>
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<object> PutAsync(string url, object request, params object[] uriVariables);
+
+        /// <summary>
+        /// Asynchronously create or update a resource by PUTting the given object to the URI.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </para>
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<object> PutAsync(string url, object request, IDictionary<string, object> uriVariables);
+
+        /// <summary>
+        /// Asynchronously create or update a resource by PUTting the given object to the URI.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="request">
+        /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
+        /// </param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<object> PutAsync(Uri url, object request);
+
+        #endregion
+
+        #region DELETE
+
+        /// <summary>
+        /// Asynchronously delete the resources at the specified URI.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<object> DeleteAsync(string url, params object[] uriVariables);
+
+        /// <summary>
+        /// Asynchronously delete the resources at the specified URI.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<object> DeleteAsync(string url, IDictionary<string, object> uriVariables);
+
+        /// <summary>
+        /// Asynchronously delete the resources at the specified URI.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<object> DeleteAsync(Uri url);
+
+        #endregion
+
+        #region OPTIONS
+
+        /// <summary>
+        /// Asynchronously return the value of the Allow header for the given URI.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<IList<HttpMethod>> OptionsForAllowAsync(string url, params object[] uriVariables);
+
+        /// <summary>
+        /// Asynchronously return the value of the Allow header for the given URI.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<IList<HttpMethod>> OptionsForAllowAsync(string url, IDictionary<string, object> uriVariables);
+
+        /// <summary>
+        /// Asynchronously return the value of the Allow header for the given URI.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<IList<HttpMethod>> OptionsForAllowAsync(Uri url);
+
+        #endregion
+
+
         #region Exchange
 
         /// <summary>
@@ -1391,8 +1804,8 @@ namespace Spring.Rest.Client
         /// <param name="requestEntity">
         /// The HTTP entity (headers and/or body) to write to the request, may be <see langword="null"/>.
         /// </param>
-        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
         Task<HttpResponseMessage<T>> ExchangeAsync<T>(string url, HttpMethod method, HttpEntity requestEntity, CancellationToken cancellationToken, IDictionary<string, object> uriVariables) where T : class;
 
@@ -1439,11 +1852,9 @@ namespace Spring.Rest.Client
         /// <param name="requestEntity">
         /// The HTTP entity (headers and/or body) to write to the request, may be <see langword="null"/>.
         /// </param>
-        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
-        /// <returns>
-        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
-        /// </returns>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
         Task<HttpResponseMessage> ExchangeAsync(string url, HttpMethod method, HttpEntity requestEntity, CancellationToken cancellationToken, IDictionary<string, object> uriVariables);
 
         /// <summary>
