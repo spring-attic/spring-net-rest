@@ -24,6 +24,9 @@ using System.Net;
 using System.IO;
 using System.Text;
 using System.Threading;
+#if NET_4_0 || SILVERLIGHT_5
+using System.Threading.Tasks;
+#endif
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -330,7 +333,7 @@ namespace Spring.Rest.Client
 
         #endregion
 
-        #region Async
+        #region Async (EAP)
 
         [Test]
         public void GetStringAsync()
@@ -557,7 +560,7 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        public void Cancel()
+        public void CancelAsync()
         {
             ManualResetEvent manualEvent = new ManualResetEvent(false);
             Exception exception = null;
@@ -644,6 +647,116 @@ namespace Spring.Rest.Client
             Assert.AreEqual(0, interceptor2.HandleRequestCounter);
             Assert.AreEqual(0, interceptor2.HandleResponseCounter);
         }
+
+        #endregion
+
+        #region Async (TPL)
+
+#if NET_4_0 || SILVERLIGHT_5
+        [Test]
+        public void ExchangeForMessageAsyncTask()
+        {
+            template.ExchangeAsync("user/1", HttpMethod.PUT, new HttpEntity("Bruno Baia"), CancellationToken.None)
+                .ContinueWith(task =>
+                {
+                    Assert.IsFalse(task.IsCanceled, "Invalid response");
+                    Assert.IsFalse(task.IsFaulted, "Invalid response");
+                    Assert.AreEqual(HttpStatusCode.OK, task.Result.StatusCode, "Invalid status code");
+                    Assert.AreEqual("User id '1' updated with 'Bruno Baia'", task.Result.StatusDescription, "Invalid status description");
+                })
+                .Wait();
+        }
+
+        [Test]
+        public void ClientErrorAsyncTask()
+        {
+            template.ExecuteAsync<object>("clienterror", HttpMethod.GET, null, null, CancellationToken.None)
+                .ContinueWith(task =>
+                {
+                    Assert.IsFalse(task.IsCanceled, "Invalid response");
+                    Assert.IsTrue(task.IsFaulted, "Invalid response");
+                    Assert.IsNotNull(task.Exception, "Invalid response");
+                    AssertAggregateException(task.Exception, typeof(HttpClientErrorException), "The server returned 'Not Found' with the status code 404 - NotFound.");
+                })
+                .Wait();
+        }
+
+        [Test]
+        public void ServerErrorAsyncTask()
+        {
+            template.ExecuteAsync<object>("servererror", HttpMethod.GET, null, null, CancellationToken.None)
+                .ContinueWith(task =>
+                {
+                    Assert.IsFalse(task.IsCanceled, "Invalid response");
+                    Assert.IsTrue(task.IsFaulted, "Invalid response");
+                    Assert.IsNotNull(task.Exception, "Invalid response");
+                    AssertAggregateException(task.Exception, typeof(HttpServerErrorException), "The server returned 'Internal Server Error' with the status code 500 - InternalServerError.");
+                })
+                .Wait();
+        }
+
+        [Test]
+        public void CancelAsyncTask()
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+            Task exchangeTask = template.ExchangeAsync("sleep/2", HttpMethod.GET, null, cancellationTokenSource.Token)
+                .ContinueWith(task =>
+                {
+                    Assert.IsTrue(task.IsCanceled, "Invalid response");
+                });
+
+            cancellationTokenSource.Cancel();
+
+            exchangeTask.Wait();
+        }
+
+        [Test]
+        public void UsingInterceptorsAsyncTask()
+        {
+            NoOpRequestAsyncInterceptor.counter = 0;
+            NoOpRequestSyncInterceptor.counter = 0;
+            NoOpRequestBeforeInterceptor.counter = 0;
+            NoOpRequestAsyncInterceptor interceptor1 = new NoOpRequestAsyncInterceptor();
+            NoOpRequestSyncInterceptor interceptor2 = new NoOpRequestSyncInterceptor();
+            NoOpRequestBeforeInterceptor interceptor3 = new NoOpRequestBeforeInterceptor();
+            NoOpRequestAsyncInterceptor interceptor4 = new NoOpRequestAsyncInterceptor();
+            template.RequestInterceptors.Add(interceptor1);
+            template.RequestInterceptors.Add(interceptor2);
+            template.RequestInterceptors.Add(interceptor3);
+            template.RequestInterceptors.Add(interceptor4);
+
+            template.ExchangeAsync<string>("user", HttpMethod.POST, new HttpEntity("Lisa Baia"), CancellationToken.None)
+                .ContinueWith(task =>
+                {
+                    Assert.IsFalse(task.IsCanceled, "Invalid response");
+                    Assert.IsFalse(task.IsFaulted, "Invalid response");
+                    Assert.AreEqual("3", task.Result.Body, "Invalid content");
+                })
+                .Wait();
+
+            Assert.AreEqual(1, interceptor1.HandleRequestCounter);
+            Assert.AreEqual(2, interceptor4.HandleRequestCounter);
+            Assert.AreEqual(3, interceptor4.HandleResponseCounter);
+            Assert.AreEqual(4, interceptor1.HandleResponseCounter);
+            Assert.AreEqual(1, interceptor3.HandleCounter);
+            Assert.AreEqual(0, interceptor2.HandleRequestCounter);
+            Assert.AreEqual(0, interceptor2.HandleResponseCounter);
+        }
+
+        private void AssertAggregateException(AggregateException ae, Type expectedException, string expectedMessage)
+        {
+            ae.Handle(ex =>
+            {
+                if (expectedException.Equals(ex.GetType()))
+                {
+                    Assert.AreEqual(expectedMessage, ex.Message);
+                    return true;
+                }
+                return false;
+            });
+        }
+#endif
 
         #endregion
 

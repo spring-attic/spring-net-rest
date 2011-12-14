@@ -20,6 +20,10 @@
 
 using System;
 using System.Collections.Generic;
+#if NET_4_0 || SILVERLIGHT_5
+using System.Threading;
+using System.Threading.Tasks;
+#endif
 
 using Spring.Http;
 
@@ -594,7 +598,7 @@ namespace Spring.Rest.Client
 
         #endregion
 
-        #region Asynchronous operations
+        #region Asynchronous operations (EAP)
 
 #if !CF_3_5
         #region GET
@@ -1345,6 +1349,166 @@ namespace Spring.Rest.Client
         /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
         /// </returns>
         RestOperationCanceler ExecuteAsync<T>(Uri url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class;
+
+        #endregion
+#endif
+
+        #endregion
+
+        #region Asynchronous operations (TPL)
+
+#if NET_4_0 || SILVERLIGHT_5
+        #region Exchange
+
+        /// <summary>
+        /// Asynchronously execute the HTTP method to the given URI template, writing the given request message to the request, 
+        /// and returns the response as <see cref="HttpResponseMessage{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The HTTP method (GET, POST, etc.)</param>
+        /// <param name="requestEntity">
+        /// The HTTP entity (headers and/or body) to write to the request, may be <see langword="null"/>.
+        /// </param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage<T>> ExchangeAsync<T>(string url, HttpMethod method, HttpEntity requestEntity, CancellationToken cancellationToken, params object[] uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously execute the HTTP method to the given URI template, writing the given request message to the request, 
+        /// and returns the response as <see cref="HttpResponseMessage{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The HTTP method (GET, POST, etc.)</param>
+        /// <param name="requestEntity">
+        /// The HTTP entity (headers and/or body) to write to the request, may be <see langword="null"/>.
+        /// </param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage<T>> ExchangeAsync<T>(string url, HttpMethod method, HttpEntity requestEntity, CancellationToken cancellationToken, IDictionary<string, object> uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously execute the HTTP method to the given URI template, writing the given request message to the request, 
+        /// and returns the response as <see cref="HttpResponseMessage{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The HTTP method (GET, POST, etc.)</param>
+        /// <param name="requestEntity">
+        /// The HTTP entity (headers and/or body) to write to the request, may be <see langword="null"/>.
+        /// </param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage<T>> ExchangeAsync<T>(Uri url, HttpMethod method, HttpEntity requestEntity, CancellationToken cancellationToken) where T : class;
+
+        /// <summary>
+        /// Asynchronously execute the HTTP method to the given URI template, writing the given request message to the request, 
+        /// and returns the response with no entity as <see cref="HttpResponseMessage"/>.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The HTTP method (GET, POST, etc.)</param>
+        /// <param name="requestEntity">
+        /// The HTTP entity (headers and/or body) to write to the request, may be <see langword="null"/>.
+        /// </param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage> ExchangeAsync(string url, HttpMethod method, HttpEntity requestEntity, CancellationToken cancellationToken, params object[] uriVariables);
+
+        /// <summary>
+        /// Asynchronously execute the HTTP method to the given URI template, writing the given request message to the request, 
+        /// and returns the response with no entity as <see cref="HttpResponseMessage"/>.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </remarks>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The HTTP method (GET, POST, etc.)</param>
+        /// <param name="requestEntity">
+        /// The HTTP entity (headers and/or body) to write to the request, may be <see langword="null"/>.
+        /// </param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <returns>
+        /// A <see cref="RestOperationCanceler"/> instance that allows to cancel the asynchronous operation.
+        /// </returns>
+        Task<HttpResponseMessage> ExchangeAsync(string url, HttpMethod method, HttpEntity requestEntity, CancellationToken cancellationToken, IDictionary<string, object> uriVariables);
+
+        /// <summary>
+        /// Asynchronously execute the HTTP method to the given URI template, writing the given request message to the request, 
+        /// and returns the response with no entity as <see cref="HttpResponseMessage"/>.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The HTTP method (GET, POST, etc.)</param>
+        /// <param name="requestEntity">
+        /// The HTTP entity (headers and/or body) to write to the request, may be <see langword="null"/>.
+        /// </param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<HttpResponseMessage> ExchangeAsync(Uri url, HttpMethod method, HttpEntity requestEntity, CancellationToken cancellationToken);
+
+        #endregion
+
+        #region General execution
+
+        /// <summary>
+        /// Asynchronously execute the HTTP method to the given URI template, preparing the request with the 
+        /// <see cref="IRequestCallback"/>, and reading the response with an <see cref="IResponseExtractor{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given URI variables, if any.
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The HTTP method (GET, POST, etc.)</param>
+        /// <param name="requestCallback">Object that prepares the request.</param>
+        /// <param name="responseExtractor">Object that extracts the return value from the response.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <param name="uriVariables">The variables to expand the template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<T> ExecuteAsync<T>(string url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, CancellationToken cancellationToken, params object[] uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously execute the HTTP method to the given URI template, preparing the request with the 
+        /// <see cref="IRequestCallback"/>, and reading the response with an <see cref="IResponseExtractor{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// URI Template variables are expanded using the given dictionary.
+        /// </remarks>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The HTTP method (GET, POST, etc.)</param>
+        /// <param name="requestCallback">Object that prepares the request.</param>
+        /// <param name="responseExtractor">Object that extracts the return value from the response.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<T> ExecuteAsync<T>(string url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, CancellationToken cancellationToken, IDictionary<string, object> uriVariables) where T : class;
+
+        /// <summary>
+        /// Asynchronously execute the HTTP method to the given URI template, preparing the request with the 
+        /// <see cref="IRequestCallback"/>, and reading the response with an <see cref="IResponseExtractor{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the response value.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The HTTP method (GET, POST, etc.)</param>
+        /// <param name="requestCallback">Object that prepares the request.</param>
+        /// <param name="responseExtractor">Object that extracts the return value from the response.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> that will be assigned to the task.</param>
+        /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
+        Task<T> ExecuteAsync<T>(Uri url, HttpMethod method, IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor, CancellationToken cancellationToken) where T : class;
 
         #endregion
 #endif
