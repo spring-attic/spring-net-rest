@@ -452,6 +452,42 @@ namespace Spring.Rest.Client
         }
 
         [Test]
+        [ExpectedException(typeof(RestClientException),
+            ExpectedMessage = "Could not write request: no suitable IHttpMessageConverter found for request type [System.Int32]")]
+        public void ExceptionBeforeAsync()
+        {
+            // An exception occurs during request preparation, before async calls.
+            ManualResetEvent manualEvent = new ManualResetEvent(false);
+            Exception exception = null;
+
+            template.ExchangeAsync("user/1", HttpMethod.PUT, new HttpEntity(1),
+                delegate(RestOperationCompletedEventArgs<HttpResponseMessage> args)
+                {
+                    try
+                    {
+                        Assert.IsFalse(args.Cancelled, "Invalid response");
+
+                        Assert.IsNotNull(args.Error, "Invalid response");
+                        exception = args.Error;
+                    }
+                    catch (Exception ex)
+                    {
+                        exception = ex;
+                    }
+                    finally
+                    {
+                        manualEvent.Set();
+                    }
+                });
+
+            manualEvent.WaitOne();
+            if (exception != null)
+            {
+                throw exception;
+            }
+        }
+
+        [Test]
         public void ExchangeForMessageAsync()
         {
             ManualResetEvent manualEvent = new ManualResetEvent(false);
@@ -712,6 +748,21 @@ namespace Spring.Rest.Client
 
             result = template.GetForObject<string>("users");
             Assert.AreEqual("1", result, "Invalid content");
+        }
+
+        [Test]
+        public void ExceptionBeforeTaskAsync()
+        {
+            // An exception occurs during request preparation, before async calls.
+            template.ExchangeAsync<object>("user/1", HttpMethod.PUT, new HttpEntity(1), CancellationToken.None)
+                .ContinueWith(task =>
+                {
+                    Assert.IsFalse(task.IsCanceled, "Invalid response");
+                    Assert.IsTrue(task.IsFaulted, "Invalid response");
+                    Assert.IsNotNull(task.Exception, "Invalid response");
+                    AssertAggregateException(task.Exception, typeof(RestClientException), "Could not write request: no suitable IHttpMessageConverter found for request type [System.Int32]");
+                })
+                .Wait();
         }
 
         [Test]

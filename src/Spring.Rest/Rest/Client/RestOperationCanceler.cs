@@ -31,7 +31,15 @@ namespace Spring.Rest.Client
     /// </summary>
     public class RestOperationCanceler
     {
+        private Uri uri;
+        private HttpMethod method;
         private IClientHttpRequest request;
+
+        internal RestOperationCanceler(Uri uri, HttpMethod method)
+        {
+            this.uri = uri;
+            this.method = method;
+        }
 
         internal RestOperationCanceler(IClientHttpRequest request)
         {
@@ -45,7 +53,7 @@ namespace Spring.Rest.Client
         {
             get
             {
-                return this.request.Method;
+                return this.request != null ? this.request.Method : this.method;
             }
         }
 
@@ -56,7 +64,7 @@ namespace Spring.Rest.Client
         {
             get
             {
-                return this.request.Uri;
+                return this.request != null ? this.request.Uri : this.uri;
             }
         }
 
@@ -65,7 +73,10 @@ namespace Spring.Rest.Client
         /// </summary>
         public void Cancel()
         {
-            this.request.CancelAsync();
+            if (this.request != null)
+            {
+                this.request.CancelAsync();
+            }
         }
     }
 }

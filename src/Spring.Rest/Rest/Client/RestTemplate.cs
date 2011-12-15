@@ -2730,18 +2730,30 @@ namespace Spring.Rest.Client
             IRequestCallback requestCallback, IResponseExtractor<T> responseExtractor,
             Action<RestOperationCompletedEventArgs<T>> methodCompleted) where T : class
         {
-            IClientHttpRequest request = this.GetClientHttpRequestFactory().CreateRequest(uri, method);
-
-            RestAsyncOperationState<T> state = new RestAsyncOperationState<T>(uri, method, responseExtractor, this._errorHandler, methodCompleted);
-
-            if (requestCallback != null)
+            try
             {
-                requestCallback.DoWithRequest(request);
+                IClientHttpRequest request = this.GetClientHttpRequestFactory().CreateRequest(uri, method);
+
+                RestAsyncOperationState<T> state = new RestAsyncOperationState<T>(uri, method, responseExtractor, this._errorHandler, methodCompleted);
+
+                if (requestCallback != null)
+                {
+                    requestCallback.DoWithRequest(request);
+                }
+
+                request.ExecuteAsync(state, ResponseReceivedCallback<T>);
+
+                return new RestOperationCanceler(request);
             }
-
-            request.ExecuteAsync(state, ResponseReceivedCallback<T>);
-
-            return new RestOperationCanceler(request);
+            // An exception occurs before becoming async
+            catch (Exception ex)
+            {
+                if (methodCompleted != null)
+                {
+                    methodCompleted(new RestOperationCompletedEventArgs<T>(null, ex, false, null));
+                }
+                return new RestOperationCanceler(uri, method);
+            }
         }
 
         private static void ResponseReceivedCallback<T>(ClientHttpRequestCompletedEventArgs responseReceived) where T : class
