@@ -153,6 +153,7 @@ namespace Spring.Rest.Client
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
+            ExpectHasMessageBody(responseHeaders);
             Expect.Call<bool>(converter.CanRead(typeof(string), textPlain)).Return(true);
             String expected = "Hello World";
             Expect.Call<string>(converter.Read<string>(response)).Return(expected);
@@ -183,11 +184,40 @@ namespace Spring.Rest.Client
             MediaType contentType = new MediaType("bar", "baz");
             responseHeaders.ContentType = contentType;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
+            ExpectHasMessageBody(responseHeaders);
             Expect.Call<bool>(converter.CanRead(typeof(string), contentType)).Return(false);
 
             mocks.ReplayAll();
 
             template.GetForObject<string>("http://example.com/{p}", "resource");
+        }
+
+        [Test]
+        public void GetNoContentType()
+        {
+            Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);
+            MediaType applicationOctetStream = new MediaType("application", "octet-stream");
+            IList<MediaType> mediaTypes = new List<MediaType>(1);
+            mediaTypes.Add(applicationOctetStream);
+            Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET)).Return(request);
+            HttpHeaders requestHeaders = new HttpHeaders();
+            Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
+            ExpectGetResponse();
+            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            HttpHeaders responseHeaders = new HttpHeaders();
+            // No content-type
+            Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
+            ExpectHasMessageBody(responseHeaders);
+            Expect.Call<bool>(converter.CanRead(typeof(string), applicationOctetStream)).Return(true);
+            String expected = "Hello World";
+            Expect.Call<string>(converter.Read<string>(response)).Return(expected);
+
+            mocks.ReplayAll();
+
+            string result = template.GetForObject<string>("http://example.com");
+            Assert.AreEqual(expected, result, "Invalid GET result");
+            Assert.AreEqual(applicationOctetStream.ToString(), requestHeaders.GetSingleValue("Accept"), "Invalid Accept header");
         }
 
         [Test]
@@ -225,6 +255,7 @@ namespace Spring.Rest.Client
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
+            ExpectHasMessageBody(responseHeaders);
             Expect.Call<bool>(converter.CanRead(typeof(string), textPlain)).Return(true);
             String expected = "Hello World";
             Expect.Call<string>(converter.Read<string>(response)).Return(expected);
@@ -390,6 +421,7 @@ namespace Spring.Rest.Client
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
+            ExpectHasMessageBody(responseHeaders);
             Version expected = new Version(1, 0);
             Expect.Call<bool>(converter.CanRead(typeof(Version), textPlain)).Return(true);
             Expect.Call<Version>(converter.Read<Version>(response)).Return(expected);
@@ -420,6 +452,7 @@ namespace Spring.Rest.Client
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
+            ExpectHasMessageBody(responseHeaders);
             Version expected = new Version(1, 0);
             Expect.Call<bool>(converter.CanRead(typeof(Version), textPlain)).Return(true);
             Expect.Call<Version>(converter.Read<Version>(response)).Return(expected);
@@ -475,6 +508,7 @@ namespace Spring.Rest.Client
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
+            ExpectHasMessageBody(responseHeaders);
             Expect.Call<bool>(converter.CanRead(typeof(Version), textPlain)).Return(true);
             Expect.Call<Version>(converter.Read<Version>(response)).Return(null);
 
@@ -503,6 +537,7 @@ namespace Spring.Rest.Client
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
+            ExpectHasMessageBody(responseHeaders);
             Expect.Call<bool>(converter.CanRead(typeof(Version), textPlain)).Return(true);
             Expect.Call<Version>(converter.Read<Version>(response)).Return(null);
             Expect.Call<HttpStatusCode>(response.StatusCode).Return(HttpStatusCode.OK);
@@ -582,28 +617,6 @@ namespace Spring.Rest.Client
             Assert.IsTrue(result.Contains(HttpMethod.POST), "Invalid OPTIONS result");
         }
 
-        //[Test]
-        //public void ioException() {
-        //    Expect.Call(converter.canRead(String.class, null)).andReturn(true);
-        //    MediaType mediaType = new MediaType("foo", "bar");
-        //    Expect.Call(converter.getSupportedMediaTypes()).andReturn(Collections.singletonList(mediaType));
-        //    Expect.Call(requestFactory.createRequest(new URI("http://example.com/resource"), HttpMethod.GET)).andReturn(request);
-        //    Expect.Call(request.getHeaders()).andReturn(new HttpHeaders());
-        //    Expect.Call(request.execute()).andThrow(new IOException());
-
-        //    mocks.ReplayAll();
-
-        //    try {
-        //        template.getForObject("http://example.com/resource", String.class);
-        //        fail("RestClientException expected");
-        //    }
-        //    catch (ResourceAccessException ex) {
-        //        // expected
-        //    }
-
-        //    mocks.ReplayAll();
-        //}
-
         [Test]
         public void Exchange() 
         {
@@ -623,6 +636,7 @@ namespace Spring.Rest.Client
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
+            ExpectHasMessageBody(responseHeaders);
             Version expected = new Version(1, 0);
             Expect.Call<bool>(converter.CanRead(typeof(Version), textPlain)).Return(true);
             Expect.Call<Version>(converter.Read<Version>(response)).Return(expected);
@@ -656,6 +670,12 @@ namespace Spring.Rest.Client
             }
             #endregion
             Expect.Call(response.Dispose);
+        }
+
+        private void ExpectHasMessageBody(HttpHeaders responseHeaders)
+        {
+            responseHeaders.ContentLength = 1;
+            Expect.Call<HttpStatusCode>(response.StatusCode).Return(HttpStatusCode.OK).Repeat.Twice();
         }
 
         #endregion

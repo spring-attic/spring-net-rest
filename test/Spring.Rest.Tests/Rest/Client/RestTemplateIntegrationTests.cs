@@ -127,11 +127,32 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        [ExpectedException(typeof(RestClientException),
-            ExpectedMessage = "Could not extract response: no Content-Type found")]
         public void GetStringNoResponse()
         {
-            string result = template.GetForObject<string>("/nothing");
+            string result = template.GetForObject<string>("nothing");
+            Assert.IsNull(result);
+        }
+ 	 	 		
+        [Test]
+        public void GetNoContent() 
+        {
+            string result = template.GetForObject<string>("status/nocontent");
+            Assert.IsNull(result, "Invalid content");
+ 	 	 		                
+            HttpResponseMessage<string> response = template.GetForMessage<string>("status/nocontent");
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode, "Invalid response code");
+            Assert.IsNull(response.Body, "Invalid content");
+        }
+
+        [Test]
+        public void GetNoModified()
+        {
+            string result = template.GetForObject<string>("status/notmodified");
+            Assert.IsNull(result, "Invalid content");
+
+            HttpResponseMessage<string> response = template.GetForMessage<string>("status/notmodified");
+            Assert.AreEqual(HttpStatusCode.NotModified, response.StatusCode, "Invalid response code");
+            Assert.IsNull(response.Body, "Invalid content");
         }
 
         [Test]
@@ -272,7 +293,7 @@ namespace Spring.Rest.Client
         {
             try
             {
-                template.Execute<object>("clienterror", HttpMethod.GET, null, null);
+                template.Execute<object>("status/notfound", HttpMethod.GET, null, null);
                 Assert.Fail("RestTemplate should throw an exception");
             }
             catch (Exception ex)
@@ -293,7 +314,7 @@ namespace Spring.Rest.Client
         {
             try
             {
-                template.Execute<object>("servererror", HttpMethod.GET, null, null);
+                template.Execute<object>("status/server", HttpMethod.GET, null, null);
                 Assert.Fail("RestTemplate should throw an exception");
             }
             catch (Exception ex)
@@ -528,7 +549,7 @@ namespace Spring.Rest.Client
             ManualResetEvent manualEvent = new ManualResetEvent(false);
             Exception exception = null;
 
-            template.ExecuteAsync("clienterror", HttpMethod.GET, null, null, 
+            template.ExecuteAsync("status/notfound", HttpMethod.GET, null, null, 
                 delegate(RestOperationCompletedEventArgs<object> args)
                 {
                     try
@@ -561,7 +582,7 @@ namespace Spring.Rest.Client
             ManualResetEvent manualEvent = new ManualResetEvent(false);
             Exception exception = null;
 
-            template.ExecuteAsync("servererror", HttpMethod.GET, null, null,
+            template.ExecuteAsync("status/server", HttpMethod.GET, null, null,
                 delegate(RestOperationCompletedEventArgs<object> args)
                 {
                     try
@@ -782,7 +803,7 @@ namespace Spring.Rest.Client
         [Test]
         public void ClientErrorTaskAsync()
         {
-            template.ExecuteAsync<object>("clienterror", HttpMethod.GET, null, null, CancellationToken.None)
+            template.ExecuteAsync<object>("status/notfound", HttpMethod.GET, null, null, CancellationToken.None)
                 .ContinueWith(task =>
                 {
                     Assert.IsFalse(task.IsCanceled, "Invalid response");
@@ -796,7 +817,7 @@ namespace Spring.Rest.Client
         [Test]
         public void ServerErrorTaskAsync()
         {
-            template.ExecuteAsync<object>("servererror", HttpMethod.GET, null, null, CancellationToken.None)
+            template.ExecuteAsync<object>("status/server", HttpMethod.GET, null, null, CancellationToken.None)
                 .ContinueWith(task =>
                 {
                     Assert.IsFalse(task.IsCanceled, "Invalid response");
@@ -935,17 +956,40 @@ namespace Spring.Rest.Client
             }
 
             [OperationContract]
-            [WebGet(UriTemplate = "clienterror")]
-            public void ClientError()
+            [WebGet(UriTemplate = "status/notfound")]
+            public void StatusNotFound()
             {
                 WebOperationContext.Current.OutgoingResponse.SetStatusAsNotFound();
             }
 
             [OperationContract]
-            [WebGet(UriTemplate = "servererror")]
-            public void ServerError()
+            [WebGet(UriTemplate = "status/server")]
+            public void StatusServer()
             {
                 WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.InternalServerError;
+            }
+
+            [OperationContract]
+            [WebGet(UriTemplate = "status/nocontent")]
+            public void StatusNoContent()
+            {
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.NoContent;
+            }
+
+            [OperationContract]
+            [WebGet(UriTemplate = "status/notmodified")]
+            public void StatusNotModified()
+            {
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.NotModified;
+            }
+
+            [OperationContract]
+            [WebGet(UriTemplate = "nothing")]
+            public Stream GetNothing()
+            {
+                WebOperationContext context = WebOperationContext.Current;
+                
+                return CreateTextResponse(context, string.Empty);
             }
 
             [OperationContract]
@@ -984,13 +1028,6 @@ namespace Spring.Rest.Client
                 WebOperationContext context = WebOperationContext.Current;
 
                 return CreateTextResponse(context, users.Count.ToString());
-            }
-
-            [OperationContract]
-            [WebGet(UriTemplate = "nothing")]
-            public void GetNothing()
-            {
-                WebOperationContext.Current.OutgoingResponse.SuppressEntityBody = true;
             }
 
             [OperationContract]

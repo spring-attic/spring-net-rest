@@ -19,6 +19,7 @@
 #endregion
 
 using System;
+using System.Net;
 using System.Collections.Generic;
 
 using Spring.Http;
@@ -60,10 +61,23 @@ namespace Spring.Rest.Client.Support
         /// <param name="response">The active HTTP request.</param>
         public T ExtractData(IClientHttpResponse response)
         {
+            if (!this.HasMessageBody(response)) 
+            {
+ 	 	 	    return null;
+ 	 	 	}
             MediaType mediaType = response.Headers.ContentType;
             if (mediaType == null)
             {
-                throw new RestClientException("Could not extract response: no Content-Type found");
+                #region Instrumentation
+#if !SILVERLIGHT && !CF_3_5
+                if (LOG.IsWarnEnabled)
+                {
+                    LOG.Warn("No Content-Type header found, defaulting to 'application/octet-stream'");
+                }
+#endif
+                #endregion
+
+                mediaType = MediaType.APPLICATION_OCTET_STREAM;
             }
             foreach(IHttpMessageConverter messageConverter in messageConverters) 
             {
@@ -86,6 +100,24 @@ namespace Spring.Rest.Client.Support
             throw new RestClientException(String.Format(
                 "Could not extract response: no suitable HttpMessageConverter found for response type [{0}] and content type [{1}]", 
                 typeof(T).FullName, mediaType));
+        }
+
+        /// <summary>
+        /// Indicates whether or not the given response has a message body.
+        /// </summary>
+        /// <remarks>
+        /// Default implementation returns false for a response status of 204 or 304, or a 'Content-Length' of 0.
+        /// </remarks>
+        /// <param name="response">The response to check for a message body.</param>
+        /// <returns><see langword="true"/> if the response has a body; otherwise <see langword="false"/>.</returns>
+        protected virtual bool HasMessageBody(IClientHttpResponse response) 
+        {
+            if (response.StatusCode == HttpStatusCode.NoContent || 
+                response.StatusCode == HttpStatusCode.NotModified)
+            {
+                return false;
+            }
+            return response.Headers.ContentLength > 0;
         }
     }
 }
