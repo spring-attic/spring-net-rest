@@ -51,6 +51,17 @@ namespace Spring.RestSilverlightQuickStart.ViewModels
             }
         }
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                RaisePropertyChanged("ErrorMessage");
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -96,19 +107,32 @@ namespace Spring.RestSilverlightQuickStart.ViewModels
         {
             MovieToCreate = new MovieModel();
 
-            template.GetForObjectAsync<IEnumerable<MovieModel>>("movies",
+#if SILVERLIGHT_4
+            template.GetForObjectAsync<IEnumerable<MovieModel>>("movies", 
                 r =>
                 {
                     if (r.Error == null)
                     {
-                        Movies = new ObservableCollection<MovieModel>(r.Response);                        
+                        Movies = new ObservableCollection<MovieModel>(r.Response);
                     }
                 });
+#else
+            // Using Task Parallel Library (TPL)
+            template.GetForObjectAsync<IEnumerable<MovieModel>>("movies")
+                .ContinueWith(task =>
+                {
+                    if (!task.IsFaulted)
+                    {
+                        Movies = new ObservableCollection<MovieModel>(task.Result);
+                    }
+                }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext()); // execute on UI thread
+#endif
         }
 
         private void CreateMovie(MovieModel movie)
         {
-            template.PostForLocationAsync("movie", movie, 
+#if SILVERLIGHT_4
+            template.PostForLocationAsync("movie", movie,
                 r =>
                 {
                     if (r.Error == null)
@@ -116,10 +140,22 @@ namespace Spring.RestSilverlightQuickStart.ViewModels
                         RefreshMovies();
                     }
                 });
+#else
+            // Using Task Parallel Library (TPL)
+            template.PostForLocationAsync("movie", movie)
+                .ContinueWith(task =>
+                {
+                    if (!task.IsFaulted)
+                    {
+                        RefreshMovies();
+                    }
+                }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext()); // execute on UI thread
+#endif
         }
 
         private void DeleteMovie(int movieId)
         {
+#if SILVERLIGHT_4
             template.DeleteAsync("movie/{id}",
                 r =>
                 {
@@ -128,6 +164,17 @@ namespace Spring.RestSilverlightQuickStart.ViewModels
                         RefreshMovies();
                     }
                 }, movieId);
+#else
+            // Using Task Parallel Library (TPL)
+            template.DeleteAsync("movie/{id}", movieId)
+                .ContinueWith(task =>
+                {
+                    if (!task.IsFaulted)
+                    {
+                        RefreshMovies();
+                    }
+                }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext()); // execute on UI thread
+#endif
         }
 
 

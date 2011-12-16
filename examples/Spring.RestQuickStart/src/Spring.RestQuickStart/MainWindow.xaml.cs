@@ -31,6 +31,7 @@ namespace Spring.RestQuickStart
             RestTemplate template = new RestTemplate();
             template.MessageConverters.Add(jsonConverter);
 
+#if NET_3_5
             template.GetForObjectAsync<GImagesResponse>("https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=8&q={query}",
                 r =>
                 {
@@ -39,6 +40,18 @@ namespace Spring.RestQuickStart
                         this.ResultsItemsControl.ItemsSource = r.Response.Data.Items;
                     }
                 }, this.SearchTextBox.Text);
+#else
+            // Using Task Parallel Library (TPL)
+            var uiScheduler = System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext();
+            template.GetForObjectAsync<GImagesResponse>("https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=8&q={query}", this.SearchTextBox.Text)
+                .ContinueWith(task =>
+                {
+                    if (!task.IsFaulted)
+                    {
+                        this.ResultsItemsControl.ItemsSource = task.Result.Data.Items;
+                    }
+                }, uiScheduler); // execute on UI thread
+#endif
         }
 
         [DataContract]

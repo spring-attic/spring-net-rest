@@ -185,12 +185,12 @@ namespace Spring.Http.Client
                 // Post request
                 if (this.body != null)
                 {
-                    this.httpWebRequest.BeginGetRequestStream(new AsyncCallback(ExecuteRequestCallback), executeState);
+                    this.httpWebRequest.BeginGetRequestStream(ExecuteRequestCallback, executeState);
                 }
                 else
                 {
                     // Get request
-                    this.HttpWebRequest.BeginGetResponse(new AsyncCallback(ExecuteResponseCallback), executeState);
+                    this.HttpWebRequest.BeginGetResponse(ExecuteResponseCallback, executeState);
                 }
             }
             catch (Exception ex)
@@ -249,7 +249,7 @@ namespace Spring.Http.Client
                 }
 
                 // Read
-                this.httpWebRequest.BeginGetResponse(new AsyncCallback(ExecuteResponseCallback), state);
+                this.httpWebRequest.BeginGetResponse(ExecuteResponseCallback, state);
             }
             catch (Exception ex)
             {
@@ -305,10 +305,9 @@ namespace Spring.Http.Client
             // Package the results of the operation
             ClientHttpRequestCompletedEventArgs eventArgs = new ClientHttpRequestCompletedEventArgs(response, exception, this.isCancelled, state.AsyncOperation.UserSuppliedState);
             ExecuteCallbackArgs<ClientHttpRequestCompletedEventArgs> callbackArgs = new ExecuteCallbackArgs<ClientHttpRequestCompletedEventArgs>(eventArgs, state.ExecuteCompleted);
-            SendOrPostCallback callback = new SendOrPostCallback(ExecuteResponseReceived);
 
             // End the task. The asyncOp object is responsible for marshaling the call.
-            state.AsyncOperation.PostOperationCompleted(callback, callbackArgs);
+            state.AsyncOperation.PostOperationCompleted(ExecuteResponseReceived, callbackArgs);
         }
 
         private static void ExecuteResponseReceived(object arg)

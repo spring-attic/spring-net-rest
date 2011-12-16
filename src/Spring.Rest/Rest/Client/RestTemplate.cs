@@ -2821,27 +2821,30 @@ namespace Spring.Rest.Client
         {
             TaskCompletionSource<T> taskCompletionSource = new TaskCompletionSource<T>();
 
-            RestOperationCanceler canceler = this.DoExecuteAsync(uri, method, requestCallback, responseExtractor, 
-                args =>
+            Task.Factory.StartNew(() =>
                 {
-                    if (args.Cancelled)
-                    {
-                        taskCompletionSource.TrySetCanceled();
-                    }
-                    else if (args.Error != null)
-                    {
-                        taskCompletionSource.TrySetException(args.Error);
-                    }
-                    else
-                    {
-                        taskCompletionSource.TrySetResult(args.Response);
-                    }
-                });
+                    RestOperationCanceler canceler = this.DoExecuteAsync(uri, method, requestCallback, responseExtractor,
+                        args =>
+                        {
+                            if (args.Cancelled)
+                            {
+                                taskCompletionSource.TrySetCanceled();
+                            }
+                            else if (args.Error != null)
+                            {
+                                taskCompletionSource.TrySetException(args.Error);
+                            }
+                            else
+                            {
+                                taskCompletionSource.TrySetResult(args.Response);
+                            }
+                        });
 
-            cancellationToken.Register(() =>
-            {
-                canceler.Cancel();
-            });
+                    cancellationToken.Register(() =>
+                    {
+                        canceler.Cancel();
+                    });
+                });
 
             return taskCompletionSource.Task;
         }
