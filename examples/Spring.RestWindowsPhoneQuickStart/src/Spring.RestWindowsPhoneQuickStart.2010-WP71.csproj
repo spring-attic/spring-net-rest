@@ -50,12 +50,6 @@
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Interop" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\bin\wp\7.1\Debug\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Spring.Http.Converters.NJson">
-      <HintPath>..\..\..\bin\wp\7.1\Debug\Spring.Http.Converters.NJson.dll</HintPath>
-    </Reference>
     <Reference Include="Spring.Rest, Version=1.0.0.42, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\bin\wp\7.1\Debug\Spring.Rest.dll</HintPath>
