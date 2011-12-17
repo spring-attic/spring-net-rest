@@ -189,8 +189,8 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
       <title>Asynchronous operations</title>
 
       <para>All REST operations are also available for asynchronous calls.
-      <classname />The asynchronous methods are suffixed by the word 'Async'
-      based on common .NET naming conventions. </para>
+      <sbr />The asynchronous methods are suffixed by the word 'Async'
+      based on common .NET naming conventions.</para>
 
       <para><sbr />Note, that asynchronous call were initially added to
       support Silverlight and Windows Phone, but nothing prevents you from
@@ -210,6 +210,47 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
       <classname>Console</classname>.WriteLine(r.Response);
     }
   });</programlisting>
+    </section>
+
+    <section id="resttemplate-operations-taskasync">
+      <title>Asynchronous operations using the Task Parallel Library (TPL)</title>
+
+      <para>[Since 1.1]</para>
+      
+      <para>
+        All REST operations supports also the new Task-based Asynchronous Pattern (TAP)
+        for asynchronous calls. <sbr />This is based on the new 
+        <ulink url="hhttp://msdn.microsoft.com/en-us/library/dd460717.aspx">Task Parallel Library (TPL)</ulink> 
+        actually supported on .NET 4 and Silverlight 5.
+        <sbr />These asynchronous methods are also suffixed by the word 'Async'
+        based on common .NET naming conventions, and returns a <classname>Task&lt;T&gt;</classname>.
+        <sbr />An example is shown below :
+      </para>
+
+      <programlisting language="csharp">// Using a continuation
+template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
+  .ContinueWith(task =&gt;
+  {
+    string result = task.Result;
+  });
+  
+// Blocking the current thread
+string result = template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings").Result;</programlisting>
+
+      <warning>
+        <para>Do not forget to synchronize with the UI thread to interact 
+        with the user interface in a continuation as shown below :</para>
+        <programlisting language="csharp">// Using a continuation
+template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
+  .ContinueWith(task =&gt;
+  {
+    MyTextBox.Text = task.Result;
+  }, <classname>TaskScheduler</classname>.FromCurrentSynchronizationContext());  // execute on UI thread</programlisting>
+      </warning>
+      
+      <note>
+        <para>Using the new TPL is the recommended way for asynchronous operations.</para>
+      </note>
     </section>
   </section>
 
