@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 
+using Spring.Json;
 using Spring.Rest.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -34,7 +35,7 @@ using NUnit.Framework;
 namespace Spring.Http.Converters.Json
 {
     /// <summary>
-    /// Integration tests for the DataContractJsonHttpMessageConverter and NJsonHttpMessageConverter class.
+    /// Integration tests for the DataContractJsonHttpMessageConverter, NJsonHttpMessageConverter and SpringJsonHttpMessageConverter class.
     /// </summary>
     /// <author>Bruno Baia</author>
     [TestFixture]
@@ -101,6 +102,17 @@ namespace Spring.Http.Converters.Json
         }
 
         [Test]
+        public void GetForJsonValue()
+        {
+            template.MessageConverters.Add(new SpringJsonHttpMessageConverter());
+
+            JsonValue result = template.GetForObject<JsonValue>("user/{id}", 1);
+            Assert.IsNotNull(result, "Invalid content");
+            Assert.AreEqual("1", result.GetValue<string>("ID"), "Invalid content");
+            Assert.AreEqual("Bruno Baïa", result.GetValue<string>("Name"), "Invalid content");
+        }
+
+        [Test]
         public void PostJsonForMessage()
         {
             template.MessageConverters.Add(new StringHttpMessageConverter());
@@ -134,6 +146,20 @@ namespace Spring.Http.Converters.Json
 
             JObject user = new JObject(
                 new JProperty("Name", new JValue("Lisa Baia")));
+
+            HttpResponseMessage result = template.PostForMessage("user", user);
+            Assert.AreEqual(new Uri(new Uri(uri), "/user/3"), result.Headers.Location, "Invalid location");
+            Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
+            Assert.AreEqual("User id '3' created with 'Lisa Baia'", result.StatusDescription, "Invalid status description");
+        }
+
+        [Test]
+        public void PostJsonValueForMessage()
+        {
+            template.MessageConverters.Add(new SpringJsonHttpMessageConverter());
+
+            JsonObject user = new JsonObject();
+            user.AddValue("Name", new JsonValue("Lisa Baia"));
 
             HttpResponseMessage result = template.PostForMessage("user", user);
             Assert.AreEqual(new Uri(new Uri(uri), "/user/3"), result.Headers.Location, "Invalid location");

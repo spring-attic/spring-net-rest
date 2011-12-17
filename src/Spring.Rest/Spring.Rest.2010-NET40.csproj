@@ -164,6 +164,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Http\Converters\Json\DataContractJsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Json\SpringJsonHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\StringHttpMessageConverter.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -190,6 +191,13 @@
     <Compile Include="Http\HttpResponseMessage`1.cs" />
     <Compile Include="Http\HttpMethod.cs" />
     <Compile Include="Http\MediaType.cs" />
+    <Compile Include="Json\IJsonDeserializer.cs" />
+    <Compile Include="Json\IJsonSerializer.cs" />
+    <Compile Include="Json\JsonArray.cs" />
+    <Compile Include="Json\JsonException.cs" />
+    <Compile Include="Json\JsonMapper.cs" />
+    <Compile Include="Json\JsonObject.cs" />
+    <Compile Include="Json\JsonValue.cs" />
     <Compile Include="Rest\Client\HttpClientErrorException.cs" />
     <Compile Include="Rest\Client\HttpResponseException.cs" />
     <Compile Include="Rest\Client\HttpServerErrorException.cs" />

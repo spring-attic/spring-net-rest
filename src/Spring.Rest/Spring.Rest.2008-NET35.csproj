@@ -137,6 +137,7 @@
     <Compile Include="Http\Converters\Feed\AbstractFeedHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Feed\Rss20FeedHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Json\DataContractJsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Json\SpringJsonHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Xml\AbstractXmlHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Xml\XElementHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Xml\XmlDocumentHttpMessageConverter.cs" />
@@ -150,6 +151,13 @@
     <Compile Include="Http\HttpResponseMessage.cs" />
     <Compile Include="Http\HttpResponseMessage`1.cs" />
     <Compile Include="Http\IHttpOutputMessage.cs" />
+    <Compile Include="Json\IJsonDeserializer.cs" />
+    <Compile Include="Json\IJsonSerializer.cs" />
+    <Compile Include="Json\JsonArray.cs" />
+    <Compile Include="Json\JsonException.cs" />
+    <Compile Include="Json\JsonMapper.cs" />
+    <Compile Include="Json\JsonObject.cs" />
+    <Compile Include="Json\JsonValue.cs" />
     <Compile Include="Rest\Client\HttpClientErrorException.cs" />
     <Compile Include="Rest\Client\HttpResponseException.cs" />
     <Compile Include="Rest\Client\HttpServerErrorException.cs" />

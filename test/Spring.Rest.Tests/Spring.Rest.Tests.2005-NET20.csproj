@@ -109,6 +109,7 @@
     <Compile Include="Http\Converters\Json\DataContractJsonHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Json\JsonHttpMessageConverterIntegrationTests.cs" />
     <Compile Include="Http\Converters\Json\NJsonHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Json\SpringJsonHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\StringHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Xml\DataContractHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Xml\XElementHttpMessageConverterTests.cs" />
@@ -120,6 +121,8 @@
     <Compile Include="Http\HttpHeadersTests.cs" />
     <Compile Include="Http\MediaTypeTests.cs" />
     <Compile Include="Http\MockHttpInputMessage.cs" />
+    <Compile Include="Json\JsonMapperTests.cs" />
+    <Compile Include="Json\JsonValueTests.cs" />
     <Compile Include="Rest\Client\HttpResponseExceptionTests.cs" />
     <Compile Include="Rest\Client\RestTemplateIntegrationTests.cs" />
     <Compile Include="Rest\Client\RestTemplateTests.cs" />

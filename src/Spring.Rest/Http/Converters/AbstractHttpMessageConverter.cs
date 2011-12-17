@@ -82,7 +82,7 @@ namespace Spring.Http.Converters
         /// The media type to read, can be null if not specified. Typically the value of a 'Content-Type' header.
         /// </param>
         /// <returns><see langword="true"/> if readable; otherwise <see langword="false"/></returns>
-        public bool CanRead(Type type, MediaType mediaType) 
+        public virtual bool CanRead(Type type, MediaType mediaType) 
         {
             return Supports(type) && CanRead(mediaType);
 	    }
@@ -100,7 +100,7 @@ namespace Spring.Http.Converters
         /// The media type to write, can be null if not specified. Typically the value of an 'Accept' header.
         /// </param>
         /// <returns><see langword="true"/> if writable; otherwise <see langword="false"/></returns>
-	    public bool CanWrite(Type type, MediaType mediaType) 
+        public virtual bool CanWrite(Type type, MediaType mediaType) 
         {
 		    return Supports(type) && CanWrite(mediaType);
 		}
@@ -108,7 +108,7 @@ namespace Spring.Http.Converters
         /// <summary>
         /// Gets or sets the list of <see cref="MediaType"/> objects supported by this converter.
         /// </summary>
-        public IList<MediaType> SupportedMediaTypes
+        public virtual IList<MediaType> SupportedMediaTypes
         {
             get { return _supportedMediaTypes; }
             set { _supportedMediaTypes = value; }
@@ -128,7 +128,7 @@ namespace Spring.Http.Converters
         /// <param name="message">The HTTP message to read from.</param>
         /// <returns>The converted object.</returns>
         /// <exception cref="HttpMessageNotReadableException">In case of conversion errors</exception>
-        public T Read<T>(IHttpInputMessage message) where T : class
+        public virtual T Read<T>(IHttpInputMessage message) where T : class
         {
             return ReadInternal<T>(message);
         }
@@ -151,7 +151,7 @@ namespace Spring.Http.Converters
         /// </param>
         /// <param name="message">The HTTP message to write to.</param>
         /// <exception cref="HttpMessageNotWritableException">In case of conversion errors</exception>
-        public void Write(object content, MediaType contentType, IHttpOutputMessage message)
+        public virtual void Write(object content, MediaType contentType, IHttpOutputMessage message)
         {
             HttpHeaders headers = message.Headers;
             if (headers.ContentType == null)
@@ -179,7 +179,7 @@ namespace Spring.Http.Converters
         /// <returns>
         /// <see langword="true"/> if the supported media types include the media type, or if the media type is null.
         /// </returns>        
-        protected bool CanRead(MediaType mediaType) 
+        protected virtual bool CanRead(MediaType mediaType) 
         {
 		    if (mediaType == null) 
             {
@@ -204,7 +204,7 @@ namespace Spring.Http.Converters
         /// <returns>
         /// <see langword="true"/> if the supported media types are compatible with the media type, or if the media type is null.
         /// </returns>
-        protected bool CanWrite(MediaType mediaType) 
+        protected virtual bool CanWrite(MediaType mediaType) 
         {
             if (mediaType == null || mediaType == MediaType.ALL) 
             {
@@ -242,7 +242,7 @@ namespace Spring.Http.Converters
         /// The default character to use if not specified by the media type.
         /// </param>
         /// <returns>The character set.</returns>
-        protected Encoding GetContentTypeCharset(MediaType contentType, Encoding defaultEncoding)
+        protected virtual Encoding GetContentTypeCharset(MediaType contentType, Encoding defaultEncoding)
         {
             if (contentType != null && contentType.CharSet != null)
             {
