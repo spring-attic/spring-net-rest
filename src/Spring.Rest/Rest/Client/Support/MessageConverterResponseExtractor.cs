@@ -117,7 +117,7 @@ namespace Spring.Rest.Client.Support
             {
                 return false;
             }
-            return response.Headers.ContentLength > 0;
+            return response.Headers.ContentLength != 0;
         }
     }
 }
