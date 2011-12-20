@@ -106,6 +106,7 @@
     <Compile Include="Http\HttpMethod.cs" />
     <Compile Include="Http\HttpResponseMessage.cs" />
     <Compile Include="Http\HttpResponseMessage`1.cs" />
+    <Compile Include="Http\HttpUtils.cs" />
     <Compile Include="Http\IHttpInputMessage.cs" />
     <Compile Include="Http\IHttpOutputMessage.cs" />
     <Compile Include="Http\MediaType.cs" />

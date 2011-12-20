@@ -143,6 +143,7 @@
     <Compile Include="Http\Converters\Xml\XmlDocumentHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Xml\XmlSerializableHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Xml\DataContractHttpMessageConverter.cs" />
+    <Compile Include="Http\HttpUtils.cs" />
     <Compile Include="Http\IHttpInputMessage.cs" />
     <Compile Include="Http\HttpEntity.cs">
       <SubType>Code</SubType>

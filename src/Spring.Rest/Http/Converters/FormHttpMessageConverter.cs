@@ -214,12 +214,12 @@ namespace Spring.Http.Converters
                 int idx = pair.IndexOf('=');
                 if (idx == -1)
                 {
-                    result.Add(UrlDecode(pair), null);
+                    result.Add(HttpUtils.FormDecode(pair), null);
                 }
                 else
                 {
-                    string name = UrlDecode(pair.Substring(0, idx));
-                    string value = UrlDecode(pair.Substring(idx + 1));
+                    string name = HttpUtils.FormDecode(pair.Substring(0, idx));
+                    string value = HttpUtils.FormDecode(pair.Substring(idx + 1));
                     result.Add(name, value);
                 }
             }
@@ -267,16 +267,16 @@ namespace Spring.Http.Converters
                 string[] values = form.GetValues(name);
                 if (values == null)
                 {
-                    builder.Append(UrlEncode(name));
+                    builder.Append(HttpUtils.FormEncode(name));
                 }
                 else
                 {
                     for (int j = 0; j < values.Length; j++)
                     {
                         string value = values[j];
-                        builder.Append(UrlEncode(name));
+                        builder.Append(HttpUtils.FormEncode(name));
                         builder.Append('=');
-                        builder.Append(UrlEncode(value));
+                        builder.Append(HttpUtils.FormEncode(value));
                         if (j != (values.Length - 1))
                         {
                             builder.Append('&');
@@ -302,36 +302,6 @@ namespace Spring.Http.Converters
             {
                 stream.Write(byteData, 0, byteData.Length);
             };
-        }
-
-        private static string UrlDecode(string url)
-        {
-            if (url == null)
-            {
-                return null;
-            }
-#if WINDOWS_PHONE
-            return System.Net.HttpUtility.UrlDecode(url);
-#elif SILVERLIGHT
-            return System.Windows.Browser.HttpUtility.UrlDecode(url);
-#else
-            return Uri.UnescapeDataString(url.Replace('+', ' '));
-#endif
-        }
-
-        private static string UrlEncode(string url)
-        {
-            if (url == null)
-            {
-                return null;
-            }
-#if WINDOWS_PHONE
-            return System.Net.HttpUtility.UrlEncode(url);
-#elif SILVERLIGHT
-            return System.Windows.Browser.HttpUtility.UrlEncode(url);
-#else
-            return Uri.EscapeDataString(url).Replace("%20", "+");
-#endif
         }
 
         #endregion
