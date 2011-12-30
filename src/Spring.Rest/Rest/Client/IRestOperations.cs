@@ -1674,7 +1674,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        Task<object> PutAsync(string url, object request, params object[] uriVariables);
+        Task PutAsync(string url, object request, params object[] uriVariables);
 
         /// <summary>
         /// Asynchronously create or update a resource by PUTting the given object to the URI.
@@ -1690,7 +1690,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        Task<object> PutAsync(string url, object request, IDictionary<string, object> uriVariables);
+        Task PutAsync(string url, object request, IDictionary<string, object> uriVariables);
 
         /// <summary>
         /// Asynchronously create or update a resource by PUTting the given object to the URI.
@@ -1700,7 +1700,7 @@ namespace Spring.Rest.Client
         /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
         /// </param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        Task<object> PutAsync(Uri url, object request);
+        Task PutAsync(Uri url, object request);
 
         #endregion
 
@@ -1715,7 +1715,7 @@ namespace Spring.Rest.Client
         /// <param name="url">The URL.</param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        Task<object> DeleteAsync(string url, params object[] uriVariables);
+        Task DeleteAsync(string url, params object[] uriVariables);
 
         /// <summary>
         /// Asynchronously delete the resources at the specified URI.
@@ -1726,14 +1726,14 @@ namespace Spring.Rest.Client
         /// <param name="url">The URL.</param>
         /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        Task<object> DeleteAsync(string url, IDictionary<string, object> uriVariables);
+        Task DeleteAsync(string url, IDictionary<string, object> uriVariables);
 
         /// <summary>
         /// Asynchronously delete the resources at the specified URI.
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        Task<object> DeleteAsync(Uri url);
+        Task DeleteAsync(Uri url);
 
         #endregion
 

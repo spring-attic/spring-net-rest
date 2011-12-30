@@ -2329,7 +2329,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        public Task<object> PutAsync(string url, object request, params object[] uriVariables)
+        public Task PutAsync(string url, object request, params object[] uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
             return this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, CancellationToken.None, uriVariables);
@@ -2349,7 +2349,7 @@ namespace Spring.Rest.Client
         /// </param>
         /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        public Task<object> PutAsync(string url, object request, IDictionary<string, object> uriVariables)
+        public Task PutAsync(string url, object request, IDictionary<string, object> uriVariables)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
             return this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, CancellationToken.None, uriVariables);
@@ -2363,7 +2363,7 @@ namespace Spring.Rest.Client
         /// The object to be POSTed, may be a <see cref="HttpEntity"/> in order to add additional HTTP headers.
         /// </param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        public Task<object> PutAsync(Uri url, object request)
+        public Task PutAsync(Uri url, object request)
         {
             HttpEntityRequestCallback requestCallback = new HttpEntityRequestCallback(request, this._messageConverters);
             return this.ExecuteAsync<object>(url, HttpMethod.PUT, requestCallback, null, CancellationToken.None);
@@ -2382,7 +2382,7 @@ namespace Spring.Rest.Client
         /// <param name="url">The URL.</param>
         /// <param name="uriVariables">The variables to expand the template.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        public Task<object> DeleteAsync(string url, params object[] uriVariables)
+        public Task DeleteAsync(string url, params object[] uriVariables)
         {
             return this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, CancellationToken.None, uriVariables);
         }
@@ -2396,7 +2396,7 @@ namespace Spring.Rest.Client
         /// <param name="url">The URL.</param>
         /// <param name="uriVariables">The dictionary containing variables for the URI template.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        public Task<object> DeleteAsync(string url, IDictionary<string, object> uriVariables)
+        public Task DeleteAsync(string url, IDictionary<string, object> uriVariables)
         {
             return this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, CancellationToken.None, uriVariables);
         }
@@ -2406,7 +2406,7 @@ namespace Spring.Rest.Client
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <returns>A <code>Task&lt;T&gt;</code> that represents the asynchronous operation.</returns>
-        public Task<object> DeleteAsync(Uri url)
+        public Task DeleteAsync(Uri url)
         {
             return this.ExecuteAsync<object>(url, HttpMethod.DELETE, null, null, CancellationToken.None);
         }
