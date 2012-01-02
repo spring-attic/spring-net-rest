@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisibleAttribute(false)]
 [assembly: AssemblyProductAttribute("Spring.NET REST Client Framework 1.1.0")]
 [assembly: AssemblyCompanyAttribute("http://www.springframework.net/")]
-[assembly: AssemblyCopyrightAttribute("Copyright 2011 SpringSource")]
+[assembly: AssemblyCopyrightAttribute("Copyright 2012 SpringSource")]
 [assembly: AssemblyTrademarkAttribute("Apache License, Version 2.0")]
 [assembly: AssemblyCultureAttribute("")]
 [assembly: AssemblyVersionAttribute("1.1.0.0")]
