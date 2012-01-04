@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010 Express for Windows Phone
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.2010-WP70", "src\Spring.Rest\Spring.Rest.2010-WP70.csproj", "{36227431-B822-461E-A7AF-651E34F23A8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Tests.2010-WP70", "test\Spring.Rest.Tests\Spring.Rest.Tests.2010-WP70.csproj", "{83D8AF31-6DF1-4D2F-BFD2-865E91E6976E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Http.Converters.NJson.2010-WP70", "src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2010-WP70.csproj", "{43362271-2B82-146E-7AAF-36523A1E4F8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Rest.Testing.2010-WP70", "src\Spring.Rest.Testing\Spring.Rest.Testing.2010-WP70.csproj", "{12A27431-B822-461E-A7AF-351E34F23A8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{43362271-2B82-146E-7AAF-36523A1E4F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43362271-2B82-146E-7AAF-36523A1E4F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43362271-2B82-146E-7AAF-36523A1E4F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A27431-B822-461E-A7AF-351E34F23A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A27431-B822-461E-A7AF-351E34F23A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12A27431-B822-461E-A7AF-351E34F23A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A27431-B822-461E-A7AF-351E34F23A8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
