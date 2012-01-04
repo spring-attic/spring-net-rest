@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Spring.Rest.Testing</id>
+    <title>Spring.Rest Testing</title>
+    <!-- auto-generated -->
+    <version>1.1.0</version>
+    <iconUrl>http://springframework.net/images/SpringSource_Leaves32x32.png</iconUrl>
+    <projectUrl>http://www.springframework.net/</projectUrl>
+    <licenseUrl>http://www.springframework.net/license.html</licenseUrl>
+    <authors>SpringSource</authors>
+    <description>Spring.NET REST Client Testing Framework</description>
+    <summary>Testing Framework for RestTemplate based code.</summary>
+    <language>en-US</language>
+    <tags>Spring REST HTTP JSON Unit Test</tags>
+    <dependencies>
+      <dependency id="Spring.Rest" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="content\App_Readme\Spring.Rest.txt" target="content\App_Readme" />
+    <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.Testing.dll" target="lib\net20" />
+    <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.Testing.pdb" target="lib\net20" />
+    <file src="..\..\..\bin\net\2.0\Release\Spring.Rest.Testing.xml" target="lib\net20" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Rest.Testing.dll" target="lib\net35" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Rest.Testing.pdb" target="lib\net35" />
+    <file src="..\..\..\bin\net\3.5\Release\Spring.Rest.Testing.xml" target="lib\net35" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.dll" target="lib\net40" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.pdb" target="lib\net40" />
+    <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.xml" target="lib\net40" />
+    <file src="..\..\..\bin\sl\4.0\Release\Spring.Rest.Testing.dll" target="lib\sl4" />
+    <file src="..\..\..\bin\sl\4.0\Release\Spring.Rest.Testing.pdb" target="lib\sl4" />
+    <file src="..\..\..\bin\sl\4.0\Release\Spring.Rest.Testing.xml" target="lib\sl4" />
+    <file src="..\..\..\bin\sl\5.0\Release\Spring.Rest.Testing.dll" target="lib\sl5" />
+    <file src="..\..\..\bin\sl\5.0\Release\Spring.Rest.Testing.pdb" target="lib\sl5" />
+    <file src="..\..\..\bin\sl\5.0\Release\Spring.Rest.Testing.xml" target="lib\sl5" />
+    <file src="..\..\..\bin\wp\7.0\Release\Spring.Rest.Testing.dll" target="lib\sl4-wp" />
+    <file src="..\..\..\bin\wp\7.0\Release\Spring.Rest.Testing.pdb" target="lib\sl4-wp" />
+    <file src="..\..\..\bin\wp\7.0\Release\Spring.Rest.Testing.xml" target="lib\sl4-wp" />
+    <file src="..\..\..\bin\wp\7.1\Release\Spring.Rest.Testing.dll" target="lib\sl4-wp71" />
+    <file src="..\..\..\bin\wp\7.1\Release\Spring.Rest.Testing.pdb" target="lib\sl4-wp71" />
+    <file src="..\..\..\bin\wp\7.1\Release\Spring.Rest.Testing.xml" target="lib\sl4-wp71" />
+  </files>
+</package>

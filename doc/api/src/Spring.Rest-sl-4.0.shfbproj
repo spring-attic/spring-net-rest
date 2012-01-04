@@ -29,6 +29,8 @@
       <DocumentationSource sourceFile="..\..\..\bin\sl\4.0\Release\Spring.Http.Converters.Xml.Linq.xml" />
       <DocumentationSource sourceFile="..\..\..\bin\sl\4.0\Release\Spring.Rest.dll" />
       <DocumentationSource sourceFile="..\..\..\bin\sl\4.0\Release\Spring.Rest.xml" />
+      <DocumentationSource sourceFile="..\..\..\bin\sl\4.0\Release\Spring.Rest.Testing.dll" />
+      <DocumentationSource sourceFile="..\..\..\bin\sl\4.0\Release\Spring.Rest.Testing.xml" />
     </DocumentationSources>
     <PlugInConfigurations>
     </PlugInConfigurations>

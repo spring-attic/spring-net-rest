@@ -25,6 +25,8 @@
       <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.xml" />
       <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Rest.dll" />
       <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Rest.xml" />
+      <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.dll" />
+      <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.xml" />
     </DocumentationSources>
     <PlugInConfigurations>
       <PlugInConfig id="Version Builder" enabled="True">

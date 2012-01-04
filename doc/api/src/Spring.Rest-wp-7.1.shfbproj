@@ -25,6 +25,8 @@
       <DocumentationSource sourceFile="..\..\..\bin\wp\7.1\Release\Spring.Http.Converters.NJson.xml" />
       <DocumentationSource sourceFile="..\..\..\bin\wp\7.1\Release\Spring.Rest.dll" />
       <DocumentationSource sourceFile="..\..\..\bin\wp\7.1\Release\Spring.Rest.xml" />
+      <DocumentationSource sourceFile="..\..\..\bin\wp\7.1\Release\Spring.Testing.dll" />
+      <DocumentationSource sourceFile="..\..\..\bin\wp\7.1\Release\Spring.Rest.Testing.xml" />
     </DocumentationSources>
     <PlugInConfigurations>
     </PlugInConfigurations>

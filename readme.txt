@@ -10,6 +10,7 @@ The 1.1.0 release of Spring.NET REST Client contains
 	* A RestTemplate class for client-side access to RESTful services.
 	* A set of HTTP message converters used to marshal objects into the HTTP request body 
 	  and to unmarshal any response back into an object.
+	* A Testing Framework for RestTemplate based code.
 
 
 2. SUPPORTED FRAMEWORK VERSIONS
@@ -53,6 +54,8 @@ Dependencies are those other than on the .NET BCL.
 
 	* "Spring.Rest" for all supported Framework versions
 	* Dependencies: Common.Logging for .NET 2.0, 3.5 and 4.0
+
+	* "Spring.Rest.Testing" for all supported Framework versions except .NET Compact Framework 3.5 and Silverlight 3.0
 
 	* "Spring.Http.Converters.NJson" for all supported Framework versions
 	* Dependencies: Newtonsoft.Json
