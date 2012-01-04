@@ -1,0 +1,163 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9437475B-3897-A399-46BF-45F04CEE1821}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Spring.Rest.Tests</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Spring</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\build\VS.Net.2008-NET20\Spring.Rest.Tests\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\build\VS.Net.2008-NET20\Spring.Rest.Tests\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net\2.0\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net\2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net\2.0\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net\2.0\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Http\Client\AbstractClientHttpRequestFactoryIntegrationTests.cs" />
+    <Compile Include="Http\Client\Interceptor\BasicSigningRequestInterceptorIntegrationTests.cs" />
+    <Compile Include="Http\Client\Interceptor\InterceptingClientHttpRequestFactoryTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Http\Client\WebClientHttpRequestFactoryIntegrationTests.cs" />
+    <Compile Include="Http\Converters\ByteArrayHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\FileInfoHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\FormHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Feed\Atom10FeedHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Feed\FeedHttpMessageConverterIntegrationTests.cs" />
+    <Compile Include="Http\Converters\Feed\Rss20FeedHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Json\DataContractJsonHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Json\JsonHttpMessageConverterIntegrationTests.cs" />
+    <Compile Include="Http\Converters\Json\NJsonHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Json\SpringJsonHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\StringHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Xml\DataContractHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Xml\XElementHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Xml\XmlDocumentHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\Xml\XmlHttpMessageConverterIntegrationTests.cs" />
+    <Compile Include="Http\Converters\Xml\XmlSerializableHttpMessageConverterTests.cs" />
+    <Compile Include="Http\HttpMethodTests.cs" />
+    <Compile Include="Http\MockHttpOuputMessage.cs" />
+    <Compile Include="Http\HttpHeadersTests.cs" />
+    <Compile Include="Http\MediaTypeTests.cs" />
+    <Compile Include="Http\MockHttpInputMessage.cs" />
+    <Compile Include="Json\JsonMapperTests.cs" />
+    <Compile Include="Json\JsonValueTests.cs" />
+    <Compile Include="Rest\Client\HttpResponseExceptionTests.cs" />
+    <Compile Include="Rest\Client\RestTemplateIntegrationTests.cs" />
+    <Compile Include="Rest\Client\RestTemplateTests.cs" />
+    <Compile Include="Rest\Client\Support\DefaultResponseErrorHandlerTests.cs" />
+    <Compile Include="Util\AssertUtilsTests.cs" />
+    <Compile Include="Util\IoUtilsTests.cs" />
+    <Compile Include="Util\SerializationTestUtils.cs" />
+    <Compile Include="Util\StringUtilsTests.cs" />
+    <Compile Include="Util\UriTemplateTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Spring.Rest.Tests.dll.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Http\Converters\FileToUpload.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.2008-NET20.csproj">
+      <Project>{E04EEC0F-14BF-13D1-0B3F-A7900FAC04BC}</Project>
+      <Name>Spring.Http.Converters.NJson.2008-NET20</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Spring.Rest\Spring.Rest.2008-NET20.csproj">
+      <Project>{EE04EC0F-4B1F-1D13-B30F-00FAC04F79BC}</Project>
+      <Name>Spring.Rest.2008-NET20</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

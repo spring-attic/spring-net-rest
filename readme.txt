@@ -73,6 +73,7 @@ Samples can be found int the "examples" directory.
 
 There is a solution file for different version of VS.NET
 	* Spring.Rest.2005-NET20.sln for use with VS.NET 2005 and .NET 2.0
+	* Spring.Rest.2008-NET20.sln for use with VS.NET 2008 and .NET 2.0
 	* Spring.Rest.2008-NET35.sln for use with VS.NET 2008 and .NET 3.5
 	* Spring.Rest.2008-CF35.sln  for use with VS.NET 2008 and Compact Framework 3.5
 	* Spring.Rest.2008-SL30.sln  for use with VS.NET 2008 and Silverlight 3.0 (Requires Silverlight tools)
