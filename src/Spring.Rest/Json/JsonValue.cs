@@ -154,7 +154,7 @@ namespace Spring.Json
         /// <param name="value">The string value.</param>
         public JsonValue(string value)
         {
-            AssertUtils.ArgumentNotNull(value, "'value' must not be null");
+            ArgumentUtils.AssertNotNull(value, "value");
 
             this.type = JsonValueType.String;
             this.value = value;

@@ -24,60 +24,40 @@ using NUnit.Framework;
 
 namespace Spring.Util
 {
-    // From Spring.Core
+    // From Spring.Core.Tests
 
     /// <summary>
-    /// Unit tests for the AssertUtils class.
+    /// Unit tests for the ArgumentUtils class.
     /// </summary>
     /// <author>Rick Evans</author>
     [TestFixture]
-    public sealed class AssertUtilsTests
+    public sealed class ArgumentUtilsTests
     {
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ArgumentNotNull()
         {
-            AssertUtils.ArgumentNotNull(null, "foo");
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ArgumentNotNullWithMessage()
-        {
-            AssertUtils.ArgumentNotNull(null, "foo", "Bang!");
+            ArgumentUtils.AssertNotNull(null, "foo");
         }
 
         [Test]
         public void ArgumentHasTextWithValidText()
         {
-            AssertUtils.ArgumentHasText("... and no-one's getting fat 'cept Mama Cas!", "foo");
-        }
-
-        [Test]
-        public void ArgumentHasTextWithValidTextAndMessage()
-        {
-            AssertUtils.ArgumentHasText("... and no-one's getting fat 'cept Mama Cas!", "foo", "Bang!");
+            ArgumentUtils.AssertHasText("... and no-one's getting fat 'cept Mama Cas!", "foo");
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ArgumentHasText()
         {
-            AssertUtils.ArgumentHasText(null, "foo");
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ArgumentHasTextWithMessage()
-        {
-            AssertUtils.ArgumentHasText(null, "foo", "Bang!");
+            ArgumentUtils.AssertHasText(null, "foo");
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ArgumentHasTextWithWhiteSpaceCharacters()
         {
-            AssertUtils.ArgumentHasText("   ", "foo");
+            ArgumentUtils.AssertHasText("   ", "foo");
         }
     }
 }

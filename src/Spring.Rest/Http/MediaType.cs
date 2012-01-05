@@ -261,8 +261,8 @@ namespace Spring.Http
         /// <param name="parameters">The parameters, may be null.</param>
         public MediaType(string type, string subtype, IDictionary<string, string> parameters)
         {
-            AssertUtils.ArgumentHasText(type, "'type' must not be empty");
-            AssertUtils.ArgumentHasText(subtype, "'subtype' must not be empty");
+            ArgumentUtils.AssertHasText(type, "type");
+            ArgumentUtils.AssertHasText(subtype, "subtype");
 
             // TODO: check type (http://tools.ietf.org/html/rfc2616#section-2.2)
             this.type = type.ToLower(CultureInfo.InvariantCulture);
@@ -661,7 +661,7 @@ namespace Spring.Http
         /// <param name="mediaTypes">The list of media types to be sorted.</param>
         public static void SortBySpecificity(List<MediaType> mediaTypes)
         {
-            AssertUtils.ArgumentNotNull(mediaTypes, "mediaTypes");
+            ArgumentUtils.AssertNotNull(mediaTypes, "mediaTypes");
 
             if (mediaTypes.Count > 1)
             {
@@ -699,7 +699,7 @@ namespace Spring.Http
         /// <param name="mediaTypes">The list of media types to be sorted</param>
         public static void SortByQualityValue(List<MediaType> mediaTypes)
         {
-            AssertUtils.ArgumentNotNull(mediaTypes, "mediaTypes");
+            ArgumentUtils.AssertNotNull(mediaTypes, "mediaTypes");
 
             if (mediaTypes.Count > 1)
             {

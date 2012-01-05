@@ -172,7 +172,7 @@ namespace Spring.Util
         /// <returns>A dictionary of variable values.</returns>
         public IDictionary<string, string> Match(string uri)
         {
-            AssertUtils.ArgumentNotNull(uri, "uri");
+            ArgumentUtils.AssertNotNull(uri, "uri");
 
             IDictionary<string, string> result = new Dictionary<string, string>();
             Match match = this.matchRegex.Match(uri);
@@ -208,7 +208,7 @@ namespace Spring.Util
 
 		    public Parser(string uriTemplate) 
             {
-			    AssertUtils.ArgumentNotNull(uriTemplate, "'uriTemplate' must not be null");
+			    ArgumentUtils.AssertNotNull(uriTemplate, "uriTemplate");
 
                 int index = 0;
                 this.patternBuilder.Append("^");

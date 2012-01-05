@@ -29,7 +29,7 @@ namespace Spring.Rest.Client.Testing
     /// <author>Arjen Poutsma</author>
     /// <author>Craig Walls</author>
     /// <author>Bruno Baia (.NET)</author>
-    public static class AssertionErrors
+    public static class AssertionUtils
     {
         /// <summary>
         /// Fails a test with the given message.

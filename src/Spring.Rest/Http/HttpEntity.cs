@@ -91,7 +91,7 @@ namespace Spring.Http
         /// <param name="headers">The entity headers.</param>
         public HttpEntity(object body, HttpHeaders headers)
         {
-            AssertUtils.ArgumentNotNull(headers, "headers");
+            ArgumentUtils.AssertNotNull(headers, "headers");
 
             this.body = body;
             this.headers = headers;

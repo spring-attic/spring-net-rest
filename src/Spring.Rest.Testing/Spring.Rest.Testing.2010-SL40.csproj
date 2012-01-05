@@ -52,8 +52,8 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Rest\Client\Testing\AssertionErrors.cs" />
     <Compile Include="Rest\Client\Testing\AssertionException.cs" />
+    <Compile Include="Rest\Client\Testing\AssertionUtils.cs" />
     <Compile Include="Rest\Client\Testing\IRequestActions.cs" />
     <Compile Include="Rest\Client\Testing\MockClientHttpRequest.cs" />
     <Compile Include="Rest\Client\Testing\MockClientHttpRequestFactory.cs" />

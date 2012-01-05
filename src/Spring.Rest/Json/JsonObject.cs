@@ -59,7 +59,7 @@ namespace Spring.Json
         /// <exception cref="JsonException">If the value held by this instance is not a JSON object structure.</exception>
         public override JsonValue GetValue(string name)
         {
-            AssertUtils.ArgumentNotNull(name, "'name' must not be null");
+            ArgumentUtils.AssertNotNull(name, "name");
 
             IDictionary<string, JsonValue> jsonObject = (IDictionary<string, JsonValue>)this.value;
             JsonValue result;
@@ -118,8 +118,8 @@ namespace Spring.Json
         /// </exception>
         public void AddValue(string name, JsonValue value)
         {
-            AssertUtils.ArgumentNotNull(name, "'name' must not be null");
-            AssertUtils.ArgumentNotNull(value, "'value' must not be null");
+            ArgumentUtils.AssertNotNull(name, "name");
+            ArgumentUtils.AssertNotNull(value, "value");
 
             IDictionary<string, JsonValue> jsonObject = (IDictionary<string, JsonValue>)this.value;
             if (jsonObject.ContainsKey(name))

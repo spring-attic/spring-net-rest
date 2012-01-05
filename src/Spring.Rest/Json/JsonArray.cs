@@ -79,7 +79,7 @@ namespace Spring.Json
         /// <param name="value">The <see cref="JsonValue"/> to add.</param>
         public void AddValue(JsonValue value)
         {
-            AssertUtils.ArgumentNotNull(value, "'value' must not be null");
+            ArgumentUtils.AssertNotNull(value, "value");
 
             ((IList<JsonValue>)this.value).Add(value);
         }

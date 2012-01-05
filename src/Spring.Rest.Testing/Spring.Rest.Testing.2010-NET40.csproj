@@ -102,7 +102,7 @@
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Rest\Client\Testing\AssertionException.cs" />
-    <Compile Include="Rest\Client\Testing\AssertionErrors.cs" />
+    <Compile Include="Rest\Client\Testing\AssertionUtils.cs" />
     <Compile Include="Rest\Client\Testing\RequestActionsExtensions.cs" />
     <Compile Include="Rest\Client\Testing\RequestMatchers.cs" />
     <Compile Include="Rest\Client\Testing\ResponseCreators.cs" />

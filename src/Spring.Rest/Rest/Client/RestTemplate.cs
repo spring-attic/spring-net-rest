@@ -38,7 +38,7 @@ using Spring.Http.Converters.Feed;
 #endif
 using Spring.Rest.Client.Support;
 using UriTemplate = Spring.Util.UriTemplate; // UriTemplate exists in .NET Framework since 3.5
-using AssertUtils = Spring.Util.AssertUtils;
+using ArgumentUtils = Spring.Util.ArgumentUtils;
 
 namespace Spring.Rest.Client
 {
@@ -138,7 +138,7 @@ namespace Spring.Rest.Client
             }
             set
             {
-                AssertUtils.ArgumentNotNull(value, "BaseAddress");
+                ArgumentUtils.AssertNotNull(value, "BaseAddress");
                 if (!value.IsAbsoluteUri)
                 {
                     throw new ArgumentException(String.Format("'{0}' is not an absolute URI", value), "BaseAddress");

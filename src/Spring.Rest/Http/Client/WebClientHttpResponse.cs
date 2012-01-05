@@ -51,7 +51,7 @@ namespace Spring.Http.Client
         /// <param name="response">The <see cref="HttpWebResponse"/> instance to use.</param>
         public WebClientHttpResponse(HttpWebResponse response)
         {
-            AssertUtils.ArgumentNotNull(response, "HttpWebResponse");
+            ArgumentUtils.AssertNotNull(response, "response");
 
             this.httpWebResponse = response;
             this.headers = new HttpHeaders();

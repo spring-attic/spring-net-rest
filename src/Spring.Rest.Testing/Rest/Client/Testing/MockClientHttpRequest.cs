@@ -23,6 +23,7 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
+using Spring.Util;
 using Spring.Http;
 using Spring.Http.Client;
 
@@ -150,8 +151,7 @@ namespace Spring.Rest.Client.Testing
         /// <returns>The request expectations.</returns>
         public IRequestActions AndExpect(RequestMatcher requestMatcher)
         {
-            // TODO: AssertUtils
-            //AssertUtils.ArgumentNotNull(requestMatcher, "'requestMatcher' must not be null");
+            ArgumentUtils.AssertNotNull(requestMatcher, "requestMatcher");
             this.requestMatchers.Add(requestMatcher);
             return this;
         }
@@ -162,8 +162,7 @@ namespace Spring.Rest.Client.Testing
         /// <param name="responseCreator">The response creator.</param>
         public void AndRespond(ResponseCreator responseCreator)
         {
-            // TODO: AssertUtils
-            //AssertUtils.ArgumentNotNull(responseCreator, "'responseCreator' must not be null");
+            ArgumentUtils.AssertNotNull(responseCreator, "responseCreator");
             this.responseCreator = responseCreator;
         }
 

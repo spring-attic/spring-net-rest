@@ -81,7 +81,7 @@ namespace Spring.Http
         /// <param name="statusDescription">The HTTP status description.</param>
         public HttpResponseMessage(HttpHeaders headers, HttpStatusCode statusCode, string statusDescription)
         {
-            AssertUtils.ArgumentNotNull(headers, "headers");
+            ArgumentUtils.AssertNotNull(headers, "headers");
 
             this.headers = headers;
             this.statusCode = statusCode;

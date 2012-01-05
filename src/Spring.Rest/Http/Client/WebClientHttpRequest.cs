@@ -61,7 +61,7 @@ namespace Spring.Http.Client
         /// <param name="request">The <see cref="HttpWebRequest"/> instance to use.</param>
         public WebClientHttpRequest(HttpWebRequest request)
         {
-            AssertUtils.ArgumentNotNull(request, "HttpWebRequest");
+            ArgumentUtils.AssertNotNull(request, "request");
 
             this.httpWebRequest = request;
             this.headers = new HttpHeaders();

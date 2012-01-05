@@ -181,7 +181,7 @@
     <Compile Include="Rest\Client\Support\LocationHeaderResponseExtractor.cs" />
     <Compile Include="Rest\Client\Support\MessageConverterResponseExtractor.cs" />
     <Compile Include="Rest\Client\Support\RestAsyncOperationState.cs" />
-    <Compile Include="Util\AssertUtils.cs" />
+    <Compile Include="Util\ArgumentUtils.cs" />
     <Compile Include="Util\IoUtils.cs" />
     <Compile Include="Util\StringUtils.cs" />
     <Compile Include="Util\UriTemplate.cs" />

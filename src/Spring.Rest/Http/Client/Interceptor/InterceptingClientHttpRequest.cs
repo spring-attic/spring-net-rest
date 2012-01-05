@@ -48,7 +48,7 @@ namespace Spring.Http.Client.Interceptor
             IClientHttpRequest request,
             IEnumerable<IClientHttpRequestInterceptor> interceptors) 
         {
-            AssertUtils.ArgumentNotNull(request, "'request' must not be null");
+            ArgumentUtils.AssertNotNull(request, "request");
 
             this.delegateRequest = request;
             this.interceptors = interceptors != null ? interceptors : new IClientHttpRequestInterceptor[0];

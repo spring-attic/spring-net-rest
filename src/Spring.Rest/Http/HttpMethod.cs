@@ -75,18 +75,18 @@ namespace Spring.Http
         /// </summary>
         public static readonly HttpMethod CONNECT = new HttpMethod("CONNECT");
 
-        private string value;
+        private string method;
 
         /// <summary>
         /// Creates a new instance of <see cref="HttpMethod"/> with the given HTTP method value.
         /// </summary>
-        /// <param name="value">The HTTP method as a string value.</param>
-        public HttpMethod(string value)
+        /// <param name="method">The HTTP method as a string value.</param>
+        public HttpMethod(string method)
         {
-            AssertUtils.ArgumentNotNull(value, "value");
+            ArgumentUtils.AssertNotNull(method, "method");
 
             // TODO: check method (http://tools.ietf.org/html/rfc2616#section-2.2)
-            this.value = value;
+            this.method = method;
         }
 
         /// <summary>
@@ -102,11 +102,11 @@ namespace Spring.Http
             {
                 return false;
             }
-            if (Object.ReferenceEquals(this.value, other.value))
+            if (Object.ReferenceEquals(this.method, other.method))
             {
                 return true;
             }
-            return String.Equals(this.value, other.value, StringComparison.OrdinalIgnoreCase);
+            return String.Equals(this.method, other.method, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Spring.Http
         /// </returns>
         public override int GetHashCode()
         {
-            return this.value.ToUpper(CultureInfo.InvariantCulture).GetHashCode();
+            return this.method.ToUpper(CultureInfo.InvariantCulture).GetHashCode();
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Spring.Http
         /// </returns>
         public override string ToString()
         {
-            return this.value;
+            return this.method;
         }
 
         /// <summary>

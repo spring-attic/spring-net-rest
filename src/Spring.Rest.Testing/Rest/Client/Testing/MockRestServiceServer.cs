@@ -18,6 +18,8 @@
 
 #endregion
 
+using Spring.Util;
+
 namespace Spring.Rest.Client.Testing
 {
     /// <summary>
@@ -56,8 +58,7 @@ namespace Spring.Rest.Client.Testing
 
 	    private MockRestServiceServer(MockClientHttpRequestFactory mockRequestFactory) 
         {
-            // TODO: AssertUtils
-            //AssertUtils.ArgumentNotNull(mockRequestFactory, "'mockRequestFactory' must not be null");
+            ArgumentUtils.AssertNotNull(mockRequestFactory, "mockRequestFactory");
 		    this.mockRequestFactory = mockRequestFactory;
 	    }
 
@@ -68,8 +69,7 @@ namespace Spring.Rest.Client.Testing
         /// <returns>The created server.</returns>
 	    public static MockRestServiceServer CreateServer(RestTemplate restTemplate) 
         {
-            // TODO: AssertUtils
-            //AssertUtils.ArgumentNotNull(restTemplate, "'restTemplate' must not be null");
+            ArgumentUtils.AssertNotNull(restTemplate, "restTemplate");
 
 		    MockClientHttpRequestFactory mockRequestFactory = new MockClientHttpRequestFactory();
 		    restTemplate.RequestFactory = mockRequestFactory;

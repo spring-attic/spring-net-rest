@@ -28,9 +28,7 @@ namespace Spring.Util
     /// Miscellaneous <see cref="System.String"/> utility methods.
     /// </summary>
     /// <remarks>
-    /// <p>
     /// Mainly for internal use within the framework.
-    /// </p>
     /// </remarks>
     /// <author>Rod Johnson</author>
     /// <author>Juergen Hoeller</author>

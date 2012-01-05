@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 
+using Spring.Util;
 using Spring.Http;
 using Spring.Http.Client;
 
@@ -47,9 +48,8 @@ namespace Spring.Rest.Client.Testing
         /// <returns>The created request.</returns>
         public IClientHttpRequest CreateRequest(Uri uri, HttpMethod method)
         {
-            // TODO: AssertUtils
-            //AssertUtils.ArgumentNotNull(uri, "'uri' must not be null");
-            //AssertUtils.ArgumentNotNull(method, "'method' must not be null");
+            ArgumentUtils.AssertNotNull(uri, "uri");
+            ArgumentUtils.AssertNotNull(method, "method");
 
             if (this.requestEnumerator == null)
             {
@@ -68,8 +68,11 @@ namespace Spring.Rest.Client.Testing
 
         internal MockClientHttpRequest ExpectNewRequest()
         {
-            // TODO: AssertUtils
-            //AssertUtils.State(this.requestEnumerator == null, "Can not expect another request, the test is already underway");
+            if (this.requestEnumerator != null)
+            {
+                throw new InvalidCastException("Can not expect another request, the test is already underway");
+            }
+
             MockClientHttpRequest request = new MockClientHttpRequest();
             this.expectedRequests.Add(request);
             return request;

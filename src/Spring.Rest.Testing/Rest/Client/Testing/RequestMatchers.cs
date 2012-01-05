@@ -43,7 +43,7 @@ namespace Spring.Rest.Client.Testing
         {
             return delegate(IClientHttpRequest request)
             {
-                AssertionErrors.AreEqual(method, request.Method, "Unexpected HttpMethod");
+                AssertionUtils.AreEqual(method, request.Method, "Unexpected HttpMethod");
             };
         }
 
@@ -66,7 +66,7 @@ namespace Spring.Rest.Client.Testing
         {
             return delegate(IClientHttpRequest request)
             {
-                AssertionErrors.AreEqual(uri, request.Uri, "Unexpected request URI");
+                AssertionUtils.AreEqual(uri, request.Uri, "Unexpected request URI");
             };
         }
 
@@ -81,7 +81,7 @@ namespace Spring.Rest.Client.Testing
             return delegate(IClientHttpRequest request)
             {
                 string[] actualHeaderValues = request.Headers.GetValues(header);
-                AssertionErrors.IsTrue(actualHeaderValues != null, "Expected header in request: " + header);
+                AssertionUtils.IsTrue(actualHeaderValues != null, "Expected header in request: " + header);
 
                 bool foundMatch = false;
                 foreach (string actualHeaderValue in actualHeaderValues)
@@ -92,7 +92,7 @@ namespace Spring.Rest.Client.Testing
                         break;
                     }
                 }
-                AssertionErrors.IsTrue(foundMatch, "Unexpected header value");
+                AssertionUtils.IsTrue(foundMatch, "Unexpected header value");
             };
         }
 
@@ -107,7 +107,7 @@ namespace Spring.Rest.Client.Testing
             return delegate(IClientHttpRequest request)
             {
                 string[] actualHeaderValues = request.Headers.GetValues(header);
-                AssertionErrors.IsTrue(actualHeaderValues != null, "Expected header in request: " + header);
+                AssertionUtils.IsTrue(actualHeaderValues != null, "Expected header in request: " + header);
 
                 bool foundMatch = false;
                 foreach (string actualHeaderValue in actualHeaderValues)
@@ -118,7 +118,7 @@ namespace Spring.Rest.Client.Testing
                         break;
                     }
                 }
-                AssertionErrors.IsTrue(foundMatch, "Header \"" + header + "\" didn't contain expected text <" + value + ">");
+                AssertionUtils.IsTrue(foundMatch, "Header \"" + header + "\" didn't contain expected text <" + value + ">");
             };
         }
 
@@ -132,7 +132,7 @@ namespace Spring.Rest.Client.Testing
             return delegate(IClientHttpRequest request)
             {
                 MockClientHttpRequest mockRequest = request as MockClientHttpRequest;
-                AssertionErrors.AreEqual(body, mockRequest.GetBodyContent(), "Unexpected body content");
+                AssertionUtils.AreEqual(body, mockRequest.GetBodyContent(), "Unexpected body content");
             };
         }
     }

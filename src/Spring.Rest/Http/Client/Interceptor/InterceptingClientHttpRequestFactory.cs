@@ -45,7 +45,7 @@ namespace Spring.Http.Client.Interceptor
             IClientHttpRequestFactory requestFactory,
             IEnumerable<IClientHttpRequestInterceptor> interceptors)
         {
-            AssertUtils.ArgumentNotNull(requestFactory, "'requestFactory' must not be null");
+            ArgumentUtils.AssertNotNull(requestFactory, "requestFactory");
 
             this.requestFactory = requestFactory;
             this.interceptors = interceptors != null ? interceptors : new IClientHttpRequestInterceptor[0];
