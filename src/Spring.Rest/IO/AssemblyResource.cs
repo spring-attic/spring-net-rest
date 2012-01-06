@@ -99,7 +99,13 @@ namespace Spring.IO
         /// <seealso cref="Spring.IO.IResource.IsOpen"/>
         public override Stream GetStream()
         {
-            return this.assembly.GetManifestResourceStream(this.resourceName);
+            Stream stream = this.assembly.GetManifestResourceStream(this.resourceName);
+            if (stream == null)
+            {
+                throw new FileNotFoundException(String.Format(
+                    "Could not load resource [{0}] from assembly [{1}]. Spring.NET URI syntax is 'assembly://MyAssembly/MyNamespace/MyResource.ext'", this.resourceName, this.assembly));
+            }
+            return stream;
         }
       
         /// <summary>

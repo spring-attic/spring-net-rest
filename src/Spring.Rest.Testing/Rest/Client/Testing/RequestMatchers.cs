@@ -92,7 +92,7 @@ namespace Spring.Rest.Client.Testing
                         break;
                     }
                 }
-                AssertionUtils.IsTrue(foundMatch, "Unexpected header value");
+                AssertionUtils.IsTrue(foundMatch, String.Format("Unexpected header '{0}' value", header));
             };
         }
 
@@ -118,7 +118,7 @@ namespace Spring.Rest.Client.Testing
                         break;
                     }
                 }
-                AssertionUtils.IsTrue(foundMatch, "Header \"" + header + "\" didn't contain expected text <" + value + ">");
+                AssertionUtils.IsTrue(foundMatch, String.Format("Header '{0}' didn't contain expected text <{1}>", header, value));
             };
         }
 

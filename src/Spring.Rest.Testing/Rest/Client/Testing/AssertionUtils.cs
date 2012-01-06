@@ -72,7 +72,7 @@ namespace Spring.Rest.Client.Testing
             {
                 return;
             }
-            Fail(message + " [expected:<" + expected + "> but was:<" + actual + ">]");
+            Fail(String.Format("{0} [expected:<{1}> but was:<{2}>]", message, expected, actual));
         }
     }
 }
