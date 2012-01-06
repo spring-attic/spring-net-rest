@@ -28,6 +28,8 @@ using Spring.Collections.Specialized;
 using System.Collections.Specialized;
 #endif
 
+using Spring.IO;
+
 namespace Spring.Http.Converters
 {
     /// <summary>
@@ -46,8 +48,8 @@ namespace Spring.Http.Converters
     /// In other words, this converter can read and write 'normal' HTML forms (as <see cref="NameValueCollection"/>), 
     /// and it can write multipart form (as <see cref="IDictionary{String,Object}"/>). 
     /// When writing multipart, this converter uses other <see cref="IHttpMessageConverter"/> to write the respective MIME parts. 
-    /// By default, basic converters are registered (supporting <see cref="String"/> and <see cref="FileInfo"/>, for instance); 
-    /// these can be overridden by setting <see cref="P:PartConverters"/> property.
+    /// By default, basic converters are registered (supporting <see cref="String"/>, <see cref="FileInfo"/> 
+    /// and <see cref="IResource"/>, for instance); these can be overridden by setting <see cref="P:PartConverters"/> property.
     /// </para>
     /// <para>
     /// For example, the following snippet shows how to submit an HTML form:
@@ -66,7 +68,7 @@ namespace Spring.Http.Converters
     /// RestTemplate template = new RestTemplate();
     /// IDictionary&lt;string, object> parts = new Dictionary&lt;string, object>();
     /// parts.Add("field 1", "value 1");
-    /// parts.Add("file", new FileInfo(@"C:\myFile.jpg"));
+    /// parts.Add("file", new FileResource(@"C:\myDir\myFile.jpg"));
     /// template.PostForLocation("http://example.com/myFileUpload", parts);
     /// </code>
     /// </para>
@@ -115,7 +117,7 @@ namespace Spring.Http.Converters
             this._partConverters.Add(new ByteArrayHttpMessageConverter());
             this._partConverters.Add(new StringHttpMessageConverter());
             this._partConverters.Add(new FileInfoHttpMessageConverter());
-            //this._partConverters.Add(new ResourceHttpMessageConverter());
+            this._partConverters.Add(new ResourceHttpMessageConverter());
         }
 
         #region IHttpMessageConverter Members
@@ -346,11 +348,11 @@ namespace Spring.Http.Converters
         }
 
         /// <summary>
-        /// Return the filename of the given multipart part 
-        /// to be used for the 'Content-Disposition' header.
+        /// Return the filename of the given multipart part to be used for the 'Content-Disposition' header.
         /// </summary>
         /// <remarks>
-        /// Default implementation returns <see cref="P:FileInfo.FullName"/> if the part is a <see cref="FileInfo"/>, 
+        /// Default implementation returns <see cref="P:FileInfo.Name"/> if the part is a <see cref="FileInfo"/>, 
+        /// extracts the file name from the URI if the part is a <see cref="IResource"/> 
         /// and <see langword="null"/> in other cases. Can be overridden in subclasses.
         /// </remarks>
         /// <param name="part">The part to determine the file name for</param>
@@ -359,7 +361,15 @@ namespace Spring.Http.Converters
         {
             if (part is FileInfo)
             {
-                return ((FileInfo)part).FullName;
+                return ((FileInfo)part).Name;
+            }
+            else if (part is IResource)
+            {
+                Uri resourceUri = ((IResource)part).Uri;
+                if (resourceUri != null)
+                {
+                    return Path.GetFileName(resourceUri.LocalPath);
+                }
             }
             return null;
         }

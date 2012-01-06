@@ -138,6 +138,7 @@
     <Compile Include="Http\Converters\Feed\Rss20FeedHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Json\DataContractJsonHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Json\SpringJsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\ResourceHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Xml\AbstractXmlHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Xml\XElementHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Xml\XmlDocumentHttpMessageConverter.cs" />

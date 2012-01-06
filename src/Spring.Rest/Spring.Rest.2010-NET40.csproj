@@ -165,6 +165,7 @@
     </Compile>
     <Compile Include="Http\Converters\Json\DataContractJsonHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Json\SpringJsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\ResourceHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\StringHttpMessageConverter.cs">
       <SubType>Code</SubType>
     </Compile>

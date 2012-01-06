@@ -158,7 +158,7 @@ namespace Spring.Http.Converters
             {
                 if (contentType == null || contentType.IsWildcardType || contentType.IsWildcardSubtype)
                 {
-                    contentType = GetDefaultContentType(content.GetType());
+                    contentType = GetDefaultContentType(content);
                 }
                 if (contentType != null)
                 {
@@ -221,15 +221,15 @@ namespace Spring.Http.Converters
         }
 
         /// <summary>
-        /// Returns the default content type for the given type. 
+        /// Returns the default content type for the given object. 
         /// Called when <see cref="M:Write"/> is invoked without a specified content type parameter.
         /// </summary>
         /// <remarks>
         /// By default, this returns the first element of the <see cref="P:SupportedMediaTypes"/> property, if any.
         /// </remarks>
-        /// <param name="type">The type to return the content type for.</param>
+        /// <param name="content">The object to return the content type for.</param>
         /// <returns>The <see cref="MediaType">content type</see>, or null if not known.</returns>
-        protected virtual MediaType GetDefaultContentType(Type type)
+        protected virtual MediaType GetDefaultContentType(object content)
         {
             return (this._supportedMediaTypes.Count > 0 ? this._supportedMediaTypes[0] : null);
         }

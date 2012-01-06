@@ -55,7 +55,7 @@ namespace Spring.Http.Converters
         {
         }
 #else
-                /// <summary>
+        /// <summary>
         /// Creates a new instance of the <see cref="StringHttpMessageConverter"/> 
         /// with 'text/plain; charset=ISO-8859-1', and '*/*' media types.
         /// </summary>

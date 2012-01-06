@@ -33,7 +33,7 @@ namespace Spring.IO
     /// This implementation expects any resource name passed to the
     /// constructor to adhere to the following format:
     /// <code>
-    /// (assembly://)<i>assemblyName</i>/<i>namespace</i>/<i>resourceName</i>
+    /// assembly://<i>assemblyName</i>/<i>namespace</i>/<i>resourceName</i>
     /// </code>
     /// </remarks>
     /// <author>Bruno Baia</author>
@@ -63,7 +63,7 @@ namespace Spring.IO
             if (info.Length != 3)
             {
                 throw new UriFormatException(String.Format(
-                    "Invalid resource name. Name has to be in '(assembly://)<assemblyName>/<namespace>/<resourceName>' format.", resourceName));
+                    "Invalid resource name. Name has to be in 'assembly://<assemblyName>/<namespace>/<resourceName>' format.", resourceName));
             }
             this.assembly = Assembly.Load(info[0]);
             if (this.assembly == null)

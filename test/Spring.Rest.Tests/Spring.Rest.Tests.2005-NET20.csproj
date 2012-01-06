@@ -110,6 +110,7 @@
     <Compile Include="Http\Converters\Json\JsonHttpMessageConverterIntegrationTests.cs" />
     <Compile Include="Http\Converters\Json\NJsonHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Json\SpringJsonHttpMessageConverterTests.cs" />
+    <Compile Include="Http\Converters\ResourceHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\StringHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Xml\DataContractHttpMessageConverterTests.cs" />
     <Compile Include="Http\Converters\Xml\XElementHttpMessageConverterTests.cs" />
@@ -152,6 +153,9 @@
     <None Include="Http\Converters\FileToUpload.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Http\Converters\Resource.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
