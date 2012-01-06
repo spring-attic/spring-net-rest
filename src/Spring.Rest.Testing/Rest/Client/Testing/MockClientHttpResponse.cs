@@ -21,7 +21,6 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Text;
 
 using Spring.Http;
 using Spring.Http.Client;
@@ -40,22 +39,7 @@ namespace Spring.Rest.Client.Testing
         private HttpStatusCode statusCode;
 	    private string statusDescription;
         private HttpHeaders headers;
-        private string body;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MockClientHttpResponse"/>.
-        /// </summary>
-        /// <param name="body">The body of the response as a string.</param>
-        /// <param name="headers">The response headers.</param>
-        /// <param name="statusCode">The response status code.</param>
-        /// <param name="statusDescription">The response status description.</param>
-        public MockClientHttpResponse(string body, HttpHeaders headers, HttpStatusCode statusCode, string statusDescription)
-        {
-            this.body = body;
-            this.headers = headers;
-            this.statusCode = statusCode;
-            this.statusDescription = statusDescription;
-        }
+        private Stream body;
 
         /// <summary>
         /// Creates a new instance of <see cref="MockClientHttpResponse"/>.
@@ -65,16 +49,11 @@ namespace Spring.Rest.Client.Testing
         /// <param name="statusCode">The response status code.</param>
         /// <param name="statusDescription">The response status description.</param>
         public MockClientHttpResponse(Stream body, HttpHeaders headers, HttpStatusCode statusCode, string statusDescription)
-            : this(StreamToString(body), headers, statusCode, statusDescription)
         {
-        }
-
-        private static string StreamToString(Stream s)
-        {
-            using (StreamReader reader = new StreamReader(s, Encoding.UTF8))
-            {
-                return reader.ReadToEnd();
-            }
+            this.body = body;
+            this.headers = headers;
+            this.statusCode = statusCode;
+            this.statusDescription = statusDescription;
         }
 
         #region IClientHttpResponse Members
@@ -108,7 +87,7 @@ namespace Spring.Rest.Client.Testing
         /// </summary>
         public Stream Body
         {
-            get  { return new MemoryStream(Encoding.UTF8.GetBytes(this.body)); }
+            get  { return this.body; }
         }
 
         /// <summary>
@@ -116,10 +95,12 @@ namespace Spring.Rest.Client.Testing
         /// </summary>
         public void Close()
         {
+            this.body.Close();
         }
 
         void IDisposable.Dispose()
         {
+            this.Close();
         }
 
         #endregion

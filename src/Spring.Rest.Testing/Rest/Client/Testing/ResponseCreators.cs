@@ -18,8 +18,12 @@
 
 #endregion
 
+using System.IO;
+using System.Text;
 using System.Net;
 
+using Spring.IO;
+using Spring.Util;
 using Spring.Http;
 using Spring.Http.Client;
 
@@ -35,7 +39,8 @@ namespace Spring.Rest.Client.Testing
     public static class ResponseCreators
     {
         /// <summary>
-        /// Creates a <see cref="ResponseCreator"/> that respond with the given response body, headers, status code, and status description.
+        /// Creates a <see cref="ResponseCreator"/> that respond with 
+        /// the given response body, headers, status code, and status description.
         /// </summary>
         /// <param name="body">The body of the response.</param>
         /// <param name="headers">The response headers.</param>
@@ -45,14 +50,18 @@ namespace Spring.Rest.Client.Testing
         public static ResponseCreator CreateWith(
             string body, HttpHeaders headers, HttpStatusCode statusCode, string statusDescription)
         {
+            ArgumentUtils.AssertNotNull(body, "body");
+
             return delegate(IClientHttpRequest request)
             {
-                return new MockClientHttpResponse(body, headers, statusCode, statusDescription);
+                return new MockClientHttpResponse(new MemoryStream(Encoding.UTF8.GetBytes(body)), headers, statusCode, statusDescription);
             };
         }
 
         /// <summary>
-        /// Creates a <see cref="ResponseCreator"/> that respond with the given response body and headers. The response status code is HTTP 200 (OK).
+        /// Creates a <see cref="ResponseCreator"/> that respond with 
+        /// the given response body and headers. 
+        /// The response status code is HTTP 200 (OK).
         /// </summary>
         /// <param name="body">The body of the response.</param>
         /// <param name="headers">The response headers.</param>
@@ -62,38 +71,37 @@ namespace Spring.Rest.Client.Testing
             return CreateWith(body, headers, HttpStatusCode.OK, "OK");
         }
 
-/*
         /// <summary>
-        /// Creates a <see cref="ResponseCreator"/> that respond with the given response body (from a <see cref="IResource"/>), headers, status code, and status description.
+        /// Creates a <see cref="ResponseCreator"/> that respond with 
+        /// the given response body (from a <see cref="IResource"/>), headers, status code, and status description.
         /// </summary>
         /// <param name="body">The <see cref="IResource"/> containing the body of the response.</param>
         /// <param name="headers">The response headers.</param>
         /// <param name="statusCode">The response status code.</param>
         /// <param name="statusDescription">The response status description.</param>
-        /// <returns>A <see cref="IResponseCreator"/>.</returns>
-        public static IResponseCreator CreateWith(
-            IResource responseBodyResource, HttpHeaders headers, HttpStatusCode statusCode, string statusDescription) 
+        /// <returns>A <see cref="ResponseCreator"/>.</returns>
+        public static ResponseCreator CreateWith(
+            IResource body, HttpHeaders headers, HttpStatusCode statusCode, string statusDescription)
         {
-            return WithResponse(ReadResource(body), headers, statusCode, statusDescription);
-        }
-	
-        /// <summary>
-        /// Creates a <see cref="ResponseCreator"/> that respond with the given response body (from a <see cref="IResource"/>) and headers. The response status code is HTTP 200 (OK).
-        /// </summary>
-        /// <param name="body">The <see cref="IResource"/> containing the body of the response.</param>
-        /// <param name="headers">The response headers.</param>
-        /// <param name="statusCode">The response status code.</param>
-        /// <param name="statusDescription">The response status description.</param>
-        /// <returns>A <see cref="IResponseCreator"/>.</returns>
-        public static IResponseCreator CreateWith(IResource body, HttpHeaders headers) 
-        {
-            return WithResponse(body, headers, HttpStatusCode.OK, "OK");
+            ArgumentUtils.AssertNotNull(body, "body");
+
+            return delegate(IClientHttpRequest request)
+            {
+                return new MockClientHttpResponse(body.GetStream(), headers, statusCode, statusDescription);
+            };
         }
 
-        private static string ReadResource(IResource resource) 
+        /// <summary>
+        /// Creates a <see cref="ResponseCreator"/> that respond with 
+        /// the given response body (from a <see cref="IResource"/>) and headers. 
+        /// The response status code is HTTP 200 (OK).
+        /// </summary>
+        /// <param name="body">The <see cref="IResource"/> containing the body of the response.</param>
+        /// <param name="headers">The response headers.</param>
+        /// <returns>A <see cref="ResponseCreator"/>.</returns>
+        public static ResponseCreator CreateWith(IResource body, HttpHeaders headers)
         {
-            // TODO:
+            return CreateWith(body, headers, HttpStatusCode.OK, "OK");
         }
-*/
     }
 }

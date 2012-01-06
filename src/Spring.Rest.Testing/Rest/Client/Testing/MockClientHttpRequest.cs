@@ -171,8 +171,8 @@ namespace Spring.Rest.Client.Testing
         /// <summary>
         /// Returns the body content as a string.
         /// </summary>
-        /// <returns>The body content.</returns>
-        public string GetBodyContent()
+        /// <returns>A String representation of the body.</returns>
+        public string GetBodyAsString()
         {
             using (MemoryStream stream = new MemoryStream())
             {

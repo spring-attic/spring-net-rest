@@ -21,6 +21,7 @@
 using System;
 using System.Net;
 
+using Spring.IO;
 using Spring.Http;
 
 namespace Spring.Rest.Client.Testing
@@ -133,7 +134,6 @@ namespace Spring.Rest.Client.Testing
             requestActions.AndRespond(ResponseCreators.CreateWith(body, headers, HttpStatusCode.OK, "OK"));
         }
 
-/*
         /// <summary>
         /// Responds with the given response body (from a <see cref="IResource"/>), headers, status code, and status description.
         /// </summary>
@@ -142,11 +142,10 @@ namespace Spring.Rest.Client.Testing
         /// <param name="headers">The response headers.</param>
         /// <param name="statusCode">The response status code.</param>
         /// <param name="statusDescription">The response status description.</param>
-        /// <returns>A <see cref="IResponseCreator"/>.</returns>
         public static void AndRespondWith(this IRequestActions requestActions, 
             IResource body, HttpHeaders headers, HttpStatusCode statusCode, string statusDescription) 
         {
-            requestActions.AndRespond(ResponseCreators.CreateWith(ReadResource(body), headers, statusCode, statusDescription));
+            requestActions.AndRespond(ResponseCreators.CreateWith(body, headers, statusCode, statusDescription));
         }
 	
         /// <summary>
@@ -155,15 +154,11 @@ namespace Spring.Rest.Client.Testing
         /// <param name="requestActions">The <see cref="IRequestActions"/> to set up response on.</param>
         /// <param name="body">The <see cref="IResource"/> containing the body of the response.</param>
         /// <param name="headers">The response headers.</param>
-        /// <param name="statusCode">The response status code.</param>
-        /// <param name="statusDescription">The response status description.</param>
-        /// <returns>A <see cref="IResponseCreator"/>.</returns>
         public static void AndRespondWith(this IRequestActions requestActions, 
             IResource body, HttpHeaders headers) 
         {
-            requestActions.AndRespond(ResponseCreators.CreateWith(ReadResource(body), headers, HttpStatusCode.OK, "OK"));
+            requestActions.AndRespond(ResponseCreators.CreateWith(body, headers, HttpStatusCode.OK, "OK"));
         }
-*/
 
         #endregion
     }

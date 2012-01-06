@@ -126,6 +126,14 @@
     <Compile Include="Http\IHttpInputMessage.cs" />
     <Compile Include="Http\IHttpOutputMessage.cs" />
     <Compile Include="Http\MediaType.cs" />
+    <Compile Include="IO\AbstractResource.cs" />
+    <Compile Include="IO\AssemblyResource.cs" />
+    <Compile Include="IO\ByteArrayResource.cs" />
+    <Compile Include="IO\FileResource.cs" />
+    <Compile Include="IO\IResource.cs" />
+    <Compile Include="IO\StreamResource.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Json\IJsonDeserializer.cs" />
     <Compile Include="Json\IJsonSerializer.cs" />
     <Compile Include="Json\JsonArray.cs" />

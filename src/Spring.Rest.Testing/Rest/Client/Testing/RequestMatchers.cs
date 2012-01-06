@@ -132,7 +132,7 @@ namespace Spring.Rest.Client.Testing
             return delegate(IClientHttpRequest request)
             {
                 MockClientHttpRequest mockRequest = request as MockClientHttpRequest;
-                AssertionUtils.AreEqual(body, mockRequest.GetBodyContent(), "Unexpected body content");
+                AssertionUtils.AreEqual(body, mockRequest.GetBodyAsString(), "Unexpected body content");
             };
         }
     }
