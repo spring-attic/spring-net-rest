@@ -39,7 +39,9 @@ namespace Spring.Rest.Client.Testing
         /// </summary>
         /// <param name="requestActions">The <see cref="IRequestActions"/> to set up expectation on.</param>
         /// <param name="method">The HTTP method.</param>
-        /// <returns>The request matcher.</returns>
+        /// <returns>
+        /// The <see cref="IRequestActions"/> to set up responses and additional expectations on the request.
+        /// </returns>
         public static IRequestActions AndExpectMethod(this IRequestActions requestActions, HttpMethod method)
         {
             return requestActions.AndExpect(RequestMatchers.MatchMethod(method));
@@ -50,7 +52,9 @@ namespace Spring.Rest.Client.Testing
         /// </summary>
         /// <param name="requestActions">The <see cref="IRequestActions"/> to set up expectation on.</param>
         /// <param name="uri">the request URI.</param>
-        /// <returns>The request matcher.</returns>
+        /// <returns>
+        /// The <see cref="IRequestActions"/> to set up responses and additional expectations on the request.
+        /// </returns>
         public static IRequestActions AndExpectUri(this IRequestActions requestActions, string uri)
         {
             return requestActions.AndExpect(RequestMatchers.MatchUri(uri));
@@ -61,7 +65,9 @@ namespace Spring.Rest.Client.Testing
         /// </summary>
         /// <param name="requestActions">The <see cref="IRequestActions"/> to set up expectation on.</param>
         /// <param name="uri">the request URI.</param>
-        /// <returns>The request matcher.</returns>
+        /// <returns>
+        /// The <see cref="IRequestActions"/> to set up responses and additional expectations on the request.
+        /// </returns>
         public static IRequestActions AndExpectUri(this IRequestActions requestActions, Uri uri)
         {
             return requestActions.AndExpect(RequestMatchers.MatchUri(uri));
@@ -73,19 +79,23 @@ namespace Spring.Rest.Client.Testing
         /// <param name="requestActions">The <see cref="IRequestActions"/> to set up expectation on.</param>
         /// <param name="header">The header name.</param>
         /// <param name="value">The header value.</param>
-        /// <returns>The request matcher.</returns>
+        /// <returns>
+        /// The <see cref="IRequestActions"/> to set up responses and additional expectations on the request.
+        /// </returns>
         public static IRequestActions AndExpectHeader(this IRequestActions requestActions, string header, string value)
         {
             return requestActions.AndExpect(RequestMatchers.MatchHeader(header, value));
         }
 
         /// <summary>
-        /// Expects that the specified request header contains a subtring.
+        /// Expects that the specified request header contains the given substring.
         /// </summary>
         /// <param name="requestActions">The <see cref="IRequestActions"/> to set up expectation on.</param>
         /// <param name="header">The header name.</param>
         /// <param name="value">The substring that must appear in the header.</param>
-        /// <returns>The request matcher.</returns>
+        /// <returns>
+        /// The <see cref="IRequestActions"/> to set up responses and additional expectations on the request.
+        /// </returns>
         public static IRequestActions AndExpectHeaderContains(this IRequestActions requestActions, string header, string value)
         {
             return requestActions.AndExpect(RequestMatchers.MatchHeaderContains(header, value));
@@ -96,10 +106,25 @@ namespace Spring.Rest.Client.Testing
         /// </summary>
         /// <param name="requestActions">The <see cref="IRequestActions"/> to set up expectation on.</param>
         /// <param name="body">The request body.</param>
-        /// <returns>The request matcher.</returns>
+        /// <returns>
+        /// The <see cref="IRequestActions"/> to set up responses and additional expectations on the request.
+        /// </returns>
         public static IRequestActions AndExpectBody(this IRequestActions requestActions, string body)
         {
             return requestActions.AndExpect(RequestMatchers.MatchBody(body));
+        }
+
+        /// <summary>
+        /// Expects that the request body contains the given substring.
+        /// </summary>
+        /// <param name="requestActions">The <see cref="IRequestActions"/> to set up expectation on.</param>
+        /// <param name="body">The request body.</param>
+        /// <returns>
+        /// The <see cref="IRequestActions"/> to set up responses and additional expectations on the request.
+        /// </returns>
+        public static IRequestActions AndExpectBodyContains(this IRequestActions requestActions, string body)
+        {
+            return requestActions.AndExpect(RequestMatchers.MatchBodyContains(body));
         }
 
         #endregion
@@ -114,7 +139,6 @@ namespace Spring.Rest.Client.Testing
         /// <param name="headers">The response headers.</param>
         /// <param name="statusCode">The response status code.</param>
         /// <param name="statusDescription">The response status description.</param>
-        /// <returns>A <see cref="ResponseCreator"/>.</returns>
         public static void AndRespondWith(this IRequestActions requestActions,
             string body, HttpHeaders headers, HttpStatusCode statusCode, string statusDescription)
         {
@@ -127,7 +151,6 @@ namespace Spring.Rest.Client.Testing
         /// <param name="requestActions">The <see cref="IRequestActions"/> to set up response on.</param>
         /// <param name="body">The body of the response.</param>
         /// <param name="headers">The response headers.</param>
-        /// <returns>A <see cref="ResponseCreator"/>.</returns>
         public static void AndRespondWith(this IRequestActions requestActions,
             string body, HttpHeaders headers)
         {

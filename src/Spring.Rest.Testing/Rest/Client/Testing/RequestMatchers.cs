@@ -43,7 +43,7 @@ namespace Spring.Rest.Client.Testing
         {
             return delegate(IClientHttpRequest request)
             {
-                AssertionUtils.AreEqual(method, request.Method, "Unexpected HttpMethod");
+                AssertionUtils.AreEqual(method, request.Method, "Unexpected HTTP method");
             };
         }
 
@@ -66,7 +66,7 @@ namespace Spring.Rest.Client.Testing
         {
             return delegate(IClientHttpRequest request)
             {
-                AssertionUtils.AreEqual(uri, request.Uri, "Unexpected request URI");
+                AssertionUtils.AreEqual(uri, request.Uri, "Unexpected URI");
             };
         }
 
@@ -81,7 +81,7 @@ namespace Spring.Rest.Client.Testing
             return delegate(IClientHttpRequest request)
             {
                 string[] actualHeaderValues = request.Headers.GetValues(header);
-                AssertionUtils.IsTrue(actualHeaderValues != null, "Expected header in request: " + header);
+                AssertionUtils.IsTrue(actualHeaderValues != null, String.Format("Expected header '{0}' missing", header));
 
                 bool foundMatch = false;
                 foreach (string actualHeaderValue in actualHeaderValues)
@@ -92,7 +92,7 @@ namespace Spring.Rest.Client.Testing
                         break;
                     }
                 }
-                AssertionUtils.IsTrue(foundMatch, String.Format("Unexpected header '{0}' value", header));
+                AssertionUtils.IsTrue(foundMatch, String.Format("Header '{0}' didn't have expected value [expected:<{1}> but was:<{2}>]", header, value, request.Headers[header]));
             };
         }
 
@@ -107,7 +107,7 @@ namespace Spring.Rest.Client.Testing
             return delegate(IClientHttpRequest request)
             {
                 string[] actualHeaderValues = request.Headers.GetValues(header);
-                AssertionUtils.IsTrue(actualHeaderValues != null, "Expected header in request: " + header);
+                AssertionUtils.IsTrue(actualHeaderValues != null, String.Format("Expected header '{0}' missing", header));
 
                 bool foundMatch = false;
                 foreach (string actualHeaderValue in actualHeaderValues)
@@ -118,7 +118,7 @@ namespace Spring.Rest.Client.Testing
                         break;
                     }
                 }
-                AssertionUtils.IsTrue(foundMatch, String.Format("Header '{0}' didn't contain expected text <{1}>", header, value));
+                AssertionUtils.IsTrue(foundMatch, String.Format("Header '{0}' didn't contain expected value [expected:<{1}> in:<{2}>]", header, value, request.Headers[header]));
             };
         }
 
@@ -133,6 +133,21 @@ namespace Spring.Rest.Client.Testing
             {
                 MockClientHttpRequest mockRequest = request as MockClientHttpRequest;
                 AssertionUtils.AreEqual(body, mockRequest.GetBodyAsString(), "Unexpected body content");
+            };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="RequestMatcher"/> that expect to contain the given request body content.
+        /// </summary>
+        /// <param name="body">The substring that must appear in the body content.</param>
+        /// <returns>The request matcher.</returns>
+        public static RequestMatcher MatchBodyContains(string body)
+        {
+            return delegate(IClientHttpRequest request)
+            {
+                MockClientHttpRequest mockRequest = request as MockClientHttpRequest;
+                string actualBody = mockRequest.GetBodyAsString();
+                AssertionUtils.IsTrue(actualBody.Contains(body), String.Format("Body didn't contain expected content [expected:<{0}> in:<{1}>]", body, actualBody));
             };
         }
     }

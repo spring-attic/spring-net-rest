@@ -30,7 +30,7 @@ namespace Spring.Rest.Client
     /// <typeparam name="T">The type of the response value.</typeparam>
     /// <see cref="IRestOperations"/>
     /// <see cref="RestTemplate"/>
-    public class RestOperationCompletedEventArgs<T> : AsyncCompletedEventArgs where T : class
+    public class RestOperationCompletedEventArgs<T> : AsyncCompletedEventArgs
     {
         private T response;
 

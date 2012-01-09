@@ -23,6 +23,8 @@ using System.IO;
 using System.Globalization;
 using System.Reflection;
 
+using Spring.Util;
+
 namespace Spring.IO
 {
     /// <summary>
@@ -47,9 +49,12 @@ namespace Spring.IO
         private string resourceAssemblyName;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Spring.IO.AssemblyResource"/> class.
+        /// Creates a new instance of the <see cref="Spring.IO.AssemblyResource"/> class 
+        /// with the specified resource name.
         /// </summary>
-        /// <param name="resourceName">The name of the assembly resource.</param>
+        /// <param name="resourceName">
+        /// The resource name that must follow the format 'assembly://assemblyName/namespace/resourceName'.
+        /// </param>
         /// <exception cref="System.UriFormatException">
         /// If the supplied <paramref name="resourceName"/> did not conform to the expected format.
         /// </exception>
@@ -75,6 +80,35 @@ namespace Spring.IO
             this.resourceAssemblyName = info[0];
             this.resourceNamespace = info[1];
             this.resourceName = String.Format("{0}.{1}", info[1], info[2]);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="Spring.IO.AssemblyResource"/> class. 
+        /// Generates the full assembly resource name from a file name and a type used to obtain the assembly name and the namespace.
+        /// </summary>
+        /// <param name="resourceName">The name of the file in the assembly.</param>
+        /// <param name="type">The type to determine the assembly and the namespace.</param>
+        /// <exception cref="System.UriFormatException">
+        /// If the generated resource name did not conform to the expected format.
+        /// </exception>
+        /// <exception cref="System.IO.FileNotFoundException">
+        /// If the assembly specified in the generated resource name could not be found.
+        /// </exception>
+        public AssemblyResource(string resourceName, Type type)
+            : base(GetFullAssemblyResourceName(resourceName, type))
+        {
+        }
+
+        /// <summary>
+        /// Constructs a "assembly://assemblyName/namespace/resourceName" qualified resource name 
+        /// using the given type to obtain the assembly name and the namespace.
+        /// </summary>
+        private static string GetFullAssemblyResourceName(string resourceName, Type type)
+        {
+            ArgumentUtils.AssertHasText(resourceName, "resourceName");
+            ArgumentUtils.AssertNotNull(type, "type");
+
+            return String.Format("assembly://{0}/{1}/{2}", type.Assembly.FullName, type.Namespace, resourceName);
         }
 
         /// <summary>
