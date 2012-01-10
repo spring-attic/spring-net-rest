@@ -95,7 +95,7 @@ namespace Spring.IO
         /// If the assembly specified in the generated resource name could not be found.
         /// </exception>
         public AssemblyResource(string resourceName, Type type)
-            : base(GetFullAssemblyResourceName(resourceName, type))
+            : this(GetFullAssemblyResourceName(resourceName, type))
         {
         }
 
@@ -108,7 +108,7 @@ namespace Spring.IO
             ArgumentUtils.AssertHasText(resourceName, "resourceName");
             ArgumentUtils.AssertNotNull(type, "type");
 
-            return String.Format("assembly://{0}/{1}/{2}", type.Assembly.FullName, type.Namespace, resourceName);
+            return String.Format("assembly://{0}/{1}/{2}", type.Assembly.GetName().Name, type.Namespace, resourceName);
         }
 
         /// <summary>

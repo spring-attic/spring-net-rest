@@ -143,6 +143,10 @@
     <Compile Include="Http\HttpHeadersTests.cs" />
     <Compile Include="Http\MediaTypeTests.cs" />
     <Compile Include="Http\MockHttpInputMessage.cs" />
+    <Compile Include="IO\AssemblyResourceTests.cs" />
+    <Compile Include="IO\ByteArrayResourceTests.cs" />
+    <Compile Include="IO\FileResourceTests.cs" />
+    <Compile Include="IO\StreamResourceTests.cs" />
     <Compile Include="Json\JsonMapperTests.cs" />
     <Compile Include="Json\JsonValueTests.cs" />
     <Compile Include="Rest\Client\HttpResponseExceptionTests.cs" />
@@ -177,6 +181,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Http\Converters\Resource.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestResource.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="IO\TestResource.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
