@@ -851,6 +851,8 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
   <section id="http-datacontractjsonconverter">
     <title>DataContractJsonHttpMessageConverter</title>
 
+    <para>[Since 1.1: Previously named 'JsonHttpMessageConverter']</para>
+    
     <para>Supports .NET Framework 3.5, 4.0, Silverlight and Windows
     Phone.</para>
 

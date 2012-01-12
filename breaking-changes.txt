@@ -3,6 +3,4 @@ Changes (1.0 to 1.1)
 
 1. Interface IRestAsyncOperations has been removed and merged with IRestOperations.
 
-2. Renamed JsonHttpMessageConverter into DataContractJsonHttpMessageConverter for better consistency.
-
-3. Changed HttpMethod type from Enum to Class to allow additional methods.
+2. Changed HttpMethod type from Enum to Class to allow additional methods.

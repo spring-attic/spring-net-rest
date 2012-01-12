@@ -115,6 +115,7 @@
     <Compile Include="Http\Converters\HttpMessageNotWritableException.cs" />
     <Compile Include="Http\Converters\IHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Json\DataContractJsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Json\JsonHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\Json\SpringJsonHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\ResourceHttpMessageConverter.cs" />
     <Compile Include="Http\Converters\StringHttpMessageConverter.cs" />
