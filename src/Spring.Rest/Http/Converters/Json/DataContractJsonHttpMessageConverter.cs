@@ -43,7 +43,7 @@ namespace Spring.Http.Converters.Json
         /// <summary>
         /// Default encoding for JSON.
         /// </summary>
-        public static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
+        protected static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
 
         private IEnumerable<Type> _knownTypes;
         private bool _requiresAttribute;

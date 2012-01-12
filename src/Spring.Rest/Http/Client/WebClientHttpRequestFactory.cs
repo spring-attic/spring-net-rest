@@ -21,6 +21,7 @@
 using System;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using Spring.Util;
 
 namespace Spring.Http.Client
 {
@@ -185,6 +186,9 @@ namespace Spring.Http.Client
         /// <returns>The created request</returns>
         public virtual IClientHttpRequest CreateRequest(Uri uri, HttpMethod method)
         {
+            ArgumentUtils.AssertNotNull(uri, "uri");
+            ArgumentUtils.AssertNotNull(method, "method");
+
             HttpWebRequest httpWebRequest;
 #if SILVERLIGHT && !WINDOWS_PHONE
             switch (this._webRequestCreator)

@@ -40,9 +40,9 @@ namespace Spring.Http.Converters
         /// Default encoding for strings.
         /// </summary>
 #if SILVERLIGHT || CF_3_5
-        public static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
+        protected static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
 #else
-        public static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
+        protected static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
 #endif
 
 #if SILVERLIGHT || CF_3_5

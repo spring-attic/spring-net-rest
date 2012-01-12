@@ -47,7 +47,7 @@ namespace Spring.Http.Converters.Json
         /// <summary>
         /// Default encoding for JSON strings.
         /// </summary>
-        public static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
+        protected static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
 
         private JsonMapper mapper;
 

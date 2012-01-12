@@ -37,7 +37,7 @@ namespace Spring.Http.Converters.Xml
         /// <summary>
         /// Default encoding for XML.
         /// </summary>
-        public static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
+        protected static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
 
         /// <summary>
         /// Creates a new instance of the <see cref="AbstractHttpMessageConverter"/> 

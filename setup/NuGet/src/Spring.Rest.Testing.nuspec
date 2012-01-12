@@ -6,7 +6,7 @@
     <!-- auto-generated -->
     <version>1.1.0</version>
     <iconUrl>http://springframework.net/images/SpringSource_Leaves32x32.png</iconUrl>
-    <projectUrl>http://www.springframework.net/</projectUrl>
+    <projectUrl>http://www.springframework.net/rest/</projectUrl>
     <licenseUrl>http://www.springframework.net/license.html</licenseUrl>
     <authors>SpringSource</authors>
     <description>Spring.NET REST Client Testing Framework</description>

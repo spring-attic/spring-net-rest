@@ -42,9 +42,9 @@ namespace Spring.Rest.Client
         /// Default encoding for responses as string.
         /// </summary>
 #if SILVERLIGHT || CF_3_5
-        private static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
+        protected static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
 #else
-        private static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
+        protected static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
 #endif
 
         private HttpResponseMessage<byte[]> response;
