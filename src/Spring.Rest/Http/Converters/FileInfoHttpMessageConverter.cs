@@ -23,6 +23,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using Spring.Util;
+using Spring.IO;
 
 namespace Spring.Http.Converters
 {
@@ -34,56 +35,16 @@ namespace Spring.Http.Converters
     /// If no Content-Type is available, 'application/octet-stream' is used.
     /// </remarks>
     /// <author>Bruno Baia</author>
-    public class FileInfoHttpMessageConverter : IHttpMessageConverter
+    [Obsolete("This class is obsolete; use ResourceHttpMessageConverter instead.")]
+    public class FileInfoHttpMessageConverter : ResourceHttpMessageConverter
     {
-        // Pre-defined mapping between file extension and mime types
-        private static IDictionary<string, string> defaultMimeMapping;
-
-        private IList<MediaType> _supportedMediaTypes;
-        private IDictionary<string, string> _mimeMapping;
-
         /// <summary>
-        /// Gets or sets the mapping between file extension and mime types.
-        /// </summary>
-        public IDictionary<string, string> MimeMapping
-        {
-            get 
-            {
-                if (this._mimeMapping == null)
-                {
-                    this._mimeMapping = new Dictionary<string, string>(defaultMimeMapping);
-                }
-                return _mimeMapping; 
-            }
-            set { _mimeMapping = value; }
-        }
-
-        static FileInfoHttpMessageConverter()
-        {
-            defaultMimeMapping = new Dictionary<string, string>(9, StringComparer.OrdinalIgnoreCase);
-            defaultMimeMapping.Add(".bmp", "image/bmp");
-            defaultMimeMapping.Add(".gif", "image/gif");
-            defaultMimeMapping.Add(".jpg", "image/jpeg");
-            defaultMimeMapping.Add(".jpeg", "image/jpeg");
-            defaultMimeMapping.Add(".pdf", "application/pdf");
-            defaultMimeMapping.Add(".png", "image/png");
-            defaultMimeMapping.Add(".tif", "image/tiff");
-            defaultMimeMapping.Add(".txt", "text/plain");
-            defaultMimeMapping.Add(".zip", "application/x-zip-compressed");
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FileInfoHttpMessageConverter"/> 
-        /// with 'application/octet-stream', and '*/*' media types.
+        /// Creates a new instance of the <see cref="FileInfoHttpMessageConverter"/>.
         /// </summary>
         public FileInfoHttpMessageConverter()
+            :base()
         {
-            this._supportedMediaTypes = new List<MediaType>();
-            this._supportedMediaTypes.Add(MediaType.APPLICATION_OCTET_STREAM);
-            this._supportedMediaTypes.Add(MediaType.ALL);
         }
-
-        #region IHttpMessageConverter Members
 
         /// <summary>
         /// Indicates whether the given class can be read by this converter.
@@ -93,7 +54,7 @@ namespace Spring.Http.Converters
         /// The media type to read, can be null if not specified. Typically the value of a 'Content-Type' header.
         /// </param>
         /// <returns><see langword="true"/> if readable; otherwise <see langword="false"/></returns>
-        public bool CanRead(Type type, MediaType mediaType)
+        public override bool CanRead(Type type, MediaType mediaType)
         {
             return false;
         }
@@ -106,17 +67,9 @@ namespace Spring.Http.Converters
         /// The media type to write, can be null if not specified. Typically the value of an 'Accept' header.
         /// </param>
         /// <returns><see langword="true"/> if writable; otherwise <see langword="false"/></returns>
-        public bool CanWrite(Type type, MediaType mediaType)
+        public override bool CanWrite(Type type, MediaType mediaType)
         {
             return type.Equals(typeof(FileInfo));
-        }
-
-        /// <summary>
-        /// Gets the list of <see cref="MediaType"/> objects supported by this converter.
-        /// </summary>  
-        public IList<MediaType> SupportedMediaTypes
-        {
-            get { return this._supportedMediaTypes; }
         }
 
         /// <summary>
@@ -129,7 +82,7 @@ namespace Spring.Http.Converters
         /// <param name="message">The HTTP message to read from.</param>
         /// <returns>The converted object.</returns>
         /// <exception cref="HttpMessageNotReadableException">In case of conversion errors</exception>
-        public T Read<T>(IHttpInputMessage message) where T : class
+        public override T Read<T>(IHttpInputMessage message)
         {
             throw new NotSupportedException();
         }
@@ -148,48 +101,9 @@ namespace Spring.Http.Converters
         /// </param>
         /// <param name="message">The HTTP message to write to.</param>
         /// <exception cref="HttpMessageNotWritableException">In case of conversion errors</exception>
-        public void Write(object content, MediaType contentType, IHttpOutputMessage message)
+        public override void Write(object content, MediaType contentType, IHttpOutputMessage message)
         {
-            // Get the content type
-            HttpHeaders headers = message.Headers;
-            if (headers.ContentType == null)
-            {
-                if (contentType == null || contentType.IsWildcardType || contentType.IsWildcardSubtype)
-                {
-                    contentType = GetContentType(content as FileInfo);
-                }
-                if (contentType != null)
-                {
-                    headers.ContentType = contentType;
-                }
-            }
-
-            // Write to the message stream
-            message.Body = delegate(Stream stream)
-            {
-                using (FileStream fs = ((FileInfo)content).OpenRead())
-                {
-                    IoUtils.CopyStream(fs, stream);
-                }
-            };
-        }
-
-        #endregion
-
-        private MediaType GetContentType(FileInfo file)
-        {
-            IDictionary<string, string> mimeMapping = 
-                (this._mimeMapping == null) ? defaultMimeMapping : this._mimeMapping;
-
-            string mimeType;
-            if (mimeMapping.TryGetValue(file.Extension, out mimeType))
-            {
-                return MediaType.Parse(mimeType);
-            }
-            else
-            {
-                return MediaType.APPLICATION_OCTET_STREAM;
-            }
+            base.Write(new FileResource(((FileInfo)content).FullName), contentType, message);
         }
     }
 }

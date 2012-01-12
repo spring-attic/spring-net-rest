@@ -116,7 +116,9 @@ namespace Spring.Http.Converters
             this._partConverters = new List<IHttpMessageConverter>(3);
             this._partConverters.Add(new ByteArrayHttpMessageConverter());
             this._partConverters.Add(new StringHttpMessageConverter());
+#pragma warning disable 618
             this._partConverters.Add(new FileInfoHttpMessageConverter());
+#pragma warning restore 618
             this._partConverters.Add(new ResourceHttpMessageConverter());
         }
 
