@@ -1,0 +1,17 @@
+﻿<order xmlns="http://restbucks.com">
+  <links>
+    <link uri="http://restbuckson.net/order/2818050" rel="http://restbuckson.net/docs/order-get.htm" mediaType="application/vnd.restbucks+xml"/>
+    <link uri="http://restbuckson.net/order/2818050" rel="http://restbuckson.net/docs/order-update.htm" mediaType="application/vnd.restbucks+xml"/>
+    <link uri="http://restbuckson.net/order/2818050" rel="http://restbuckson.net/docs/order-cancel.htm" mediaType="application/vnd.restbucks+xml"/>
+    <link uri="http://restbuckson.net/order/2818050/payment" rel="http://restbuckson.net/docs/order-pay.htm" mediaType="application/vnd.restbucks+xml"/>
+  </links>
+  <location>inShop</location>
+  <cost>7.60000</cost>
+  <items>
+    <item>
+      <name>Latte</name>
+      <quantity>1</quantity>
+    </item>
+  </items>
+  <status>unpaid</status>
+</order>
