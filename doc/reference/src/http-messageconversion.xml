@@ -404,6 +404,36 @@
 
         <row>
           <entry>
+            <link linkend="http-springjsonconverter">SpringJsonHttpMessageConverter</link>
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+        </row>
+        
+        <row>
+          <entry>
             <link
             linkend="http-feedconverters-atom10">Atom10FeedHttpMessageConverter</link>
           </entry>
@@ -883,8 +913,36 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     <para>To use this converter with the <classname>RestTemplate</classname>,
     you will have to add it to the message converters list : <programlisting
     language="csharp">template.MessageConverters.Add(new <classname>NJsonHttpMessageConverter</classname>());</programlisting></para>
+  </section>
+  
+  <section id="http-springjsonconverter">
+    <title>SpringJsonHttpMessageConverter</title>
 
-    <para>See the Windows Phone quick start for an example of use.</para>
+    <para>[Since 1.1]</para>
+
+    <para>Supports all the .NET Framework versions.</para>
+
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write JSON using the Spring.NET lightweight JSON implementation.
+    <sbr />By default, this converter supports media type <literal>'application/json'</literal>.</para>
+
+    <para>The goal of the Spring.NET JSON support is to remain simple and lightweight.
+    The JSON parsing code is based on the <ulink url="http://simplejson.codeplex.com/">SimpleJson</ulink> library.</para>
+
+    <para>Unlike <literal>DataContractJsonSerializer</literal> .NET Framework class used by 
+    <link linkend="http-datacontractjsonconverter">DataContractJsonHttpMessageConverter</link>, 
+    this library supports getting/setting values from JSON directly, without the need to
+    deserialize/serialize to a .NET class as shown in the following example:</para>
+
+    <programlisting language="csharp"><classname>JsonValue</classname> json = JsonValue.Parse(("{\"Message\": \"Hello world!\"}"));
+json.GetValue&lt;string&gt;("Message");</programlisting>    
+
+    <para>To use this converter with the <classname>RestTemplate</classname>,
+    you will have to add it to the message converters list : <programlisting
+    language="csharp">template.MessageConverters.Add(new <classname>SpringJsonHttpMessageConverter</classname>());</programlisting></para>
+
+    <para>See the Windows Phone quick start for an basic example of use and 
+    <ulink url="http://www.springframework.net/social/">Spring.NET Social</ulink> projects for advanced usage.</para>
   </section>
 
   <section id="http-feedconverters">
