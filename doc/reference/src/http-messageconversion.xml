@@ -137,7 +137,38 @@
         <row>
           <entry>
             <link
-            linkend="http-formconverter">FileInfoHttpMessageConverter</link>
+            linkend="http-fileinfoconverter">FileInfoHttpMessageConverter</link>
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+
+          <entry align="center">
+            <imagedata fileref="images/supported.png" format="PNG" />
+          </entry>
+        </row>
+
+        <row>
+          <entry>
+            <link
+            linkend="http-resourceconverter">ResourceHttpMessageConverter</link>
           </entry>
 
           <entry align="center">
@@ -475,6 +506,10 @@
   <section id="http-fileinfoconverter">
     <title>FileInfoHttpMessageConverter</title>
 
+    <warning>
+      [Obsolete since 1.1: use <link linkend="http-resourceconverter">ResourceHttpMessageConverter</link>]
+    </warning>
+
     <para>Supports all the .NET Framework versions.</para>
 
     <para>An <interfacename>IHttpMessageConverter</interfacename>
@@ -567,6 +602,135 @@ parts.Add("file", entity);
 template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
   </section>
 
+  <section id="http-resourceconverter">
+    <title>ResourceHttpMessageConverter</title>
+
+    <para>[Since 1.1]</para>
+    
+    <para>Supports all the .NET Framework versions.</para>
+
+    <para>An <interfacename>IHttpMessageConverter</interfacename> implementation 
+    that can read and write <interfacename>IResource</interfacename> content to the HTTP request. 
+    <sbr />By default, this converter supports all text media types (<literal>'*/*'</literal>).</para>
+
+    <note>
+    <title>The IResource abstraction</title>
+
+    <para>The <interfacename>IResource</interfacename> interface contained in the Spring.IO namespace 
+    provides a common interface to describe and access data from diverse resource locations. 
+    <sbr/>This abstraction lets you treat the resource <classname>System.IO.Stream</classname> 
+    in a polymorphic and protocol-independent manner...</para>
+
+    <para>Several implementations for common resource locations are provided:<itemizedlist>
+      <listitem>
+        <para><literal>AssemblyResource</literal>: accesses data stored as .NET resources inside an assembly. 
+        <sbr/>Uri syntax is <literal>assembly://&lt;AssemblyName&gt;/&lt;NameSpace&gt;/&lt;ResourceName&gt;</literal></para>           
+      </listitem>
+
+      <listitem>
+        <para><literal>FileResource</literal>: accesses file system data. 
+        <sbr/> Uri syntax is <literal>file://&lt;filename&gt;</literal></para>
+      </listitem>
+
+      <listitem>
+        <para><literal>StreamResource</literal>: a wrapper around a raw <classname>System.IO.Stream</classname>. 
+        <sbr/>Uri syntax is not supported.</para> 
+      </listitem>
+
+      <listitem>
+        <para><literal>ByteArrayResource</literal>: a wrapper around a byte array.
+        <sbr/>Uri syntax is not supported.
+      </para>
+    </listitem>
+    </itemizedlist></para>
+
+      
+      <para>The <interfacename>IResource</interfacename> abstraction has been partially ported from Spring.NET Core project.</para>
+    </note>
+
+    <para>A mapping between file extension (when URI syntax is supported) and mime types is used to determine the Content-Type of written files. 
+    <sbr />If no <literal>Content-Type</literal> is available, <literal>'application/octet-stream'</literal> is used.</para>
+
+    <table frame="all">
+      <title>Default mime mapping registered with the converter</title>
+
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry>
+              <emphasis role="bold">File extension</emphasis>
+            </entry>
+
+            <entry>
+              <emphasis role="bold">Mime type</emphasis>
+            </entry>
+          </row>
+
+          <row>
+            <entry>.bmp</entry>
+
+            <entry>image/bmp</entry>
+          </row>
+
+          <row>
+            <entry>.jpg</entry>
+
+            <entry>image/jpg</entry>
+          </row>
+
+          <row>
+            <entry>.jpeg</entry>
+
+            <entry>image/jpeg</entry>
+          </row>
+
+          <row>
+            <entry>.pdf</entry>
+
+            <entry>application/pdf</entry>
+          </row>
+
+          <row>
+            <entry>.png</entry>
+
+            <entry>image/png</entry>
+          </row>
+
+          <row>
+            <entry>.tif</entry>
+
+            <entry>image/tiff</entry>
+          </row>
+
+          <row>
+            <entry>.txt</entry>
+
+            <entry>text/plain</entry>
+          </row>
+
+          <row>
+            <entry>.zip</entry>
+
+            <entry>application/x-zip-compressed</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+
+    <para>You can override these defaults using the
+    <methodname>MimeMapping</methodname> property.</para>
+
+    <para>You can also set the <literal>Content-Type</literal> header directly
+    as shown in the following example with a file upload :</para>
+
+    <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>(); // FormHttpMessageConverter is configured by default
+<interfacename>IDictionary</interfacename>&lt;string, object&gt; parts = new <classname>Dictionary</classname>&lt;string, object&gt;();
+<classname>HttpEntity</classname> entity = new <classname>HttpEntity</classname>(new <classname>FileResource</classname>(@"C:\myFile.xls"));
+entity.Headers["Content-Type"] = "application/vnd.ms-excel";
+parts.Add("file", entity);
+template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
+  </section>
+  
   <section id="http-formconverter">
     <title>FormHttpMessageConverter</title>
 
@@ -594,16 +758,16 @@ template.PostForLocation("http://example.com/myForm", form);</programlisting>
     <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>(); // FormHttpMessageConverter is configured by default
 <interfacename>IDictionary</interfacename>&lt;string, object&gt; parts = new <classname>Dictionary</classname>&lt;string, object&gt;();
 parts.Add("field 1", "value 1");
-parts.Add("file", new <classname>FileInfo</classname>(@"C:\myFile.jpg"));
+parts.Add("file", new <classname>FileResource</classname>(@"C:\myFile.jpg"));
 template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
 
     <para><sbr />When writing multipart, this converter uses other
     <interfacename>IHttpMessageConverter</interfacename> to write the
     respective MIME parts. <sbr />By default, basic converters <link
     linkend="http-stringconverter">StringHttpMessageConverter</link> and <link
-    linkend="http-fileinfoconverter">FileInfoHttpMessageConverter</link> are
+    linkend="http-resourceconverter">ResourceHttpMessageConverter</link> are
     registered to support <literal>String</literal> and
-    <literal>FileInfo</literal> part types. These can be overridden by setting
+    <literal>IResource</literal> part types. These can be overridden by setting
     the <literal>PartConverters</literal> property.</para>
   </section>
 
