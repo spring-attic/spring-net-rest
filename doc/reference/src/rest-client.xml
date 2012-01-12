@@ -516,9 +516,8 @@ template.RequestInterceptors.Add(new <classname>BasicSigningRequestInterceptor</
     <section id="resttemplate-authentication-oauth">
       <title>OAuth</title>
 
-      <para>This will be supported in a future version based on the
-      Spring.Social Java project. The implementation is based on <link
-      linkend="resttemplate-requestinterceptor">request interceptors</link>. </para>
+      <para>This is supported by the <ulink url="http://www.springframework.net/social/">Spring.NET Social</ulink> project.
+      <sbr/>The implementation is based on <link linkend="resttemplate-requestinterceptor">request interceptors</link>.</para>
     </section>
   </section>
 

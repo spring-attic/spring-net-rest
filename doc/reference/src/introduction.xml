@@ -52,15 +52,56 @@
     idioms.</note>
   </section>
 
-  <section xml:id="introduction-migrating-1.0">
-    <title>Migrating from 1.0</title>
+  <section xml:id="introduction-whatsnew-1.1">
+    <title>What's new in 1.1</title>
 
-    <para>
-      Some API changes were made after 1.0. The file, 'breaking-changes.txt', 
-      in the root directory of the distribution contains the full listing of 
-      breaking changes made for 1.1.
-    </para>
+      <para>Some API changes were made after 1.0. The file, 'breaking-changes.txt',
+        in the root directory of the distribution contains the full listing of
+        breaking changes made for 1.1.</para>
+
+      <para>Several new features have been added to 1.1 version. These new features include:
+      <itemizedlist>
+        <listitem>
+          <para><emphasis role="bold">Social ready!</emphasis>
+          <sbr/><ulink url="http://www.springframework.net/social/">Spring.NET Social</ulink> is an extension of the Spring.NET REST Client Framework 
+          that helps you connect your applications with Software-as-a-Service (SaaS) providers such as Facebook and Twitter.
+          <sbr/>API binding for Twitter is actually available <ulink url="http://www.springframework.net/social-twitter/">here</ulink>.
+          <sbr/>Social projects are good examples of Spring.NET REST Client Framework usage.</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis role="bold">Task Parallel Library (TPL) support</emphasis>
+          <sbr/>Task-based asynchronous REST methods have been added for Frameworks supporting the new 
+          <ulink url="http://msdn.microsoft.com/en-us/library/dd460717.aspx">Task Parallel Library (TPL)</ulink> 
+          (Actually .NET 4 and Silverlight 5).
+          <sbr/><link linkend="resttemplate-operations-taskasync">Read more</link></para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis role="bold">Testing framework</emphasis>
+          <sbr/>Allows you to easily test your RestTemplate based code with your favorite unit test Framework.
+          <sbr/><link linkend="resttemplate-testing">Read more</link>.</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis role="bold">Silverlight 5 support</emphasis></para>
+        </listitem>
+        
+        <listitem>
+          <para><emphasis role="bold">Lightweight and simple JSON support</emphasis>
+          <sbr/><link linkend="http-springjsonconverter">Read more</link>.</para>
+        </listitem>
+                
+        <listitem>
+          <para><emphasis role="bold">IResource abstraction from Spring.NET Core</emphasis>
+          <sbr/><link linkend="http-resourceconverter">Read more</link>.</para>
+        </listitem>
+
+      </itemizedlist></para>
     
+    <para>Please refer to the file 'changelog.txt' in the root directory of the distribution 
+    for a complete list of issues resolved by this version.</para>
+
   </section>
 
   <section xml:id="introduction-licence">
