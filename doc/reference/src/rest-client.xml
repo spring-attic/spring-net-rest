@@ -11,7 +11,11 @@
   <classname>HttpWebRequest</classname> class. For common REST operations this
   approach is too low level as shown below.</para>
 
-  <programlisting language="csharp"><classname>Uri</classname> address = new <classname>Uri</classname>("http://example.com/hotels/1/bookings");
+  <programlisting language="csharp"><classname>/*
+ * long-hand approach necessary to access HTTP endpoints without benefit of RestTemplate...
+ */
+
+Uri</classname> address = new <classname>Uri</classname>("http://example.com/hotels/1/bookings");
 
 <classname>HttpWebRequest</classname> request = <classname>WebRequest</classname>.Create(address) as <classname>HttpWebRequest</classname>;
 request.Method = "POST";
@@ -37,8 +41,11 @@ using (<classname>HttpWebResponse</classname> response = request.GetResponse() a
 }</programlisting>
 
   <note>
-    <para>There is another class called <classname>WebClient</classname> but
-    does not support HTTP headers and HTTP status code/description.</para>
+    <para>There is also another class in the .NET framework,
+    <classname>WebClient</classname>, that might also be considered for this
+    long-hand approach but its lack of support for HTTP headers and HTTP
+    status codes/descriptions generally makes it unsuitable for use in these
+    kinds of broader HTTP interactions.</para>
   </note>
 
   <para>RestTemplate provides higher level methods that correspond to each of
@@ -180,7 +187,7 @@ entity.Headers["MyRequestHeader"] = "MyValue";
 template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);</programlisting></para>
 
     <note>
-      <para>These operations are synchronous and are not available for
+      <para>These operations are synchronous and thus are not available for
       Silverlight and Windows Phone because all related network calls have to
       be asynchronous.</para>
     </note>
@@ -188,13 +195,13 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
     <section id="resttemplate-operations-async">
       <title>Asynchronous operations</title>
 
-      <para>All REST operations are also available for asynchronous calls.
-      <sbr />The asynchronous methods are suffixed by the word 'Async'
-      based on common .NET naming conventions.</para>
+      <para>All REST operations may also be invoked asynchronously as well.
+      <sbr />The asynchronous methods are suffixed by the word 'Async' based
+      on common .NET naming conventions.</para>
 
-      <para><sbr />Note, that asynchronous call were initially added to
-      support Silverlight and Windows Phone, but nothing prevents you from
-      using them for Windows Forms and WPF applications to not freeze the UI
+      <para><sbr />Although asynchronous call were designed to support
+      Silverlight and Windows Phone, asynchronous invocation can also be used
+      for Windows Forms and WPF applications, etc. to avoid blocking the UI
       when invoking RESTful services. <sbr />An example using an asynchronous
       method is shown below :</para>
 
@@ -213,19 +220,19 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
     </section>
 
     <section id="resttemplate-operations-taskasync">
-      <title>Asynchronous operations using the Task Parallel Library (TPL)</title>
+      <title>Asynchronous operations using the Task Parallel Library
+      (TPL)</title>
 
       <para>[Since 1.1]</para>
-      
-      <para>
-        All REST operations supports also the new Task-based Asynchronous Pattern (TAP)
-        for asynchronous calls. <sbr />This is based on the new 
-        <ulink url="http://msdn.microsoft.com/en-us/library/dd460717.aspx">Task Parallel Library (TPL)</ulink> 
-        actually supported on .NET 4 and Silverlight 5.
-        <sbr />These asynchronous methods are also suffixed by the word 'Async'
-        based on common .NET naming conventions, and returns a <classname>Task&lt;T&gt;</classname>.
-        <sbr />An example is shown below :
-      </para>
+
+      <para>All REST operations supports also the new Task-based Asynchronous
+      Pattern (TAP) for asynchronous calls. <sbr />This is based on the new
+      <ulink url="http://msdn.microsoft.com/en-us/library/dd460717.aspx">Task
+      Parallel Library (TPL)</ulink> provided with .NET 4 and Silverlight 5.
+      <sbr />These asynchronous methods are suffixed by the word 'Async' based
+      on common .NET naming conventions, and each returns a
+      <classname>Task&lt;T&gt;</classname>. <sbr />An example is shown below
+      :</para>
 
       <programlisting language="csharp">// Using a continuation
 template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
@@ -238,8 +245,9 @@ template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
 string result = template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings").Result;</programlisting>
 
       <warning>
-        <para>Do not forget to synchronize with the UI thread to interact 
-        with the user interface in a continuation as shown below :</para>
+        <para>Do not forget to synchronize with the UI thread to interact with
+        the user interface in a continuation as shown below :</para>
+
         <programlisting language="csharp">// Using a continuation
 template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
   .ContinueWith(task =&gt;
@@ -247,9 +255,10 @@ template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
     MyTextBox.Text = task.Result;
   }, <classname>TaskScheduler</classname>.FromCurrentSynchronizationContext());  // execute on UI thread</programlisting>
       </warning>
-      
+
       <note>
-        <para>Using the new TPL is the recommended way for asynchronous operations.</para>
+        <para>Using the new TPL is the recommended way to perform asynchronous
+        operations in .NET 4.0 and later.</para>
       </note>
     </section>
   </section>
@@ -322,10 +331,11 @@ template.MessageConverters.Add(new <classname>DataContractJsonHttpMessageConvert
       implementation into the <classname>RestTemplate</classname> via the
       <methodname>ErrorHandler</methodname> property. The example below shows
       a custom <interfacename>IResponseErrorHandler</interfacename>
-      implementation which gives the user total control over the response.
-      </para>
+      implementation which gives the user total control over the
+      response.</para>
 
-      <para><programlisting language="csharp">public class <classname>MyResponseErrorHandler</classname> : <interfacename>IResponseErrorHandler</interfacename>
+      <para>
+        <programlisting language="csharp">public class <classname>MyResponseErrorHandler</classname> : <interfacename>IResponseErrorHandler</interfacename>
 {
   public bool HasError(<interfacename>IClientHttpResponse</interfacename> response)
   {
@@ -376,16 +386,17 @@ template.RequestFactory = requestFactory;</programlisting></para>
       <section id="resttemplate-requestfactory-silverlight">
         <title>Silverlight support</title>
 
-        <para>
-          In Silverlight, HTTP handling can be performed by the browser or the client. 
-          See <ulink url="http://msdn.microsoft.com/en-us/library/dd920295(v=VS.95).aspx">How to: Specify Browser or Client HTTP Handling</ulink> on MSDN.
-          <sbr/>By default, <classname>WebClientHttpRequestFactory</classname> will use the browser HTTP stack 
-          for HTTP methods GET and POST, and force the client HTTP stack for other HTTP methods.
-          <sbr/>This can be overridden by setting the <methodname>WebRequestCreator</methodname> property.
-          <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+        <para>In Silverlight, HTTP handling can be performed by the browser or
+        the client. See <ulink
+        url="http://msdn.microsoft.com/en-us/library/dd920295(v=VS.95).aspx">How
+        to: Specify Browser or Client HTTP Handling</ulink> on MSDN. <sbr />By
+        default, <classname>WebClientHttpRequestFactory</classname> will use
+        the browser HTTP stack for HTTP methods GET and POST, and force the
+        client HTTP stack for other HTTP methods. <sbr />This can be
+        overridden by setting the <methodname>WebRequestCreator</methodname>
+        property. <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
 ((<classname>WebClientHttpRequestFactory</classname>)rt.RequestFactory).WebRequestCreator = <classname>WebRequestCreatorType</classname>.ClientHttp;</programlisting></para>
       </section>
-      
     </section>
 
     <section id="resttemplate-requestinterceptor">
@@ -396,23 +407,23 @@ template.RequestFactory = requestFactory;</programlisting></para>
       and register it via the <methodname>RequestInterceptors</methodname>
       property. <sbr /><sbr />Four types of interceptors are provided :
       <itemizedlist>
-        <listitem><interfacename>IClientHttpRequestFactoryInterceptor</interfacename> 
-        will intercept request creation, allowing to modify the HTTP URI and method, 
-        and to customize the newly created request.</listitem>
+          <listitem><interfacename>IClientHttpRequestFactoryInterceptor</interfacename>
+          will intercept request creation, allowing to modify the HTTP URI and
+          method, and to customize the newly created request.</listitem>
 
-        <listitem><interfacename>IClientHttpRequestBeforeInterceptor</interfacename> 
-        will intercept request before its execution, allowing to modify 
-        the HTTP headers and body. This interceptor supports both synchronous and 
-        asynchronous requests.</listitem>
+          <listitem><interfacename>IClientHttpRequestBeforeInterceptor</interfacename>
+          will intercept request before its execution, allowing to modify the
+          HTTP headers and body. This interceptor supports both synchronous
+          and asynchronous requests.</listitem>
 
-        <listitem><interfacename>IClientHttpRequestSyncInterceptor</interfacename> 
-        will intercept synchronous request execution, giving total control of  
-        the execution (error management, logging, perf, etc.).</listitem>
-        
-        <listitem><interfacename>IClientHttpRequestAsyncInterceptor</interfacename> 
-        will intercept asynchronous request execution, giving total control of  
-        the execution (error management, logging, perf, etc.).</listitem>
-      </itemizedlist></para>
+          <listitem><interfacename>IClientHttpRequestSyncInterceptor</interfacename>
+          will intercept synchronous request execution, giving total control
+          of the execution (error management, logging, perf, etc.).</listitem>
+
+          <listitem><interfacename>IClientHttpRequestAsyncInterceptor</interfacename>
+          will intercept asynchronous request execution, giving total control
+          of the execution (error management, logging, perf, etc.).</listitem>
+        </itemizedlist></para>
 
       <para>An example of an interceptor measuring HTTP request execution time
       is shown below.</para>
@@ -439,16 +450,17 @@ template.RequestFactory = requestFactory;</programlisting></para>
 <classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>();
 template.RequestInterceptors.Add(new <classname>PerfRequestSyncInterceptor</classname>());</programlisting>
 
-      <para>Note that you can also make <classname>PerfRequestSyncInterceptor</classname> 
-      implement <interfacename>IClientHttpRequestAsyncInterceptor</interfacename> 
-      to support both synchronous and asynchronous requests.</para>
+      <para>Note that you can also make
+      <classname>PerfRequestSyncInterceptor</classname> implement
+      <interfacename>IClientHttpRequestAsyncInterceptor</interfacename> to
+      support both synchronous and asynchronous requests.</para>
     </section>
 
     <section id="resttemplate-container">
       <title>Using the Spring.NET container</title>
 
-      <para><classname>RestTemplate</classname>, as any other class can be
-      configured in the Spring.NET container. <sbr />For example, using XML
+      <para><classname>RestTemplate</classname>, as with any other object, can
+      be configured in the Spring.NET container. <sbr />For example, using XML
       configuration :</para>
 
       <programlisting language="myxml">&lt;object id="RestTemplate" type="Spring.Rest.Client.RestTemplate, Spring.Rest"&gt;
@@ -516,8 +528,11 @@ template.RequestInterceptors.Add(new <classname>BasicSigningRequestInterceptor</
     <section id="resttemplate-authentication-oauth">
       <title>OAuth</title>
 
-      <para>This is supported by the <ulink url="http://www.springframework.net/social/">Spring.NET Social</ulink> project.
-      <sbr/>The implementation is based on <link linkend="resttemplate-requestinterceptor">request interceptors</link>.</para>
+      <para>This is supported by the <ulink
+      url="http://www.springframework.net/social/">Spring.NET Social</ulink>
+      project. <sbr />The implementation is based on <link
+      linkend="resttemplate-requestinterceptor">request
+      interceptors</link>.</para>
     </section>
   </section>
 
@@ -586,7 +601,7 @@ string statusDescription = response.StatusDescription;</programlisting>
 
     <para>The <methodname>Execute</methodname> method allow you to manipulate
     the request/response headers, write to the request body and read from the
-    response body. </para>
+    response body.</para>
 
     <para>Note, when using the execute method you do not have to worry about
     any resource management, the template will always close the request and
@@ -600,43 +615,55 @@ string statusDescription = response.StatusDescription;</programlisting>
 
     <para>[Since 1.1]</para>
 
-    <para>Spring.NET REST Client also includes a framework for unit testing RestTemplate based code (<literal>Spring.Rest.Testing.dll</literal>)</para>
+    <para>Spring.NET REST Client also includes a framework for unit testing
+    RestTemplate based code
+    (<literal>Spring.Rest.Testing.dll</literal>)</para>
 
-    <para>This framework consists of a <classname>MockRestServiceServer</classname> class 
-    that can be used to mock out REST calls to the remote service provider. 
-    <sbr />This allows for the development of independent, performant, automated unit tests 
-    that verify client REST binding and object mapping behavior.</para>
+    <para>This framework consists of a
+    <classname>MockRestServiceServer</classname> class that can be used to
+    mock out REST calls to the remote service provider. <sbr />This allows for
+    the development of independent, performant, automated unit tests that
+    verify client REST binding and object mapping behavior.</para>
 
     <para>The typical usage of this class is:<itemizedlist>
-      <listitem>
-        <para>Create a <classname>MockRestServiceServer</classname> instance by calling 
-        <literal>MockRestServiceServer.CreateServer(RestTemplate)</literal> method with the RestTemplate to test.</para>
-      </listitem>
-      
-      <listitem>
-        <para>Set up request expectation by calling <literal>MockRestServiceServer.ExpectNewRequest()</literal> method. 
-        <sbr /> More request expectations can be set up by chaining <literal>IRequestActions.AndExpect(RequestMatcher)</literal> calls, 
-        possibly by using the default method extensions provided.</para>
-      </listitem>
-      
-      <listitem>
-        <para>Create an appropriate response message by calling <literal>IRequestActions.AndRespond(ResponseCreator)</literal> method, 
-        possibly by using the default method extensions provided.</para>
-      </listitem>
-      
-      <listitem>
-        <para>Call <literal>MockRestServiceServer.Verify()</literal> method.</para>
-      </listitem>
-    </itemizedlist></para>
+        <listitem>
+          <para>Create a <classname>MockRestServiceServer</classname> instance
+          by calling
+          <literal>MockRestServiceServer.CreateServer(RestTemplate)</literal>
+          method with the RestTemplate to test.</para>
+        </listitem>
 
-    <para>You can find an example of the testing framework in the <literal>examples</literal> directory 
+        <listitem>
+          <para>Set up request expectation by calling
+          <literal>MockRestServiceServer.ExpectNewRequest()</literal> method.
+          <sbr /> More request expectations can be set up by chaining
+          <literal>IRequestActions.AndExpect(RequestMatcher)</literal> calls,
+          possibly by using the default method extensions provided.</para>
+        </listitem>
+
+        <listitem>
+          <para>Create an appropriate response message by calling
+          <literal>IRequestActions.AndRespond(ResponseCreator)</literal>
+          method, possibly by using the default method extensions
+          provided.</para>
+        </listitem>
+
+        <listitem>
+          <para>Call <literal>MockRestServiceServer.Verify()</literal>
+          method.</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>You can find an example of the testing framework in the
+    <literal>examples</literal> directory
     (<literal>Spring.TestingQuickStart</literal> solution).</para>
 
     <note>
-      <para>For complete testing examples, consult the unit tests source code of the 
-      <ulink url="http://www.springframework.net/social/">Spring.NET Social</ulink> and 
-      <ulink url="http://www.springframework.net/social-twitter/">Spring.NET Social Twitter</ulink> projects.</para>
+      <para>For complete testing examples, consult the unit tests source code
+      of the <ulink url="http://www.springframework.net/social/">Spring.NET
+      Social</ulink> and <ulink
+      url="http://www.springframework.net/social-twitter/">Spring.NET Social
+      Twitter</ulink> projects.</para>
     </note>
-    
   </section>
 </chapter>

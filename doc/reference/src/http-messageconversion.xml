@@ -93,7 +93,7 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
-          
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
@@ -216,7 +216,7 @@
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
-          
+
           <entry align="center">
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
@@ -336,7 +336,8 @@
 
         <row>
           <entry>
-            <link linkend="http-datacontractjsonconverter">DataContractJsonHttpMessageConverter</link>
+            <link
+            linkend="http-datacontractjsonconverter">DataContractJsonHttpMessageConverter</link>
           </entry>
 
           <entry />
@@ -404,7 +405,8 @@
 
         <row>
           <entry>
-            <link linkend="http-springjsonconverter">SpringJsonHttpMessageConverter</link>
+            <link
+            linkend="http-springjsonconverter">SpringJsonHttpMessageConverter</link>
           </entry>
 
           <entry align="center">
@@ -431,7 +433,7 @@
             <imagedata fileref="images/supported.png" format="PNG" />
           </entry>
         </row>
-        
+
         <row>
           <entry>
             <link
@@ -536,9 +538,8 @@
   <section id="http-fileinfoconverter">
     <title>FileInfoHttpMessageConverter</title>
 
-    <warning>
-      [Obsolete since 1.1: use <link linkend="http-resourceconverter">ResourceHttpMessageConverter</link>]
-    </warning>
+    <warning>[Obsolete since 1.1: use <link
+    linkend="http-resourceconverter">ResourceHttpMessageConverter</link>]</warning>
 
     <para>Supports all the .NET Framework versions.</para>
 
@@ -636,50 +637,59 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     <title>ResourceHttpMessageConverter</title>
 
     <para>[Since 1.1]</para>
-    
+
     <para>Supports all the .NET Framework versions.</para>
 
-    <para>An <interfacename>IHttpMessageConverter</interfacename> implementation 
-    that can read and write <interfacename>IResource</interfacename> content to the HTTP request. 
-    <sbr />By default, this converter supports all text media types (<literal>'*/*'</literal>).</para>
+    <para>An <interfacename>IHttpMessageConverter</interfacename>
+    implementation that can read and write
+    <interfacename>IResource</interfacename> content to the HTTP request.
+    <sbr />By default, this converter supports all text media types
+    (<literal>'*/*'</literal>).</para>
 
     <note>
-    <title>The IResource abstraction</title>
+      <title>The IResource abstraction</title>
 
-    <para>The <interfacename>IResource</interfacename> interface contained in the Spring.IO namespace 
-    provides a common interface to describe and access data from diverse resource locations. 
-    <sbr/>This abstraction lets you treat the resource <classname>System.IO.Stream</classname> 
-    in a polymorphic and protocol-independent manner...</para>
+      <para>The <interfacename>IResource</interfacename> interface contained
+      in the Spring.IO namespace provides a common interface to describe and
+      access data from diverse resource locations. <sbr />This abstraction
+      lets you treat the resource <classname>System.IO.Stream</classname> in a
+      polymorphic and protocol-independent manner...</para>
 
-    <para>Several implementations for common resource locations are provided:<itemizedlist>
-      <listitem>
-        <para><literal>AssemblyResource</literal>: accesses data stored as .NET resources inside an assembly. 
-        <sbr/>Uri syntax is <literal>assembly://&lt;AssemblyName&gt;/&lt;NameSpace&gt;/&lt;ResourceName&gt;</literal></para>           
-      </listitem>
+      <para>Several implementations for common resource locations are
+      provided:<itemizedlist>
+          <listitem>
+            <para><literal>AssemblyResource</literal>: accesses data stored as
+            .NET resources inside an assembly. <sbr />Uri syntax is
+            <literal>assembly://&lt;AssemblyName&gt;/&lt;NameSpace&gt;/&lt;ResourceName&gt;</literal></para>
+          </listitem>
 
-      <listitem>
-        <para><literal>FileResource</literal>: accesses file system data. 
-        <sbr/> Uri syntax is <literal>file://&lt;filename&gt;</literal></para>
-      </listitem>
+          <listitem>
+            <para><literal>FileResource</literal>: accesses file system data.
+            <sbr /> Uri syntax is
+            <literal>file://&lt;filename&gt;</literal></para>
+          </listitem>
 
-      <listitem>
-        <para><literal>StreamResource</literal>: a wrapper around a raw <classname>System.IO.Stream</classname>. 
-        <sbr/>Uri syntax is not supported.</para> 
-      </listitem>
+          <listitem>
+            <para><literal>StreamResource</literal>: a wrapper around a raw
+            <classname>System.IO.Stream</classname>. <sbr />Uri syntax is not
+            supported.</para>
+          </listitem>
 
-      <listitem>
-        <para><literal>ByteArrayResource</literal>: a wrapper around a byte array.
-        <sbr/>Uri syntax is not supported.
-      </para>
-    </listitem>
-    </itemizedlist></para>
+          <listitem>
+            <para><literal>ByteArrayResource</literal>: a wrapper around a
+            byte array. <sbr />Uri syntax is not supported.</para>
+          </listitem>
+        </itemizedlist></para>
 
-      
-      <para>The <interfacename>IResource</interfacename> abstraction has been partially ported from Spring.NET Core project.</para>
+      <para>The necessary elements of the
+      <interfacename>IResource</interfacename> abstraction have been ported
+      from Spring.NET Core project.</para>
     </note>
 
-    <para>A mapping between file extension (when URI syntax is supported) and mime types is used to determine the Content-Type of written files. 
-    <sbr />If no <literal>Content-Type</literal> is available, <literal>'application/octet-stream'</literal> is used.</para>
+    <para>A mapping between file extension (when URI syntax is supported) and
+    mime types is used to determine the Content-Type of written files.
+    <sbr />If no <literal>Content-Type</literal> is available,
+    <literal>'application/octet-stream'</literal> is used.</para>
 
     <table frame="all">
       <title>Default mime mapping registered with the converter</title>
@@ -760,7 +770,7 @@ entity.Headers["Content-Type"] = "application/vnd.ms-excel";
 parts.Add("file", entity);
 template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
   </section>
-  
+
   <section id="http-formconverter">
     <title>FormHttpMessageConverter</title>
 
@@ -797,14 +807,15 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     linkend="http-stringconverter">StringHttpMessageConverter</link> and <link
     linkend="http-resourceconverter">ResourceHttpMessageConverter</link> are
     registered to support <literal>String</literal> and
-    <literal>IResource</literal> part types. These can be overridden by setting
-    the <literal>PartConverters</literal> property.</para>
+    <literal>IResource</literal> part types. These can be overridden by
+    setting the <literal>PartConverters</literal> property.</para>
   </section>
 
   <section id="http-xmldocumentconverter">
     <title>XmlDocumentHttpMessageConverter</title>
 
-    <para>Supports .NET Framework 2.0, 3.5, 4.0 and .NET Compact Framework 3.5.</para>
+    <para>Supports .NET Framework 2.0, 3.5, 4.0 and .NET Compact Framework
+    3.5.</para>
 
     <para>An <interfacename>IHttpMessageConverter</interfacename>
     implementation that can read and write XML using the .NET Framework class
@@ -817,7 +828,8 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
   <section id="http-xelementconverter">
     <title>XElementHttpMessageConverter</title>
 
-    <para>Supports .NET Framework 3.5, 4.0, .NET Compact Framework 3.5 and Windows Phone. <sbr /><link
+    <para>Supports .NET Framework 3.5, 4.0, .NET Compact Framework 3.5 and
+    Windows Phone. <sbr /><link
     linkend="http-xelementconverter-silverlight">Supports Silverlight</link>
     using <literal>Spring.Http.Converters.Xml.Linq.dll</literal>.</para>
 
@@ -854,7 +866,8 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
   <section id="http-xmlserializerconverter">
     <title>XmlSerializableHttpMessageConverter</title>
 
-    <para>Supports .NET Framework 2.0, 3.5, 4.0, .NET Compact Framework 3.5 and Windows Phone.</para>
+    <para>Supports .NET Framework 2.0, 3.5, 4.0, .NET Compact Framework 3.5
+    and Windows Phone.</para>
 
     <para>An <interfacename>IHttpMessageConverter</interfacename>
     implementation that can read and write XML from .NET classes. <sbr />The
@@ -882,7 +895,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     <title>DataContractJsonHttpMessageConverter</title>
 
     <para>[Since 1.1: Previously named 'JsonHttpMessageConverter']</para>
-    
+
     <para>Supports .NET Framework 3.5, 4.0, Silverlight and Windows
     Phone.</para>
 
@@ -906,15 +919,15 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
 
     <para>Unlike <literal>DataContractJsonSerializer</literal> .NET Framework
     class used by <link
-    linkend="http-datacontractjsonconverter">DataContractJsonHttpMessageConverter</link>, this library
-    supports getting/setting values from JSON directly, without the need to
-    deserialize/serialize to a .NET class.</para>
+    linkend="http-datacontractjsonconverter">DataContractJsonHttpMessageConverter</link>,
+    this library supports getting/setting values from JSON directly, without
+    the need to deserialize/serialize to a .NET class.</para>
 
     <para>To use this converter with the <classname>RestTemplate</classname>,
     you will have to add it to the message converters list : <programlisting
     language="csharp">template.MessageConverters.Add(new <classname>NJsonHttpMessageConverter</classname>());</programlisting></para>
   </section>
-  
+
   <section id="http-springjsonconverter">
     <title>SpringJsonHttpMessageConverter</title>
 
@@ -923,26 +936,31 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
     <para>Supports all the .NET Framework versions.</para>
 
     <para>An <interfacename>IHttpMessageConverter</interfacename>
-    implementation that can read and write JSON using the Spring.NET lightweight JSON implementation.
-    <sbr />By default, this converter supports media type <literal>'application/json'</literal>.</para>
+    implementation that can read and write JSON using the Spring.NET
+    lightweight JSON implementation. <sbr />By default, this converter
+    supports media type <literal>'application/json'</literal>.</para>
 
-    <para>The goal of the Spring.NET JSON support is to remain simple and lightweight.
-    The JSON parsing code is based on the <ulink url="http://simplejson.codeplex.com/">SimpleJson</ulink> library.</para>
+    <para>The goal of the Spring.NET JSON support is to remain simple and
+    lightweight. The JSON parsing code is based on the <ulink
+    url="http://simplejson.codeplex.com/">SimpleJson</ulink> library.</para>
 
-    <para>Unlike <literal>DataContractJsonSerializer</literal> .NET Framework class used by 
-    <link linkend="http-datacontractjsonconverter">DataContractJsonHttpMessageConverter</link>, 
-    this library supports getting/setting values from JSON directly, without the need to
-    deserialize/serialize to a .NET class as shown in the following example:</para>
+    <para>Unlike <literal>DataContractJsonSerializer</literal> .NET Framework
+    class used by <link
+    linkend="http-datacontractjsonconverter">DataContractJsonHttpMessageConverter</link>,
+    this library supports getting/setting values from JSON directly, without
+    the need to deserialize/serialize to a .NET class as shown in the
+    following example:</para>
 
     <programlisting language="csharp"><classname>JsonValue</classname> json = JsonValue.Parse(("{\"Message\": \"Hello world!\"}"));
-json.GetValue&lt;string&gt;("Message");</programlisting>    
+json.GetValue&lt;string&gt;("Message");</programlisting>
 
     <para>To use this converter with the <classname>RestTemplate</classname>,
-    you will have to add it to the message converters list : <programlisting
+    you must first add it to the message converters list : <programlisting
     language="csharp">template.MessageConverters.Add(new <classname>SpringJsonHttpMessageConverter</classname>());</programlisting></para>
 
-    <para>See the Windows Phone quick start for an basic example of use and 
-    <ulink url="http://www.springframework.net/social/">Spring.NET Social</ulink> projects for advanced usage.</para>
+    <para>See the Windows Phone quick start for an basic example of use and
+    <ulink url="http://www.springframework.net/social/">Spring.NET
+    Social</ulink> projects for more advanced usage.</para>
   </section>
 
   <section id="http-feedconverters">
@@ -989,7 +1007,7 @@ json.GetValue&lt;string&gt;("Message");</programlisting>
       providing these converters separately.</para>
 
       <para>To use these converters with the
-      <classname>RestTemplate</classname>, you will have to add them to the
+      <classname>RestTemplate</classname>, you must first add them to the
       message converters list : <programlisting language="csharp">template.MessageConverters.Add(new <classname>Atom10FeedHttpMessageConverter</classname>());
 template.MessageConverters.Add(new <classname>Rss20FeedHttpMessageConverter</classname>());</programlisting></para>
     </section>

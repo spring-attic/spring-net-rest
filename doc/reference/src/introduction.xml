@@ -9,26 +9,26 @@
 
   <section xml:id="introduction-overview">
     <title>Overview</title>
-    
+
     <para>Interacting with HTTP-based services armed only with the relatively
     low-level classes provided by the .NET Framework is possible, but often
-    leads to your having to repeat the same boilerplate code over and over again
-    as well as evolve your own set of helper methods to translate your objects
-    to and from the text-based world of HTTP requests and responses into the
-    object-based world of .NET consumers of HTTP services. The Spring.Rest
-    project contains the RestTemplate helper class which allows developers to
-    focus on the issues of delivering business value in their applications
-    rather than focusing on low-level plumbing concerns.</para>
+    leads to your having to repeat the same boilerplate code over and over
+    again as well as evolve your own set of helper methods to translate your
+    objects to and from the text-based world of HTTP requests and responses
+    into the object-based world of .NET consumers of HTTP services. The
+    Spring.Rest project contains the RestTemplate helper class which allows
+    developers to focus on the issues of delivering business value in their
+    applications rather than focusing on low-level plumbing concerns.</para>
 
-    <para><classname>RestTemplate</classname> provides higher level methods that
-    correspond to each of the six main HTTP methods that make invoking many
-    RESTful services a one-liner and help to enforce REST best practices. It is
-    conceptually similar to other template classes in Spring, such as
+    <para><classname>RestTemplate</classname> provides higher level methods
+    that correspond to each of the six main HTTP methods that make invoking
+    many RESTful services a one-liner and help to enforce REST best practices.
+    It is conceptually similar to other template classes in Spring, such as
     <classname>AdoTemplate</classname> and <classname>NmsTemplate</classname>.
     It's behavior can be customized by providing callback methods and
     configuring the <interfacename>IHttpMessageConverter</interfacename>s used
-    to marshal objects into the HTTP request body and to unmarshall any response
-    back into an object.</para>
+    to marshal objects into the HTTP request body and to unmarshall any
+    response back into an object.</para>
 
     <para>This documentation describes how to use the
     <classname>RestTemplate</classname> and its associated
@@ -55,60 +55,72 @@
   <section xml:id="introduction-whatsnew-1.1">
     <title>What's new in 1.1</title>
 
-      <para>Some API changes were made after 1.0. The file, 'breaking-changes.txt',
-        in the root directory of the distribution contains the full listing of
-        breaking changes made for 1.1.</para>
+    <para>Some API changes were made after 1.0. The file,
+    'breaking-changes.txt', in the root directory of the distribution contains
+    the full listing of breaking changes made for 1.1.</para>
 
-      <para>Several new features have been added to 1.1 version. These new features include:
-      <itemizedlist>
+    <para>Several new features have been added to 1.1 version. These new
+    features include: <itemizedlist>
         <listitem>
-          <para><emphasis role="bold">Social ready!</emphasis>
-          <sbr/><ulink url="http://www.springframework.net/social/">Spring.NET Social</ulink> is an extension of the Spring.NET REST Client Framework 
-          that helps you connect your applications with Software-as-a-Service (SaaS) providers such as Facebook and Twitter.
-          <sbr/>API binding for Twitter is actually available <ulink url="http://www.springframework.net/social-twitter/">here</ulink>.
-          <sbr/>Social projects are good examples of Spring.NET REST Client Framework usage.</para>
+          <para><emphasis role="bold">Social ready!</emphasis> <sbr /><ulink
+          url="http://www.springframework.net/social/">Spring.NET
+          Social</ulink> is an extension of the Spring.NET REST Client
+          Framework that helps you connect your applications with
+          Software-as-a-Service (SaaS) providers such as Facebook and Twitter.
+          <sbr />As an example, the API binding for Twitter is available
+          <ulink
+          url="http://www.springframework.net/social-twitter/">here</ulink>.
+          <sbr />Social projects are good examples of Spring.NET REST Client
+          Framework usage.</para>
         </listitem>
 
         <listitem>
-          <para><emphasis role="bold">Task Parallel Library (TPL) support</emphasis>
-          <sbr/>Task-based asynchronous REST methods have been added for Frameworks supporting the new 
-          <ulink url="http://msdn.microsoft.com/en-us/library/dd460717.aspx">Task Parallel Library (TPL)</ulink> 
-          (Actually .NET 4 and Silverlight 5).
-          <sbr/><link linkend="resttemplate-operations-taskasync">Read more</link></para>
+          <para><emphasis role="bold">Task Parallel Library (TPL)
+          support</emphasis> <sbr />Task-based asynchronous REST methods have
+          been added for Frameworks supporting the new <ulink
+          url="http://msdn.microsoft.com/en-us/library/dd460717.aspx">Task
+          Parallel Library (TPL)</ulink> (e.g., .NET 4 and Silverlight 5).
+          <sbr /><link linkend="resttemplate-operations-taskasync">Read
+          more</link></para>
         </listitem>
 
         <listitem>
           <para><emphasis role="bold">Testing framework</emphasis>
-          <sbr/>Allows you to easily test your RestTemplate based code with your favorite unit test Framework.
-          <sbr/><link linkend="resttemplate-testing">Read more</link>.</para>
+          <sbr />Allows you to easily test your RestTemplate based code with
+          your favorite unit test Framework. <sbr /><link
+          linkend="resttemplate-testing">Read more</link>.</para>
         </listitem>
 
         <listitem>
-          <para><emphasis role="bold">Silverlight 5 support</emphasis></para>
-        </listitem>
-        
-        <listitem>
-          <para><emphasis role="bold">Lightweight and simple JSON support</emphasis>
-          <sbr/><link linkend="http-springjsonconverter">Read more</link>.</para>
-        </listitem>
-                
-        <listitem>
-          <para><emphasis role="bold">IResource abstraction from Spring.NET Core</emphasis>
-          <sbr/><link linkend="http-resourceconverter">Read more</link>.</para>
+          <para>
+            <emphasis role="bold">Silverlight 5 support</emphasis>
+          </para>
         </listitem>
 
+        <listitem>
+          <para><emphasis role="bold">Lightweight and simple JSON
+          support</emphasis> <sbr /><link
+          linkend="http-springjsonconverter">Read more</link>.</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis role="bold">IResource abstraction from Spring.NET
+          Core</emphasis> <sbr /><link linkend="http-resourceconverter">Read
+          more</link>.</para>
+        </listitem>
       </itemizedlist></para>
-    
-    <para>Please refer to the file 'changelog.txt' in the root directory of the distribution 
-    for a complete list of issues resolved by this version.</para>
 
+    <para>Please refer to the file 'changelog.txt' in the root directory of
+    the distribution for a complete list of issues resolved by this
+    version.</para>
   </section>
 
   <section xml:id="introduction-licence">
     <title>License Information</title>
 
-    <para>Spring.NET REST Client Framework is licensed according to the terms of the Apache License,
-    Version 2.0. The full text of this license are available online at <ulink
+    <para>Spring.NET REST Client Framework is licensed according to the terms
+    of the Apache License, Version 2.0. The full text of this license are
+    available online at <ulink
     url="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</ulink>
     . You can also view the full text of the license in the license.txt file
     located in the root directory of the distribution.</para>
