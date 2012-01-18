@@ -57,7 +57,7 @@ namespace Spring.IO
         /// Returns <see langword="true"/> if the source cannot be read multiple times.
         /// </summary>
         /// <remarks>
-        /// This default implementation, always returns <see langword="false"/>.
+        /// This implementation always returns <see langword="false"/>.
         /// </remarks>
         public virtual bool IsOpen
         {
@@ -69,7 +69,7 @@ namespace Spring.IO
         /// or <see langword="null"/> if the source cannot be represented by an <see cref="System.Uri"/>.
         /// </summary>
         /// <remarks>
-        /// This default implementation always returns <see langword="null"/>, 
+        /// This implementation always returns <see langword="null"/>, 
         /// assuming that the resource cannot be represented as an <see cref="System.Uri"/>.
         /// </remarks>
         public virtual Uri Uri

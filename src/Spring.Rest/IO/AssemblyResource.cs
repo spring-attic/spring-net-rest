@@ -23,6 +23,8 @@ using System.IO;
 using System.Globalization;
 using System.Reflection;
 
+using Spring.Util;
+
 namespace Spring.IO
 {
     /// <summary>
@@ -40,11 +42,9 @@ namespace Spring.IO
     /// <seealso cref="Spring.IO.IResource"/>
     public class AssemblyResource : AbstractResource
     {
-        private Assembly assembly;
-        private string fullResourceName;
         private string resourceName;
-        private string resourceNamespace;
-        private string resourceAssemblyName;
+        private Assembly assembly;
+        private Uri resourceUri;
 
         /// <summary>
         /// Creates a new instance of the <see cref="Spring.IO.AssemblyResource"/> class 
@@ -60,32 +60,63 @@ namespace Spring.IO
         /// If the assembly specified in the supplied <paramref name="resourceName"/> could not be found.
         /// </exception>
         public AssemblyResource(string resourceName)
-            : base(resourceName)
         {
+            ArgumentUtils.AssertHasText(resourceName, "resourceName");
+
             string[] info = GetResourceNameWithoutProtocol(resourceName).Split('/');
             if (info.Length != 3)
             {
                 throw new UriFormatException(String.Format(
                     "Invalid resource name. Name has to be in 'assembly://<assemblyName>/<namespace>/<resourceName>' format.", resourceName));
             }
-            this.assembly = Assembly.Load(info[0]);
-            if (this.assembly == null)
+            Assembly assembly = Assembly.Load(info[0]);
+            if (assembly == null)
             {
                 throw new FileNotFoundException(String.Format(
                     "Unable to load assembly [{0}].", info[0]));
             }
-            this.fullResourceName = resourceName;
-            this.resourceAssemblyName = info[0];
-            this.resourceNamespace = info[1];
-            this.resourceName = String.Format("{0}.{1}", info[1], info[2]);
+
+            this.Initialize(info[2], info[1], assembly);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="Spring.IO.AssemblyResource"/> class.
+        /// <para/>
+        /// Uses the specified <paramref name="type"/> to obtain the assembly and namespace for the resource.
+        /// </summary>
+        /// <param name="fileName">The name of the file in the assembly.</param>
+        /// <param name="type">The type to determine the assembly and the namespace.</param>
+        public AssemblyResource(string fileName, Type type)
+        {
+            ArgumentUtils.AssertHasText(fileName, "resourceName");
+            ArgumentUtils.AssertNotNull(type, "type");
+
+            this.Initialize(fileName, type.Namespace, type.Assembly);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Spring.IO.AssemblyResource"/> class. 
+        /// </summary>
+        /// <param name="fileName">The name of the file in the assembly.</param>
+        /// <param name="ns">The namespace to use to generate the full resource name.</param>
+        /// <param name="assembly">The assembly containing the resource.</param>
+        protected void Initialize(string fileName, string ns, Assembly assembly)
+        {
+            this.resourceName = ns + "." + fileName;
+            this.assembly = assembly;
+
+            string assemblyName = assembly.FullName.Split(',')[0];
+            this.resourceUri = new Uri(String.Format("assembly://{0}/{1}/{2}", assemblyName, ns, fileName));
         }
 
         /// <summary>
         /// Gets the <see cref="System.Uri"/> handle for this resource.
+        /// <para/>
+        /// The URI follows the format 'assembly://assemblyName/namespace/resourceName'.
         /// </summary>
         public override Uri Uri
         {
-            get { return new Uri(this.fullResourceName); }
+            get { return this.resourceUri; }
         }
 
         /// <summary>

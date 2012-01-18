@@ -22,6 +22,8 @@ using System;
 using System.IO;
 using System.Globalization;
 
+using Spring.Util;
+
 namespace Spring.IO
 {
     /// <summary>
@@ -39,8 +41,9 @@ namespace Spring.IO
         /// </summary>
         /// <param name="resourceName">The name of the file system resource.</param>
         public FileResource(string resourceName)
-            : base(resourceName)
         {
+            ArgumentUtils.AssertHasText(resourceName, "resourceName");
+
             // Remove protocol (if any)
             string fileName = GetResourceNameWithoutProtocol(resourceName);
             // Remove extra slashes used to indicate that resource is local (handle the case "/C:/path1/...")

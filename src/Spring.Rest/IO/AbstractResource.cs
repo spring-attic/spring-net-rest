@@ -27,24 +27,17 @@ using Spring.Util;
 namespace Spring.IO
 {
     /// <summary>
-    /// Convenience base class for <see cref="Spring.IO.IResource"/> implementations 
-    /// based on a resource name.
+    /// Convenience base class for <see cref="Spring.IO.IResource"/> implementations.
     /// </summary>
     /// <author>Bruno Baia</author>
     /// <seealso cref="Spring.IO.IResource"/>
     public abstract class AbstractResource : IResource
     {
-        private string resourceName;
-
         /// <summary>
         /// Creates a new instance of the <see cref="Spring.IO.AbstractResource"/> class.
         /// </summary>
-        /// <param name="resourceName">A string representation of the resource.</param>
-        protected AbstractResource(string resourceName)
+        protected AbstractResource()
         {
-            ArgumentUtils.AssertHasText(resourceName, "resourceName");
-
-            this.resourceName = resourceName;
         }
 
         #region IResource Members
@@ -54,7 +47,7 @@ namespace Spring.IO
         /// Returns <see langword="true"/> if the source cannot be read multiple times.
         /// </summary>
         /// <remarks>
-        /// This default implementation, always returns <see langword="false"/>.
+        /// This implementation always returns <see langword="false"/>.
         /// </remarks>
         public virtual bool IsOpen
         {
@@ -109,17 +102,6 @@ namespace Spring.IO
             {
                 return resourceName.Substring(pos + Uri.SchemeDelimiter.Length);
             }
-        }
-
-        /// <summary>
-        /// Returns a <see cref="T:System.String"/> that represents the current resource.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.String"/> that represents the current resource.
-        /// </returns>
-        public override string ToString()
-        {
-            return String.Format(CultureInfo.InvariantCulture, "Resource [{0}]", this.resourceName);
         }
     }
 }

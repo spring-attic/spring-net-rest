@@ -60,7 +60,7 @@ namespace Spring.IO
         /// and ensures the correct contents can be read from them.
         /// </summary>
         [Test]
-        public void CreateValidAssemblyResource()
+        public void CreateValidAssemblyResourceWithFullResourceName()
         {
             AssemblyResource res = new AssemblyResource("assembly://Spring.Rest.Tests/Spring/TestResource.txt");
             Assert.IsFalse(res.IsOpen);
@@ -68,6 +68,19 @@ namespace Spring.IO
             AssertResourceContent(res, "Spring.TestResource.txt");
             IResource res2 = new AssemblyResource("assembly://Spring.Rest.Tests/Spring.IO/TestResource.txt");
             AssertResourceContent(res2, "Spring.IO.TestResource.txt");
+        }
+
+        /// <summary>
+        /// Sunny day scenario that creates IResources with relative resource name 
+        /// and ensures the correct contents can be read from them.
+        /// </summary>
+        [Test]
+        public void CreateValidAssemblyResourceWithRelativeResourceName()
+        {
+            AssemblyResource res = new AssemblyResource("TestResource.txt", typeof(AssemblyResourceTests));
+            Assert.IsFalse(res.IsOpen);
+            Assert.AreEqual(new Uri("assembly://Spring.Rest.Tests/Spring.IO/TestResource.txt"), res.Uri);
+            AssertResourceContent(res, "Spring.IO.TestResource.txt");
         }
 
         /// <summary>
