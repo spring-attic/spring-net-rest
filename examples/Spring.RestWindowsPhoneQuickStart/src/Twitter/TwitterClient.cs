@@ -7,7 +7,7 @@ using Spring.Http.Converters.Json;
 
 namespace Spring.RestWindowsPhoneQuickStart.Twitter
 {
-    // See Spring.Social Twitter project: https://github.com/SpringSource/spring-net-social-twitter
+    // See Spring.Social Twitter project: https://www.springframework.net/social-twitter/
 
     // Central class for interacting with Twitter
     // Simplified implementation that only performs unauthenticated operations against Twitter's API.

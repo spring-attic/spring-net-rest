@@ -2,7 +2,7 @@
 
 namespace Spring.RestWindowsPhoneQuickStart.Twitter
 {
-    // See Spring.Social Twitter project: https://github.com/SpringSource/spring-net-social-twitter
+    // See Spring.Social Twitter project: https://www.springframework.net/social-twitter/
 
     /// <summary>
     /// Represents a Twitter status update (e.g., a "tweet").
