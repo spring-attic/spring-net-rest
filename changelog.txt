@@ -2,6 +2,30 @@ SPRING.NET REST CLIENT FRAMEWORK CHANGELOG
 ==========================================
 http://www.springframework.net/rest/
 
+Release Version 1.1.0 January 18, 2012
+
+Bug
+[SPRNETREST-11] - Make class WebClientHttpRequestFactory thread-safe
+
+Improvement
+[SPRNETREST-18] - Better handling of empty response messages (204, 304) in RestTemplate
+
+New Feature
+[SPRNETREST-16] - Add Silverlight 5 support
+[SPRNETREST-17] - Add Task-based asynchronous support
+[SPRNETREST-19] - Add light-weight JSON support
+[SPRNETREST-20] - Add Testing Framework for RestTemplate based code
+[SPRNETREST-21] - Add IResource abstraction from Spring.NET Core
+[SPRNETREST-22] - Add HTTP message converter based on IResource abstraction
+
+Task
+[SPRNETREST-12] - Change HttpMethod type from Enum to Class
+[SPRNETREST-13] - Rename JsonHttpMessageConverter into DataContractJsonHttpMessageConverter
+[SPRNETREST-14] - Remove IRestAsyncOperations interface
+[SPRNETREST-15] - Update JSON.NET version to 4.0 Release 5
+
+
+*******************************************************************************
 Release Version 1.0.2 November 7, 2011
 
 Bug
