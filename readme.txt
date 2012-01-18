@@ -102,6 +102,8 @@ To get the sources, check them out at the git repository at https://github.com/S
 We are always happy to receive your feedback on the forums. If you think you found a bug, have an improvement suggestion
 or feature request, please submit a ticket in JIRA (see link above).
 
+Follow us on Twitter @SpringForNet
+
 
 9. Contributing to Spring.NET REST Client
 

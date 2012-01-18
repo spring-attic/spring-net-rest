@@ -370,7 +370,7 @@ namespace Spring.Http.Converters
                 Uri resourceUri = ((IResource)part).Uri;
                 if (resourceUri != null)
                 {
-                    return Path.GetFileName(resourceUri.LocalPath);
+                    return Path.GetFileName(resourceUri.ToString());
                 }
             }
             return null;

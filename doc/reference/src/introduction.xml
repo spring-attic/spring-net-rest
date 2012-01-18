@@ -36,20 +36,26 @@
 
     <para>Spring.NET REST Client Framework supports the following .NET
     Frameworks : <itemizedlist>
-        <listitem>.NET 2.0</listitem>
+        <listitem>
+          <para>.NET 2.0</para>
+        </listitem>
 
-        <listitem>.NET Client Profile 3.5 and 4.0</listitem>
+        <listitem>
+          <para>.NET Client Profile 3.5 and 4.0</para>
+        </listitem>
 
-        <listitem>.NET Compact Framework 3.5</listitem>
+        <listitem>
+          <para>.NET Compact Framework 3.5</para>
+        </listitem>
 
-        <listitem>Silverlight 3.0, 4.0 and 5.0</listitem>
+        <listitem>
+          <para>Silverlight 3.0, 4.0 and 5.0</para>
+        </listitem>
 
-        <listitem>Windows Phone 7.0 and 7.1</listitem>
+        <listitem>
+          <para>Windows Phone 7.0 and 7.1</para>
+        </listitem>
       </itemizedlist></para>
-
-    <note>RestTemplate has been available in the Java version of the Spring
-    Framework for many years and has recently been adapted to use proper .NET
-    idioms.</note>
   </section>
 
   <section xml:id="introduction-whatsnew-1.1">

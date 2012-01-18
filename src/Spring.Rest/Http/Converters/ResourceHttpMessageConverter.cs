@@ -152,7 +152,7 @@ namespace Spring.Http.Converters
 
             if (resourceUri != null)
             {
-                string fileExtension = Path.GetExtension(resourceUri.LocalPath);
+                string fileExtension = Path.GetExtension(resourceUri.ToString());
                 IDictionary<string, string> mimeMapping =
                     (this._mimeMapping == null) ? defaultMimeMapping : this._mimeMapping;
 

@@ -88,8 +88,9 @@ namespace Spring.RestBucksClient.Api
 
         private static IResource XmlResource(string filename)
         {
-            // Note: Default namespace is 'Spring.RestBucksClient'
-            return new AssemblyResource("assembly://Spring.RestBucksClient.Tests/Spring.RestBucksClient.Api/" + filename + ".xml");
+            return new AssemblyResource(filename + ".xml", typeof(RestBucksClientTests));
+            // or
+            //return new AssemblyResource("assembly://Spring.RestBucksClient.Tests/Spring.RestBucksClient.Api/" + filename + ".xml");
         }
     }
 }

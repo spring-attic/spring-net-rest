@@ -161,21 +161,27 @@ string result = restTemplate.GetForObject&lt;string&gt;("http://example.com/hote
     naming convention, the first part indicates what HTTP method is being
     invoked and the second part indicates what is returned. For example,
     <itemizedlist>
-        <listitem>The method <methodname>GetForObject&lt;T&gt;()</methodname>
-        will perform a GET, and return the HTTP response body converted into
-        an object type of your choice.</listitem>
+        <listitem>
+          <para>The method <methodname>GetForObject&lt;T&gt;()</methodname> 
+          will perform a GET, and return the HTTP response body converted into 
+          an object type of your choice.</para>
+        </listitem>
 
-        <listitem>The method <methodname>PostForLocation()</methodname> will
-        do a POST, converting the given object into a HTTP request and return
-        the response HTTP Location header where the newly created object can
-        be found.</listitem>
+        <listitem>
+          <para>The method <methodname>PostForLocation()</methodname> will 
+          do a POST, converting the given object into a HTTP request and return 
+          the response HTTP Location header where the newly created object can 
+          be found.</para>
+        </listitem>
 
-        <listitem>The method
-        <methodname>PostForMessage&lt;T&gt;()</methodname> will do a POST,
-        converting the given object into a HTTP request and return the full
-        HTTP response message composed of the status code and description, the
-        response headers and the response body converted into an object type
-        of your choice.</listitem>
+        <listitem>
+          <para>The method 
+          <methodname>PostForMessage&lt;T&gt;()</methodname> will do a POST, 
+          converting the given object into a HTTP request and return the full 
+          HTTP response message composed of the status code and description, the 
+          response headers and the response body converted into an object type 
+          of your choice.</para>
+        </listitem>
       </itemizedlist></para>
 
     <para>The request object to be POSTed or PUTed, may be a
@@ -407,22 +413,29 @@ template.RequestFactory = requestFactory;</programlisting></para>
       and register it via the <methodname>RequestInterceptors</methodname>
       property. <sbr /><sbr />Four types of interceptors are provided :
       <itemizedlist>
-          <listitem><interfacename>IClientHttpRequestFactoryInterceptor</interfacename>
-          will intercept request creation, allowing to modify the HTTP URI and
-          method, and to customize the newly created request.</listitem>
+          <listitem>
+            <para><interfacename>IClientHttpRequestFactoryInterceptor</interfacename> 
+            will intercept request creation, allowing to modify the HTTP URI and 
+            method, and to customize the newly created request.</para>
+          </listitem>
 
-          <listitem><interfacename>IClientHttpRequestBeforeInterceptor</interfacename>
-          will intercept request before its execution, allowing to modify the
-          HTTP headers and body. This interceptor supports both synchronous
-          and asynchronous requests.</listitem>
+          <listitem><para><interfacename>IClientHttpRequestBeforeInterceptor</interfacename> 
+            will intercept request before its execution, allowing to modify the
+            HTTP headers and body. This interceptor supports both synchronous 
+            and asynchronous requests.</para>
+          </listitem>
 
-          <listitem><interfacename>IClientHttpRequestSyncInterceptor</interfacename>
-          will intercept synchronous request execution, giving total control
-          of the execution (error management, logging, perf, etc.).</listitem>
+          <listitem>
+            <para><interfacename>IClientHttpRequestSyncInterceptor</interfacename> 
+            will intercept synchronous request execution, giving total control 
+            of the execution (error management, logging, perf, etc.).</para>
+          </listitem>
 
-          <listitem><interfacename>IClientHttpRequestAsyncInterceptor</interfacename>
-          will intercept asynchronous request execution, giving total control
-          of the execution (error management, logging, perf, etc.).</listitem>
+          <listitem>
+            <para><interfacename>IClientHttpRequestAsyncInterceptor</interfacename> 
+            will intercept asynchronous request execution, giving total control 
+            of the execution (error management, logging, perf, etc.).</para>
+          </listitem>
         </itemizedlist></para>
 
       <para>An example of an interceptor measuring HTTP request execution time
@@ -661,9 +674,7 @@ string statusDescription = response.StatusDescription;</programlisting>
     <note>
       <para>For complete testing examples, consult the unit tests source code
       of the <ulink url="http://www.springframework.net/social/">Spring.NET
-      Social</ulink> and <ulink
-      url="http://www.springframework.net/social-twitter/">Spring.NET Social
-      Twitter</ulink> projects.</para>
+      Social</ulink> project and its extensions.</para>
     </note>
   </section>
 </chapter>

@@ -52,6 +52,14 @@ namespace Spring.Http.Converters.Json
         private JsonMapper mapper;
 
         /// <summary>
+        /// Gets the underlying <see cref="JsonMapper"/> used for converting custom types.
+        /// </summary>
+        public JsonMapper JsonMapper
+        {
+            get { return mapper; }
+        }
+
+        /// <summary>
         /// Creates a new instance of the <see cref="SpringJsonHttpMessageConverter"/> 
         /// with the media type 'application/json'.
         /// </summary>
