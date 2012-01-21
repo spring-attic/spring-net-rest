@@ -472,6 +472,10 @@ template.RequestInterceptors.Add(new <classname>PerfRequestSyncInterceptor</clas
     <section id="resttemplate-container">
       <title>Using the Spring.NET container</title>
 
+      <para>Spring.NET REST Client Framework has no direct dependency on the Spring.NET Framework. 
+      It can be used either by itself in isolation or in combination with the remainder 
+      of the Spring.NET Framework to suit different usage scenarios.</para>
+      
       <para><classname>RestTemplate</classname>, as with any other object, can
       be configured in the Spring.NET container. <sbr />For example, using XML
       configuration :</para>
@@ -494,6 +498,18 @@ template.RequestInterceptors.Add(new <classname>PerfRequestSyncInterceptor</clas
   &lt;property name="RequestFactory.UseDefaultCredentials" value="true"/&gt;
   &lt;property name="RequestFactory.Timeout" value="10000"/&gt;
 &lt;/object&gt;</programlisting>
+
+      <para>Or using Code-based configuration :</para>
+
+      <programlisting language="csharp">[<classname>Configuration</classname>]
+public class <classname>MyAppConfiguration</classname>
+{
+  [<classname>Definition</classname>]
+  public virtual <interfacename>IRestOperations</interfacename> MyRestClient()
+  {
+    return new <classname>RestTemplate</classname>("http://localhost/MyService/");
+  }
+}</programlisting>
     </section>
   </section>
 
