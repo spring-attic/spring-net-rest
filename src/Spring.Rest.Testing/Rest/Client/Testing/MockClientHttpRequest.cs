@@ -42,7 +42,7 @@ namespace Spring.Rest.Client.Testing
         private IList<RequestMatcher> requestMatchers = new List<RequestMatcher>();
         private ResponseCreator responseCreator;
 
-	    private Uri uri;
+        private Uri uri;
         private HttpMethod method;
         private HttpHeaders headers = new HttpHeaders();
         private Action<Stream> body;
@@ -174,13 +174,16 @@ namespace Spring.Rest.Client.Testing
         /// <returns>A String representation of the body.</returns>
         public string GetBodyAsString()
         {
-            using (MemoryStream stream = new MemoryStream())
+            if (this.body != null)
             {
-                this.body(stream);
-                byte[] bodyAsBytes = stream.ToArray();
-
-                return Encoding.UTF8.GetString(bodyAsBytes, 0, bodyAsBytes.Length);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    this.body(stream);
+                    byte[] bodyAsBytes = stream.ToArray();
+                    return Encoding.UTF8.GetString(bodyAsBytes, 0, bodyAsBytes.Length);
+                }
             }
-	    }
+            return null;
+        }
     }
 }

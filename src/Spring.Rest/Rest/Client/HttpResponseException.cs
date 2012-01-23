@@ -19,7 +19,6 @@
 #endregion
 
 using System;
-using System.Net;
 using System.Text;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -29,10 +28,9 @@ using Spring.Http;
 namespace Spring.Rest.Client
 {
     /// <summary>
-    /// Base class for exceptions based on a <see cref="HttpStatusCode"/>.
+    /// Base class for exceptions based on a response message.
     /// </summary>
-    /// <author>Arjen Poutsma</author>
-    /// <author>Bruno Baia (.NET)</author>
+    /// <author>Bruno Baia</author>
 #if !SILVERLIGHT && !CF_3_5
     [Serializable]
 #endif
@@ -47,7 +45,25 @@ namespace Spring.Rest.Client
         protected static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
 #endif
 
+        private Uri requestUri; 
+        private HttpMethod requestMethod;
         private HttpResponseMessage<byte[]> response;
+
+        /// <summary>
+        /// Gets the HTTP request URI.
+        /// </summary>
+        public Uri RequestUri
+        {
+            get { return this.requestUri; }
+        }
+
+        /// <summary>
+        /// Gets the HTTP request method.
+        /// </summary>
+        public HttpMethod RequestMethod
+        {
+            get { return this.requestMethod; }
+        }
 
         /// <summary>
         /// Gets the HTTP response message.
@@ -61,10 +77,14 @@ namespace Spring.Rest.Client
         /// Creates a new instance of <see cref="HttpResponseException"/> 
         /// based on an HTTP response message.
         /// </summary>
+        /// <param name="requestUri">The HTTP request URI.</param>
+        /// <param name="requestMethod">The HTTP request method.</param>
         /// <param name="response">The HTTP response message.</param>
-        public HttpResponseException(HttpResponseMessage<byte[]> response)
-            : base(String.Format("The server returned '{0}' with the status code {1:d} - {1}.", response.StatusDescription, response.StatusCode))
+        public HttpResponseException(Uri requestUri, HttpMethod requestMethod, HttpResponseMessage<byte[]> response)
+            : base(String.Format("{0} request for '{1}' resulted in {2:d} - {2} ({3}).", requestMethod, requestUri, response.StatusCode, response.StatusDescription))
         {
+            this.requestUri = requestUri;
+            this.requestMethod = requestMethod;
             this.response = response;
         }
 
@@ -85,6 +105,8 @@ namespace Spring.Rest.Client
         {
             if (info != null)
             {
+                this.requestUri = (Uri)info.GetValue("RequestUri", typeof(Uri));
+                this.requestMethod = (HttpMethod)info.GetValue("RequestMethod", typeof(HttpMethod));
                 this.response = (HttpResponseMessage<byte[]>)info.GetValue("Response", typeof(HttpResponseMessage<byte[]>));
             }
         }
@@ -108,6 +130,8 @@ namespace Spring.Rest.Client
             base.GetObjectData(info, context);
             if (info != null)
             {
+                info.AddValue("RequestUri", this.requestUri);
+                info.AddValue("RequestMethod", this.requestMethod);
                 info.AddValue("Response", this.response);
             }
         }

@@ -18,6 +18,7 @@
 
 #endregion
 
+using System;
 using System.Net;
 using System.Text;
 
@@ -38,18 +39,22 @@ namespace Spring.Rest.Client
         [Test]
         public void BinarySerialization()
         {
+            Uri requestUri = new Uri("http://www.springframework.net");
+            HttpMethod requestMethod = HttpMethod.POST;
             byte[] body = new byte[2] { 0, 1 };
             HttpHeaders headers = new HttpHeaders();
             headers.ContentType = new MediaType("text", "plain");
             HttpStatusCode statusCode = HttpStatusCode.Accepted;
             string statusDescription = "Accepted description";
 
-            HttpResponseException exBefore = new HttpResponseException(
+            HttpResponseException exBefore = new HttpResponseException(requestUri, requestMethod, 
                 new HttpResponseMessage<byte[]>(body, headers, statusCode, statusDescription));
 
             HttpResponseException exAfter = SerializationTestUtils.BinarySerializeAndDeserialize(exBefore) as HttpResponseException;
 
             Assert.IsNotNull(exAfter);
+            Assert.AreEqual(requestUri, exAfter.RequestUri, "Invalid request URI");
+            Assert.AreEqual(requestMethod, exAfter.RequestMethod, "Invalid request method");
             Assert.AreEqual(body, exAfter.Response.Body, "Invalid response body");
             Assert.AreEqual(new MediaType("text", "plain"), exAfter.Response.Headers.ContentType, "Invalid response headers");
             Assert.AreEqual(statusCode, exAfter.Response.StatusCode, "Invalid status code");

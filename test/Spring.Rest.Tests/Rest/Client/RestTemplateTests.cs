@@ -81,10 +81,11 @@ namespace Spring.Rest.Client
 	    [Test]
 	    public void VarArgsTemplateVariables() 
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com/hotels/42/bookings/21"), HttpMethod.GET))
-                    .Return(request);
+            Uri requestUri = new Uri("http://example.com/hotels/42/bookings/21");
+            HttpMethod requestMethod = HttpMethod.GET;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
 
 		    mocks.ReplayAll();
 
@@ -94,10 +95,11 @@ namespace Spring.Rest.Client
         [Test]
         public void DictionaryTemplateVariables()
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com/hotels/42/bookings/21"), HttpMethod.GET))
-                .Return(request);
+            Uri requestUri = new Uri("http://example.com/hotels/42/bookings/21");
+            HttpMethod requestMethod = HttpMethod.GET;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
 
 		    mocks.ReplayAll();
 
@@ -110,10 +112,11 @@ namespace Spring.Rest.Client
         [Test]
         public void BaseAddressTemplate()
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com/hotels/42/bookings/21"), HttpMethod.GET))
-                    .Return(request);
+            Uri requestUri = new Uri("http://example.com/hotels/42/bookings/21");
+            HttpMethod requestMethod = HttpMethod.GET;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
 
             mocks.ReplayAll();
 
@@ -122,15 +125,16 @@ namespace Spring.Rest.Client
         }
 
         [Test]
-        [ExpectedException(typeof(HttpServerErrorException), ExpectedMessage = "The server returned 'Internal Server Error' with the status code 500 - InternalServerError.")]
+        [ExpectedException(typeof(HttpServerErrorException),
+            ExpectedMessage = "GET request for 'http://example.com/' resulted in 500 - InternalServerError (Internal Server Error).")]
         public void ErrorHandling()
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET))
-                .Return(request);
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.GET;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(true);
-            Expect.Call(delegate() { errorHandler.HandleError(response); }).Throw(new HttpServerErrorException(
-                new HttpResponseMessage<byte[]>(new byte[0], HttpStatusCode.InternalServerError, "Internal Server Error")));
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); }).Throw(new HttpServerErrorException(
+                requestUri, requestMethod, new HttpResponseMessage<byte[]>(new byte[0], HttpStatusCode.InternalServerError, "Internal Server Error")));
 
             mocks.ReplayAll();
 
@@ -140,16 +144,18 @@ namespace Spring.Rest.Client
         [Test]
         public void GetForObject() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
             IList<MediaType> mediaTypes = new List<MediaType>(1);
             mediaTypes.Add(textPlain);
             Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -170,16 +176,18 @@ namespace Spring.Rest.Client
             ExpectedMessage = "Could not extract response: no suitable HttpMessageConverter found for response type [System.String] and content type [bar/baz]")]
         public void GetUnsupportedMediaType() 
         {
+            Uri requestUri = new Uri("http://example.com/resource");
+            HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);
             MediaType textPlain = new MediaType("foo", "bar");
             IList<MediaType> mediaTypes = new List<MediaType>(1);
             mediaTypes.Add(textPlain);
             Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com/resource"), HttpMethod.GET)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             MediaType contentType = new MediaType("bar", "baz");
             responseHeaders.ContentType = contentType;
@@ -195,16 +203,18 @@ namespace Spring.Rest.Client
         [Test]
         public void GetNoContentType()
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);
             MediaType applicationOctetStream = new MediaType("application", "octet-stream");
             IList<MediaType> mediaTypes = new List<MediaType>(1);
             mediaTypes.Add(applicationOctetStream);
             Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             // No content-type
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -225,8 +235,10 @@ namespace Spring.Rest.Client
             ExpectedMessage = "Could not write request: no suitable IHttpMessageConverter found for request type [System.String] and content type [foo/bar]")]
         public void PostUnsupportedMediaType()
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             MediaType contentType = new MediaType("foo", "bar");
             Expect.Call<bool>(converter.CanWrite(typeof(string), contentType)).Return(false);
             HttpHeaders requestHeaders = new HttpHeaders();
@@ -242,16 +254,18 @@ namespace Spring.Rest.Client
         [Test]
         public void GetForMessage() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
             IList<MediaType> mediaTypes = new List<MediaType>(1);
             mediaTypes.Add(textPlain);
             Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -277,9 +291,11 @@ namespace Spring.Rest.Client
         [Test]
         public void HeadForHeaders()
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.HEAD)).Return(request);
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.HEAD;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
 
@@ -293,12 +309,14 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForLocation() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             Uri expected = new Uri("http://example.com/hotels");
             responseHeaders.Location = expected;
@@ -313,15 +331,17 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForLocationMessageContentType() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             MediaType contentType = new MediaType("text", "plain");
             Expect.Call<bool>(converter.CanWrite(typeof(string), contentType)).Return(true);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             converter.Write(helloWorld, contentType, request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             Uri expected = new Uri("http://example.com/hotels");
             responseHeaders.Location = expected;
@@ -340,14 +360,16 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForLocationMessageCustomHeader() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             Uri expected = new Uri("http://example.com/hotels");
             responseHeaders.Location = expected;
@@ -367,12 +389,14 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForLocationNoLocation() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
 
@@ -387,11 +411,13 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForLocationNull()
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
 
@@ -405,19 +431,21 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForObject() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
             IList<MediaType> mediaTypes = new List<MediaType>(1);
             mediaTypes.Add(textPlain);
             Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             string helloWorld = "Hello World";
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -436,19 +464,21 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForMessage() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
             IList<MediaType> mediaTypes = new List<MediaType>(1);
             mediaTypes.Add(textPlain);
             Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             string helloWorld = "Hello World";
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -472,14 +502,16 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForMessageNoBody()
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             string helloWorld = "Hello World";
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders);
             Expect.Call<HttpStatusCode>(response.StatusCode).Return(HttpStatusCode.Created);
@@ -495,16 +527,18 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForObjectNull() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
             IList<MediaType> mediaTypes = new List<MediaType>(1);
             mediaTypes.Add(textPlain);
             Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -524,16 +558,18 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForEntityNull() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
             IList<MediaType> mediaTypes = new List<MediaType>(1);
             mediaTypes.Add(textPlain);
             Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -558,12 +594,14 @@ namespace Spring.Rest.Client
         [Test]
         public void Put() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.PUT;
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.PUT)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             string helloWorld = "Hello World";
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
 
             mocks.ReplayAll();
 
@@ -573,11 +611,13 @@ namespace Spring.Rest.Client
         [Test]
         public void PutNull()
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.PUT)).Return(request);
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.PUT;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
 
             mocks.ReplayAll();
 
@@ -589,9 +629,11 @@ namespace Spring.Rest.Client
         [Test]
         public void Delete()
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.DELETE)).Return(request);
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.DELETE;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
 
             mocks.ReplayAll();
 
@@ -601,9 +643,11 @@ namespace Spring.Rest.Client
         [Test]
         public void OptionsForAllow()
         {
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.OPTIONS)).Return(request);
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.OPTIONS;
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.Add("Allow", "GET");
             responseHeaders.Add("Allow", "POST");
@@ -620,19 +664,21 @@ namespace Spring.Rest.Client
         [Test]
         public void Exchange() 
         {
+            Uri requestUri = new Uri("http://example.com");
+            HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
             IList<MediaType> mediaTypes = new List<MediaType>(1);
             mediaTypes.Add(textPlain);
             Expect.Call<IList<MediaType>>(converter.SupportedMediaTypes).Return(mediaTypes);
-            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.POST)).Return(request);
+            Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             string helloWorld = "Hello World";
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call<bool>(errorHandler.HasError(response)).Return(false);
+            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();

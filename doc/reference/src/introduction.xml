@@ -63,7 +63,11 @@
 
     <para>Some API changes were made after 1.0. The file,
     'breaking-changes.txt', in the root directory of the distribution contains
-    the full listing of breaking changes made for 1.1.</para>
+    the full listing of breaking changes made for 1.1.
+    <sbr/>The main breaking change is that <interfacename>IResponseErrorHandler</interfacename> 
+    interface has changed and will break 1.0 code that uses custom 
+    <link linkend="resttemplate-errorhandling">error handler</link>.
+  </para>
 
     <para>Several new features have been added to 1.1 version. These new
     features include: <itemizedlist>

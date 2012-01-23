@@ -19,7 +19,6 @@
 #endregion
 
 using System;
-using System.Net;
 using System.Runtime.Serialization;
 
 using Spring.Http;
@@ -40,9 +39,11 @@ namespace Spring.Rest.Client
         /// Creates a new instance of <see cref="HttpClientErrorException"/> 
         /// based on an HTTP response message.
         /// </summary>
+        /// <param name="requestUri">The HTTP request URI.</param>
+        /// <param name="requestMethod">The HTTP request method.</param>
         /// <param name="response">The HTTP response message.</param>
-        public HttpClientErrorException(HttpResponseMessage<byte[]> response)
-            : base (response)
+        public HttpClientErrorException(Uri requestUri, HttpMethod requestMethod, HttpResponseMessage<byte[]> response)
+            : base (requestUri, requestMethod, response)
         {
         }
 

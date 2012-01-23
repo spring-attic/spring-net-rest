@@ -61,20 +61,23 @@ namespace Spring.Rest.Client.Support
         [Test]
         public void ThrowsClientException()
         {
+            Uri requestUri = new Uri("http://www.springframework.net");
+            HttpMethod requestMethod = HttpMethod.GET;
             ExpectResponse("ClientError", Encoding.UTF8, HttpStatusCode.NotFound, "NotFound");
 
             mocks.ReplayAll();
 
-            Assert.IsTrue(responseErrorHandler.HasError(response));
             try
             {
-                responseErrorHandler.HandleError(response);
+                responseErrorHandler.HandleError(requestUri, requestMethod, response);
                 Assert.Fail("DefaultResponseErrorHandler.HandleError should throw an exception");
             }
             catch (Exception ex)
             {
                 HttpClientErrorException clientErrorException = ex as HttpClientErrorException;
                 Assert.IsNotNull(clientErrorException, "Exception HttpClientErrorException expected");
+                Assert.AreEqual(requestUri, clientErrorException.RequestUri);
+                Assert.AreEqual(requestMethod, clientErrorException.RequestMethod);
                 Assert.IsNotNull(clientErrorException.Response);
                 Assert.IsTrue(clientErrorException.Response.Body.Length > 0);
                 Assert.IsTrue(clientErrorException.Response.Headers.ContentLength > 0);
@@ -88,20 +91,23 @@ namespace Spring.Rest.Client.Support
         [Test]
         public void ThrowsClientExceptionWithNoBody()
         {
+            Uri requestUri = new Uri("http://www.springframework.net");
+            HttpMethod requestMethod = HttpMethod.GET;
             ExpectResponse(String.Empty, Encoding.UTF8, HttpStatusCode.NotFound, "NotFound");
 
             mocks.ReplayAll();
 
-            Assert.IsTrue(responseErrorHandler.HasError(response));
             try
             {
-                responseErrorHandler.HandleError(response);
+                responseErrorHandler.HandleError(requestUri, requestMethod, response);
                 Assert.Fail("DefaultResponseErrorHandler.HandleError should throw an exception");
             }
             catch (Exception ex)
             {
                 HttpClientErrorException clientErrorException = ex as HttpClientErrorException;
                 Assert.IsNotNull(clientErrorException, "Exception HttpClientErrorException expected");
+                Assert.AreEqual(requestUri, clientErrorException.RequestUri);
+                Assert.AreEqual(requestMethod, clientErrorException.RequestMethod);
                 Assert.IsNotNull(clientErrorException.Response);
                 Assert.AreEqual(0, clientErrorException.Response.Headers.ContentLength);
                 Assert.AreEqual(0, clientErrorException.Response.Body.Length);
@@ -112,20 +118,23 @@ namespace Spring.Rest.Client.Support
         [Test]
         public void ThrowsServerException()
         {
+            Uri requestUri = new Uri("http://www.springframework.net");
+            HttpMethod requestMethod = HttpMethod.GET;
             ExpectResponse("ServerError", Encoding.UTF8, HttpStatusCode.InternalServerError, "Internal Server Error");
 
             mocks.ReplayAll();
 
-            Assert.IsTrue(responseErrorHandler.HasError(response));
             try
             {
-                responseErrorHandler.HandleError(response);
+                responseErrorHandler.HandleError(requestUri, requestMethod, response);
                 Assert.Fail("DefaultResponseErrorHandler.HandleError should throw an exception");
             }
             catch (Exception ex)
             {
                 HttpServerErrorException serverErrorException = ex as HttpServerErrorException;
                 Assert.IsNotNull(serverErrorException, "Exception HttpServerErrorException expected");
+                Assert.AreEqual(requestUri, serverErrorException.RequestUri);
+                Assert.AreEqual(requestMethod, serverErrorException.RequestMethod);
                 Assert.IsNotNull(serverErrorException.Response);
                 Assert.IsTrue(serverErrorException.Response.Body.Length > 0);
                 Assert.IsTrue(serverErrorException.Response.Headers.ContentLength > 0);
@@ -139,11 +148,13 @@ namespace Spring.Rest.Client.Support
         [Test]
         public void DoesNotThrowException()
         {
+            Uri requestUri = new Uri("http://www.springframework.net");
+            HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<HttpStatusCode>(response.StatusCode).Return(HttpStatusCode.OK);
 
             mocks.ReplayAll();
 
-            Assert.IsFalse(responseErrorHandler.HasError(response));
+            responseErrorHandler.HandleError(requestUri, requestMethod, response);
         }
 
         #region Private methods

@@ -18,6 +18,7 @@
 
 #endregion
 
+using System;
 using System.IO;
 using System.Net;
 
@@ -46,38 +47,50 @@ namespace Spring.Rest.Client.Support
         #region IResponseErrorHandler Members
 
         /// <summary>
+        /// Handles the error in the given response. 
+        /// <para/>
+        /// Implementations will typically throw an exception if the response has any errors.
+        /// </summary>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="requestMethod">The request method.</param>
+        /// <param name="response">The response with the error.</param>
+        public virtual void HandleError(Uri requestUri, HttpMethod requestMethod, IClientHttpResponse response)
+        {
+            if (this.HasError(requestUri, requestMethod, response))
+            {
+                byte[] body = null;
+                Stream bodyStream = response.Body;
+                if (bodyStream != null)
+                {
+                    using (MemoryStream tempStream = new MemoryStream())
+                    {
+                        IoUtils.CopyStream(bodyStream, tempStream);
+                        body = tempStream.ToArray();
+                    }
+                }
+                this.HandleError(requestUri, requestMethod, new HttpResponseMessage<byte[]>(body, response.Headers, response.StatusCode, response.StatusDescription));
+            }
+        }
+
+        #endregion
+
+        /// <summary>
         /// Indicates whether the given response has any errors.
         /// </summary>
         /// <remarks>
         /// This implementation delegates to <see cref="M:HasError(HttpStatusCode)"/> 
         /// with the response status code.
         /// </remarks>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="requestMethod">The request method.</param>
         /// <param name="response">The response to inspect.</param>
         /// <returns>
         /// <see langword="true"/> if the response has an error; otherwise <see langword="false"/>.
         /// </returns>
-        public virtual bool HasError(IClientHttpResponse response)
+        protected virtual bool HasError(Uri requestUri, HttpMethod requestMethod, IClientHttpResponse response)
         {
             return this.HasError(response.StatusCode);
         }
-
-        /// <summary>
-        /// Handles the error in the given response. 
-        /// This method is only called when <see cref="M:HasError"/> has returned <see langword="true"/>.
-        /// </summary>
-        /// <param name="response">The response with the error</param>
-        public virtual void HandleError(IClientHttpResponse response)
-        {
-            byte[] body = null;
-            using (MemoryStream tempStream = new MemoryStream())
-            {
-                IoUtils.CopyStream(response.Body, tempStream);
-                body = tempStream.ToArray();
-            }
-            this.HandleError(new HttpResponseMessage<byte[]>(body, response.Headers, response.StatusCode, response.StatusDescription));
-        }
-
-        #endregion
 
         /// <summary>
         /// Checks if the given status code is a client code error (4xx) or a server code error (5xx).
@@ -97,20 +110,22 @@ namespace Spring.Rest.Client.Support
         /// or a server code error (5xx). 
         /// This method is only called when <see cref="M:HasError"/> has returned <see langword="true"/>.
         /// </summary>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="requestMethod">The request method.</param>
         /// <param name="response">The response message with the error</param>
         /// <exception cref="HttpClientErrorException">If the response status code is a client error (4xx).</exception>
         /// <exception cref="HttpServerErrorException">If the response status code is a server error (4xx).</exception>
-        public virtual void HandleError(HttpResponseMessage<byte[]> response)
+        public virtual void HandleError(Uri requestUri, HttpMethod requestMethod, HttpResponseMessage<byte[]> response)
         {
             int type = (int)response.StatusCode / 100;
             switch (type)
             {
                 case 4:
-                    throw new HttpClientErrorException(response);
+                    throw new HttpClientErrorException(requestUri, requestMethod, response);
                 case 5:
-                    throw new HttpServerErrorException(response);
+                    throw new HttpServerErrorException(requestUri, requestMethod, response);
                 default:
-                    throw new HttpResponseException(response);
+                    throw new HttpResponseException(requestUri, requestMethod, response);
             }
         }
     }

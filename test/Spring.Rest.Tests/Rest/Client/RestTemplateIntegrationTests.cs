@@ -110,7 +110,7 @@ namespace Spring.Rest.Client
 
         [Test]
         [ExpectedException(typeof(HttpClientErrorException),
-            ExpectedMessage = "The server returned 'User with id '5' not found' with the status code 404 - NotFound.")]
+            ExpectedMessage = "GET request for 'http://localhost:1337/user/5' resulted in 404 - NotFound (User with id '5' not found).")]
         public void GetStringError()
         {
             string result = template.GetForObject<string>("user/{id}", 5);
@@ -188,7 +188,7 @@ namespace Spring.Rest.Client
 
         [Test]
         [ExpectedException(typeof(HttpClientErrorException),
-            ExpectedMessage = "The server returned 'Content cannot be null or empty' with the status code 400 - BadRequest.")]
+            ExpectedMessage = "POST request for 'http://localhost:1337/user' resulted in 400 - BadRequest (Content cannot be null or empty).")]
         public void PostStringForObjectWithError()
         {
             string result = template.PostForObject<string>("user", "");
@@ -196,7 +196,7 @@ namespace Spring.Rest.Client
 
         [Test]
         [ExpectedException(typeof(HttpClientErrorException),
-            ExpectedMessage = "The server returned 'Content cannot be null or empty' with the status code 400 - BadRequest.")]
+            ExpectedMessage = "POST request for 'http://localhost:1337/user' resulted in 400 - BadRequest (Content cannot be null or empty).")]
         public void PostStringNull()
         {
             template.PostForObject<string>("user", null);
@@ -216,7 +216,7 @@ namespace Spring.Rest.Client
 
         [Test]
         [ExpectedException(typeof(HttpClientErrorException),
-            ExpectedMessage = "The server returned 'User id '4' does not exist' with the status code 400 - BadRequest.")]
+            ExpectedMessage = "PUT request for 'http://localhost:1337/user/4' resulted in 400 - BadRequest (User id '4' does not exist).")]
         public void PutWithError()
         {
             template.Put("user/4", "Dinora Baia");
@@ -236,7 +236,7 @@ namespace Spring.Rest.Client
 
         [Test]
         [ExpectedException(typeof(HttpClientErrorException),
-            ExpectedMessage = "The server returned 'User id '10' does not exist' with the status code 400 - BadRequest.")]
+            ExpectedMessage = "DELETE request for 'http://localhost:1337/user/10' resulted in 400 - BadRequest (User id '10' does not exist).")]
         public void DeleteWithError()
         {
             template.Delete("user/10");
@@ -300,7 +300,7 @@ namespace Spring.Rest.Client
             {
                 HttpClientErrorException clientErrorException = ex as HttpClientErrorException;
                 Assert.IsNotNull(clientErrorException, "Exception HttpClientErrorException expected");
-                Assert.AreEqual("The server returned 'Not Found' with the status code 404 - NotFound.", clientErrorException.Message);
+                Assert.AreEqual("GET request for 'http://localhost:1337/status/notfound' resulted in 404 - NotFound (Not Found).", clientErrorException.Message);
                 Assert.IsTrue(clientErrorException.Response.Body.Length == 0);
                 Assert.IsTrue(clientErrorException.Response.Headers.ContentLength == 0);
                 Assert.AreEqual(String.Empty, clientErrorException.GetResponseBodyAsString());
@@ -321,7 +321,7 @@ namespace Spring.Rest.Client
             {
                 HttpServerErrorException serverErrorException = ex as HttpServerErrorException;
                 Assert.IsNotNull(serverErrorException, "Exception HttpServerErrorException expected");
-                Assert.AreEqual("The server returned 'Internal Server Error' with the status code 500 - InternalServerError.", serverErrorException.Message);
+                Assert.AreEqual("GET request for 'http://localhost:1337/status/server' resulted in 500 - InternalServerError (Internal Server Error).", serverErrorException.Message);
                 Assert.IsTrue(serverErrorException.Response.Body.Length == 0);
                 Assert.IsTrue(serverErrorException.Response.Headers.ContentLength == 0);
                 Assert.AreEqual(String.Empty, serverErrorException.GetResponseBodyAsString());
@@ -543,7 +543,7 @@ namespace Spring.Rest.Client
 
         [Test]
         [ExpectedException(typeof(HttpClientErrorException),
-            ExpectedMessage = "The server returned 'Not Found' with the status code 404 - NotFound.")]
+            ExpectedMessage = "GET request for 'http://localhost:1337/status/notfound' resulted in 404 - NotFound (Not Found).")]
         public void ClientErrorAsync()
         {
             ManualResetEvent manualEvent = new ManualResetEvent(false);
@@ -591,7 +591,7 @@ namespace Spring.Rest.Client
                         Assert.IsNotNull(args.Error, "Invalid response");
                         HttpServerErrorException serverErrorException = args.Error as HttpServerErrorException;
                         Assert.IsNotNull(serverErrorException, "Exception HttpServerErrorException expected");
-                        Assert.AreEqual("The server returned 'Internal Server Error' with the status code 500 - InternalServerError.", serverErrorException.Message);
+                        Assert.AreEqual("GET request for 'http://localhost:1337/status/server' resulted in 500 - InternalServerError (Internal Server Error).", serverErrorException.Message);
                         Assert.IsTrue(serverErrorException.Response.Body.Length == 0);
                         Assert.IsTrue(serverErrorException.Response.Headers.ContentLength == 0);
                         Assert.AreEqual(String.Empty, serverErrorException.GetResponseBodyAsString());
@@ -809,7 +809,7 @@ namespace Spring.Rest.Client
                     Assert.IsFalse(task.IsCanceled, "Invalid response");
                     Assert.IsTrue(task.IsFaulted, "Invalid response");
                     Assert.IsNotNull(task.Exception, "Invalid response");
-                    AssertAggregateException(task.Exception, typeof(HttpClientErrorException), "The server returned 'Not Found' with the status code 404 - NotFound.");
+                    AssertAggregateException(task.Exception, typeof(HttpClientErrorException), "GET request for 'http://localhost:1337/status/notfound' resulted in 404 - NotFound (Not Found).");
                 })
                 .Wait();
         }
@@ -823,7 +823,7 @@ namespace Spring.Rest.Client
                     Assert.IsFalse(task.IsCanceled, "Invalid response");
                     Assert.IsTrue(task.IsFaulted, "Invalid response");
                     Assert.IsNotNull(task.Exception, "Invalid response");
-                    AssertAggregateException(task.Exception, typeof(HttpServerErrorException), "The server returned 'Internal Server Error' with the status code 500 - InternalServerError.");
+                    AssertAggregateException(task.Exception, typeof(HttpServerErrorException), "GET request for 'http://localhost:1337/status/server' resulted in 500 - InternalServerError (Internal Server Error).");
                 })
                 .Wait();
         }

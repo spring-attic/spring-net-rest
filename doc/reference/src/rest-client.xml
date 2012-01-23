@@ -329,29 +329,24 @@ template.MessageConverters.Add(new <classname>DataContractJsonHttpMessageConvert
       <para>In case of an exception processing the HTTP method, an exception
       of the type <classname>RestClientException</classname> will be thrown.
       The interface <interfacename>IResponseErrorHandler</interfacename>
-      allows you to determine whether a particular response has an error. The
-      default implementation throws an exception when a HTTP client or server
-      error happens (HTTP status code 4xx or 5xx).</para>
+      allows you to determine whether a particular response has an error and 
+      to handle it. The default implementation <classname>DefaultResponseErrorHandler</classname> 
+      throws an exception when a HTTP client or server error happens (HTTP status code 4xx or 5xx).</para>
 
       <para>The default behavior can be changed by plugging in another
       implementation into the <classname>RestTemplate</classname> via the
       <methodname>ErrorHandler</methodname> property. The example below shows
       a custom <interfacename>IResponseErrorHandler</interfacename>
-      implementation which gives the user total control over the
-      response.</para>
+      implementation that inherits from existing <classname>DefaultResponseErrorHandler</classname> 
+      and which throws an exception only when a HTTP server error happens (HTTP status code 5xx).</para>
 
       <para>
-        <programlisting language="csharp">public class <classname>MyResponseErrorHandler</classname> : <interfacename>IResponseErrorHandler</interfacename>
+        <programlisting language="csharp">public class <classname>MyResponseErrorHandler</classname> : <classname>DefaultResponseErrorHandler</classname>
 {
-  public bool HasError(<interfacename>IClientHttpResponse</interfacename> response)
+  protected override bool HasError(<classname>HttpStatusCode</classname> statusCode)
   {
-    return false;
-  }
-
-  public void HandleError(<interfacename>IClientHttpResponse</interfacename> response)
-  {
-    // This method should not be called because HasError returns false.
-    throw new <classname>InvalidOperationException</classname>();
+    int type = (int)statusCode / 100;
+    return type == 5;
   }
 }
 
@@ -364,6 +359,10 @@ if (responseMessage.StatusCode == <classname>HttpStatusCode</classname>.NotFound
   // ...
 }</programlisting>
       </para>
+
+      <note>
+        <para><methodname>ErrorHandler</methodname> property may be set to null to give the user total control over the response.</para>
+      </note>
     </section>
 
     <section id="resttemplate-requestfactory">

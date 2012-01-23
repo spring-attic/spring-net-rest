@@ -2686,13 +2686,11 @@ namespace Spring.Rest.Client
             {
                 if (response != null)
                 {
-                    if (this._errorHandler != null && this._errorHandler.HasError(response))
+                    LogResponseStatus(uri, method, response);
+
+                    if (this._errorHandler != null)
                     {
-                        HandleResponseError(uri, method, response, this._errorHandler);
-                    }
-                    else
-                    {
-                        LogResponseStatus(uri, method, response);
+                        this._errorHandler.HandleError(uri, method, response);
                     }
 
                     if (responseExtractor != null)
@@ -2771,13 +2769,11 @@ namespace Spring.Rest.Client
                     {
                         try
                         {
-                            if (state.ResponseErrorHandler != null && state.ResponseErrorHandler.HasError(response))
+                            LogResponseStatus(state.Uri, state.Method, response);
+
+                            if (state.ResponseErrorHandler != null)
                             {
-                                HandleResponseError(state.Uri, state.Method, response, state.ResponseErrorHandler);
-                            }
-                            else
-                            {
-                                LogResponseStatus(state.Uri, state.Method, response);
+                                state.ResponseErrorHandler.HandleError(state.Uri, state.Method, response);
                             }
 
                             if (state.ResponseExtractor != null)
@@ -2938,23 +2934,6 @@ namespace Spring.Rest.Client
             }
 #endif
             #endregion
-        }
-
-        private static void HandleResponseError(Uri uri, HttpMethod method, IClientHttpResponse response, 
-            IResponseErrorHandler errorHandler) 
-        {
-            #region Instrumentation
-#if !SILVERLIGHT && !CF_3_5
-            if (LOG.IsWarnEnabled)
-            {
-                LOG.Warn(String.Format(
-                    "{0} request for '{1}' resulted in {2:d} - {2} ({3}); invoking error handler",
-                    method, uri, response.StatusCode, response.StatusDescription));
-            }
-#endif
-            #endregion
-
-            errorHandler.HandleError(response);
         }
     }
 }

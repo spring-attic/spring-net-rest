@@ -9,6 +9,7 @@ Bug
 
 Improvement
 [SPRNETREST-18] - Better handling of empty response messages (204, 304) in RestTemplate
+[SPRNETREST-23] - IResponseErrorHandler refactoring
 
 New Feature
 [SPRNETREST-16] - Add Silverlight 5 support

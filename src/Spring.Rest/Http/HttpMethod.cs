@@ -33,6 +33,9 @@ namespace Spring.Http
     /// HTTP method equality and hashing are case insensitive.
     /// </remarks>
     /// <author>Bruno Baia</author>
+#if !SILVERLIGHT && !CF_3_5
+    [Serializable]
+#endif
     public class HttpMethod : IEquatable<HttpMethod>
     {
         /// <summary>
