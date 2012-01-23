@@ -1,4 +1,4 @@
-The Spring.NET REST Client project, Release 1.1.0 GA (January 18, 2012)
+The Spring.NET REST Client project, Release 1.1.0 GA (January 23, 2012)
 -----------------------------------------------------------------------
 http://www.springframework.net/rest/
 
