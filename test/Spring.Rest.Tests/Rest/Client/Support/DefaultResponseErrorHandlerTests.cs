@@ -67,6 +67,7 @@ namespace Spring.Rest.Client.Support
 
             mocks.ReplayAll();
 
+            Assert.IsTrue(responseErrorHandler.HasError(requestUri, requestMethod, response));
             try
             {
                 responseErrorHandler.HandleError(requestUri, requestMethod, response);
@@ -97,6 +98,7 @@ namespace Spring.Rest.Client.Support
 
             mocks.ReplayAll();
 
+            Assert.IsTrue(responseErrorHandler.HasError(requestUri, requestMethod, response));
             try
             {
                 responseErrorHandler.HandleError(requestUri, requestMethod, response);
@@ -124,6 +126,7 @@ namespace Spring.Rest.Client.Support
 
             mocks.ReplayAll();
 
+            Assert.IsTrue(responseErrorHandler.HasError(requestUri, requestMethod, response));
             try
             {
                 responseErrorHandler.HandleError(requestUri, requestMethod, response);
@@ -154,7 +157,7 @@ namespace Spring.Rest.Client.Support
 
             mocks.ReplayAll();
 
-            responseErrorHandler.HandleError(requestUri, requestMethod, response);
+            Assert.IsFalse(responseErrorHandler.HasError(requestUri, requestMethod, response));
         }
 
         #region Private methods

@@ -85,7 +85,7 @@ namespace Spring.Rest.Client
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
 
 		    mocks.ReplayAll();
 
@@ -99,7 +99,7 @@ namespace Spring.Rest.Client
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
 
 		    mocks.ReplayAll();
 
@@ -116,7 +116,7 @@ namespace Spring.Rest.Client
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
 
             mocks.ReplayAll();
 
@@ -133,6 +133,7 @@ namespace Spring.Rest.Client
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(true);
             Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); }).Throw(new HttpServerErrorException(
                 requestUri, requestMethod, new HttpResponseMessage<byte[]>(new byte[0], HttpStatusCode.InternalServerError, "Internal Server Error")));
 
@@ -155,7 +156,7 @@ namespace Spring.Rest.Client
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -187,7 +188,7 @@ namespace Spring.Rest.Client
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             MediaType contentType = new MediaType("bar", "baz");
             responseHeaders.ContentType = contentType;
@@ -214,7 +215,7 @@ namespace Spring.Rest.Client
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             // No content-type
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -265,7 +266,7 @@ namespace Spring.Rest.Client
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -295,7 +296,7 @@ namespace Spring.Rest.Client
             HttpMethod requestMethod = HttpMethod.HEAD;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
 
@@ -316,7 +317,7 @@ namespace Spring.Rest.Client
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             Uri expected = new Uri("http://example.com/hotels");
             responseHeaders.Location = expected;
@@ -341,7 +342,7 @@ namespace Spring.Rest.Client
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             converter.Write(helloWorld, contentType, request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             Uri expected = new Uri("http://example.com/hotels");
             responseHeaders.Location = expected;
@@ -369,7 +370,7 @@ namespace Spring.Rest.Client
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             Uri expected = new Uri("http://example.com/hotels");
             responseHeaders.Location = expected;
@@ -396,7 +397,7 @@ namespace Spring.Rest.Client
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
 
@@ -417,7 +418,7 @@ namespace Spring.Rest.Client
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
 
@@ -445,7 +446,7 @@ namespace Spring.Rest.Client
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -478,7 +479,7 @@ namespace Spring.Rest.Client
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -511,7 +512,7 @@ namespace Spring.Rest.Client
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders);
             Expect.Call<HttpStatusCode>(response.StatusCode).Return(HttpStatusCode.Created);
@@ -538,7 +539,7 @@ namespace Spring.Rest.Client
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -569,7 +570,7 @@ namespace Spring.Rest.Client
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
@@ -601,7 +602,7 @@ namespace Spring.Rest.Client
             string helloWorld = "Hello World";
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
 
             mocks.ReplayAll();
 
@@ -617,7 +618,7 @@ namespace Spring.Rest.Client
             HttpHeaders requestHeaders = new HttpHeaders();
             Expect.Call<HttpHeaders>(request.Headers).Return(requestHeaders).Repeat.Any();
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
 
             mocks.ReplayAll();
 
@@ -633,7 +634,7 @@ namespace Spring.Rest.Client
             HttpMethod requestMethod = HttpMethod.DELETE;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
 
             mocks.ReplayAll();
 
@@ -647,7 +648,7 @@ namespace Spring.Rest.Client
             HttpMethod requestMethod = HttpMethod.OPTIONS;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.Add("Allow", "GET");
             responseHeaders.Add("Allow", "POST");
@@ -678,7 +679,7 @@ namespace Spring.Rest.Client
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             converter.Write(helloWorld, null, request);
             ExpectGetResponse();
-            Expect.Call(delegate() { errorHandler.HandleError(requestUri, requestMethod, response); });
+            Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.ContentType = textPlain;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();

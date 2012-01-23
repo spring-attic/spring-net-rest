@@ -29,17 +29,31 @@ namespace Spring.Rest.Client
     /// Strategy interface used by the <see cref="RestTemplate"/> to determine 
     /// whether a particular response has an error or not.
     /// </summary>
-    /// <author>Bruno Baia</author>
+    /// <author>Arjen Poutsma</author>
+    /// <author>Bruno Baia (.NET)</author>
     public interface IResponseErrorHandler
     {
         /// <summary>
-        /// Handles the error in the given response. 
+        /// Indicates whether the given response has any errors.
         /// <para/>
-        /// Implementations will typically throw an exception if the response has any errors.
+        /// Implementations will typically inspect the status code of the response.
         /// </summary>
         /// <param name="requestUri">The request URI.</param>
         /// <param name="requestMethod">The request method.</param>
-        /// <param name="response">The response with the error.</param>
+        /// <param name="response">The response to inspect.</param>
+        /// <returns>
+        /// <see langword="true"/> if the response has an error; otherwise <see langword="false"/>.
+        /// </returns>
+        bool HasError(Uri requestUri, HttpMethod requestMethod, IClientHttpResponse response);
+
+        /// <summary>
+        /// Handles the error in the given response. 
+        /// <para/>
+        /// This method is only called when HasError() method has returned <see langword="true"/>.
+        /// </summary>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="requestMethod">The request method.</param>
+        /// <param name="response">The response with the error</param>
         void HandleError(Uri requestUri, HttpMethod requestMethod, IClientHttpResponse response);
     }
 }

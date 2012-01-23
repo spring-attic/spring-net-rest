@@ -47,50 +47,45 @@ namespace Spring.Rest.Client.Support
         #region IResponseErrorHandler Members
 
         /// <summary>
-        /// Handles the error in the given response. 
-        /// <para/>
-        /// Implementations will typically throw an exception if the response has any errors.
-        /// </summary>
-        /// <param name="requestUri">The request URI.</param>
-        /// <param name="requestMethod">The request method.</param>
-        /// <param name="response">The response with the error.</param>
-        public virtual void HandleError(Uri requestUri, HttpMethod requestMethod, IClientHttpResponse response)
-        {
-            if (this.HasError(requestUri, requestMethod, response))
-            {
-                byte[] body = null;
-                Stream bodyStream = response.Body;
-                if (bodyStream != null)
-                {
-                    using (MemoryStream tempStream = new MemoryStream())
-                    {
-                        IoUtils.CopyStream(bodyStream, tempStream);
-                        body = tempStream.ToArray();
-                    }
-                }
-                this.HandleError(requestUri, requestMethod, new HttpResponseMessage<byte[]>(body, response.Headers, response.StatusCode, response.StatusDescription));
-            }
-        }
-
-        #endregion
-
-        /// <summary>
         /// Indicates whether the given response has any errors.
+        /// <para/>
+        /// This implementation delegates to HasError(HttpStatusCode) method with the response status code.
         /// </summary>
-        /// <remarks>
-        /// This implementation delegates to <see cref="M:HasError(HttpStatusCode)"/> 
-        /// with the response status code.
-        /// </remarks>
         /// <param name="requestUri">The request URI.</param>
         /// <param name="requestMethod">The request method.</param>
         /// <param name="response">The response to inspect.</param>
         /// <returns>
         /// <see langword="true"/> if the response has an error; otherwise <see langword="false"/>.
         /// </returns>
-        protected virtual bool HasError(Uri requestUri, HttpMethod requestMethod, IClientHttpResponse response)
+        public virtual bool HasError(Uri requestUri, HttpMethod requestMethod, IClientHttpResponse response)
         {
             return this.HasError(response.StatusCode);
         }
+
+        /// <summary>
+        /// Handles the error in the given response. 
+        /// <para/>
+        /// This method is only called when HasError() method has returned <see langword="true"/>.
+        /// </summary>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="requestMethod">The request method.</param>
+        /// <param name="response">The response with the error</param>
+        public virtual void HandleError(Uri requestUri, HttpMethod requestMethod, IClientHttpResponse response)
+        {
+            byte[] body = null;
+            Stream bodyStream = response.Body;
+            if (bodyStream != null)
+            {
+                using (MemoryStream tempStream = new MemoryStream())
+                {
+                    IoUtils.CopyStream(bodyStream, tempStream);
+                    body = tempStream.ToArray();
+                }
+            }
+            this.HandleError(requestUri, requestMethod, new HttpResponseMessage<byte[]>(body, response.Headers, response.StatusCode, response.StatusDescription));
+        }
+
+        #endregion
 
         /// <summary>
         /// Checks if the given status code is a client code error (4xx) or a server code error (5xx).
