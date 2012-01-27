@@ -230,6 +230,20 @@ namespace Spring.Json
         }
 
         [Test]
+        public void GetObjectValueOrDefaultValueOnJsonObject()
+        {
+            JsonValue value = JsonValue.Parse("{\"Name\":\"Value\"}");
+
+            Assert.IsTrue(value.IsObject);
+            Assert.IsNull(value.GetValue("Bla"));
+            Assert.AreEqual("Value", value.GetValueOrDefault<string>("Name"));
+            Assert.AreEqual(null, value.GetValueOrDefault<string>("Bla"));
+            Assert.AreEqual(String.Empty, value.GetValueOrDefault<string>("Bla", String.Empty));
+            Assert.AreEqual(0, value.GetValueOrDefault<int>("Gla"));
+            Assert.AreEqual(-1, value.GetValueOrDefault<int>("Gla", -1));
+        }
+
+        [Test]
         [ExpectedException(
             typeof(JsonException),
             ExpectedMessage = "The value held by this instance is not a JSON object structure.")]
@@ -250,6 +264,20 @@ namespace Spring.Json
             Assert.IsNull(value.GetValue(7));
             JsonException ex = Assert.Throws<JsonException>(delegate() { value.GetValue<int>(7); });
             Assert.AreEqual("The JSON array structure does not have an entry at index '7'.", ex.Message);
+        }
+
+        [Test]
+        public void GetArrayValueOrDefaultValueOnJsonArray()
+        {
+            JsonValue value = JsonValue.Parse("[1, 2]");
+
+            Assert.IsTrue(value.IsArray);
+            Assert.IsNull(value.GetValue(7));
+            Assert.AreEqual(2, value.GetValueOrDefault<int>(1));
+            Assert.AreEqual(null, value.GetValueOrDefault<string>(3));
+            Assert.AreEqual(String.Empty, value.GetValueOrDefault<string>(3, String.Empty));
+            Assert.AreEqual(0, value.GetValueOrDefault<int>(4));
+            Assert.AreEqual(-1, value.GetValueOrDefault<int>(4, -1));            
         }
 
         [Test]

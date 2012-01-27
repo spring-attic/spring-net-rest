@@ -404,6 +404,42 @@ namespace Spring.Json
         }
 
         /// <summary>
+        /// Returns the value associated with the specified entry name, or the object's default value, 
+        /// if the value held by this instance is a JSON object structure.
+        /// </summary>
+        /// <typeparam name="T">The type to convert the value to.</typeparam>
+        /// <param name="name">The name of the entry that contains the value to get.</param>
+        /// <returns>The value associated with the specified name.</returns>
+        /// <exception cref="JsonException">
+        /// If the value held by this instance is not a JSON object structure.
+        /// </exception>
+        public T GetValueOrDefault<T>(string name)
+        {
+            return this.GetValueOrDefault<T>(name, default(T));
+        }
+
+        /// <summary>
+        /// Returns the value associated with the specified entry name, or the specified default value, 
+        /// if the value held by this instance is a JSON object structure.
+        /// </summary>
+        /// <typeparam name="T">The type to convert the value to.</typeparam>
+        /// <param name="name">The name of the entry that contains the value to get.</param>
+        /// <param name="defaultValue">The default value to return if the entry does not exists.</param>
+        /// <returns>The value associated with the specified name if the entry does not exists.</returns>
+        /// <exception cref="JsonException">
+        /// If the value held by this instance is not a JSON object structure.
+        /// </exception>
+        public T GetValueOrDefault<T>(string name, T defaultValue)
+        {
+            JsonValue jsonValue = this.GetValue(name);
+            if (jsonValue != null)
+            {
+                return jsonValue.GetValue<T>();
+            }
+            return defaultValue;
+        }
+
+        /// <summary>
         /// Returns the value at the specified entry index 
         /// if the value held by this instance is a JSON array structure.
         /// </summary>
@@ -427,6 +463,42 @@ namespace Spring.Json
             throw new JsonException(String.Format(
                 "The JSON array structure does not have an entry at index '{0}'.",
                 index));
+        }
+
+        /// <summary>
+        /// Returns the value at the specified entry index, or the object's default value, 
+        /// if the value held by this instance is a JSON array structure.
+        /// </summary>
+        /// <typeparam name="T">The type to convert the value to.</typeparam>
+        /// <param name="index">The zero-based index of the entry that contains the value to get.</param>
+        /// <returns>The value at the specified index.</returns>
+        /// <exception cref="JsonException">
+        /// If the value held by this instance is not a JSON array structure.
+        /// </exception>
+        public T GetValueOrDefault<T>(int index)
+        {
+            return this.GetValueOrDefault<T>(index, default(T));
+        }
+
+        /// <summary>
+        /// Returns the value at the specified entry index, or the specified default value, 
+        /// if the value held by this instance is a JSON array structure.
+        /// </summary>
+        /// <typeparam name="T">The type to convert the value to.</typeparam>
+        /// <param name="index">The zero-based index of the entry that contains the value to get.</param>
+        /// <param name="defaultValue">The default value to return if the entry does not exists.</param>
+        /// <returns>The value at the specified index.</returns>
+        /// <exception cref="JsonException">
+        /// If the value held by this instance is not a JSON array structure.
+        /// </exception>
+        public T GetValueOrDefault<T>(int index, T defaultValue)
+        {
+            JsonValue jsonValue = this.GetValue(index);
+            if (jsonValue != null)
+            {
+                return jsonValue.GetValue<T>();
+            }
+            return defaultValue;
         }
 
         /// <summary>
