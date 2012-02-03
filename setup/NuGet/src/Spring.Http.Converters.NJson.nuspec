@@ -23,15 +23,9 @@
     <file src="..\..\..\bin\net\2.0\Release\Spring.Http.Converters.NJson.dll" target="lib\net20" />
     <file src="..\..\..\bin\net\2.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\net20" />
     <file src="..\..\..\bin\net\2.0\Release\Spring.Http.Converters.NJson.xml" target="lib\net20" />
-    <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.dll" target="lib\net35" />
-    <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.pdb" target="lib\net35" />
-    <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.xml" target="lib\net35" />
     <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.dll" target="lib\net35-client" />
     <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.pdb" target="lib\net35-client" />
     <file src="..\..\..\bin\net\3.5\Release\Spring.Http.Converters.NJson.xml" target="lib\net35-client" />
-    <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.dll" target="lib\net40" />
-    <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\net40" />
-    <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.xml" target="lib\net40" />
     <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.dll" target="lib\net40-client" />
     <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.pdb" target="lib\net40-client" />
     <file src="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.xml" target="lib\net40-client" />
