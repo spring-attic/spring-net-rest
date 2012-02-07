@@ -33,8 +33,16 @@ namespace Spring.Http.Client.Interceptor
     /// <author>Bruno Baia</author>
     public class InterceptingClientHttpRequestFactory : IClientHttpRequestFactory
     {
-        private IClientHttpRequestFactory requestFactory;
+        private IClientHttpRequestFactory targetRequestFactory;
         private IEnumerable<IClientHttpRequestInterceptor> interceptors;
+
+        /// <summary>
+        /// Gets the intercepted request factory.
+        /// </summary>
+        public IClientHttpRequestFactory TargetRequestFactory
+        {
+            get { return this.targetRequestFactory; }
+        }
 
         /// <summary>
         /// Creates a new instance of the <see cref="InterceptingClientHttpRequestFactory"/> with the given parameters.
@@ -47,7 +55,7 @@ namespace Spring.Http.Client.Interceptor
         {
             ArgumentUtils.AssertNotNull(requestFactory, "requestFactory");
 
-            this.requestFactory = requestFactory;
+            this.targetRequestFactory = requestFactory;
             this.interceptors = interceptors != null ? interceptors : new IClientHttpRequestInterceptor[0];
         }
 
@@ -61,7 +69,7 @@ namespace Spring.Http.Client.Interceptor
         /// <returns>The created request</returns>
         public IClientHttpRequest CreateRequest(Uri uri, HttpMethod method)
         {
-            RequestCreation requestCreation = new RequestCreation(uri, method, this.requestFactory, this.interceptors);
+            RequestCreation requestCreation = new RequestCreation(uri, method, this.targetRequestFactory, this.interceptors);
             IClientHttpRequest request = requestCreation.Create();
             return new InterceptingClientHttpRequest(request, this.interceptors);
         }

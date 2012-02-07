@@ -34,10 +34,18 @@ namespace Spring.Http.Client.Interceptor
     /// <author>Bruno Baia</author>
     public class InterceptingClientHttpRequest : IClientHttpRequest
     {
-        private IClientHttpRequest delegateRequest;
+        private IClientHttpRequest targetRequest;
         private IEnumerable<IClientHttpRequestInterceptor> interceptors;
 
         private Action<Stream> body;
+
+        /// <summary>
+        /// Gets the intercepted request.
+        /// </summary>
+        public IClientHttpRequest TargetRequest
+        {
+            get { return this.targetRequest; }
+        }
 
         /// <summary>
         /// Creates a new instance of the <see cref="InterceptingClientHttpRequest"/> with the given parameters.
@@ -50,7 +58,7 @@ namespace Spring.Http.Client.Interceptor
         {
             ArgumentUtils.AssertNotNull(request, "request");
 
-            this.delegateRequest = request;
+            this.targetRequest = request;
             this.interceptors = interceptors != null ? interceptors : new IClientHttpRequestInterceptor[0];
         }
 
@@ -61,7 +69,7 @@ namespace Spring.Http.Client.Interceptor
         /// </summary>
         public HttpMethod Method
         {
-            get { return this.delegateRequest.Method; }
+            get { return this.targetRequest.Method; }
         }
 
         /// <summary>
@@ -69,7 +77,7 @@ namespace Spring.Http.Client.Interceptor
         /// </summary>
         public Uri Uri
         {
-            get { return this.delegateRequest.Uri; }
+            get { return this.targetRequest.Uri; }
         }
 
         /// <summary>
@@ -77,7 +85,7 @@ namespace Spring.Http.Client.Interceptor
         /// </summary>
         public HttpHeaders Headers
         {
-            get { return this.delegateRequest.Headers; }
+            get { return this.targetRequest.Headers; }
         }
 
         /// <summary>
@@ -89,7 +97,7 @@ namespace Spring.Http.Client.Interceptor
             set
             {
                 this.body = value;
-                this.delegateRequest.Body = value;
+                this.targetRequest.Body = value;
             }
         }
 
@@ -100,7 +108,7 @@ namespace Spring.Http.Client.Interceptor
         /// <returns>The response result of the execution</returns>
         public IClientHttpResponse Execute()
         {
-            RequestSyncExecution requestSyncExecution = new RequestSyncExecution(this.delegateRequest, this.body, this.interceptors);
+            RequestSyncExecution requestSyncExecution = new RequestSyncExecution(this.targetRequest, this.body, this.interceptors);
             return requestSyncExecution.Execute();
         }
 #endif
@@ -118,7 +126,7 @@ namespace Spring.Http.Client.Interceptor
         /// </param>
         public void ExecuteAsync(object state, Action<ClientHttpRequestCompletedEventArgs> executeCompleted)
         {
-            RequestAsyncExecution requestAsyncExecution = new RequestAsyncExecution(this.delegateRequest, this.body, this.interceptors, state, executeCompleted);
+            RequestAsyncExecution requestAsyncExecution = new RequestAsyncExecution(this.targetRequest, this.body, this.interceptors, state, executeCompleted);
             requestAsyncExecution.ExecuteAsync();
         }
 
@@ -127,7 +135,7 @@ namespace Spring.Http.Client.Interceptor
         /// </summary>
         public void CancelAsync()
         {
-            this.delegateRequest.CancelAsync();
+            this.targetRequest.CancelAsync();
         }
 #endif
 
