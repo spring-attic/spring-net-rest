@@ -49,6 +49,8 @@ namespace Spring.Http.Client
 
         protected override void ConfigureWebServiceHost(WebServiceHost webServiceHost)
         {
+            base.ConfigureWebServiceHost(webServiceHost);
+
             WebHttpBinding httpBinding1 = new WebHttpBinding();
             httpBinding1.Security.Mode = WebHttpSecurityMode.TransportCredentialOnly;
             httpBinding1.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;

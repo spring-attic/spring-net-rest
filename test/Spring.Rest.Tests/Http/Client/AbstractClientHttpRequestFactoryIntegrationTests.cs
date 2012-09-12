@@ -64,6 +64,8 @@ namespace Spring.Http.Client
 
         protected virtual void ConfigureWebServiceHost(WebServiceHost webServiceHost)
         {
+            WebHttpBinding httpBinding = new WebHttpBinding();
+            webServiceHost.AddServiceEndpoint(typeof(TestService), httpBinding, "");
         }
 
         protected virtual IClientHttpRequest CreateRequest(string path, HttpMethod method)
