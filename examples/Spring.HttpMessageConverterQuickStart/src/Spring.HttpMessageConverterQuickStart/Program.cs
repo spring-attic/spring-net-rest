@@ -20,15 +20,15 @@ namespace Spring.HttpMessageConverterQuickStart
 
                 // Get image from url
 #if NET_4_0
-                Bitmap gitHubLogo = template.GetForObjectAsync<Bitmap>("https://github.com/images/modules/header/logov3.png").Result;
+                Bitmap nuGetLogo = template.GetForObjectAsync<Bitmap>("http://nuget.org/Content/Images/nugetlogo.png").Result;
 #else
-                Bitmap gitHubLogo = template.GetForObject<Bitmap>("https://github.com/images/modules/header/logov3.png");
+                Bitmap nuGetLogo = template.GetForObject<Bitmap>("http://nuget.org/Content/Images/nugetlogo.png");
 #endif
 
                 // Save image to disk
-                string filename = Path.Combine(Environment.CurrentDirectory, "GitHubLogo.png");
-                gitHubLogo.Save(filename);
-                Console.WriteLine(String.Format("Saved GitHub logo to '{0}'", filename));
+                string filename = Path.Combine(Environment.CurrentDirectory, "NuGetLogo.png");
+                nuGetLogo.Save(filename);
+                Console.WriteLine(String.Format("Saved NuGet logo to '{0}'", filename));
             }
 #if NET_4_0
             catch (AggregateException ae)
