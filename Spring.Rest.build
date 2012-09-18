@@ -113,6 +113,7 @@
     <call target="build-net-2.0" />
     <call target="build-net-3.5" />
     <call target="build-net-4.0" />
+    <!--<call target="build-net-4.5" />-->
     <call target="build-cf-3.5" />
     <call target="build-sl-3.0" />
     <call target="build-sl-4.0" />
@@ -155,6 +156,18 @@
     <call target="update-common-assemblyinfo" />
     <call target="rebuild-solution"/>
     <call target="test-assemblies"/>
+  </target>
+
+  <target name="build-net-4.5">
+    <echo message="Building for .NET 4.5 with '${project.buildconfiguration}' configuration" />
+    <property name="product.fullname" value="${product.fullname.temp} for .NET 4.5" />
+    <property name="project.framework" value="net-4.5"/>
+    <property name="project.version" value="${product.version}.${project.buildnumber}45" />
+    <property name="project.buildoutputdir" value="${bin.dir}\net\4.5\${project.buildconfiguration}" />
+    <property name="project.buildsolutionfile" value="${root.dir}\Spring.Rest.2012-NET45.sln" />
+    <call target="update-common-assemblyinfo" />
+    <call target="rebuild-solution"/>
+    <!--<call target="test-assemblies"/>-->
   </target>
 
   <target name="build-cf-3.5">

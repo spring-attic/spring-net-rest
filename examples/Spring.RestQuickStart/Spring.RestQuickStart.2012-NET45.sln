@@ -1,0 +1,22 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.RestQuickStart.2012-NET45", "src\Spring.RestQuickStart\Spring.RestQuickStart.2012-NET45.csproj", "{0974A622-4A48-4A2F-8AB9-BFF765B14806}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0974A622-4A48-4A2F-8AB9-BFF765B14806}.Debug|x86.ActiveCfg = Debug|x86
+		{0974A622-4A48-4A2F-8AB9-BFF765B14806}.Debug|x86.Build.0 = Debug|x86
+		{0974A622-4A48-4A2F-8AB9-BFF765B14806}.Release|x86.ActiveCfg = Release|x86
+		{0974A622-4A48-4A2F-8AB9-BFF765B14806}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		NAntAddinLastFileName = Spring.build
+	EndGlobalSection
+EndGlobal

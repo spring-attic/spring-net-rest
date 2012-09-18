@@ -28,6 +28,9 @@
     <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.dll" target="lib\net40" />
     <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.pdb" target="lib\net40" />
     <file src="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.xml" target="lib\net40" />
+    <file src="..\..\..\bin\net\4.5\Release\Spring.Rest.Testing.dll" target="lib\net45" />
+    <file src="..\..\..\bin\net\4.5\Release\Spring.Rest.Testing.pdb" target="lib\net45" />
+    <file src="..\..\..\bin\net\4.5\Release\Spring.Rest.Testing.xml" target="lib\net45" />
     <file src="..\..\..\bin\sl\4.0\Release\Spring.Rest.Testing.dll" target="lib\sl4" />
     <file src="..\..\..\bin\sl\4.0\Release\Spring.Rest.Testing.pdb" target="lib\sl4" />
     <file src="..\..\..\bin\sl\4.0\Release\Spring.Rest.Testing.xml" target="lib\sl4" />

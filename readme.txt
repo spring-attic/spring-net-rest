@@ -19,6 +19,7 @@ Spring.NET REST Client supports
 
 	* .NET 2.0
 	* .NET Client Profile 3.5 and 4.0
+	* .NET 4.5
 	* .NET Compact Framework 3.5
 	* Silverlight 3.0, 4.0 and 5.0
 	* Windows Phone 7.0 and 7.1
@@ -53,7 +54,7 @@ The "bin" directory contains the following distinct dll files for use in applica
 Dependencies are those other than on the .NET BCL.
 
 	* "Spring.Rest" for all supported Framework versions
-	* Dependencies: Common.Logging for .NET 2.0, 3.5 and 4.0
+	* Dependencies: Common.Logging for .NET 2.0, 3.5, 4.0 and 4.5
 
 	* "Spring.Rest.Testing" for all supported Framework versions except .NET Compact Framework 3.5 and Silverlight 3.0
 
@@ -85,6 +86,7 @@ There is a solution file for different version of VS.NET
 	* Spring.Rest.2010-SL50.sln  for use with VS.NET 2010 and Silverlight 5.0 (Requires Silverlight tools)
 	* Spring.Rest.2010-WP70.sln  for use with VS.NET 2010 and Windows Phone 7.0 (Requires Windows Phone tools)
 	* Spring.Rest.2010-WP71.sln  for use with VS.NET 2010 and Windows Phone 7.1 (Requires Windows Phone tools)
+	* Spring.Rest.2012-NET45.sln for use with VS.NET 2012 and .NET 4.5
 
 
 8. SUPPORT

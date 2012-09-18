@@ -18,23 +18,24 @@
     <OutputPath>.\Help\</OutputPath>
     <HtmlHelpName>spring-rest-api</HtmlHelpName>
     <Language>en-US</Language>
-    <FrameworkVersion>.NET 4.0.30319</FrameworkVersion>
+    <FrameworkVersion>.NET 4.5</FrameworkVersion>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.dll" />
-      <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Http.Converters.NJson.xml" />
-      <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Rest.dll" />
-      <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Rest.xml" />
-      <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.dll" />
-      <DocumentationSource sourceFile="..\..\..\bin\net\4.0\Release\Spring.Rest.Testing.xml" />
+      <DocumentationSource sourceFile="..\..\..\bin\net\4.5\Release\Spring.Http.Converters.NJson.dll" />
+      <DocumentationSource sourceFile="..\..\..\bin\net\4.5\Release\Spring.Http.Converters.NJson.xml" />
+      <DocumentationSource sourceFile="..\..\..\bin\net\4.5\Release\Spring.Rest.dll" />
+      <DocumentationSource sourceFile="..\..\..\bin\net\4.5\Release\Spring.Rest.xml" />
+      <DocumentationSource sourceFile="..\..\..\bin\net\4.5\Release\Spring.Rest.Testing.dll" />
+      <DocumentationSource sourceFile="..\..\..\bin\net\4.5\Release\Spring.Rest.Testing.xml" />
     </DocumentationSources>
     <PlugInConfigurations>
       <PlugInConfig id="Version Builder" enabled="True">
         <configuration>
-          <currentProject label=".NET Framework" version="4.0 Client Profile" ripOldApis="False" />
+          <currentProject label=".NET Framework" version="4.5" ripOldApis="False" />
           <versions>
             <version label=".NET Framework" version="2.0" helpFileProject="Spring.Rest-net-2.0.shfbproj" />
             <version label=".NET Framework" version="3.5 Client Profile" helpFileProject="Spring.Rest-net-3.5.shfbproj" />
+            <version label=".NET Framework" version="4.0 Client Profile" helpFileProject="Spring.Rest-net-4.0.shfbproj" />
             <version label="Silverlight" version="3.0" helpFileProject="Spring.Rest-sl-3.0.shfbproj" />
             <version label="Silverlight" version="4.0" helpFileProject="Spring.Rest-sl-4.0.shfbproj" />
             <version label="Silverlight" version="5.0" helpFileProject="Spring.Rest-sl-5.0.shfbproj" />
@@ -125,7 +126,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
-      <HintPath>..\..\..\bin\net\4.0\Release\Common.Logging.dll</HintPath>
+      <HintPath>..\..\..\bin\net\4.5\Release\Common.Logging.dll</HintPath>
     </Reference>
   </ItemGroup>
   <!-- Import the SHFB build targets -->
