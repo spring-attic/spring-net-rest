@@ -29,7 +29,7 @@ namespace Spring.Http
     public static class HttpUtils
     {
         /// <summary>
-        /// Decodes 'application/x-www-form-urlencoded' data using 'UTF-8' encoding scheme.
+        /// Decodes 'application/x-www-form-urlencoded' data.
         /// </summary>
         /// <param name="s">The string to decode.</param>
         /// <returns>The decoded string.</returns>
@@ -43,7 +43,7 @@ namespace Spring.Http
         }
 
         /// <summary>
-        /// Encodes 'application/x-www-form-urlencoded' data using 'UTF-8' encoding scheme.
+        /// Encodes 'application/x-www-form-urlencoded' data.
         /// </summary>
         /// <param name="s">The string to encode.</param>
         /// <returns>The encoded string.</returns>
@@ -53,11 +53,11 @@ namespace Spring.Http
             {
                 return null;
             }
-            return Uri.EscapeDataString(s).Replace("%20", "+");
+            return UrlEncode(s).Replace("%20", "+");
         }
 
         /// <summary>
-        /// Decodes URI data using 'UTF-8' encoding scheme.
+        /// Decodes URI data according to RFC 3986.
         /// </summary>
         /// <param name="s">The string to decode.</param>
         /// <returns>The decoded string.</returns>
@@ -71,7 +71,7 @@ namespace Spring.Http
         }
 
         /// <summary>
-        /// Encodes URI data using 'UTF-8' encoding scheme.
+        /// Encodes URI data according to RFC 3986.
         /// </summary>
         /// <param name="s">The string to encode.</param>
         /// <returns>The encoded string.</returns>
@@ -81,7 +81,12 @@ namespace Spring.Http
             {
                 return null;
             }
-            return Uri.EscapeDataString(s);
+            return Uri.EscapeDataString(s)
+                .Replace("!", "%21")
+                .Replace("'", "%27")
+                .Replace("(", "%28")
+                .Replace(")", "%29")
+                .Replace("*", "%2A");
         }
     }
 }
