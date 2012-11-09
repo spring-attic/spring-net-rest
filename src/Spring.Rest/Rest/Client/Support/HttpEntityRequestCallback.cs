@@ -40,7 +40,10 @@ namespace Spring.Rest.Client.Support
 #endif
         #endregion
 
-        private HttpEntity requestEntity;
+        /// <summary>
+        /// The underlying <see cref="HttpEntity"/> used by the request.
+        /// </summary>
+        protected HttpEntity requestEntity;
 
         /// <summary>
         /// Creates a new instance of <see cref="HttpEntityRequestCallback"/>.
