@@ -42,7 +42,7 @@ namespace Spring.Rest.Client.Support
 #endif
         #endregion
 
-        private IList<IHttpMessageConverter> messageConverters;
+        protected IList<IHttpMessageConverter> messageConverters;
 
         /// <summary>
         /// Creates a new instance of the <see cref="MessageConverterResponseExtractor{T}"/> class.
@@ -59,7 +59,7 @@ namespace Spring.Rest.Client.Support
         /// this will all be handled by the <see cref="RestTemplate"/> class.
         /// </summary>
         /// <param name="response">The active HTTP request.</param>
-        public T ExtractData(IClientHttpResponse response)
+        public virtual T ExtractData(IClientHttpResponse response)
         {
             if (!this.HasMessageBody(response)) 
             {
