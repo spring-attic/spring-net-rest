@@ -158,6 +158,21 @@ namespace Spring.Http.Client
             }
         }
 
+        [Test(Description="SPRNETREST-28")]
+        public void RangeHeader()
+        {
+            IClientHttpRequest request = this.CreateRequest("/echo", HttpMethod.PUT);
+
+            request.Headers.ContentLength = 0;
+            request.Headers["Range"] = "bytes=128-1024";
+
+            using (IClientHttpResponse response = request.Execute())
+            {
+                Assert.AreEqual("bytes=128-1024", response.Headers["Range"]);
+                Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "OK");
+            }
+        }
+
 
         #region Test classes
 

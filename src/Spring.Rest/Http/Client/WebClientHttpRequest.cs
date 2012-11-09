@@ -468,10 +468,31 @@ namespace Spring.Http.Client
                             }
                             break;
                         }
-                    //case "RANGE":
-                    //    {
-                    //        break;
-                    //    }
+                    case "RANGE":
+                        {
+                            string headerValue = this.headers[header];
+                            try
+                            {
+                                // Supports '<range specifier>=<from>-<to>' format
+                                string[] rangesSpecifiers = headerValue.Split('=');
+                                string rangesSpecifier = rangesSpecifiers[0];
+                                string byteRangesSpecifier = rangesSpecifiers[1];
+                                int byteRangesSpecifierSeparator = byteRangesSpecifier.IndexOf('-');
+#if NET_4_0 || SILVERLIGHT
+                                long from = long.Parse(byteRangesSpecifier.Substring(0, byteRangesSpecifierSeparator));
+                                long to = long.Parse(byteRangesSpecifier.Substring(byteRangesSpecifierSeparator + 1));
+#else
+                                int from = int.Parse(byteRangesSpecifier.Substring(0, byteRangesSpecifierSeparator));
+                                int to = int.Parse(byteRangesSpecifier.Substring(byteRangesSpecifierSeparator + 1));                                
+#endif
+                                this.httpWebRequest.AddRange(rangesSpecifier, from, to);
+                            }
+                            catch
+                            {
+                                this.httpWebRequest.Headers[header] = this.headers[header];
+                            }
+                            break;
+                        }
                     case "REFERER":
                         {
                             this.httpWebRequest.Referer = this.headers[header];
