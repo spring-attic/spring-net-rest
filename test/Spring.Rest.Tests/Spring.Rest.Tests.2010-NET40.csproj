@@ -148,6 +148,7 @@
     <Compile Include="Http\Converters\Xml\XmlDocumentHttpMessageConverterTests.cs" />
     <Compile Include="Http\HttpHeadersTests.cs" />
     <Compile Include="Http\HttpMethodTests.cs" />
+    <Compile Include="Http\HttpUtilsTests.cs" />
     <Compile Include="Http\MediaTypeTests.cs" />
     <Compile Include="Http\MockHttpInputMessage.cs" />
     <Compile Include="Http\MockHttpOuputMessage.cs" />
