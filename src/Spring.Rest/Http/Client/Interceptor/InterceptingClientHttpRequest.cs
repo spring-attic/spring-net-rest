@@ -341,7 +341,10 @@ namespace Spring.Http.Client.Interceptor
             {
                 this.cancelled = completedEventArgs.Cancelled;
                 this.error = completedEventArgs.Error;
-                this.response = completedEventArgs.Response;
+                if (this.error == null)
+                {
+                    this.response = completedEventArgs.Response;
+                }
                 this.userState = completedEventArgs.UserState;
 
                 this.completedEventArgs = completedEventArgs;
