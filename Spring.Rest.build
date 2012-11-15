@@ -18,7 +18,7 @@
   <property name="product.url" value="http://www.springframework.net/" />
   <property name="product.description" value="Simplifies communication with HTTP servers, and enforces RESTful principles" />
   
-  <property name="product.version" value="1.1.0" />
+  <property name="product.version" value="1.1.1" />
   <!-- alpha / beta# / rc# -->
   <property name="product.releasetype" value="" />
   <property name="product.fullname" value="${product.name} ${product.version}" if="${(product.releasetype == '')}" />

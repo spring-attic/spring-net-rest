@@ -4,7 +4,7 @@
     <id>Spring.Rest.Testing</id>
     <title>Spring.Rest Testing</title>
     <!-- auto-generated -->
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <iconUrl>http://springframework.net/images/SpringSource_Leaves32x32.png</iconUrl>
     <projectUrl>http://www.springframework.net/rest/</projectUrl>
     <licenseUrl>http://www.springframework.net/license.html</licenseUrl>
@@ -14,7 +14,7 @@
     <language>en-US</language>
     <tags>Spring REST HTTP JSON Unit Test</tags>
     <dependencies>
-      <dependency id="Spring.Rest" version="[1.1.0]" />
+      <dependency id="Spring.Rest" version="[1.1.1]" />
     </dependencies>
   </metadata>
   <files>
