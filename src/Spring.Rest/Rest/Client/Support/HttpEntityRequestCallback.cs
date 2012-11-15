@@ -40,6 +40,9 @@ namespace Spring.Rest.Client.Support
 #endif
         #endregion
 
+        /// <summary>
+        /// The underlying <see cref="HttpEntity"/> used by the request.
+        /// </summary>
         protected HttpEntity requestEntity;
 
         /// <summary>

@@ -42,6 +42,9 @@ namespace Spring.Rest.Client.Support
 #endif
         #endregion
 
+        /// <summary>
+        /// The underlying list of <see cref="IHttpMessageConverter"/> used to extract data from the response.
+        /// </summary>
         protected IList<IHttpMessageConverter> messageConverters;
 
         /// <summary>
