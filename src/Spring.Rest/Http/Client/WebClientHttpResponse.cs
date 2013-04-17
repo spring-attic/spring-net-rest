@@ -125,7 +125,7 @@ namespace Spring.Http.Client
         /// </remarks>
         protected virtual void Initialize()
         {
-#if NET_2_0 || WINDOWS_PHONE
+#if NET_2_0 || CF_3_5 || WINDOWS_PHONE
             foreach (string header in this.httpWebResponse.Headers)
             {
                 this.headers[header] = this.httpWebResponse.Headers[header];
