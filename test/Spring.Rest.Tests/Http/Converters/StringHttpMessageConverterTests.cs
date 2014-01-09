@@ -103,5 +103,26 @@ namespace Spring.Http.Converters
             Assert.AreEqual(mediaType, message.Headers.ContentType, "Invalid content-type");
             //Assert.AreEqual(charSet.GetBytes(body).Length, message.Headers.ContentLength, "Invalid content-length");
         }
+
+        [Test]
+        public void ConfigureWithUTF8()
+        {
+            string body = "oh bel été encore encore une belle fermière à la louche";
+            Encoding charSet = Encoding.UTF8;
+            MediaType mediaType = new MediaType("text", "plain", charSet);
+
+            StringHttpMessageConverter converter = new StringHttpMessageConverter(charSet);
+
+            // Read
+            MockHttpInputMessage inputMessage = new MockHttpInputMessage(body, charSet);
+            inputMessage.Headers.ContentType = mediaType;
+            string result = converter.Read<string>(inputMessage);
+            Assert.AreEqual(body, result, "Invalid result");
+
+            // Write
+            MockHttpOutputMessage outputMessage = new MockHttpOutputMessage();
+            converter.Write(body, null, outputMessage);
+            Assert.AreEqual(body, outputMessage.GetBodyAsString(charSet), "Invalid result");
+        }
     }
 }

@@ -139,8 +139,8 @@ namespace Spring.Http.Converters
             Assert.IsNotNull(boundary, "Invalid content-type");
 
             string result = message.GetBodyAsString(Encoding.UTF8);
-            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 1\"\r\nContent-Type: text/plain;charset=ISO-8859-1\r\n\r\nvalue 1\r\n"), "Invalid content-disposition");
-            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 2\"\r\nContent-Type: text/plain;charset=ISO-8859-1\r\n\r\nvalue 2+1\r\n"), "Invalid content-disposition");
+            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 1\"\r\nContent-Type: text/plain;charset=iso-8859-1\r\n\r\nvalue 1\r\n"), "Invalid content-disposition");
+            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 2\"\r\nContent-Type: text/plain;charset=iso-8859-1\r\n\r\nvalue 2+1\r\n"), "Invalid content-disposition");
             Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"xml\"\r\nContent-Type: text/xml\r\n\r\n<root><child/></root>\r\n"), "Invalid content-disposition");
             Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"logo\"; filename=\"FileToUpload.png\"\r\nContent-Type: image/png\r\n\r\n"), "Invalid content-disposition");
         }
@@ -170,8 +170,8 @@ namespace Spring.Http.Converters
             Assert.IsNotNull(boundary, "Invalid content-type");
 
             string result = message.GetBodyAsString(Encoding.UTF8);
-            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 1\"\r\nContent-Type: text/plain;charset=ISO-8859-1\r\n\r\nvalue 1\r\n"), "Invalid content-disposition");
-            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 2\"\r\nContent-Type: text/plain;charset=ISO-8859-1\r\n\r\nvalue 2+1\r\n"), "Invalid content-disposition");
+            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 1\"\r\nContent-Type: text/plain;charset=iso-8859-1\r\n\r\nvalue 1\r\n"), "Invalid content-disposition");
+            Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"name 2\"\r\nContent-Type: text/plain;charset=iso-8859-1\r\n\r\nvalue 2+1\r\n"), "Invalid content-disposition");
             Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"xml\"\r\nContent-Type: text/xml\r\n\r\n<root><child/></root>\r\n"), "Invalid content-disposition");
             Assert.IsTrue(result.Contains("--" + boundary + "\r\nContent-Disposition: form-data; name=\"logo\"; filename=\"FileToUpload.png\"\r\nContent-Type: image/png\r\n\r\n"), "Invalid content-disposition");
         }

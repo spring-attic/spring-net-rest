@@ -45,25 +45,33 @@ namespace Spring.Http.Converters
         protected static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
 #endif
 
+        private Encoding defaultCharset;
+
 #if SILVERLIGHT || CF_3_5
         /// <summary>
         /// Creates a new instance of the <see cref="StringHttpMessageConverter"/> 
         /// with 'text/plain; charset=utf-8', and '*/*' media types.
         /// </summary>
-        public StringHttpMessageConverter() :
-            base(new MediaType("text", "plain", "UTF-8"), MediaType.ALL)
-        {
-        }
 #else
         /// <summary>
         /// Creates a new instance of the <see cref="StringHttpMessageConverter"/> 
         /// with 'text/plain; charset=ISO-8859-1', and '*/*' media types.
         /// </summary>
+#endif
         public StringHttpMessageConverter() :
-            base(new MediaType("text", "plain", "ISO-8859-1"), MediaType.ALL)
+            this(DEFAULT_CHARSET)
         {
         }
-#endif
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="StringHttpMessageConverter"/> 
+        /// with 'text/plain; charset=<paramref name="defaultCharset"/>', and '*/*' media types.
+        /// </summary>
+        public StringHttpMessageConverter(Encoding defaultCharset) :
+            base(new MediaType("text", "plain", defaultCharset), MediaType.ALL)
+        {
+            this.defaultCharset = defaultCharset;
+        }
 
         /// <summary>
         /// Indicates whether the given class is supported by this converter.
@@ -85,7 +93,7 @@ namespace Spring.Http.Converters
         protected override T ReadInternal<T>(IHttpInputMessage message)
         {
             // Get the message encoding
-            Encoding encoding = GetContentTypeCharset(message.Headers.ContentType, DEFAULT_CHARSET);
+            Encoding encoding = GetContentTypeCharset(message.Headers.ContentType, this.defaultCharset);
 
             // Read from the message stream
             using (StreamReader reader = new StreamReader(message.Body, encoding))
@@ -103,7 +111,7 @@ namespace Spring.Http.Converters
         protected override void WriteInternal(object content, IHttpOutputMessage message)
         {
             // Get the message encoding
-            Encoding encoding = GetContentTypeCharset(message.Headers.ContentType, DEFAULT_CHARSET);
+            Encoding encoding = GetContentTypeCharset(message.Headers.ContentType, this.defaultCharset);
 
             // Create a byte array of the data we want to send  
             byte[] byteData = encoding.GetBytes(content as string);
