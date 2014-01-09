@@ -24,7 +24,7 @@
   <property name="product.fullname" value="${product.name} ${product.version}" if="${(product.releasetype == '')}" />
   <property name="product.fullname" value="${product.name} ${product.version} (${product.releasetype})" if="${(product.releasetype != '')}" />
 
-  <property name="project.buildnumber" value="${math::abs(math::floor(timespan::get-total-days(datetime::now() - datetime::parse('12/01/2011'))))}" />
+  <property name="project.buildnumber" value="${math::abs(math::floor(timespan::get-total-days(datetime::now() - datetime::parse('12/01/2012'))))}" />
   <property name="project.version" value="${product.version}.${project.buildnumber}" />
   <property name="project.buildtype" value="dev" />
   <property name="project.sign" value="false" overwrite="false" />
