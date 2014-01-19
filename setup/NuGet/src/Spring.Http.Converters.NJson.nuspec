@@ -4,7 +4,7 @@
     <id>Spring.Http.Converters.NJson</id>
     <title>Spring.Rest (Json.NET support)</title>
     <!-- auto-generated -->
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <iconUrl>http://springframework.net/images/SpringSource_Leaves32x32.png</iconUrl>
     <projectUrl>http://www.springframework.net/rest/</projectUrl>
     <licenseUrl>http://www.springframework.net/license.html</licenseUrl>
@@ -14,7 +14,7 @@
     <language>en-US</language>
     <tags>Spring REST HTTP JSON</tags>
     <dependencies>
-      <dependency id="Spring.Rest" version="[1.1.1]" />
+      <dependency id="Spring.Rest" version="[1.1.2]" />
       <dependency id="Newtonsoft.Json" version="5.0.8" />
     </dependencies>
   </metadata>

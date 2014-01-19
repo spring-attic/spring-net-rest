@@ -2,6 +2,19 @@ SPRING.NET REST CLIENT FRAMEWORK CHANGELOG
 ==========================================
 http://www.springframework.net/rest/
 
+Release Version 1.1.2 January 19, 2014
+
+Bug
+[SPRNETREST-30] - Fix WebClientHttpResponse headers not read in Compact Framework
+
+Improvement
+[SPRNETREST-32] - Allow to change default charset in StringHttpMessageConverter
+
+Task
+[SPRNETREST-33] - Update JSON.NET version to 5.0 Release 8
+
+
+*******************************************************************************
 Release Version 1.1.1 November 15, 2012
 
 Bug

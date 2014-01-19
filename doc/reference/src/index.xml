@@ -10,11 +10,11 @@
     <title>Spring.NET REST Client Framework</title>
     <subtitle>Reference Documentation</subtitle>
     <!-- auto-generated -->
-    <releaseinfo>1.1.1</releaseinfo>
+    <releaseinfo>1.1.2</releaseinfo>
     <!-- auto-generated -->
-    <copyright>Copyright 2012 SpringSource</copyright>
+    <copyright>Copyright 2014 SpringSource</copyright>
     <!-- auto-generated -->
-    <pubdate>Last Updated 11/15/2012</pubdate>
+    <pubdate>Last Updated 1/19/2014</pubdate>
     <authorgroup>
       <author>
         <firstname>Arjen</firstname>

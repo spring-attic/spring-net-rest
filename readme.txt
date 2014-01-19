@@ -1,11 +1,11 @@
-The Spring.NET REST Client project, Release 1.1.1 GA (November 15, 2012)
-------------------------------------------------------------------------
+The Spring.NET REST Client project, Release 1.1.2 GA (January 19, 2014)
+-----------------------------------------------------------------------
 http://www.springframework.net/rest/
 
 
 1. INTRODUCTION
 
-The 1.1.1 release of Spring.NET REST Client contains
+The 1.1.2 release of Spring.NET REST Client contains
 
 	* A RestTemplate class for client-side access to RESTful services.
 	* A set of HTTP message converters used to marshal objects into the HTTP request body 
