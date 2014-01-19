@@ -1,5 +1,6 @@
 Rhino.Mocks 3.6
 NUnit 2.5.10
 Common.Logging 2.0
-Json.NET 4.5 Release 10
+Json.NET 5.0 Release 8
+Json.NET 4.5 Release 11 for Windows Phone 7
 Json.NET 3.5 Release 8 for Silverlight 3.0 & Compact Framework 3.5
