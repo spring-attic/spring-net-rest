@@ -76,7 +76,7 @@ namespace Spring.Http.Converters.Xml
         [Test]
         public void Write()
         {
-            string expectedBody = "<CustomClass xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><ID>1</ID><Name>Bruno Baïa</Name></CustomClass>";
+            string expectedBody = "<CustomClass xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><ID>1</ID><Name>Bruno Baïa</Name></CustomClass>";
             CustomClass body = new CustomClass("1", "Bruno Baïa");
 
             MockHttpOutputMessage message = new MockHttpOutputMessage();
