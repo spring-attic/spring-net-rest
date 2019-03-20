@@ -15,7 +15,7 @@
  * long-hand approach necessary to access HTTP endpoints without benefit of RestTemplate...
  */
 
-Uri</classname> address = new <classname>Uri</classname>("http://example.com/hotels/1/bookings");
+Uri</classname> address = new <classname>Uri</classname>("https://example.com/hotels/1/bookings");
 
 <classname>HttpWebRequest</classname> request = <classname>WebRequest</classname>.Create(address) as <classname>HttpWebRequest</classname>;
 request.Method = "POST";
@@ -150,12 +150,12 @@ using (<classname>HttpWebResponse</classname> response = request.GetResponse() a
     forms, either as a <literal>object</literal> variable length argument or
     an <literal>IDictionary&lt;string, object&gt;</literal>. <sbr />For
     example, <programlisting language="csharp">// using variable length arguments
-string result = restTemplate.GetForObject&lt;string&gt;("http://example.com/hotels/{hotel}/bookings/{booking}", 42, 21);
+string result = restTemplate.GetForObject&lt;string&gt;("https://example.com/hotels/{hotel}/bookings/{booking}", 42, 21);
 
 // using a IDictionary&lt;string, object&gt;
 <interfacename>IDictionary</interfacename>&lt;string, object&gt; vars = new <interfacename>Dictionary</interfacename>&lt;string, object&gt;(1);
 vars.Add("hotel", 42);
-string result = restTemplate.GetForObject&lt;string&gt;("http://example.com/hotels/{hotel}/rooms/{hotel}", vars);</programlisting></para>
+string result = restTemplate.GetForObject&lt;string&gt;("https://example.com/hotels/{hotel}/rooms/{hotel}", vars);</programlisting></para>
 
     <para>The names of <classname>RestTemplate</classname> methods follow a
     naming convention, the first part indicates what HTTP method is being
@@ -190,7 +190,7 @@ string result = restTemplate.GetForObject&lt;string&gt;("http://example.com/hote
 <classname>HttpEntity</classname> entity = new <classname>HttpEntity</classname>(requestBody);
 entity.Headers["MyRequestHeader"] = "MyValue";
 
-template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);</programlisting></para>
+template.PostForLocation("https://example.com/hotels/{id}/bookings", entity, 1);</programlisting></para>
 
     <note>
       <para>These operations are synchronous and thus are not available for
@@ -211,7 +211,7 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
       when invoking RESTful services. <sbr />An example using an asynchronous
       method is shown below :</para>
 
-      <programlisting language="csharp">template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings", 
+      <programlisting language="csharp">template.GetForObjectAsync&lt;string&gt;("https://example.com/hotels/bookings", 
   r =&gt;
   {
     if (r.Error != null)
@@ -233,7 +233,7 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
 
       <para>All REST operations supports also the new Task-based Asynchronous
       Pattern (TAP) for asynchronous calls. <sbr />This is based on the new
-      <ulink url="http://msdn.microsoft.com/en-us/library/dd460717.aspx">Task
+      <ulink url="https://msdn.microsoft.com/en-us/library/dd460717.aspx">Task
       Parallel Library (TPL)</ulink> provided with .NET 4 and Silverlight 5.
       <sbr />These asynchronous methods are suffixed by the word 'Async' based
       on common .NET naming conventions, and each returns a
@@ -241,21 +241,21 @@ template.PostForLocation("http://example.com/hotels/{id}/bookings", entity, 1);<
       :</para>
 
       <programlisting language="csharp">// Using a continuation
-template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
+template.GetForObjectAsync&lt;string&gt;("https://example.com/hotels/bookings")
   .ContinueWith(task =&gt;
   {
     string result = task.Result;
   });
   
 // Blocking the current thread
-string result = template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings").Result;</programlisting>
+string result = template.GetForObjectAsync&lt;string&gt;("https://example.com/hotels/bookings").Result;</programlisting>
 
       <warning>
         <para>Do not forget to synchronize with the UI thread to interact with
         the user interface in a continuation as shown below :</para>
 
         <programlisting language="csharp">// Using a continuation
-template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
+template.GetForObjectAsync&lt;string&gt;("https://example.com/hotels/bookings")
   .ContinueWith(task =&gt;
   {
     MyTextBox.Text = task.Result;
@@ -279,7 +279,7 @@ template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
       request once. This is possible by setting the base address in the
       constructor or by setting the property
       <methodname>BaseAddress</methodname>. <sbr />For example:
-      <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+      <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("https://example.com");
 <classname>Booking</classname> booking1 = template.GetForObject&lt;<classname>Booking</classname>&gt;("/hotels/{id}/bookings", 1);
 <classname>Booking</classname> booking2 = template.GetForObject&lt;<classname>Booking</classname>&gt;("/hotels/{id}/bookings", 2);</programlisting></para>
     </section>
@@ -315,7 +315,7 @@ template.GetForObjectAsync&lt;string&gt;("http://example.com/hotels/bookings")
       <sbr /></para>
 
       <para>For example : <programlisting language="csharp">// Add a new converter to the default list
-<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://twitter.com");
+<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("https://twitter.com");
 template.MessageConverters.Add(new <classname>DataContractJsonHttpMessageConverter</classname>());</programlisting></para>
 
       <para><sbr />See <link linkend="http-messageconversion">HTTP message
@@ -350,7 +350,7 @@ template.MessageConverters.Add(new <classname>DataContractJsonHttpMessageConvert
   }
 }
 
-<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("https://example.com");
 template.ErrorHandler = new <classname>MyResponseErrorHandler</classname>();
 
 <classname>HttpResponseMessage</classname> responseMessage = template.PostForMessage("/notfound", null); // throw HttpClientErrorException with default implementation
@@ -382,10 +382,10 @@ if (responseMessage.StatusCode == <classname>HttpStatusCode</classname>.NotFound
       <classname>HttpWebRequest</classname> which can be configured with
       credentials information or proxy settings. An example setting the proxy
       is shown below : <sbr /><programlisting language="csharp"><classname>WebClientHttpRequestFactory</classname> requestFactory = new <classname>WebClientHttpRequestFactory</classname>();
-requestFactory.Proxy = new <classname>WebProxy</classname>("http://proxy.example.com:8080");
+requestFactory.Proxy = new <classname>WebProxy</classname>("https://proxy.example.com:8080");
 requestFactory.Proxy.Credentials = new <classname>NetworkCredential</classname>("userName", "password", "domain");
 
-<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("https://example.com");
 template.RequestFactory = requestFactory;</programlisting></para>
 
       <section id="resttemplate-requestfactory-silverlight">
@@ -393,13 +393,13 @@ template.RequestFactory = requestFactory;</programlisting></para>
 
         <para>In Silverlight, HTTP handling can be performed by the browser or
         the client. See <ulink
-        url="http://msdn.microsoft.com/en-us/library/dd920295(v=VS.95).aspx">How
+        url="https://msdn.microsoft.com/en-us/library/dd920295(v=VS.95).aspx">How
         to: Specify Browser or Client HTTP Handling</ulink> on MSDN. <sbr />By
         default, <classname>WebClientHttpRequestFactory</classname> will use
         the browser HTTP stack for HTTP methods GET and POST, and force the
         client HTTP stack for other HTTP methods. <sbr />This can be
         overridden by setting the <methodname>WebRequestCreator</methodname>
-        property. <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+        property. <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("https://example.com");
 ((<classname>WebClientHttpRequestFactory</classname>)rt.RequestFactory).WebRequestCreator = <classname>WebRequestCreatorType</classname>.ClientHttp;</programlisting></para>
       </section>
     </section>
@@ -480,7 +480,7 @@ template.RequestInterceptors.Add(new <classname>PerfRequestSyncInterceptor</clas
       configuration :</para>
 
       <programlisting language="myxml">&lt;object id="RestTemplate" type="Spring.Rest.Client.RestTemplate, Spring.Rest"&gt;
-  &lt;constructor-arg name="baseAddress" value="http://example.com"/&gt;
+  &lt;constructor-arg name="baseAddress" value="https://example.com"/&gt;
   &lt;property name="ErrorHandler"&gt;
     &lt;object type="MyErrorHandler"/&gt;
   &lt;/property&gt;
@@ -528,11 +528,11 @@ public class <classname>MyAppConfiguration</classname>
       <para><programlisting language="csharp"><classname>WebClientHttpRequestFactory</classname> requestFactory = new <classname>WebClientHttpRequestFactory</classname>();
 requestFactory.Credentials = new <classname>NetworkCredential</classname>("userName", "password", "domain");
 
-<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+<classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("https://example.com");
 template.RequestFactory = requestFactory;</programlisting>You can also
       directly cast the default request factory to
       <classname>WebClientHttpRequestFactory</classname> : <programlisting
-      language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+      language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("https://example.com");
 ((<classname>WebClientHttpRequestFactory</classname>)template.RequestFactory).UseDefaultCredentials = true;</programlisting></para>
     </section>
 
@@ -549,7 +549,7 @@ template.RequestFactory = requestFactory;</programlisting>You can also
       named <classname>BasicSigningRequestInterceptor</classname> that forces
       Basic authentication. This is shown below<sbr /></para>
 
-      <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("http://example.com");
+      <programlisting language="csharp"><classname>RestTemplate</classname> template = new <classname>RestTemplate</classname>("https://example.com");
 template.RequestInterceptors.Add(new <classname>BasicSigningRequestInterceptor</classname>("login", "password"));</programlisting>
     </section>
 
