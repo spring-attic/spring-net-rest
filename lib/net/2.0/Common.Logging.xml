@@ -3084,7 +3084,7 @@
             </para>
             <h1>&lt;system.diagnostics&gt; Integration</h1>
             <para>
-            If your code already uses the .NET framework's built-in <a href="http://msdn.microsoft.com/library/system.diagnostics.trace.aspx">System.Diagnostics.Trace</a>
+            If your code already uses the .NET framework's built-in <a href="https://msdn.microsoft.com/library/system.diagnostics.trace.aspx">System.Diagnostics.Trace</a>
             system, you can use <see cref="T:Common.Logging.Simple.CommonLoggingTraceListener"/> to redirect all trace output to the 
             Common.Logging infrastructure.
             </para>

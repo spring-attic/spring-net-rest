@@ -630,7 +630,7 @@
 <classname>HttpEntity</classname> entity = new <classname>HttpEntity</classname>(new <classname>FileInfo</classname>(@"C:\myFile.xls"));
 entity.Headers["Content-Type"] = "application/vnd.ms-excel";
 parts.Add("file", entity);
-template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
+template.PostForLocation("https://example.com/myFileUpload", parts);</programlisting>
   </section>
 
   <section id="http-resourceconverter">
@@ -768,7 +768,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
 <classname>HttpEntity</classname> entity = new <classname>HttpEntity</classname>(new <classname>FileResource</classname>(@"C:\myFile.xls"));
 entity.Headers["Content-Type"] = "application/vnd.ms-excel";
 parts.Add("file", entity);
-template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
+template.PostForLocation("https://example.com/myFileUpload", parts);</programlisting>
   </section>
 
   <section id="http-formconverter">
@@ -788,7 +788,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
 form.Add("field 1", "value 1");
 form.Add("field 2", "value 2");
 form.Add("field 2", "value 3");
-template.PostForLocation("http://example.com/myForm", form);</programlisting>
+template.PostForLocation("https://example.com/myForm", form);</programlisting>
 
     <para>This converter also writes multipart form data (i.e. file uploads)
     defined by the <literal>'multipart/form-data'</literal> media type.
@@ -799,7 +799,7 @@ template.PostForLocation("http://example.com/myForm", form);</programlisting>
 <interfacename>IDictionary</interfacename>&lt;string, object&gt; parts = new <classname>Dictionary</classname>&lt;string, object&gt;();
 parts.Add("field 1", "value 1");
 parts.Add("file", new <classname>FileResource</classname>(@"C:\myFile.jpg"));
-template.PostForLocation("http://example.com/myFileUpload", parts);</programlisting>
+template.PostForLocation("https://example.com/myFileUpload", parts);</programlisting>
 
     <para><sbr />When writing multipart, this converter uses other
     <interfacename>IHttpMessageConverter</interfacename> to write the
@@ -942,7 +942,7 @@ template.PostForLocation("http://example.com/myFileUpload", parts);</programlist
 
     <para>The goal of the Spring.NET JSON support is to remain simple and
     lightweight. The JSON parsing code is based on the <ulink
-    url="http://simplejson.codeplex.com/">SimpleJson</ulink> library.</para>
+    url="https://simplejson.codeplex.com/">SimpleJson</ulink> library.</para>
 
     <para>Unlike <literal>DataContractJsonSerializer</literal> .NET Framework
     class used by <link

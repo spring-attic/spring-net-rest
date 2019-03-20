@@ -92,7 +92,7 @@
           <para><emphasis role="bold">Task Parallel Library (TPL)
           support</emphasis> <sbr />Task-based asynchronous REST methods have
           been added for Frameworks supporting the new <ulink
-          url="http://msdn.microsoft.com/en-us/library/dd460717.aspx">Task
+          url="https://msdn.microsoft.com/en-us/library/dd460717.aspx">Task
           Parallel Library (TPL)</ulink> (e.g., .NET 4 and Silverlight 5).
           <sbr /><link linkend="resttemplate-operations-taskasync">Read
           more</link></para>
