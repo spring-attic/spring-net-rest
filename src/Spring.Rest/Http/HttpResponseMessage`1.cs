@@ -25,7 +25,7 @@ namespace Spring.Http
 {
     /// <summary>
     /// Represents an HTTP response message, as defined in the HTTP specification. 
-    /// <a href="http://tools.ietf.org/html/rfc2616#section-6">HTTP 1.1, section 6</a>
+    /// <a href="https://tools.ietf.org/html/rfc2616#section-6">HTTP 1.1, section 6</a>
     /// </summary>
     /// <typeparam name="T">The type of the response body.</typeparam>
     /// <author>Bruno Baia</author>

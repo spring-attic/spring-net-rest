@@ -24,7 +24,7 @@ namespace Spring.Http
 {
     /// <summary>
     /// Represents an HTTP entity message, as defined in the HTTP specification. 
-    /// <a href="http://tools.ietf.org/html/rfc2616#section-7">HTTP 1.1, section 7</a>
+    /// <a href="https://tools.ietf.org/html/rfc2616#section-7">HTTP 1.1, section 7</a>
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia</author>

@@ -20,9 +20,9 @@ namespace Spring.HttpMessageConverterQuickStart
 
                 // Get image from url
 #if NET_4_0
-                Bitmap nuGetLogo = template.GetForObjectAsync<Bitmap>("http://nuget.org/Content/Images/nugetlogo.png").Result;
+                Bitmap nuGetLogo = template.GetForObjectAsync<Bitmap>("https://nuget.org/Content/Images/nugetlogo.png").Result;
 #else
-                Bitmap nuGetLogo = template.GetForObject<Bitmap>("http://nuget.org/Content/Images/nugetlogo.png");
+                Bitmap nuGetLogo = template.GetForObject<Bitmap>("https://nuget.org/Content/Images/nugetlogo.png");
 #endif
 
                 // Save image to disk

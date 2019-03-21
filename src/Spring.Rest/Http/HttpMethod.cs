@@ -27,7 +27,7 @@ namespace Spring.Http
 {
     /// <summary>
     /// Represents an HTTP request method as defined in the HTTP specification. 
-    /// <a href="http://tools.ietf.org/html/rfc2616#section-5.1.1">HTTP 1.1, section 5.1.1</a>
+    /// <a href="https://tools.ietf.org/html/rfc2616#section-5.1.1">HTTP 1.1, section 5.1.1</a>
     /// </summary>
     /// <remarks>
     /// HTTP method equality and hashing are case insensitive.
@@ -88,7 +88,7 @@ namespace Spring.Http
         {
             ArgumentUtils.AssertNotNull(method, "method");
 
-            // TODO: check method (http://tools.ietf.org/html/rfc2616#section-2.2)
+            // TODO: check method (https://tools.ietf.org/html/rfc2616#section-2.2)
             this.method = method;
         }
 

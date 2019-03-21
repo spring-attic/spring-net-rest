@@ -27,7 +27,7 @@ namespace Spring.Http
 {
     /// <summary>
     /// Represents an HTTP response message, with no body, as defined in the HTTP specification. 
-    /// <a href="http://tools.ietf.org/html/rfc2616#section-6">HTTP 1.1, section 6</a>
+    /// <a href="https://tools.ietf.org/html/rfc2616#section-6">HTTP 1.1, section 6</a>
     /// </summary>
     /// <author>Bruno Baia</author>
 #if !SILVERLIGHT

@@ -43,7 +43,7 @@ namespace Spring.RestBucksClient.Api
         {
             responseHeaders.Location = new Uri("http://restbucks.com/order/123456");
             mockServer.ExpectNewRequest()
-                .AndExpectUri("http://restbuckson.net/orders")
+                .AndExpectUri("https://restbuckson.net/orders")
                 .AndExpectMethod(HttpMethod.POST)
                 .AndExpectBody("<order xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://restbucks.com\"><location>inShop</location><items><item><name>Latte</name><quantity>1</quantity></item></items></order>")
                 .AndRespondWith("", responseHeaders);
@@ -67,7 +67,7 @@ namespace Spring.RestBucksClient.Api
         [Test]
         public void GetOrder()
         {
-            Uri orderUri = new Uri("http://restbuckson.net/order/123456");
+            Uri orderUri = new Uri("https://restbuckson.net/order/123456");
             mockServer.ExpectNewRequest()
                 .AndExpectUri(orderUri)
                 .AndExpectMethod(HttpMethod.GET)

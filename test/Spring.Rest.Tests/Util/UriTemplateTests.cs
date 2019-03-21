@@ -37,7 +37,7 @@ namespace Spring.Util
         [Test]
         public void GetVariableNames()
         {
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
             string[] variableNames = template.VariableNames;
             Assert.AreEqual(new string[] { "hotel", "booking" }, variableNames, "Invalid variable names");
         }
@@ -46,9 +46,9 @@ namespace Spring.Util
         public void ExpandVarArgs()
         {
             // absolute
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
             Uri result = template.Expand("1", "42");
-            Assert.AreEqual(new Uri("http://example.com/hotels/1/bookings/42"), result, "Invalid expanded template");
+            Assert.AreEqual(new Uri("https://example.com/hotels/1/bookings/42"), result, "Invalid expanded template");
 
             // relative
             template = new UriTemplate("/hotels/{hotel}/bookings/{booking}");
@@ -59,29 +59,29 @@ namespace Spring.Util
         [Test]
         public void MultipleExpandVarArgs()
         {
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
             Uri result = template.Expand("2", 21);
             result = template.Expand(1, "42");
-            Assert.AreEqual(new Uri("http://example.com/hotels/1/bookings/42"), result, "Invalid expanded template");
+            Assert.AreEqual(new Uri("https://example.com/hotels/1/bookings/42"), result, "Invalid expanded template");
         }
 
         [Test]
         [ExpectedException(
             typeof(ArgumentException),
-            ExpectedMessage = "Invalid amount of variables values in 'http://example.com/hotels/{hotel}/bookings/{booking}': expected 2; got 3")]
+            ExpectedMessage = "Invalid amount of variables values in 'https://example.com/hotels/{hotel}/bookings/{booking}': expected 2; got 3")]
         public void ExpandVarArgsInvalidAmountVariables()
         {
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
             template.Expand("1", "42", 100);
         }
 
         [Test]
         public void ExpandVarArgsDuplicateVariables()
         {
-            UriTemplate template = new UriTemplate("http://example.com/order/{c}/{c}/{c}");
+            UriTemplate template = new UriTemplate("https://example.com/order/{c}/{c}/{c}");
             Assert.AreEqual(new string[] { "c" }, template.VariableNames, "Invalid variable names");
             Uri result = template.Expand("cheeseburger");
-            Assert.AreEqual(new Uri("http://example.com/order/cheeseburger/cheeseburger/cheeseburger"), result, "Invalid expanded template");
+            Assert.AreEqual(new Uri("https://example.com/order/cheeseburger/cheeseburger/cheeseburger"), result, "Invalid expanded template");
         }
 
         [Test]
@@ -92,9 +92,9 @@ namespace Spring.Util
             uriVariables.Add("hotel", 1);
 
             // absolute
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
             Uri result = template.Expand(uriVariables);
-            Assert.AreEqual(new Uri("http://example.com/hotels/1/bookings/42"), result, "Invalid expanded template");
+            Assert.AreEqual(new Uri("https://example.com/hotels/1/bookings/42"), result, "Invalid expanded template");
 
             // relative
             template = new UriTemplate("hotels/{hotel}/bookings/{booking}");
@@ -105,7 +105,7 @@ namespace Spring.Util
         [Test]
         public void MultipleExpandDictionary()
         {
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
 
             IDictionary<string, object> uriVariables = new Dictionary<string, object>(2);
             uriVariables.Add("booking", 21);
@@ -117,19 +117,19 @@ namespace Spring.Util
             uriVariables.Add("hotel", "1");
             result = template.Expand(uriVariables);
 
-            Assert.AreEqual(new Uri("http://example.com/hotels/1/bookings/42"), result, "Invalid expanded template");
+            Assert.AreEqual(new Uri("https://example.com/hotels/1/bookings/42"), result, "Invalid expanded template");
         }
 
         [Test]
         [ExpectedException(
             typeof(ArgumentException),
-            ExpectedMessage = "Invalid amount of variables values in 'http://example.com/hotels/{hotel}/bookings/{booking}': expected 2; got 1")]
+            ExpectedMessage = "Invalid amount of variables values in 'https://example.com/hotels/{hotel}/bookings/{booking}': expected 2; got 1")]
         public void ExpandDictionaryInvalidAmountVariables() 
         {
             IDictionary<string, object> uriVariables = new Dictionary<string, object>(2);
             uriVariables.Add("hotel", 1);
 
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
             template.Expand(uriVariables);
         }
 
@@ -143,26 +143,26 @@ namespace Spring.Util
             uriVariables.Add("booking", "42");
             uriVariables.Add("bar", 1);
 
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
             template.Expand(uriVariables);
         }
 
         [Test]
         public void ExpandEncoded()
         {
-            UriTemplate template = new UriTemplate("http://example.com/hotel list/{hotel}");
+            UriTemplate template = new UriTemplate("https://example.com/hotel list/{hotel}");
             Uri result = template.Expand("Z\u00fcrich");
-            Assert.AreEqual(new Uri("http://example.com/hotel%20list/Z%C3%BCrich"), result, "Invalid expanded template");
+            Assert.AreEqual(new Uri("https://example.com/hotel%20list/Z%C3%BCrich"), result, "Invalid expanded template");
         }
 
         [Test]
         public void Matches()
         {
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}/");
-            Assert.IsTrue(template.Matches("http://example.com/hotels/1/bookings/42/"), "UriTemplate does not match");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}/");
+            Assert.IsTrue(template.Matches("https://example.com/hotels/1/bookings/42/"), "UriTemplate does not match");
             Assert.IsFalse(template.Matches("hhhhttp://example.com/hotels/1/bookings/42/"), "UriTemplate matches");
-            Assert.IsFalse(template.Matches("http://example.com/hotels/1/bookings/42/blabla"), "UriTemplate matches");
-            Assert.IsFalse(template.Matches("http://example.com/hotels/bookings/"), "UriTemplate matches");
+            Assert.IsFalse(template.Matches("https://example.com/hotels/1/bookings/42/blabla"), "UriTemplate matches");
+            Assert.IsFalse(template.Matches("https://example.com/hotels/bookings/"), "UriTemplate matches");
             Assert.IsFalse(template.Matches(""), "UriTemplate matches");
             Assert.IsFalse(template.Matches(null), "UriTemplate matches");
         }
@@ -170,13 +170,13 @@ namespace Spring.Util
         [Test]
         public void Match()
         {
-            UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
-            IDictionary<string, string> result = template.Match("http://example.com/hotels/1/bookings/42");
+            UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
+            IDictionary<string, string> result = template.Match("https://example.com/hotels/1/bookings/42");
             Assert.AreEqual(2, result.Count);
             Assert.AreEqual("1", result["hotel"]);
             Assert.AreEqual("42", result["booking"]);
 
-            result = template.Match("http://example.com/hotels/1/bookings");
+            result = template.Match("https://example.com/hotels/1/bookings");
             Assert.AreEqual(0, result.Count);
         }
 

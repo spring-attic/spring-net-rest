@@ -81,7 +81,7 @@ namespace Spring.Rest.Client
 	    [Test]
 	    public void VarArgsTemplateVariables() 
         {
-            Uri requestUri = new Uri("http://example.com/hotels/42/bookings/21");
+            Uri requestUri = new Uri("https://example.com/hotels/42/bookings/21");
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
@@ -89,13 +89,13 @@ namespace Spring.Rest.Client
 
 		    mocks.ReplayAll();
 
-		    template.Execute<object>("http://example.com/hotels/{hotel}/bookings/{booking}", HttpMethod.GET, null, null, "42", "21");
+		    template.Execute<object>("https://example.com/hotels/{hotel}/bookings/{booking}", HttpMethod.GET, null, null, "42", "21");
 	    }
 
         [Test]
         public void DictionaryTemplateVariables()
         {
-            Uri requestUri = new Uri("http://example.com/hotels/42/bookings/21");
+            Uri requestUri = new Uri("https://example.com/hotels/42/bookings/21");
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
@@ -106,13 +106,13 @@ namespace Spring.Rest.Client
             IDictionary<string, string> variables = new Dictionary<string, string>();
             variables.Add("booking", "41");
             variables.Add("hotel", "42");
-            template.Execute<object>("http://example.com/hotels/{hotel}/bookings/{booking}", HttpMethod.GET, null, null, "42", "21");
+            template.Execute<object>("https://example.com/hotels/{hotel}/bookings/{booking}", HttpMethod.GET, null, null, "42", "21");
         }
 
         [Test]
         public void BaseAddressTemplate()
         {
-            Uri requestUri = new Uri("http://example.com/hotels/42/bookings/21");
+            Uri requestUri = new Uri("https://example.com/hotels/42/bookings/21");
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
@@ -120,16 +120,16 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            template.BaseAddress = new Uri("http://example.com");
+            template.BaseAddress = new Uri("https://example.com");
             template.Execute<object>("hotels/{hotel}/bookings/{booking}", HttpMethod.GET, null, null, "42", "21");
         }
 
         [Test]
         [ExpectedException(typeof(HttpServerErrorException),
-            ExpectedMessage = "GET request for 'http://example.com/' resulted in 500 - InternalServerError (Internal Server Error).")]
+            ExpectedMessage = "GET request for 'https://example.com/' resulted in 500 - InternalServerError (Internal Server Error).")]
         public void ErrorHandling()
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
@@ -139,13 +139,13 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            template.Execute<object>("http://example.com", HttpMethod.GET, null, null);
+            template.Execute<object>("https://example.com", HttpMethod.GET, null, null);
         }
 
         [Test]
         public void GetForObject() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
@@ -167,7 +167,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            string result = template.GetForObject<string>("http://example.com");
+            string result = template.GetForObject<string>("https://example.com");
             Assert.AreEqual(expected, result, "Invalid GET result");
             Assert.AreEqual(textPlain.ToString(), requestHeaders.GetSingleValue("Accept"), "Invalid Accept header");
         }
@@ -177,7 +177,7 @@ namespace Spring.Rest.Client
             ExpectedMessage = "Could not extract response: no suitable HttpMessageConverter found for response type [System.String] and content type [bar/baz]")]
         public void GetUnsupportedMediaType() 
         {
-            Uri requestUri = new Uri("http://example.com/resource");
+            Uri requestUri = new Uri("https://example.com/resource");
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);
             MediaType textPlain = new MediaType("foo", "bar");
@@ -198,13 +198,13 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            template.GetForObject<string>("http://example.com/{p}", "resource");
+            template.GetForObject<string>("https://example.com/{p}", "resource");
         }
 
         [Test]
         public void GetNoContentType()
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);
             MediaType applicationOctetStream = new MediaType("application", "octet-stream");
@@ -226,7 +226,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            string result = template.GetForObject<string>("http://example.com");
+            string result = template.GetForObject<string>("https://example.com");
             Assert.AreEqual(expected, result, "Invalid GET result");
             Assert.AreEqual(applicationOctetStream.ToString(), requestHeaders.GetSingleValue("Accept"), "Invalid Accept header");
         }
@@ -236,7 +236,7 @@ namespace Spring.Rest.Client
             ExpectedMessage = "Could not write request: no suitable IHttpMessageConverter found for request type [System.String] and content type [foo/bar]")]
         public void PostUnsupportedMediaType()
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
@@ -249,13 +249,13 @@ namespace Spring.Rest.Client
 
             HttpEntity entity = new HttpEntity(helloWorld);
             entity.Headers.ContentType = contentType;
-            template.PostForLocation("http://example.com", entity);
+            template.PostForLocation("https://example.com", entity);
         }
 
         [Test]
         public void GetForMessage() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.GET;
             Expect.Call<bool>(converter.CanRead(typeof(string), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
@@ -279,7 +279,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            HttpResponseMessage<String> result = template.GetForMessage<string>("http://example.com");
+            HttpResponseMessage<String> result = template.GetForMessage<string>("https://example.com");
             Assert.AreEqual(expected, result.Body, "Invalid GET result");
             Assert.AreEqual(textPlain, result.Headers.ContentType, "Invalid Content-Type");
             Assert.AreEqual(textPlain.ToString(), requestHeaders.GetSingleValue("Accept"), "Invalid Accept header");
@@ -292,7 +292,7 @@ namespace Spring.Rest.Client
         [Test]
         public void HeadForHeaders()
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.HEAD;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
@@ -302,7 +302,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            HttpHeaders result = template.HeadForHeaders("http://example.com");
+            HttpHeaders result = template.HeadForHeaders("https://example.com");
 
             Assert.AreSame(responseHeaders, result, "Invalid headers returned");
         }
@@ -310,7 +310,7 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForLocation() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
@@ -319,20 +319,20 @@ namespace Spring.Rest.Client
             ExpectGetResponse();
             Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
-            Uri expected = new Uri("http://example.com/hotels");
+            Uri expected = new Uri("https://example.com/hotels");
             responseHeaders.Location = expected;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
 
             mocks.ReplayAll();
 
-            Uri result = template.PostForLocation("http://example.com", helloWorld);
+            Uri result = template.PostForLocation("https://example.com", helloWorld);
             Assert.AreEqual(expected, result, "Invalid POST result");
         }
 
         [Test]
         public void PostForLocationMessageContentType() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
@@ -344,7 +344,7 @@ namespace Spring.Rest.Client
             ExpectGetResponse();
             Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
-            Uri expected = new Uri("http://example.com/hotels");
+            Uri expected = new Uri("https://example.com/hotels");
             responseHeaders.Location = expected;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
 
@@ -354,14 +354,14 @@ namespace Spring.Rest.Client
             entityHeaders.ContentType = contentType;
             HttpEntity entity = new HttpEntity(helloWorld, entityHeaders);
 
-            Uri result = template.PostForLocation("http://example.com", entity);
+            Uri result = template.PostForLocation("https://example.com", entity);
             Assert.AreEqual(expected, result, "Invalid POST result");
         }
 
         [Test]
         public void PostForLocationMessageCustomHeader() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
@@ -372,7 +372,7 @@ namespace Spring.Rest.Client
             ExpectGetResponse();
             Expect.Call<bool>(errorHandler.HasError(requestUri, requestMethod, response)).Return(false);
             HttpHeaders responseHeaders = new HttpHeaders();
-            Uri expected = new Uri("http://example.com/hotels");
+            Uri expected = new Uri("https://example.com/hotels");
             responseHeaders.Location = expected;
             Expect.Call<HttpHeaders>(response.Headers).Return(responseHeaders).Repeat.Any();
 
@@ -382,7 +382,7 @@ namespace Spring.Rest.Client
             entityHeaders.Add("MyHeader", "MyValue");
             HttpEntity entity = new HttpEntity(helloWorld, entityHeaders);
 
-            Uri result = template.PostForLocation("http://example.com", entity);
+            Uri result = template.PostForLocation("https://example.com", entity);
             Assert.AreEqual(expected, result, "Invalid POST result");
             Assert.AreEqual("MyValue", requestHeaders.Get("MyHeader"), "No custom header set");
         }
@@ -390,7 +390,7 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForLocationNoLocation() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             string helloWorld = "Hello World";
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
@@ -403,7 +403,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            Uri result = template.PostForLocation("http://example.com", helloWorld);
+            Uri result = template.PostForLocation("https://example.com", helloWorld);
             Assert.IsNull(result, "Invalid POST result");
 
             mocks.ReplayAll();
@@ -412,7 +412,7 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForLocationNull()
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
@@ -424,7 +424,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            template.PostForLocation("http://example.com", null);
+            template.PostForLocation("https://example.com", null);
 
             Assert.AreEqual(0, requestHeaders.ContentLength, "Invalid content length");
         }
@@ -432,7 +432,7 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForObject() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
@@ -457,7 +457,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            Version result = template.PostForObject<Version>("http://example.com", helloWorld);
+            Version result = template.PostForObject<Version>("https://example.com", helloWorld);
             Assert.AreEqual(expected, result, "Invalid POST result");
             Assert.AreEqual(textPlain.ToString(), requestHeaders.GetSingleValue("Accept"), "Invalid Accept header");
         }
@@ -465,7 +465,7 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForMessage() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
@@ -492,7 +492,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            HttpResponseMessage<Version> result = template.PostForMessage<Version>("http://example.com", helloWorld);
+            HttpResponseMessage<Version> result = template.PostForMessage<Version>("https://example.com", helloWorld);
             Assert.AreEqual(expected, result.Body, "Invalid POST result");
             Assert.AreEqual(textPlain, result.Headers.ContentType, "Invalid Content-Type");
             Assert.AreEqual(textPlain.ToString(), requestHeaders.GetSingleValue("Accept"), "Invalid Accept header");
@@ -503,7 +503,7 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForMessageNoBody()
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
@@ -520,7 +520,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            HttpResponseMessage result = template.PostForMessage("http://example.com", helloWorld);
+            HttpResponseMessage result = template.PostForMessage("https://example.com", helloWorld);
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode, "Invalid status code");
             Assert.AreEqual("CREATED", result.StatusDescription, "Invalid status description");
         }
@@ -528,7 +528,7 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForObjectNull() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
@@ -549,7 +549,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            Version result = template.PostForObject<Version>("http://example.com", null);
+            Version result = template.PostForObject<Version>("https://example.com", null);
             Assert.IsNull(result, "Invalid POST result");
             Assert.AreEqual(textPlain.ToString(), requestHeaders.GetSingleValue("Accept"), "Invalid Accept header");
 
@@ -559,7 +559,7 @@ namespace Spring.Rest.Client
         [Test]
         public void PostForEntityNull() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
@@ -582,7 +582,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            HttpResponseMessage<Version> result = template.PostForMessage<Version>("http://example.com", null);
+            HttpResponseMessage<Version> result = template.PostForMessage<Version>("https://example.com", null);
             Assert.IsNull(result.Body, "Invalid POST result");
             Assert.AreEqual(textPlain, result.Headers.ContentType, "Invalid Content-Type");
             Assert.AreEqual(textPlain.ToString(), requestHeaders.GetSingleValue("Accept"), "Invalid Accept header");
@@ -595,7 +595,7 @@ namespace Spring.Rest.Client
         [Test]
         public void Put() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.PUT;
             Expect.Call<bool>(converter.CanWrite(typeof(string), null)).Return(true);
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
@@ -606,13 +606,13 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            template.Put("http://example.com", helloWorld);
+            template.Put("https://example.com", helloWorld);
         }
 
         [Test]
         public void PutNull()
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.PUT;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             HttpHeaders requestHeaders = new HttpHeaders();
@@ -622,7 +622,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            template.Put("http://example.com", null);
+            template.Put("https://example.com", null);
 
             Assert.AreEqual(0, requestHeaders.ContentLength, "Invalid content length");
         }
@@ -630,7 +630,7 @@ namespace Spring.Rest.Client
         [Test]
         public void Delete()
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.DELETE;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
@@ -638,13 +638,13 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            template.Delete("http://example.com");
+            template.Delete("https://example.com");
         }
 
         [Test]
         public void OptionsForAllow()
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.OPTIONS;
             Expect.Call<IClientHttpRequest>(requestFactory.CreateRequest(requestUri, requestMethod)).Return(request);
             ExpectGetResponse();
@@ -656,7 +656,7 @@ namespace Spring.Rest.Client
 
             mocks.ReplayAll();
 
-            IList<HttpMethod> result = template.OptionsForAllow("http://example.com");
+            IList<HttpMethod> result = template.OptionsForAllow("https://example.com");
             Assert.AreEqual(2, result.Count, "Invalid OPTIONS result");
             Assert.IsTrue(result.Contains(HttpMethod.GET), "Invalid OPTIONS result");
             Assert.IsTrue(result.Contains(HttpMethod.POST), "Invalid OPTIONS result");
@@ -665,7 +665,7 @@ namespace Spring.Rest.Client
         [Test]
         public void Exchange() 
         {
-            Uri requestUri = new Uri("http://example.com");
+            Uri requestUri = new Uri("https://example.com");
             HttpMethod requestMethod = HttpMethod.POST;
             Expect.Call<bool>(converter.CanRead(typeof(Version), null)).Return(true);
             MediaType textPlain = new MediaType("text", "plain");
@@ -695,7 +695,7 @@ namespace Spring.Rest.Client
             HttpHeaders requestMessageHeaders = new HttpHeaders();
             requestMessageHeaders.Add("MyHeader", "MyValue");
             HttpEntity requestEntity = new HttpEntity(helloWorld, requestMessageHeaders);
-            HttpResponseMessage<Version> result = template.Exchange<Version>("http://example.com", HttpMethod.POST, requestEntity);
+            HttpResponseMessage<Version> result = template.Exchange<Version>("https://example.com", HttpMethod.POST, requestEntity);
             Assert.AreEqual(expected, result.Body, "Invalid POST result");
             Assert.AreEqual(textPlain, result.Headers.ContentType, "Invalid Content-Type");
             Assert.AreEqual(textPlain.ToString(), requestHeaders.GetSingleValue("Accept"), "Invalid Accept header");

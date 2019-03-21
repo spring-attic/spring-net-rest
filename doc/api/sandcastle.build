@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<project name="Sandcastle" default="shfb" xmlns="http://nant.sf.net/release/0.91/nant.xsd">
+<project name="Sandcastle" default="shfb" xmlns="http://nant.sourceforge.net/release/0.91/nant.xsd">
 
   <property name="project.basedir" value="${project::get-base-directory()}" />
   <property name="project.targetdir" value="${project.basedir}\target" />

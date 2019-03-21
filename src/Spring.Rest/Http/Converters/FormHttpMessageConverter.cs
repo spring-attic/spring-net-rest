@@ -59,7 +59,7 @@ namespace Spring.Http.Converters
     /// form.Add("field 1", "value 1");
     /// form.Add("field 2", "value 2");
     /// form.Add("field 2", "value 3");
-    /// template.PostForLocation("http://example.com/myForm", form);
+    /// template.PostForLocation("https://example.com/myForm", form);
     /// </code>
     /// </para>
     /// <para>
@@ -69,7 +69,7 @@ namespace Spring.Http.Converters
     /// IDictionary&lt;string, object> parts = new Dictionary&lt;string, object>();
     /// parts.Add("field 1", "value 1");
     /// parts.Add("file", new FileResource(@"C:\myDir\myFile.jpg"));
-    /// template.PostForLocation("http://example.com/myFileUpload", parts);
+    /// template.PostForLocation("https://example.com/myFileUpload", parts);
     /// </code>
     /// </para>
     /// </remarks>

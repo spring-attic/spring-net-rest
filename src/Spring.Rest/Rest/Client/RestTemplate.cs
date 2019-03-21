@@ -73,25 +73,25 @@ namespace Spring.Rest.Client
     /// that URL using either a string variable arguments array, or a string dictionary. 
     /// The string varargs variant expands the given template variables in order, so that 
     /// <code>
-    /// string result = restTemplate.GetForObject&lt;string>("http://example.com/hotels/{hotel}/bookings/{booking}", 42, 21);
+    /// string result = restTemplate.GetForObject&lt;string>("https://example.com/hotels/{hotel}/bookings/{booking}", 42, 21);
     /// </code>
-    /// will perform a GET on 'http://example.com/hotels/42/bookings/21'. The map variant expands the template based on
+    /// will perform a GET on 'https://example.com/hotels/42/bookings/21'. The map variant expands the template based on
     /// variable name, and is therefore more useful when using many variables, or when a single variable is used multiple
     /// times. For example:
     /// <code>
     /// IDictionary&lt;string, object&gt; vars = new Dictionary&lt;string, object&gt;();
     /// vars.Add("hotel", 42);
-    /// string result = restTemplate.GetForObject&lt;string>("http://example.com/hotels/{hotel}/rooms/{hotel}", vars);
+    /// string result = restTemplate.GetForObject&lt;string>("https://example.com/hotels/{hotel}/rooms/{hotel}", vars);
     /// </code>
-    /// will perform a GET on 'http://example.com/hotels/42/rooms/42'. Alternatively, there are URI variant 
+    /// will perform a GET on 'https://example.com/hotels/42/rooms/42'. Alternatively, there are URI variant 
     /// methods, which do not allow for URI templates, but allow you to reuse a single, expanded URI multiple times.
     /// </para>
     /// <para>
     /// Furthermore, the string-argument methods assume that the URL String is unencoded. This means that
     /// <code>
-    /// restTemplate.GetForObject&lt;string>("http://example.com/hotel list");
+    /// restTemplate.GetForObject&lt;string>("https://example.com/hotel list");
     /// </code>
-    /// will perform a GET on 'http://example.com/hotel%20list'.
+    /// will perform a GET on 'https://example.com/hotel%20list'.
     /// </para>
     /// <para>
     /// Objects passed to and returned from these methods are converted to and from HTTP messages by 

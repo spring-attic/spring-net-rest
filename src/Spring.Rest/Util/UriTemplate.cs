@@ -78,13 +78,13 @@ namespace Spring.Util
         /// </summary>
         /// <example>
         /// <code>
-        /// UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+        /// UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
         /// IDictionary&lt;string, object&gt; uriVariables = new Dictionary&lt;string, object&gt;();
         /// uriVariables.Add("booking", "42");
         /// uriVariables.Add("hotel", 1);
         /// Console.Out.WriteLine(template.Expand(uriVariables));
         /// </code>
-        /// will print: <blockquote>http://example.com/hotels/1/bookings/42</blockquote>
+        /// will print: <blockquote>https://example.com/hotels/1/bookings/42</blockquote>
         /// </example>
         /// <param name="uriVariables">The dictionary of URI variables.</param>
         /// <returns>The expanded URI</returns>
@@ -118,10 +118,10 @@ namespace Spring.Util
         /// </summary>
         /// <example>
         /// <code>
-        /// UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+        /// UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
         /// Console.Out.WriteLine(template.Expand(1, "42"));
         /// </code>
-        /// will print: <blockquote>http://example.com/hotels/1/bookings/42</blockquote>
+        /// will print: <blockquote>https://example.com/hotels/1/bookings/42</blockquote>
         /// </example>
         /// <param name="uriVariableValues">The array of URI variables.</param>
         /// <returns>The expanded URI</returns>
@@ -163,8 +163,8 @@ namespace Spring.Util
         /// </summary>
         /// <example>
         /// <code>
-        /// UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
-        /// Console.Out.WriteLine(template.Match("http://example.com/hotels/1/bookings/42"));
+        /// UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
+        /// Console.Out.WriteLine(template.Match("https://example.com/hotels/1/bookings/42"));
         /// </code>
         /// will print: <blockquote>{hotel=1, booking=42}</blockquote>
         /// </example>
