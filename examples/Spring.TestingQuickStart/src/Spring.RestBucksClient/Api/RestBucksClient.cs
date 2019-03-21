@@ -7,12 +7,12 @@ using Spring.Rest.Client;
 namespace Spring.RestBucksClient.Api
 {
     /// <summary>
-    /// Basic REST Client for the example of the book "REST in practice": http://restinpractice.com/. 
-    /// Uses http://restbuckson.net/ for the server side.
+    /// Basic REST Client for the example of the book "REST in practice": https://restinpractice.com/. 
+    /// Uses https://restbuckson.net/ for the server side.
     /// </summary>
     public class RestBucksClient
     {
-        private const string BaseUrl = "http://restbuckson.net/";
+        private const string BaseUrl = "https://restbuckson.net/";
 
         private RestTemplate restTemplate;
 

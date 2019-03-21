@@ -18,10 +18,10 @@
 
 #endregion
 
-// Parsing code based on SimpleJson 0.8 http://simplejson.codeplex.com/
-// http://bit.ly/simplejson
+// Parsing code based on SimpleJson 0.8 https://simplejson.codeplex.com/
+// https://bit.ly/simplejson
 // License: Apache License 2.0 (Apache)
-// original json parsing code from http://techblog.procurios.nl/k/618/news/view/14605/14863/How-do-I-write-my-own-parser-for-JSON.html
+// original json parsing code from https://techblog.procurios.nl/k/618/news/view/14605/14863/How-do-I-write-my-own-parser-for-JSON.html
 
 using System;
 using System.Text;
@@ -37,7 +37,7 @@ namespace Spring.Json
     /// Every JSON value types (object, array, string, number, true, false or null) can be accessed via the provided functions.
     /// </summary>
     /// <remarks>
-    /// Specification details, see http://www.json.org/
+    /// Specification details, see https://www.json.org/
     /// </remarks>
     /// <seealso cref="JsonObject"/>
     /// <seealso cref="JsonArray"/>
@@ -855,7 +855,7 @@ namespace Spring.Json
 #if SILVERLIGHT || CF_3_5
             private static string ConvertFromUtf32(int utf32)
             {
-                // http://www.java2s.com/Open-Source/CSharp/2.6.4-mono-.net-core/System/System/Char.cs.htm
+                // https://www.java2s.com/Open-Source/CSharp/2.6.4-mono-.net-core/System/System/Char.cs.htm
                 if (utf32 < 0 || utf32 > 0x10FFFF)
                     throw new ArgumentOutOfRangeException("utf32", "The argument must be from 0 to 0x10FFFF.");
                 if (0xD800 <= utf32 && utf32 <= 0xDFFF)

@@ -65,7 +65,7 @@ namespace Spring.Http.Converters.Xml
         public void Read()
         {
             string body = @"<?xml version='1.0' encoding='UTF-8' ?>
-                <DataContractHttpMessageConverterTests.DataContractClass xmlns='http://schemas.datacontract.org/2004/07/Spring.Http.Converters.Xml' xmlns:i='http://www.w3.org/2001/XMLSchema-instance'>
+                <DataContractHttpMessageConverterTests.DataContractClass xmlns='https://schemas.datacontract.org/2004/07/Spring.Http.Converters.Xml' xmlns:i='http://www.w3.org/2001/XMLSchema-instance'>
                     <ID>1</ID><Name>Bruno Baïa</Name>
                 </DataContractHttpMessageConverterTests.DataContractClass>";
 
@@ -80,7 +80,7 @@ namespace Spring.Http.Converters.Xml
         [Test]
         public void Write()
         {
-            string expectedBody = "<DataContractHttpMessageConverterTests.DataContractClass xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://schemas.datacontract.org/2004/07/Spring.Http.Converters.Xml\"><ID>1</ID><Name>Bruno Baïa</Name></DataContractHttpMessageConverterTests.DataContractClass>";
+            string expectedBody = "<DataContractHttpMessageConverterTests.DataContractClass xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"https://schemas.datacontract.org/2004/07/Spring.Http.Converters.Xml\"><ID>1</ID><Name>Bruno Baïa</Name></DataContractHttpMessageConverterTests.DataContractClass>";
             DataContractClass body = new DataContractClass("1", "Bruno Baïa");
 
             MockHttpOutputMessage message = new MockHttpOutputMessage();

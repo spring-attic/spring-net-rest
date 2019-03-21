@@ -1,5 +1,5 @@
 - Sandcastle Help File Builder 
-http://shfb.codeplex.com/
+https://shfb.codeplex.com/
 (SHFB v1.9.3.0 Release)
 
 Download the Sandcastle Guided Installation package. 

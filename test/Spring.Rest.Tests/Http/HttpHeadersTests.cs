@@ -153,11 +153,11 @@ namespace Spring.Http
         [Test]
         public void Location() 
         {
-            Uri location = new Uri("http://www.example.com/hotels");
+            Uri location = new Uri("https://www.example.com/hotels");
             
             headers.Location = location;
             Assert.AreEqual(location, headers.Location, "Invalid Location header");
-            Assert.AreEqual("http://www.example.com/hotels", headers["Location"], "Invalid Location header");
+            Assert.AreEqual("https://www.example.com/hotels", headers["Location"], "Invalid Location header");
         }
 
         [Test]

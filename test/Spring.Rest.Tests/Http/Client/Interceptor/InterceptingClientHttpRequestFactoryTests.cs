@@ -58,7 +58,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
 
             Assert.IsTrue(interceptor1.invoked);
             Assert.IsTrue(interceptor2.invoked);
@@ -78,7 +78,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
 
             Assert.IsFalse(interceptor1.invoked);
             Assert.IsFalse(interceptor2.invoked);
@@ -101,7 +101,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock, 
                 new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
 
             Assert.IsFalse(interceptor1.invoked);
             Assert.IsFalse(interceptor2.invoked);
@@ -127,7 +127,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
             request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)
             {
                 try
@@ -166,7 +166,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
             IClientHttpResponse response = request.Execute();
 
             Assert.IsFalse(interceptor2.invoked);
@@ -184,7 +184,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor1, interceptor2 });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
             request.ExecuteAsync(null, delegate(ClientHttpRequestCompletedEventArgs args)
             {
                 try
@@ -218,7 +218,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
 
             Assert.IsNotNull(requestMock.Headers.Get("AfterCreation"));
             Assert.IsNull(requestMock.Headers.Get("BeforeSyncExecution"));
@@ -237,8 +237,8 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
-            Assert.AreEqual(new Uri("http://example.com/2"), requestMock.Uri);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
+            Assert.AreEqual(new Uri("https://example.com/2"), requestMock.Uri);
         }
 
         [Test]
@@ -248,7 +248,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
             Assert.AreEqual(HttpMethod.POST, requestMock.Method);
         }
 
@@ -259,7 +259,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
             request.Execute();
 
             MemoryStream stream = new MemoryStream();
@@ -280,7 +280,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
             IClientHttpResponse response = request.Execute();
 
             Assert.AreNotSame(this.responseMock, response);
@@ -297,7 +297,7 @@ namespace Spring.Http.Client.Interceptor
             requestFactory = new InterceptingClientHttpRequestFactory(requestFactoryMock,
                 new IClientHttpRequestInterceptor[] { interceptor });
 
-            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("http://example.com"), HttpMethod.GET);
+            IClientHttpRequest request = requestFactory.CreateRequest(new Uri("https://example.com"), HttpMethod.GET);
             request.ExecuteAsync(state, delegate(ClientHttpRequestCompletedEventArgs args)
             {
                 try
@@ -421,7 +421,7 @@ namespace Spring.Http.Client.Interceptor
         {
             public IClientHttpRequest Create(IClientHttpRequestFactoryCreation creation)
             {
-                creation.Uri = new Uri("http://example.com/2");
+                creation.Uri = new Uri("https://example.com/2");
                 return creation.Create();
             }
         }

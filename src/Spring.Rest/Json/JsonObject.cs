@@ -31,7 +31,7 @@ namespace Spring.Json
     /// A JSON object is a collection of name/value pairs.
     /// </summary>
     /// <remarks>
-    /// Specification details, see http://www.json.org/
+    /// Specification details, see https://www.json.org/
     /// </remarks>
     /// <seealso cref="JsonValue"/>
     /// <author>Bruno Baia</author>

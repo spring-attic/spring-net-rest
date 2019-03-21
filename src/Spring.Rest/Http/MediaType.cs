@@ -30,7 +30,7 @@ namespace Spring.Http
 {
     /// <summary>
     /// Represents an Internet Media Type, as defined in the HTTP specification. 
-    /// <a href="http://tools.ietf.org/html/rfc2616#section-3.7">HTTP 1.1, section 3.7</a>
+    /// <a href="https://tools.ietf.org/html/rfc2616#section-3.7">HTTP 1.1, section 3.7</a>
     /// </summary>
     /// <remarks>
     /// Consists of a <see cref="P:Type"/> and a <see cref="P:SubType"/>.  
@@ -264,11 +264,11 @@ namespace Spring.Http
             ArgumentUtils.AssertHasText(type, "type");
             ArgumentUtils.AssertHasText(subtype, "subtype");
 
-            // TODO: check type (http://tools.ietf.org/html/rfc2616#section-2.2)
+            // TODO: check type (https://tools.ietf.org/html/rfc2616#section-2.2)
             this.type = type.ToLower(CultureInfo.InvariantCulture);
-            // TODO: check subtype (http://tools.ietf.org/html/rfc2616#section-2.2)
+            // TODO: check subtype (https://tools.ietf.org/html/rfc2616#section-2.2)
             this.subtype = subtype.ToLower(CultureInfo.InvariantCulture);
-            // TODO: check parameters (http://tools.ietf.org/html/rfc2616#section-2.2)
+            // TODO: check parameters (https://tools.ietf.org/html/rfc2616#section-2.2)
             this.parameters = new Dictionary<string, string>(parameters, StringComparer.OrdinalIgnoreCase);
         }
 
@@ -629,7 +629,7 @@ namespace Spring.Http
 
         /// <summary>
         /// Sorts the given list of <see cref="MediaType"/> objects by specificity. 
-        /// <a href="http://tools.ietf.org/html/rfc2616#section-14.1">HTTP 1.1, section 14.1</a>
+        /// <a href="https://tools.ietf.org/html/rfc2616#section-14.1">HTTP 1.1, section 14.1</a>
         /// </summary>
         /// <remarks>
         /// <para>
