@@ -1,0 +1,20 @@
+<Project>
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    
+    <CommonLoggingVersion>3.4.1</CommonLoggingVersion>
+
+    <Authors>SpringSource</Authors>
+    <PackageIconUrl>http://springframework.net/images/SpringSource_Leaves32x32.png</PackageIconUrl>
+    <PackageLicenseUrl>http://www.springframework.net/license.html</PackageLicenseUrl>
+    <PackageProjectUrl>http://www.springframework.net/</PackageProjectUrl>
+    <PackageTags>Library</PackageTags>
+
+    
+    <LangVersion>latest</LangVersion>
+    <TargetFullFrameworkVersion>net45</TargetFullFrameworkVersion>
+    <TargetNetStandardVersion>netstandard2.0</TargetNetStandardVersion>
+  </PropertyGroup>
+</Project>

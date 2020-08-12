@@ -10,3 +10,5 @@ obj
 buildlog.txt
 build
 package
+/.vs/Spring.Rest.2019/DesignTimeBuild
+/packages

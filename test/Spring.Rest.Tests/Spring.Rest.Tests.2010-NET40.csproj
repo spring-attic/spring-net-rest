@@ -96,6 +96,9 @@
     <Reference Include="Common.Logging">
       <HintPath>..\..\lib\net\2.0\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\lib\net\2.0\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\lib\net\4.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
