@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(TargetNetStandardVersion);$(TargetFullFrameworkVersion)</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\src\Spring.Rest.Testing\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
+    <Compile Include="..\CommonAssemblyInfo.cs" Link="CommonAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Spring.Rest\Spring.Rest.csproj" />
+  </ItemGroup>
+
+</Project>

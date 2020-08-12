@@ -1,0 +1,51 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spring.Http.Converters.NJson", "netstandard\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.csproj", "{913F4241-F1CC-41F8-BF57-9FC50C0A7438}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "net-standard", "net-standard", "{F8F3A420-F5AC-402A-8F96-32134079EAD0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spring.Rest", "netstandard\Spring.Rest\Spring.Rest.csproj", "{A965978B-4A95-47D1-872E-34ACF2B289C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spring.Rest.Testing", "netstandard\Spring.Rest.Testing\Spring.Rest.Testing.csproj", "{CFFEC718-01D5-4816-9361-1145811A280E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spring.Rest.Tests", "netstandard\Spring.Rest.Tests\Spring.Rest.Tests.csproj", "{A5CA3523-08A4-4EA4-B082-12F6659365DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{913F4241-F1CC-41F8-BF57-9FC50C0A7438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{913F4241-F1CC-41F8-BF57-9FC50C0A7438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{913F4241-F1CC-41F8-BF57-9FC50C0A7438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{913F4241-F1CC-41F8-BF57-9FC50C0A7438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A965978B-4A95-47D1-872E-34ACF2B289C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A965978B-4A95-47D1-872E-34ACF2B289C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A965978B-4A95-47D1-872E-34ACF2B289C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A965978B-4A95-47D1-872E-34ACF2B289C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFFEC718-01D5-4816-9361-1145811A280E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFFEC718-01D5-4816-9361-1145811A280E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFFEC718-01D5-4816-9361-1145811A280E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFFEC718-01D5-4816-9361-1145811A280E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CA3523-08A4-4EA4-B082-12F6659365DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CA3523-08A4-4EA4-B082-12F6659365DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CA3523-08A4-4EA4-B082-12F6659365DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CA3523-08A4-4EA4-B082-12F6659365DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{913F4241-F1CC-41F8-BF57-9FC50C0A7438} = {F8F3A420-F5AC-402A-8F96-32134079EAD0}
+		{A965978B-4A95-47D1-872E-34ACF2B289C9} = {F8F3A420-F5AC-402A-8F96-32134079EAD0}
+		{CFFEC718-01D5-4816-9361-1145811A280E} = {F8F3A420-F5AC-402A-8F96-32134079EAD0}
+		{A5CA3523-08A4-4EA4-B082-12F6659365DA} = {F8F3A420-F5AC-402A-8F96-32134079EAD0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		NAntAddinLastFileName = Spring.build
+		SolutionGuid = {B28287A7-8FB3-443E-99A7-C43E0233F282}
+	EndGlobalSection
+EndGlobal
