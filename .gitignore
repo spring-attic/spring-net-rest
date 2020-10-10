@@ -13,3 +13,4 @@ package
 /.vs/Spring.Rest.2019/DesignTimeBuild
 /packages
 *.nupkg
+/.vs
