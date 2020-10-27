@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Spring.Rest.Tests": {
+      "commandName": "Executable",
+      "executablePath": "D:\\tools\\NUnit 2.5.9\\bin\\net-2.0\\nunit.exe"
+    }
+  }
+}

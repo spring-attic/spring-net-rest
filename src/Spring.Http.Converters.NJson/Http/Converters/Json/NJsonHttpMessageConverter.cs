@@ -75,7 +75,7 @@ namespace Spring.Http.Converters.Json
             using (JsonTextReader jsonReader = new JsonTextReader(reader))
             {
                 JsonSerializer jsonSerializer = new JsonSerializer();
-                return jsonSerializer.Deserialize<T>(jsonReader);
+               return jsonSerializer.Deserialize<T>(jsonReader);
             }
         }
 

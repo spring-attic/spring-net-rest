@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(TargetNetStandardVersion);$(TargetFullFrameworkVersion)</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Http\Converters\Feed\**" />
+    <EmbeddedResource Remove="Http\Converters\Feed\**" />
+    <None Remove="Http\Converters\Feed\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Rest\Client\IRestOperations.ObsoleteAsync.cs" />
+    <Compile Remove="Rest\Client\Obsolete\IRestOperations.ObsoleteAsync.cs" />
+    <Compile Remove="Rest\Client\Obsolete\RestTemplate.ObsoleteAsync.cs" />
+    <Compile Remove="Rest\Client\RestTemplate.ObsoleteAsync.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\src\Spring.Rest\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
+    <Compile Include="..\CommonAssemblyInfo.cs" Link="CommonAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Common.Logging" Version="3.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Rest\Client\Obsolete\" />
+  </ItemGroup>
+
+</Project>

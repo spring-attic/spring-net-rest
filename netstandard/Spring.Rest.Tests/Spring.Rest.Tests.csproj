@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(TargetFullFrameworkVersion)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Http\Converters\Resource.txt" />
+    <None Remove="IO\TestResource.txt" />
+    <None Remove="TestResource.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Http\Converters\Resource.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IO\TestResource.txt" />
+    <EmbeddedResource Include="TestResource.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="NUnit" Version="2.6.7" />
+    <PackageReference Include="RhinoMocks" Version="3.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Spring.Http.Converters.NJson\Spring.Http.Converters.NJson.csproj" />
+    <ProjectReference Include="..\Spring.Rest.Testing\Spring.Rest.Testing.csproj" />
+    <ProjectReference Include="..\Spring.Rest\Spring.Rest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Http\Converters\FileToUpload.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Spring.Rest.Tests.dll.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
