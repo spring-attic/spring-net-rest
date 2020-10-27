@@ -20,7 +20,7 @@
 
 using System;
 using System.Collections.Generic;
-#if NET_4_0 || SILVERLIGHT_5
+#if NET_4_0 || SILVERLIGHT_5 || NETSTANDARD || NETFRAMEWORK
 using System.Threading;
 using System.Threading.Tasks;
 #endif
@@ -1910,7 +1910,7 @@ namespace Spring.Rest.Client
 
         #region Asynchronous operations (TPL)
 
-#if NET_4_0 || SILVERLIGHT_5
+#if     SILVERLIGHT_5 || NETSTANDARD || NETFRAMEWORK
         #region GET
 
         /// <summary>
@@ -2804,7 +2804,7 @@ namespace Spring.Rest.Client
 
         #region DoExecuteAsync (TPL)
 
-#if NET_4_0 || SILVERLIGHT_5
+#if NETFRAMEWORK || NETSTANDARD || SILVERLIGHT_5 
         /// <summary>
         /// Asynchronously execute the HTTP request to the given URI, preparing the request with the 
         /// <see cref="IRequestCallback"/>, and reading the response with an <see cref="IResponseExtractor{T}"/>.

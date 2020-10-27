@@ -142,7 +142,7 @@
 
   <target name="build-all">
     
-    <!--<call target="build-net-4.5" />-->
+    <call target="build-net-4.5" />
     <call target="build-netstandard-2.0" />
   </target>
 

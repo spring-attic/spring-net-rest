@@ -125,12 +125,6 @@ namespace Spring.Http.Client
         /// </remarks>
         protected virtual void Initialize()
         {
-#if NET_2_0 || CF_3_5 || WINDOWS_PHONE
-            foreach (string header in this.httpWebResponse.Headers)
-            {
-                this.headers[header] = this.httpWebResponse.Headers[header];
-            }
-#endif
 #if SILVERLIGHT_3
             try
             {
@@ -156,6 +150,11 @@ namespace Spring.Http.Client
             {
                 this.headers.ContentLength = this.httpWebResponse.ContentLength;
                 this.headers["Content-Type"] = this.httpWebResponse.ContentType;
+            }
+#else
+            foreach (string header in this.httpWebResponse.Headers)
+            {
+                this.headers[header] = this.httpWebResponse.Headers[header];
             }
 #endif
         }

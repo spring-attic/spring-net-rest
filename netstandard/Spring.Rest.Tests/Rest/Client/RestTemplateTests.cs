@@ -28,6 +28,8 @@ using Spring.Http.Converters;
 
 using NUnit.Framework;
 using Rhino.Mocks;
+using Spring.Http.Converters.Json;
+using Spring.Rest.Tests.Rest.Client.DTO;
 
 namespace Spring.Rest.Client
 {
@@ -703,6 +705,16 @@ namespace Spring.Rest.Client
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode, "Invalid status code");
             Assert.AreEqual("OK", result.StatusDescription, "Invalid status description");
         }
+
+        //[Test]
+        //public void TestGetFormNetCore() 
+        //{
+        //    var client = new RestTemplate("http://localhost:55622/");
+        //    client.MessageConverters = new List<IHttpMessageConverter>();
+        //    client.MessageConverters.Add(new NJsonHttpMessageConverter());
+
+        //    var data = client.GetForObject<PagedList<BusinessLoginLogDto>>("BusinessLoginLog/GetList");
+        //}
 
         #region Utility methods
 
