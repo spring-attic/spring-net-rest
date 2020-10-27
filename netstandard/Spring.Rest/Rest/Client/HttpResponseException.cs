@@ -31,20 +31,13 @@ namespace Spring.Rest.Client
     /// Base class for exceptions based on a response message.
     /// </summary>
     /// <author>Bruno Baia</author>
-#if !SILVERLIGHT && !CF_3_5
     [Serializable]
-#endif
     public class HttpResponseException : RestClientException
     {
         /// <summary>
         /// Default encoding for responses as string.
         /// </summary>
-#if SILVERLIGHT || CF_3_5
-        protected static readonly Encoding DEFAULT_CHARSET = new UTF8Encoding(false); // Remove byte Order Mask (BOM)
-#else
         protected static readonly Encoding DEFAULT_CHARSET = Encoding.GetEncoding("ISO-8859-1");
-#endif
-
         private Uri requestUri; 
         private HttpMethod requestMethod;
         private HttpResponseMessage<byte[]> response;
@@ -81,14 +74,13 @@ namespace Spring.Rest.Client
         /// <param name="requestMethod">The HTTP request method.</param>
         /// <param name="response">The HTTP response message.</param>
         public HttpResponseException(Uri requestUri, HttpMethod requestMethod, HttpResponseMessage<byte[]> response)
-            : base(String.Format("{0} request for '{1}' resulted in {2:d} - {2} ({3}).", requestMethod, requestUri, response.StatusCode, response.StatusDescription))
+            : base(string.Format("{0} request for '{1}' resulted in {2:d} - {2} ({3}).", requestMethod, requestUri, response.StatusCode, response.StatusDescription))
         {
             this.requestUri = requestUri;
             this.requestMethod = requestMethod;
             this.response = response;
         }
 
-#if !SILVERLIGHT && !CF_3_5
         /// <summary>
         /// Creates a new instance of the <see cref="RestClientException"/> class.
         /// </summary>
@@ -135,8 +127,6 @@ namespace Spring.Rest.Client
                 info.AddValue("Response", this.response);
             }
         }
-#endif
-
         /// <summary>
         /// Returns the response body as a string.
         /// </summary>

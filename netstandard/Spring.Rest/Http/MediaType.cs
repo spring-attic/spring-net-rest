@@ -39,9 +39,7 @@ namespace Spring.Http
     /// <author>Arjen Poutsma</author>
     /// <author>Juergen Hoeller</author>
     /// <author>Bruno Baia (.NET)</author>
-#if !SILVERLIGHT
     [Serializable]
-#endif
     public class MediaType : IEquatable<MediaType>, IComparable<MediaType> 
     {
         /// <summary>

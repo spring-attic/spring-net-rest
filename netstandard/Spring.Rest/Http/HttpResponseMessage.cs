@@ -30,9 +30,7 @@ namespace Spring.Http
     /// <a href="http://tools.ietf.org/html/rfc2616#section-6">HTTP 1.1, section 6</a>
     /// </summary>
     /// <author>Bruno Baia</author>
-#if !SILVERLIGHT
     [Serializable]
-#endif
     public class HttpResponseMessage
     {
         private HttpHeaders headers;

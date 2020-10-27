@@ -1,4 +1,4 @@
-﻿#if !SILVERLIGHT
+﻿
 #region License
 
 /*
@@ -57,4 +57,3 @@ namespace Spring.Http.Client.Interceptor
         IClientHttpResponse Execute(IClientHttpRequestSyncExecution execution);
     }
 }
-#endif

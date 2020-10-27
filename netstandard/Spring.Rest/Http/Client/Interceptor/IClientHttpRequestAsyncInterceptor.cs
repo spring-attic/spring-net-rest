@@ -1,5 +1,4 @@
-﻿#if !CF_3_5
-#region License
+﻿#region License
 
 /*
  * Copyright 2002-2012 the original author or authors.
@@ -57,4 +56,3 @@ namespace Spring.Http.Client.Interceptor
         void ExecuteAsync(IClientHttpRequestAsyncExecution execution);
     }
 }
-#endif

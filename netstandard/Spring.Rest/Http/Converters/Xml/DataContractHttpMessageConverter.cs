@@ -1,4 +1,4 @@
-﻿#if NET_3_0 || SILVERLIGHT
+﻿
 #region License
 
 /*
@@ -143,4 +143,3 @@ namespace Spring.Http.Converters.Xml
         }
     }
 }
-#endif

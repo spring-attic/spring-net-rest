@@ -27,9 +27,7 @@ namespace Spring.Json
     /// The exception that is thrown while processing (parsing, generating or mapping) JSON content.
     /// </summary>
     /// <author>Bruno Baia</author>
-#if !SILVERLIGHT && !CF_3_5
     [Serializable]
-#endif
     public class JsonException : Exception
     {
         /// <summary>
@@ -64,7 +62,6 @@ namespace Spring.Json
         {
         }
 
-#if !SILVERLIGHT && !CF_3_5
         /// <summary>
         /// Creates a new instance of the <see cref="JsonException"/> class.
         /// </summary>
@@ -80,7 +77,6 @@ namespace Spring.Json
             : base(info, context)
         {
         }
-#endif
     }
 }
 

@@ -809,11 +809,8 @@ namespace Spring.Json
                                     success = false; // invalid surrogate pair
                                     return "";
                                 }
-#if SILVERLIGHT || CF_3_5
-                                s.Append(ConvertFromUtf32((int)codePoint));
-#else
-                                s.Append(Char.ConvertFromUtf32((int)codePoint));
-#endif
+
+                                s.Append(char.ConvertFromUtf32((int)codePoint));
                                 // skip 4 chars
                                 index += 4;
                             }
@@ -836,36 +833,9 @@ namespace Spring.Json
 
             private static bool TryParseUInt32(string s, NumberStyles style, IFormatProvider provider, out uint result)
             {
-#if CF_3_5
-                try
-                {
-                    result = UInt32.Parse(s, style, provider);
-                    return true;
-                }
-                catch
-                {
-                    result = 0;
-                    return false;
-                }
-#else
-                return UInt32.TryParse(s, style, provider, out result);
-#endif
+                return uint.TryParse(s, style, provider, out result);
             }
 
-#if SILVERLIGHT || CF_3_5
-            private static string ConvertFromUtf32(int utf32)
-            {
-                // http://www.java2s.com/Open-Source/CSharp/2.6.4-mono-.net-core/System/System/Char.cs.htm
-                if (utf32 < 0 || utf32 > 0x10FFFF)
-                    throw new ArgumentOutOfRangeException("utf32", "The argument must be from 0 to 0x10FFFF.");
-                if (0xD800 <= utf32 && utf32 <= 0xDFFF)
-                    throw new ArgumentOutOfRangeException("utf32", "The argument must not be in surrogate pair range.");
-                if (utf32 < 0x10000)
-                    return new string((char)utf32, 1);
-                utf32 -= 0x10000;
-                return new string(new char[] {(char) ((utf32 >> 10) + 0xD800),(char) (utf32 % 0x0400 + 0xDC00)});
-            }
-#endif
 
             private static object ParseNumber(char[] json, ref int index, ref bool success)
             {

@@ -1,4 +1,4 @@
-﻿#if !CF_3_5
+﻿
 #region License
 
 /*
@@ -65,4 +65,3 @@ namespace Spring.Rest.Client
         }
     }
 }
-#endif

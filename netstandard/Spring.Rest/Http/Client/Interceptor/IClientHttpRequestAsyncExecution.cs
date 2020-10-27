@@ -1,4 +1,4 @@
-﻿#if !CF_3_5
+﻿
 #region License
 
 /*
@@ -62,4 +62,3 @@ namespace Spring.Http.Client.Interceptor
         void ExecuteAsync(Action<IClientHttpResponseAsyncContext> executeCompleted);
     }
 }
-#endif

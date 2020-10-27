@@ -37,9 +37,7 @@ namespace Spring.Rest.Client.Support
     public class MessageConverterResponseExtractor<T> : IResponseExtractor<T> where T : class
     {
         #region Logging
-#if !SILVERLIGHT && !CF_3_5
         private static readonly Common.Logging.ILog LOG = Common.Logging.LogManager.GetLogger(typeof(MessageConverterResponseExtractor<T>));
-#endif
         #endregion
 
         /// <summary>
@@ -72,12 +70,10 @@ namespace Spring.Rest.Client.Support
             if (mediaType == null)
             {
                 #region Instrumentation
-#if !SILVERLIGHT && !CF_3_5
                 if (LOG.IsWarnEnabled)
                 {
                     LOG.Warn("No Content-Type header found, defaulting to 'application/octet-stream'");
                 }
-#endif
                 #endregion
 
                 mediaType = MediaType.APPLICATION_OCTET_STREAM;
@@ -87,20 +83,18 @@ namespace Spring.Rest.Client.Support
                 if (messageConverter.CanRead(typeof(T), mediaType))
                 {
                     #region Instrumentation
-#if !SILVERLIGHT && !CF_3_5
                     if (LOG.IsDebugEnabled) 
                     {
-                        LOG.Debug(String.Format(
+                        LOG.Debug(string.Format(
                             "Reading [{0}] as '{1}' using [{2}]", 
                             typeof(T).FullName, mediaType, messageConverter));
                     }
-#endif
                     #endregion
 
                     return messageConverter.Read<T>(response);
                 }
             }
-            throw new RestClientException(String.Format(
+            throw new RestClientException(string.Format(
                 "Could not extract response: no suitable HttpMessageConverter found for response type [{0}] and content type [{1}]", 
                 typeof(T).FullName, mediaType));
         }

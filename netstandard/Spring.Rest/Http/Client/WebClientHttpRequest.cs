@@ -42,9 +42,7 @@ namespace Spring.Http.Client
         private HttpWebRequest httpWebRequest;
 
         private bool isExecuted;
-#if !CF_3_5
         private bool isCancelled;
-#endif
 
         /// <summary>
         /// Gets the <see cref="HttpWebRequest"/> instance used by the request.
@@ -107,7 +105,6 @@ namespace Spring.Http.Client
             set { this.body = value; }
         }
 
-#if !SILVERLIGHT
         /// <summary>
         /// Execute this request, resulting in a <see cref="IClientHttpResponse" /> that can be read.
         /// </summary>
@@ -156,9 +153,6 @@ namespace Spring.Http.Client
 
             return null;
         }
-#endif
-
-#if !CF_3_5
         /// <summary>
         /// Execute this request asynchronously.
         /// </summary>
@@ -228,14 +222,13 @@ namespace Spring.Http.Client
                 }
             }
         }
-#endif
 
         #endregion
 
 
         #region Async methods/classes
 
-#if !CF_3_5
+
         private void ExecuteRequestCallback(IAsyncResult result)
         {
             ExecuteState state = (ExecuteState)result.AsyncState;
@@ -345,7 +338,6 @@ namespace Spring.Http.Client
                 this.AsyncOperation = asyncOperation;
             }
         }
-#endif
 
         #endregion
 
@@ -393,30 +385,17 @@ namespace Spring.Http.Client
                             this.httpWebRequest.Accept = this.headers[header];
                             break;
                         }
-#if SILVERLIGHT
-                    case "COOKIE":
-                        {
-                            if (this.httpWebRequest.CookieContainer == null)
-                            {
-                                this.httpWebRequest.CookieContainer = new CookieContainer();
-                            }
-                            this.httpWebRequest.CookieContainer.SetCookies(this.Uri, this.headers[header]);
-                            break;
-                        }
-#endif
-#if !SILVERLIGHT_3 && !WINDOWS_PHONE
+
                     case "CONTENT-LENGTH":
                         {
                             this.httpWebRequest.ContentLength = this.headers.ContentLength;
                             break;
                         }
-#endif
                     case "CONTENT-TYPE":
                         {
                             this.httpWebRequest.ContentType = this.headers[header];
                             break;
                         }
-#if NET_4_0
                     case "DATE" :
                         {
                             DateTime? date = this.headers.Date;
@@ -435,8 +414,6 @@ namespace Spring.Http.Client
                             this.httpWebRequest.Host = this.headers[header];
                             break;
                         }
-#endif
-#if !SILVERLIGHT
                     case "CONNECTION":
                         {
                             string headerValue = this.headers[header];
@@ -478,13 +455,10 @@ namespace Spring.Http.Client
                                 string rangesSpecifier = rangesSpecifiers[0];
                                 string byteRangesSpecifier = rangesSpecifiers[1];
                                 int byteRangesSpecifierSeparator = byteRangesSpecifier.IndexOf('-');
-#if NET_4_0 || SILVERLIGHT
+
                                 long from = long.Parse(byteRangesSpecifier.Substring(0, byteRangesSpecifierSeparator));
                                 long to = long.Parse(byteRangesSpecifier.Substring(byteRangesSpecifierSeparator + 1));
-#else
-                                int from = int.Parse(byteRangesSpecifier.Substring(0, byteRangesSpecifierSeparator));
-                                int to = int.Parse(byteRangesSpecifier.Substring(byteRangesSpecifierSeparator + 1));                                
-#endif
+
                                 this.httpWebRequest.AddRange(rangesSpecifier, from, to);
                             }
                             catch
@@ -508,14 +482,11 @@ namespace Spring.Http.Client
                             }
                             break;
                         }
-#endif
-#if !SILVERLIGHT_3
                     case "USER-AGENT":
                         {
                             this.httpWebRequest.UserAgent = this.headers[header];
                             break;
                         }
-#endif
                     default:
                         {
                             // Other headers

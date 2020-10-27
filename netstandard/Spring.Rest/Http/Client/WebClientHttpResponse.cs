@@ -125,38 +125,10 @@ namespace Spring.Http.Client
         /// </remarks>
         protected virtual void Initialize()
         {
-#if SILVERLIGHT_3
-            try
-            {
-                foreach (string header in this.httpWebResponse.Headers)
-                {
-                    this.headers[header] = this.httpWebResponse.Headers[header];
-                }
-            }
-            catch(NotImplementedException)
-            {
-                this.headers.ContentLength = this.httpWebResponse.ContentLength;
-                this.headers["Content-Type"] = this.httpWebResponse.ContentType;
-            }
-#elif SILVERLIGHT
-            if (this.httpWebResponse.SupportsHeaders)
-            {
-                foreach (string header in this.httpWebResponse.Headers)
-                {
-                    this.headers[header] = this.httpWebResponse.Headers[header];
-                }
-            }
-            else
-            {
-                this.headers.ContentLength = this.httpWebResponse.ContentLength;
-                this.headers["Content-Type"] = this.httpWebResponse.ContentType;
-            }
-#else
             foreach (string header in this.httpWebResponse.Headers)
             {
                 this.headers[header] = this.httpWebResponse.Headers[header];
             }
-#endif
         }
     }
 }

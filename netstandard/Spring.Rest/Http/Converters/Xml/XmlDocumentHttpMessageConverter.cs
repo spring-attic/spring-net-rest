@@ -1,4 +1,4 @@
-﻿#if !SILVERLIGHT
+﻿
 #region License
 
 /*
@@ -79,4 +79,3 @@ namespace Spring.Http.Converters.Xml
         }
     }
 }
-#endif

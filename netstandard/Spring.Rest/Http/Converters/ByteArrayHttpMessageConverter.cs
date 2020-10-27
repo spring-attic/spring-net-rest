@@ -84,12 +84,6 @@ namespace Spring.Http.Converters
             // Create a byte array of the data we want to send  
             byte[] byteData = content as byte[];
 
-//#if !SILVERLIGHT
-//            // Set the content length in the message headers
-//            message.Headers.ContentLength = byteData.Length;
-//#endif
-
-            // Write to the message stream
             message.Body = delegate(Stream stream)
             {
                 stream.Write(byteData, 0, byteData.Length);

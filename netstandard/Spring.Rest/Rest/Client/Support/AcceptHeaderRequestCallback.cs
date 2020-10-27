@@ -35,9 +35,7 @@ namespace Spring.Rest.Client.Support
     public class AcceptHeaderRequestCallback : IRequestCallback
     {
         #region Logging
-#if !SILVERLIGHT && !CF_3_5
         private static readonly Common.Logging.ILog LOG = Common.Logging.LogManager.GetLogger(typeof(AcceptHeaderRequestCallback));
-#endif
         #endregion
 
         /// <summary>
@@ -99,14 +97,12 @@ namespace Spring.Rest.Client.Support
                     MediaType.SortBySpecificity(allSupportedMediaTypes);
 
                     #region Instrumentation
-#if !SILVERLIGHT && !CF_3_5
                     if (LOG.IsDebugEnabled)
                     {
                         LOG.Debug(String.Format(
                             "Setting request Accept header to '{0}'",
                             MediaType.ToString(allSupportedMediaTypes)));
                     }
-#endif
                     #endregion
 
                     request.Headers.Accept = allSupportedMediaTypes.ToArray();

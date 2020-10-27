@@ -29,9 +29,7 @@ namespace Spring.Http.Converters
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia (.NET)</author>
-#if !SILVERLIGHT && !CF_3_5
     [Serializable]
-#endif
     public class HttpMessageNotWritableException : HttpMessageConversionException
     {
         /// <summary>
@@ -66,7 +64,6 @@ namespace Spring.Http.Converters
         {
         }
 
-#if !SILVERLIGHT && !CF_3_5
         /// <summary>
         /// Creates a new instance of the <see cref="HttpMessageNotWritableException"/> class.
         /// </summary>
@@ -82,6 +79,5 @@ namespace Spring.Http.Converters
             : base(info, context)
         {
         }
-#endif
     }
 }

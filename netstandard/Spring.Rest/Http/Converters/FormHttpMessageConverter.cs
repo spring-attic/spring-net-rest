@@ -22,11 +22,8 @@ using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
-#if SILVERLIGHT
-using Spring.Collections.Specialized;
-#else
 using System.Collections.Specialized;
-#endif
+
 
 using Spring.IO;
 
@@ -295,11 +292,6 @@ namespace Spring.Http.Converters
 
             // Create a byte array of the data we want to send  
             byte[] byteData = DEFAULT_CHARSET.GetBytes(builder.ToString());
-
-//#if !SILVERLIGHT
-//            // Set the content length in the message headers  
-//            message.Headers.ContentLength = byteData.Length;
-//#endif
 
             // Write to the message stream
             message.Body = delegate(Stream stream)

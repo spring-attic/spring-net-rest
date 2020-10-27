@@ -35,9 +35,7 @@ namespace Spring.Rest.Client.Support
     public class HttpEntityRequestCallback : AcceptHeaderRequestCallback
     {
         #region Logging
-#if !SILVERLIGHT && !CF_3_5
         private static readonly Common.Logging.ILog LOG = Common.Logging.LogManager.GetLogger(typeof(HttpEntityRequestCallback));
-#endif
         #endregion
 
         /// <summary>
@@ -105,39 +103,36 @@ namespace Spring.Rest.Client.Support
                     if (messageConverter.CanWrite(requestBody.GetType(), requestContentType))
                     {
                         #region Instrumentation
-#if !SILVERLIGHT && !CF_3_5
                         if (LOG.IsDebugEnabled)
                         {
                             if (requestContentType != null)
                             {
-                                LOG.Debug(String.Format(
+                                LOG.Debug(string.Format(
                                     "Writing [{0}] as '{1}' using [{2}]",
                                     requestBody, requestContentType, messageConverter));
                             }
                             else
                             {
-                                LOG.Debug(String.Format(
+                                LOG.Debug(string.Format(
                                     "Writing [{0}] using [{1}]",
                                     requestBody, messageConverter));
                             }
                         }
-#endif
                         #endregion
 
                         messageConverter.Write(requestBody, requestContentType, request);
                         return;
                     }
                 }
-                string message = String.Format(
+                string message = string.Format(
                     "Could not write request: no suitable IHttpMessageConverter found for request type [{0}]",
                     requestBody.GetType().FullName);
                 if (requestContentType != null)
                 {
-                    message = String.Format("{0} and content type [{1}]", message, requestContentType);
+                    message = string.Format("{0} and content type [{1}]", message, requestContentType);
                 }
                 throw new RestClientException(message);
             }
-#if !SILVERLIGHT
             else
             {
                 if (request.Headers.ContentLength == -1)
@@ -145,7 +140,6 @@ namespace Spring.Rest.Client.Support
                     request.Headers.ContentLength = 0;
                 }
             }
-#endif
         }
     }
 }

@@ -33,6 +33,8 @@ namespace Spring.Util
         /// </summary>
         public static void CopyStream(Stream source, Stream destination)
         {
+            source.CopyTo(destination);
+            /*
 #if NET_4_0
             source.CopyTo(destination);
 #else
@@ -43,6 +45,7 @@ namespace Spring.Util
                 destination.Write(buffer, 0, bytesCount);
             }
 #endif
+            */
         }
 	}
 }

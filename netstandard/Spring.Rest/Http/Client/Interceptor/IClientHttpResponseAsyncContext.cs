@@ -1,4 +1,4 @@
-﻿#if !CF_3_5
+﻿
 #region License
 
 /*
@@ -53,4 +53,3 @@ namespace Spring.Http.Client.Interceptor
         object UserState { get; set; }
     }
 }
-#endif

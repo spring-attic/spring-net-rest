@@ -49,16 +49,11 @@ namespace Spring.Http.Client
         /// Gets the URI of the request.
         /// </summary>
         Uri Uri { get; }
-
-#if !SILVERLIGHT
         /// <summary>
         /// Execute this request, resulting in a <see cref="IClientHttpResponse" /> that can be read.
         /// </summary>
         /// <returns>The response result of the execution</returns>
 	    IClientHttpResponse Execute();
-#endif
-
-#if !CF_3_5
         /// <summary>
         /// Execute this request asynchronously.
         /// </summary>
@@ -75,6 +70,5 @@ namespace Spring.Http.Client
         /// Cancels a pending asynchronous operation.
         /// </summary>
         void CancelAsync();
-#endif
     }
 }

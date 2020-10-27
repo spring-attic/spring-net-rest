@@ -30,9 +30,7 @@ namespace Spring.Rest.Client
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia (.NET)</author>
-#if !SILVERLIGHT && !CF_3_5
     [Serializable]
-#endif
     public class HttpClientErrorException : HttpResponseException
     {
         /// <summary>
@@ -47,7 +45,6 @@ namespace Spring.Rest.Client
         {
         }
 
-#if !SILVERLIGHT && !CF_3_5
         /// <summary>
         /// Creates a new instance of the <see cref="HttpClientErrorException"/> class.
         /// </summary>
@@ -63,6 +60,5 @@ namespace Spring.Rest.Client
             : base(info, context)
         {
         }
-#endif
     }
 }

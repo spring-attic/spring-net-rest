@@ -20,12 +20,9 @@
 
 using System;
 using System.Globalization;
-#if !SILVERLIGHT
 using System.Runtime.Serialization;
 using System.Collections.Specialized;
-#else
-using Spring.Collections.Specialized;
-#endif
+
 
 namespace Spring.Http
 {
@@ -34,9 +31,7 @@ namespace Spring.Http
     /// </summary>
     /// <author>Arjen Poutsma</author>
     /// <author>Bruno Baia (.NET)</author>    
-#if !SILVERLIGHT && !CF_3_5
     [Serializable]
-#endif
     public class HttpHeaders : NameValueCollection
     {
         private const string ACCEPT = "Accept";
@@ -66,7 +61,6 @@ namespace Spring.Http
         {
         }
 
-#if !SILVERLIGHT && !CF_3_5
         /// <summary>
         /// Creates a new instance of the <see cref="HttpHeaders"/> class.
         /// </summary>
@@ -82,7 +76,6 @@ namespace Spring.Http
             : base(info, context)
         {
         }
-#endif
 
         #endregion
 

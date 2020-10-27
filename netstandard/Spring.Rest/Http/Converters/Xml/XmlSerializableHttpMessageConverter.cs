@@ -1,4 +1,4 @@
-﻿#if !SILVERLIGHT || WINDOWS_PHONE
+﻿
 #region License
 
 /*
@@ -111,4 +111,3 @@ namespace Spring.Http.Converters.Xml
         }
     }
 }
-#endif

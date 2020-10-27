@@ -35,12 +35,7 @@ namespace Spring.Util
     public class UriTemplate
     {
         // Captures URI template variable names.
-#if SILVERLIGHT
-        private static Regex VARIABLENAMES_REGEX = new Regex(@"\{([^/]+?)\}");
-#else
         private static Regex VARIABLENAMES_REGEX = new Regex(@"\{([^/]+?)\}", RegexOptions.Compiled);
-#endif
-        
         // Replaces template variables in the URI template.
 	    private static string VARIABLEVALUE_PATTERN = "(?<{0}>.*)";
         

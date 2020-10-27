@@ -35,8 +35,10 @@ namespace Spring.Http.Client
     {
         #region Properties
 
-#if !SILVERLIGHT_3
         private bool? _allowAutoRedirect;
+        private bool? _useDefaultCredentials;
+        private CookieContainer _cookieContainer;
+        private ICredentials _credentials;
         /// <summary>
         /// Gets or sets a boolean value that controls whether the request should follow redirection responses.
         /// </summary>
@@ -45,9 +47,6 @@ namespace Spring.Http.Client
             get { return this._allowAutoRedirect; }
             set { this._allowAutoRedirect = value; }
         }
-
-#if !CF_3_5
-        private bool? _useDefaultCredentials;
         /// <summary>
         /// Gets or sets a boolean value that controls whether default credentials are sent with this request.
         /// </summary>
@@ -56,11 +55,6 @@ namespace Spring.Http.Client
             get { return this._useDefaultCredentials; }
             set { this._useDefaultCredentials = value; }
         }
-#endif
-#endif
-
-#if !CF_3_5
-        private CookieContainer _cookieContainer;
         /// <summary>
         /// Gets or sets the cookies for the request.
         /// </summary>
@@ -69,9 +63,6 @@ namespace Spring.Http.Client
             get { return this._cookieContainer; }
             set { this._cookieContainer = value; }
         }
-#endif
-
-        private ICredentials _credentials;
         /// <summary>
         /// Gets or sets authentication information for the request.
         /// </summary>
@@ -81,7 +72,6 @@ namespace Spring.Http.Client
             set { this._credentials = value; }
         }
 
-#if !SILVERLIGHT
         private X509CertificateCollection _clientCertificates;
         /// <summary>
         /// Gets or sets the collection of security certificates that are associated with this request.
@@ -146,35 +136,12 @@ namespace Spring.Http.Client
             get { return this._automaticDecompression; }
             set { this._automaticDecompression = value; }
         }
-#endif
 
-#if SILVERLIGHT && !WINDOWS_PHONE
-        private WebRequestCreatorType _webRequestCreator;
-        /// <summary>
-        /// Gets or sets a value that indicates how HTTP requests and responses will be handled. 
-        /// </summary>
-        /// <remarks>
-        /// By default, this factory will use the default Silverlight behavior for HTTP methods GET and POST, 
-        /// and force the client HTTP stack for other HTTP methods.
-        /// </remarks>
-        public WebRequestCreatorType WebRequestCreator
-        {
-            get { return this._webRequestCreator; }
-            set { this._webRequestCreator = value; }
-        }
-#endif
+
 
         #endregion
 
-#if SILVERLIGHT && !WINDOWS_PHONE
-        /// <summary>
-        /// Creates a new instance of <see cref="WebClientHttpRequestFactory"/>.
-        /// </summary>
-        public WebClientHttpRequestFactory()
-        {
-            this._webRequestCreator = WebRequestCreatorType.Unknown;
-        }
-#endif
+
 
         #region IClientHttpRequestFactory Members
 
@@ -190,57 +157,30 @@ namespace Spring.Http.Client
             ArgumentUtils.AssertNotNull(method, "method");
 
             HttpWebRequest httpWebRequest;
-#if SILVERLIGHT && !WINDOWS_PHONE
-            switch (this._webRequestCreator)
-            {
-                case WebRequestCreatorType.ClientHttp:
-                    httpWebRequest = (HttpWebRequest)System.Net.Browser.WebRequestCreator.ClientHttp.Create(uri);
-                    break;
-                case WebRequestCreatorType.BrowserHttp:
-                    httpWebRequest = (HttpWebRequest)System.Net.Browser.WebRequestCreator.BrowserHttp.Create(uri);
-                    break;
-                case WebRequestCreatorType.Unknown:
-                default:
-                    if (method == HttpMethod.GET || method == HttpMethod.POST)
-                    {
-                        httpWebRequest = WebRequest.Create(uri) as HttpWebRequest;
-                    }
-                    else
-                    {
-                        // Force Client HTTP stack
-                        httpWebRequest = (HttpWebRequest)System.Net.Browser.WebRequestCreator.ClientHttp.Create(uri);
-                    }
-                    break;
-            }
-#else
+
             httpWebRequest = WebRequest.Create(uri) as HttpWebRequest;
-#endif
 
             httpWebRequest.Method = method.ToString();
 
-#if !SILVERLIGHT_3
             if (this._allowAutoRedirect != null)
             {
                 httpWebRequest.AllowAutoRedirect = this._allowAutoRedirect.Value;
             }
-#if !CF_3_5
             if (this._useDefaultCredentials.HasValue)
             {
                 httpWebRequest.UseDefaultCredentials = this._useDefaultCredentials.Value;
             }
-#endif
-#endif
-#if !CF_3_5
+
             if (this._cookieContainer != null)
             {
                 httpWebRequest.CookieContainer = this._cookieContainer;
             }
-#endif
+
             if (this._credentials != null)
             {
                 httpWebRequest.Credentials = this._credentials;
             }
-#if !SILVERLIGHT
+
             if (this._clientCertificates != null)
             {
                 foreach (X509Certificate2 certificate in this._clientCertificates)
@@ -264,32 +204,10 @@ namespace Spring.Http.Client
             {
                 httpWebRequest.AutomaticDecompression = this._automaticDecompression.Value;
             }
-#endif
 
             return new WebClientHttpRequest(httpWebRequest);
         }
 
         #endregion
     }
-
-#if SILVERLIGHT && !WINDOWS_PHONE
-    /// <summary>
-    /// Defines identifiers for supported Silverlight HTTP handling stacks.  
-    /// </summary>
-    public enum WebRequestCreatorType
-    {
-        /// <summary>
-        /// Specifies an unknown HTTP handling stack.
-        /// </summary>
-        Unknown,
-        /// <summary>
-        /// Specifies browser HTTP handling stack.
-        /// </summary>
-        BrowserHttp,
-        /// <summary>
-        /// Specifies client HTTP handling stack.
-        /// </summary>
-        ClientHttp
-    }
-#endif
 }

@@ -38,9 +38,7 @@ namespace Spring.Http.Converters
     public abstract class AbstractHttpMessageConverter : IHttpMessageConverter
     {
         #region Logging
-#if !SILVERLIGHT && !CF_3_5
         private static readonly Common.Logging.ILog LOG = Common.Logging.LogManager.GetLogger(typeof(AbstractHttpMessageConverter));
-#endif
         #endregion
 
         private IList<MediaType> _supportedMediaTypes = new List<MediaType>();

@@ -1,4 +1,4 @@
-﻿#if NET_3_5 || SILVERLIGHT
+﻿
 #region License
 
 /*
@@ -128,14 +128,7 @@ namespace Spring.Http.Converters.Json
         /// <exception cref="HttpMessageNotWritableException">In case of conversion errors</exception>
         protected override void WriteInternal(object content, IHttpOutputMessage message)
         {
-#if SILVERLIGHT
-            // Write to the message stream
-            message.Body = delegate(Stream stream)
-            {
-                DataContractJsonSerializer serializer = this.GetSerializer(content.GetType());
-                serializer.WriteObject(stream, content);
-            };
-#else
+
             // Get the message encoding
             Encoding encoding = this.GetContentTypeCharset(message.Headers.ContentType, DEFAULT_CHARSET);
 
@@ -150,7 +143,6 @@ namespace Spring.Http.Converters.Json
                     serializer.WriteObject(jsonWriter, content);
                 }
             };
-#endif
         }
 
         /// <summary>
@@ -172,4 +164,3 @@ namespace Spring.Http.Converters.Json
         }
     }
 }
-#endif
